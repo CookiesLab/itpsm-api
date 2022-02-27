@@ -4,70 +4,99 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
-use App\Services\AuthenticationManager\AuthenticationManager;
+use App\Services\Authentication\AuthenticationManager;
 
 class AuthController extends Controller
 {
-    /**
-	 * Authentication Manager Service
-	 *
-	 * @var App\Services\AuthenticationManager\AuthenticationManager;
-	 *
-	 */
-	protected $AuthenticationManagerService;
+  /**
+   * Authentication Manager Service
+   *
+   * @var App\Services\Authentication\AuthenticationManager;
+   *
+   */
+  protected $AuthenticationManagerService;
 
-    public function __construct(
-		AuthenticationManager $AuthenticationManagerService
-	)
-	{
-		$this->AuthenticationManagerService = $AuthenticationManagerService;
+  public function __construct(
+    AuthenticationManager $AuthenticationManagerService
+  ) {
+    $this->AuthenticationManagerService = $AuthenticationManagerService;
+  }
+
+  public function login(LoginRequest $request)
+  {
+    $credentials = request(['email', 'password']);
+
+    $response = $this->AuthenticationManagerService->login($credentials, $request->user());
+
+    if (!$response['success']) {
+      return response()->json([
+        'errors' => [
+          'type' => 'auth',
+          'status' => '401',
+          'title' => __('auth.failure'),
+          'detail' => __('auth.failAuthAttempt')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 401);
     }
 
-    public function login(LoginRequest $request)
-    {
-        $credentials = request(['email', 'password']);
+    $user = $response['user'];
 
-        $response = $this->AuthenticationManagerService->login($credentials);
+    return response()->json([
+      'data' => [
+        'type' => 'auth',
+        'status' => '200',
+        'id' => strval($user->id),
+        'message' => __('auth.success'),
+        'attributes' => $user,
+        'token' => $response['token'],
+        'token_type' => $response['token_type'],
+        'expires_at' => $response['expires_at'],
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
 
-        if (!$response->success)
-        {
-            return response()->json([
-                'errors' => [
-                    'status' => '401',
-                    'title' => __('auth.failure'),
-                    'detail' => __('auth.failAuthAttempt')
-                ],
-                'jsonapi' => [
-                    'version' => "1.00"
-                ]
-            ], 401);
-        }
+  }
 
-        return response()->json([
-            'data' => [
-                'type' => 'auth',
-                'id' => strval($user->id),
-                'message' => __('auth.success'),
-                'attributes' => $response->user,
-                'token' => $tokenResult->accessToken,
-                'token_type' => 'Bearer',
-                'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
-            ],
-            'jsonapi' => [
-                'version' => "1.00"
-            ]
-        ], 200);
-    }
+  public function register(Request $request)
+  {
+    $data = [
+      'name' => $request->name,
+      'email' => $request->email,
+      'password' => bcrypt($request->password),
+    ];
 
-    public function getLoggedUser(Request $request)
-    {
-        return $this->AuthenticationManagerService->getApiLoggedUser($request);
-    }
+    $response = $this->AuthenticationManagerService->register($data);
+    $user = $response['user'];
 
-    public function logout(Request $request)
-    {
-        return $this->AuthenticationManagerService->logout($request);
-    }
+    return response()->json([
+      'data' => [
+        'type' => 'user',
+        'id' => strval($user->id),
+        'message' => __('auth.success'),
+        'attributes' => $user,
+        'token' => $response['token'],
+        'token_type' => $response['token_type'],
+        'expires_at' => $response['expires_at'],
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 201);
+  }
 
 
+  public function getLoggedUser(Request $request)
+  {
+    return $this->AuthenticationManagerService->getApiLoggedUser($request);
+  }
+
+  public function logout(Request $request)
+  {
+    return $this->AuthenticationManagerService->logout($request);
+  }
 }

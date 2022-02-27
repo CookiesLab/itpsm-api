@@ -20,5 +20,4 @@ return [
     'logoutSuccess' => '¡Se cerró sesión exitosamente!',
     'Unauthorized' => 'Acceso no autorizado',
     'UnauthorizedDetail' => 'Para acceder a este recurso, por favor inicie sesión.',
-
 ];

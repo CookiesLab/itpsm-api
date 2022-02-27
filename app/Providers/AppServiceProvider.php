@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\UrlGenerator;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->registerUserInterface();
 
+        $this->registerAuthenticationManagement();
+
     }
 
     /**
@@ -48,5 +51,23 @@ class AppServiceProvider extends ServiceProvider
 			return new \App\Repositories\User\EloquentUser(new \App\Models\User());
 		});
     }
+
+
+    /**
+	* Register a user interface instance.
+	*
+	* @return void
+	*/
+	protected function registerAuthenticationManagement()
+	{
+		$this->app->bind('App\Services\Authentication\AuthenticationManager', function($app)
+		{
+			return new \App\Services\Authentication\AuthenticationManager(
+                $app->make('App\Repositories\User\UserInterface'),
+                new Carbon()
+            );
+		});
+    }
+
 
 }

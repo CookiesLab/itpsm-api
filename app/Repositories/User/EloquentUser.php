@@ -107,7 +107,7 @@ class EloquentUser implements UserInterface {
     *
     * @return App\Models\User $User
     */
-    public function create(array  $data)
+    public function create(array $data)
     {
         $user = new User();
         $user->fill($data)->save();
