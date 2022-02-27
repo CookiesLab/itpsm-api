@@ -47,40 +47,58 @@ class AuthenticationManager
     if (!Auth::attempt($credentials)) {
       return [
         'success' => false,
-        'user' => null
       ];
     }
 
-    $tokenResult = $user->createToken('Personal Access Token');
-    $token = $tokenResult->token;
-    $token->expires_at = now()->addMinutes(120);
+    try
+    {
+      $tokenResult = $user->createToken('Personal Access Token');
+      $token = $tokenResult->token;
+      $token->expires_at = now()->addMinutes(120);
 
-    $token->save();
+      $token->save();
 
-    return [
-      'success' => true,
-      '$user' => $user,
-      'token' => $tokenResult->accessToken,
-      'token_type' => 'Bearer',
-      'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
-    ];
+      return [
+        'success' => true,
+        'user' => $user,
+        'token' => $tokenResult->accessToken,
+        'token_type' => 'Bearer',
+        'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
+      ];
+    }
+    catch (\Throwable $th) {
+      return [
+        'success' => false,
+        'message' =>  __('common.internal_error')
+      ];
+    }
   }
 
   public function register($data)
   {
-    $user = $this->User->create($data);
-    $tokenResult = $user->createToken('Personal Access Token');
-    $token = $tokenResult->token;
-    $token->expires_at = now()->addMinutes(120);
-    $token->save();
+    try
+    {
+      $user = $this->User->create($data);
+      $tokenResult = $user->createToken('Personal Access Token');
+      $token = $tokenResult->token;
+      $token->expires_at = now()->addMinutes(120);
+      $token->save();
 
-    return [
-      'success' => true,
-      'user' => $user,
-      'token' => $tokenResult->accessToken,
-      'token_type' => 'Bearer',
-      'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
-    ];
+      return [
+        'success' => true,
+        'user' => $user,
+        'token' => $tokenResult->accessToken,
+        'token_type' => 'Bearer',
+        'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
+      ];
+    }
+    catch (\Throwable $th) {
+      return [
+        'success' => false,
+        'message' =>  __('common.internal_error')
+      ];
+    }
+
   }
 
   public function getLoggedUser($request, $json = true)

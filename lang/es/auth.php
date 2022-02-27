@@ -20,4 +20,11 @@ return [
     'logoutSuccess' => '¡Se cerró sesión exitosamente!',
     'Unauthorized' => 'Acceso no autorizado',
     'UnauthorizedDetail' => 'Para acceder a este recurso, por favor inicie sesión.',
+
+    'name' => 'Nombre de usuario',
+    'email' => 'Correo electrónico',
+    'password' => 'Contraseña',
+
+    'emailUnique' => 'El correo electrónico ya está en uso.',
+    'passwordMin' => 'La contraseña es demasiado corta.',
 ];

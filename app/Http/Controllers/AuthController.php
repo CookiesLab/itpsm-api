@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Services\Authentication\AuthenticationManager;
 
 class AuthController extends Controller
@@ -33,8 +34,8 @@ class AuthController extends Controller
         'errors' => [
           'type' => 'auth',
           'status' => '401',
-          'title' => __('auth.failure'),
-          'detail' => __('auth.failAuthAttempt')
+          'title' => $response['message'] ?? __('auth.failure'),
+          'detail' => $response['message'] ?? __('auth.failAuthAttempt')
         ],
         'jsonapi' => [
           'version' => "1.00"
@@ -62,7 +63,7 @@ class AuthController extends Controller
 
   }
 
-  public function register(Request $request)
+  public function register(RegisterRequest $request)
   {
     $data = [
       'name' => $request->name,
@@ -71,6 +72,21 @@ class AuthController extends Controller
     ];
 
     $response = $this->AuthenticationManagerService->register($data);
+
+    if (!$response['success']) {
+      return response()->json([
+        'errors' => [
+          'type' => 'auth',
+          'status' => '401',
+          'title' => $response['message'],
+          'detail' => $response['message'],
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 401);
+    }
+
     $user = $response['user'];
 
     return response()->json([

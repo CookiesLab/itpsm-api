@@ -50,13 +50,14 @@ class Handler extends ExceptionHandler
                 'status' => $exception->status,
                 'source' => ['pointer' => $key],
                 'title' => array_reduce($value, function($carry, $item){
-                    return $carry . ' ' . $item;
+                    return $item;
                 })
             ]);
         }
 
         return response()->json([
             'errors' => $errors,
+            'status' => $exception->status,
             'jsonapi' => [
                 'version' => "1.00"
             ]
