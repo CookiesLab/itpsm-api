@@ -51,6 +51,12 @@ return new class extends Migration
       $table->softDeletes();
     });
 
+    Schema::create('medial_exam', function (Blueprint $table) {
+      $table->id();
+      $table->string('name', 255);
+      $table->text('description');
+    });
+
   }
 
   /**
@@ -61,5 +67,6 @@ return new class extends Migration
   public function down()
   {
     Schema::dropIfExists('students');
+    Schema::dropIfExists('medial_exam')
   }
 };
