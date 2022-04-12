@@ -57,6 +57,19 @@ return new class extends Migration
       $table->text('description');
     });
 
+    Schema::create('student_medical_exam', function (Blueprint $table) {
+      $table->id();
+      $table->text('remark')->nullable();
+      $table->date('realization_date');
+      $table->date('expiration_date');
+
+      $table->unsignedBigInteger('exam_id')->index();
+      $table->foreign('exam_id')->references('id')->on('medical_exam');
+
+      $table->unsignedBigInteger('student_id')->index();
+      $table->foreign('student_id')->references('id')->on('students');
+    });
+
   }
 
   /**
@@ -67,6 +80,7 @@ return new class extends Migration
   public function down()
   {
     Schema::dropIfExists('students');
-    Schema::dropIfExists('medial_exam')
+    Schema::dropIfExists('medial_exam');
+    Schema::dropIfExists('student_medical_exam');
   }
 };
