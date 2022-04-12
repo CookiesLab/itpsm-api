@@ -70,6 +70,12 @@ return new class extends Migration
       $table->foreign('student_id')->references('id')->on('students');
     });
 
+    Schema::create('disability', function (Blueprint $table) {
+      $table->id();
+      $table->string('disability', 255);
+      $table->string('subdisability', 255)->nullable();
+    });
+
   }
 
   /**
@@ -82,5 +88,6 @@ return new class extends Migration
     Schema::dropIfExists('students');
     Schema::dropIfExists('medial_exam');
     Schema::dropIfExists('student_medical_exam');
+    Schema::dropIfExists('disability');
   }
 };
