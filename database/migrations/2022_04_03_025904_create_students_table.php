@@ -38,6 +38,9 @@ return new class extends Migration
       $table->date('entry date')->nullable();
       $table->integer('date_high_school_degree')->nullable();
 
+      /**
+       * Fields with missing Primary Key
+       */
       $table->unsignedBigInteger('municipality_id')->index();
       $table->foreign('municipality_id')->references('id')->on('municipalities');
 
@@ -63,6 +66,9 @@ return new class extends Migration
       $table->date('realization_date');
       $table->date('expiration_date');
 
+      /**
+       * Fields with missing Primary Key
+       */
       $table->unsignedBigInteger('exam_id')->index();
       $table->foreign('exam_id')->references('id')->on('medical_exam');
 
@@ -77,6 +83,9 @@ return new class extends Migration
     });
 
     Schema::create('student_disability', function (Blueprint $table) {
+      /**
+       * Fields with missing Primary Key
+       */
       $table->unsignedBigInteger('disability_id')->index();
       $table->foreign('disability_id')->references('id')->on('disability');
 
