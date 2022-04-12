@@ -76,6 +76,14 @@ return new class extends Migration
       $table->string('subdisability', 255)->nullable();
     });
 
+    Schema::create('student_disability', function (Blueprint $table) {
+      $table->unsignedBigInteger('disability_id')->index();
+      $table->foreign('disability_id')->references('id')->on('disability');
+
+      $table->unsignedBigInteger('student_id')->index();
+      $table->foreign('student_id')->references('id')->on('students');
+    });
+
   }
 
   /**
@@ -89,5 +97,6 @@ return new class extends Migration
     Schema::dropIfExists('medial_exam');
     Schema::dropIfExists('student_medical_exam');
     Schema::dropIfExists('disability');
+    Schema::dropIfExists('student_disability');
   }
 };
