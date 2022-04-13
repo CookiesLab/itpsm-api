@@ -38,9 +38,6 @@ return new class extends Migration
       $table->date('entry date')->nullable();
       $table->integer('date_high_school_degree')->nullable();
 
-      /**
-       * Fields with missing Primary Key
-       */
       $table->unsignedBigInteger('municipality_id')->index();
       $table->foreign('municipality_id')->references('id')->on('municipalities');
 
@@ -49,6 +46,9 @@ return new class extends Migration
 
       $table->unsignedBigInteger('country_id')->index();
       $table->foreign('country_id')->references('id')->on('countries');
+      
+      $table->unsignedBigInteger('status_id')->index();
+      $table->foreign('status_id')->references('id')->on('status');
 
       $table->timestamps();
       $table->softDeletes();

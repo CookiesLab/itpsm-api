@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('last_name', 255);
             $table->date('birth_date');
-            $table->string('nit', 14);
-            $table->string('dui', 9);
+            $table->string('nit', 17)->nullable();
+            $table->string('dui', 10);
             $table->string('isss_number', 20)->nullable();
             $table->string('nup_number', 30)->nullable();
             $table->string('email', 255);
@@ -41,6 +41,7 @@ return new class extends Migration
             $table->foreign('status_id')->references('id')->on('status');
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('languages', function (Blueprint $table) {
