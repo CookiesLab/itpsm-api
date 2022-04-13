@@ -54,13 +54,13 @@ return new class extends Migration
       $table->softDeletes();
     });
 
-    Schema::create('medial_exam', function (Blueprint $table) {
+    Schema::create('medial_exams', function (Blueprint $table) {
       $table->id();
       $table->string('name', 255);
       $table->text('description');
     });
 
-    Schema::create('student_medical_exam', function (Blueprint $table) {
+    Schema::create('student_medical_exams', function (Blueprint $table) {
       $table->id();
       $table->text('remark')->nullable();
       $table->date('realization_date');
@@ -70,24 +70,24 @@ return new class extends Migration
        * Fields with missing Primary Key
        */
       $table->unsignedBigInteger('exam_id')->index();
-      $table->foreign('exam_id')->references('id')->on('medical_exam');
+      $table->foreign('exam_id')->references('id')->on('medical_exams');
 
       $table->unsignedBigInteger('student_id')->index();
       $table->foreign('student_id')->references('id')->on('students');
     });
 
-    Schema::create('disability', function (Blueprint $table) {
+    Schema::create('disabilities', function (Blueprint $table) {
       $table->id();
       $table->string('disability', 255);
       $table->string('subdisability', 255)->nullable();
     });
 
-    Schema::create('student_disability', function (Blueprint $table) {
+    Schema::create('student_disabilities', function (Blueprint $table) {
       /**
        * Fields with missing Primary Key
        */
       $table->unsignedBigInteger('disability_id')->index();
-      $table->foreign('disability_id')->references('id')->on('disability');
+      $table->foreign('disability_id')->references('id')->on('disabilities');
 
       $table->unsignedBigInteger('student_id')->index();
       $table->foreign('student_id')->references('id')->on('students');
@@ -103,9 +103,9 @@ return new class extends Migration
   public function down()
   {
     Schema::dropIfExists('students');
-    Schema::dropIfExists('medial_exam');
-    Schema::dropIfExists('student_medical_exam');
-    Schema::dropIfExists('disability');
-    Schema::dropIfExists('student_disability');
+    Schema::dropIfExists('medial_exams');
+    Schema::dropIfExists('student_medical_exams');
+    Schema::dropIfExists('disabilities');
+    Schema::dropIfExists('student_disabilities');
   }
 };
