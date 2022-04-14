@@ -75,6 +75,9 @@ return new class extends Migration
             $table->unsignedBigInteger('curriculum_id')->index();
             $table->foreign('curriculum_id')->references('id')->on('curricula');
 
+            /**
+             * Make nullable
+             */
             $table->unsignedBigInteger('scholarship_id')->index();
             $table->foreign('scholarship_id')->references('id')->on('scholarships')->nullable();
             

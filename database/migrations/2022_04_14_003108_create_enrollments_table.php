@@ -22,6 +22,9 @@ return new class extends Migration
         });
 
         Schema::create('sections', function (Blueprint $table) {
+            /**
+             * Check this field
+             */
             $table->id('code');
             $table->integer('quota');
             $table->string('schedule', 255);
@@ -73,7 +76,6 @@ return new class extends Migration
             $table->float('final_score');
             $table->boolean('is_approved');
             $table->integer('enrollment');
-            $table->unsignedBigInteger('teacher_id');
 
             /**
              * Fields with missing Primary Key
@@ -89,6 +91,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('student_id')->index();
             $table->foreign('student_id')->references('id')->on('students');
+
+            $table->unsignedBigInteger('teacher_id')->index();
+            $table->foreign('teacher_id')->references('id')->on('teachers');
 
             $table->timestamps();
         });
