@@ -90,7 +90,7 @@ class CatalogSeeder extends Seeder
       ]
         ],
     [
-      'id' => 8, 
+      'id' => 8,
       'name' => 'Morazán',
       'country_id' => 1,
       'municipalities' => [
@@ -172,12 +172,12 @@ class CatalogSeeder extends Seeder
     [
       'id' => 1,
       'name' => 'Activo',
-      'type' => 'Tipo'
+      'type' => 'A'
     ],
     [
       'id' => 2,
       'name' => 'Inactivo',
-      'type' => 'Tipo'
+      'type' => 'B'
     ],
   ];
 
@@ -199,7 +199,7 @@ class CatalogSeeder extends Seeder
         'name' => $department['name'],
         'country_id' => $department['country_id'],
       ]);
-      
+
       foreach ($department['municipalities'] as $municipality) {
         Municipality::create([
           'id' => $municipality['id'],

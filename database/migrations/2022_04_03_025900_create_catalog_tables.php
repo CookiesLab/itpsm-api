@@ -42,11 +42,11 @@ return new class extends Migration
           $table->timestamps();
         });
 
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->char('type', 1);
-            
+
             $table->timestamps();
         });
     }
@@ -61,6 +61,6 @@ return new class extends Migration
         Schema::dropIfExists('countries');
         Schema::dropIfExists('departments');
         Schema::dropIfExists('municipalities');
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('statuses');
     }
 };

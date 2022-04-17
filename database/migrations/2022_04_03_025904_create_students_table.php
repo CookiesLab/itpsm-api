@@ -46,15 +46,15 @@ return new class extends Migration
 
       $table->unsignedBigInteger('country_id')->index();
       $table->foreign('country_id')->references('id')->on('countries');
-      
+
       $table->unsignedBigInteger('status_id')->index();
-      $table->foreign('status_id')->references('id')->on('status');
+      $table->foreign('status_id')->references('id')->on('statuses');
 
       $table->timestamps();
       $table->softDeletes();
     });
 
-    Schema::create('medial_exams', function (Blueprint $table) {
+    Schema::create('medical_exams', function (Blueprint $table) {
       $table->id();
       $table->string('name', 255);
       $table->text('description');
@@ -74,12 +74,16 @@ return new class extends Migration
 
       $table->unsignedBigInteger('student_id')->index();
       $table->foreign('student_id')->references('id')->on('students');
+
+      $table->timestamps();
     });
 
     Schema::create('disabilities', function (Blueprint $table) {
       $table->id();
       $table->string('disability', 255);
       $table->string('subdisability', 255)->nullable();
+
+      $table->timestamps();
     });
 
     Schema::create('student_disabilities', function (Blueprint $table) {
@@ -91,8 +95,9 @@ return new class extends Migration
 
       $table->unsignedBigInteger('student_id')->index();
       $table->foreign('student_id')->references('id')->on('students');
-    });
 
+      $table->timestamps();
+    });
   }
 
   /**

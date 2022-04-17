@@ -47,8 +47,9 @@ class StudentFactory extends Factory
       'date_high_school_degree' => $this->faker->year($max = 'now'),
       'entry date' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
       'country_id' => 1,
-      'department_id' => 1,
-      'municipality_id' => 1,
+      'department_id' => 14,
+      'municipality_id' => 3,
+      'status_id' => 1,
     ];
   }
 }
