@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,6 @@ Route::middleware('auth:api')->group(function() {
     Route::get('logout',  [AuthController::class, 'logout'])->name('logout');
 
     Route::get('logged-user',  [AuthController::class, 'getLoggedUser'])->name('user');
+
+    Route::apiResource('students', StudentController::class);
 });

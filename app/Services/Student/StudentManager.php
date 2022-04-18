@@ -8,7 +8,7 @@
  * See COPYRIGHT and LICENSE.
  */
 
-namespace App\Services\StudentManager;
+namespace App\Services\Student;
 
 use App\Repositories\Student\StudentInterface;
 use Carbon\Carbon;
@@ -81,122 +81,63 @@ class StudentManager
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->Student->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($Student) use (&$rows) {
-      $Student->price_label = '$ ' . number_format($Student->price, 2, __('base.decimalSeparator'), __('base.thousandsSeparator'));
-      $id = strval($Student->id);
-      unset($Student->id);
+    $this->Student->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($student) use (&$rows) {
+      $id = strval($student->id);
+      unset($student->id);
 
       array_push($rows, [
         'type' => $this->responseType,
         'id' => $id,
-        'attributes' => $Student
+        'attributes' => $student
       ]);
     });
 
-    $nextPage = ($page < $totalPages) ? $page + 1 : $totalPages;
-    $prevPage = ($page > 1) ? $page - 1 : 1;
-
-    return response()->json([
-      'meta' => [
-        'page' => $page,
-        'totalPages' => $totalPages,
-        'records' => $count,
-      ],
-      'data' => $rows,
-      'links' => [
-        "self" =>  url("/api/$this->responseType?page[number]=$page&page[size]=$limit"),
-        "first" => url("/api/$this->responseType?page[number]=1&page[size]=$limit"),
-        "prev" => url("/api/$this->responseType?page[number]=$prevPage&page[size]=$limit"),
-        "next" => url("/api/$this->responseType?page[number]=$$nextPage&page[size]=$limit"),
-        "last" => url("/api/$this->responseType?page[number]=$totalPages&page[size]=$limit")
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 200);
+    return [
+      'rows' => $rows,
+      'page' => $page,
+      'totalPages' => $totalPages,
+      'records' => $count,
+    ];
   }
 
   public function getStudent($id)
   {
-    $Student = $this->Student->byId($id);
-
-    if (empty($Student)) {
-      return response()->json([
-        'errors' => [
-          'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.StudentNotFound')
-        ],
-        'jsonapi' => [
-          'version' => "1.00"
-        ]
-      ], 404);
-    }
-
-    $id = strval($Student->id);
-    unset($Student->id);
-
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $id,
-        'attributes' => $Student
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 200);
+    return $this->Student->byId($id);
   }
 
   public function create($request)
   {
-    $Student = $this->Student->create($request->all());
-    $id = strval($Student->id);
-    unset($Student->id);
+    $student = $this->Student->create($request->all());
+    $id = strval($student->id);
+    unset($student->id);
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $id,
-        'attributes' => $Student
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 201);
+    return [
+      'success' => true,
+      'student' => $student,
+      'id' => $id,
+    ];
   }
 
   public function update($request, $id)
   {
-    $Student = $this->Student->byId($id);
+    $student = $this->Student->byId($id);
 
-    if (empty($Student)) {
-      return response()->json([
-        'errors' => [
-          'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.StudentNotFound')
-        ],
-        'jsonapi' => [
-          'version' => "1.00"
-        ]
-      ], 404);
+    if (empty($student)) {
+      return [
+        'success' => false,
+      ];
     }
 
-    $this->Student->update($request->all(), $Student);
-    $Student = $this->Student->byId($id);
-    unset($Student->id);
+    $this->Student->update($request->all(), $student);
+    $student = $this->Student->byId($id);
+    unset($student->id);
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $id,
-        'attributes' => $Student
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 200);
+    return [
+      'success' => true,
+      'student' => $student,
+      'id' => $id,
+    ];
+
   }
 
   public function delete($id)
@@ -204,28 +145,11 @@ class StudentManager
     $Student = $this->Student->byId($id);
 
     if (empty($Student)) {
-      return response()->json([
-        'errors' => [
-          'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.StudentNotFound')
-        ],
-        'jsonapi' => [
-          'version' => "1.00"
-        ]
-      ], 404);
+      return false;
     }
 
     $this->Student->delete($id);
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'success' => __('base.delete'),
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 200);
+    return true;
   }
 }

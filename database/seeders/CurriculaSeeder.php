@@ -31,7 +31,7 @@ class CurriculaSeeder extends Seeder
                                     'id' => 20,
                                     'uv' => 10,
                                 ]
-                            ] 
+                            ]
                         ]
                     ]
                 ]
@@ -61,7 +61,7 @@ class CurriculaSeeder extends Seeder
                     ]
                 ]
             ]
-        ],        
+        ],
     ];
 
     /**
@@ -76,7 +76,7 @@ class CurriculaSeeder extends Seeder
               'id' => $career['id'],
               'name' => $career['name'],
             ]);
-      
+
             foreach ($career['curricula'] as $curricula) {
               Curriculum::create([
                 'id' => $curricula['id'],

@@ -2,80 +2,185 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
 use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
 use App\Services\Student\StudentManager;
 
 class StudentController extends Controller
 {
-  // /**
-  //  * Student Manager Service
-  //  *
-  //  * @var App\Services\StudentManager\StudentManagementInterface;
-  //  *
-  //  */
-  // protected $StudentManagerService;
+  /**
+   * Student Manager Service
+   *
+   * @var App\Services\StudentManager\StudentManagementInterface;
+   *
+   */
+  protected $StudentManagerService;
 
-  // public function __construct(
-  //   StudentManager $StudentManagerService
-  // ) {
-  //   $this->StudentManagerService = $StudentManagerService;
-  // }
+  /**
+   * responseType
+   *
+   * @var String
+   *
+   */
+  protected $responseType;
+
+  public function __construct(
+    StudentManager $StudentManagerService
+  ) {
+    $this->StudentManagerService = $StudentManagerService;
+    $this->responseType = 'students';
+  }
 
 
-  // /**
-  //  * Display a listing of the resource.
-  //  *
-  //  * @return \Illuminate\Http\Response
-  //  */
-  // public function index()
-  // {
-  //   return $this->StudentManagerService->getTableRowsWithPagination(request()->all());
-  // }
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    $response = $this->StudentManagerService->getTableRowsWithPagination(request()->all());
 
-  // /**
-  //  * Store a newly created resource in storage.
-  //  *
-  //  * @param  \Illuminate\Http\Request  $request
-  //  * @return \Illuminate\Http\Response
-  //  */
-  // public function store(StudentRequest $request)
-  // {
-  //   return $this->StudentManagerService->create($request);
-  // }
+    return response()->json([
+      'meta' => [
+        'page' => $response['page'],
+        'totalPages' => $response['totalPages'],
+        'records' => $response['records'],
+      ],
+      'data' => $response['rows'],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
 
-  // /**
-  //  * Display the specified resource.
-  //  *
-  //  * @param  \App\Models\Student  $Student
-  //  * @return \Illuminate\Http\Response
-  //  */
-  // public function show($id)
-  // {
-  //   return $this->StudentManagerService->getStudent($id);
-  // }
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(StudentRequest $request)
+  {
+    $response = $this->StudentManagerService->create($request);
 
-  // /**
-  //  * Update the specified resource in storage.
-  //  *
-  //  * @param  \Illuminate\Http\Request  $request
-  //  * @param  \App\Models\Student  $Student
-  //  * @return \Illuminate\Http\Response
-  //  */
-  // public function update(StudentRequest $request, $data)
-  // {
-  //   return $this->StudentManagerService->update($request, $data);
-  // }
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'id' => $response['id'],
+        'attributes' => $response['student']
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 201);
+  }
 
-  // /**
-  //  * Remove the specified resource from storage.
-  //  *
-  //  * @param  \App\Models\Student  $Student
-  //  * @return \Illuminate\Http\Response
-  //  */
-  // public function destroy($request)
-  // {
-  //   return $this->StudentManagerService->delete($request);
-  // }
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Models\Student  $Student
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    $student = $this->StudentManagerService->getStudent($id);
+
+    if (empty($student)) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.StudentNotFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    $id = strval($student->id);
+    unset($student->id);
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'id' => $id,
+        'attributes' => $student
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request $request
+   * @param  \App\Models\Student  $Student
+   * @return \Illuminate\Http\Response
+   */
+  public function update(StudentRequest $request, $data)
+  {
+    $response = $this->StudentManagerService->update($request, $data);
+
+    if (!$response['success']) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.notFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'id' => $response['id'],
+        'attributes' => $response['student']
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Models\Student  $Student
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($request)
+  {
+    $response = $this->StudentManagerService->delete($request);
+
+    if (!$response) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.notFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'success' => __('base.delete'),
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
 }
