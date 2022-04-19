@@ -74,7 +74,10 @@ class AppServiceProvider extends ServiceProvider
   protected function registerStudentInterface()
   {
     $this->app->bind('App\Repositories\Student\StudentInterface', function ($app) {
-      return new \App\Repositories\Student\EloquentStudent(new \App\Models\Student());
+      return new \App\Repositories\Student\EloquentStudent(
+        new \App\Models\Student(),
+        new \Illuminate\Support\Facades\DB()
+      );
     });
   }
 

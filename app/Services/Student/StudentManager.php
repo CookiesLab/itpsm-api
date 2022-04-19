@@ -82,6 +82,8 @@ class StudentManager
     }
 
     $this->Student->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($student) use (&$rows) {
+
+      $student->birth_date_with_format = !empty($student->birth_date)? $this->Carbon->createFromFormat('Y-m-d', $student->birth_date, config('app.timezone'))->format('d/m/Y') : null;
       $id = strval($student->id);
       unset($student->id);
 

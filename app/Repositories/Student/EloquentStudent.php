@@ -10,6 +10,7 @@
 
 namespace App\Repositories\Student;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Student;
@@ -25,9 +26,18 @@ class EloquentStudent implements StudentInterface
    */
   protected $Student;
 
-  public function __construct(Model $Student)
+  /**
+   * DB
+   *
+   * @var Illuminate\Support\Facades\DB;
+   *
+   */
+  protected $DB;
+
+  public function __construct(Model $Student, DB $DB)
   {
     $this->Student = $Student;
+    $this->DB = $DB;
   }
 
   /**
@@ -37,7 +47,43 @@ class EloquentStudent implements StudentInterface
    */
   public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
   {
-    $query = $this->Student->select('id', 'name', 'birth_date');
+    $query = $this->DB::table('students AS s')
+      ->select(
+        's.id',
+        's.carnet',
+        's.name',
+        's.last_name',
+        's.birth_date',
+        's.email',
+        's.address',
+        's.phone_number',
+        's.home_phone_number',
+        's.gender',
+        's.relationship',
+        's.status',
+        's.blood_type',
+        's.mother_name',
+        's.mother_phone_number',
+        's.father_name',
+        's.father_phone_number',
+        's.emergency_contact_name',
+        's.emergency_contact_phone',
+        's.diseases',
+        's.allergies',
+        's.date_high_school_degree',
+        'm.id AS municipality_id',
+        'm.name AS municipality',
+        'd.id AS department_id',
+        'd.name AS department',
+        'c.id AS country_id',
+        'c.name AS country',
+      )
+      ->join('municipalities as m', 's.municipality_id', '=', 'm.id')
+      ->join('departments as d', 's.department_id', '=', 'd.id')
+      ->join('countries as c', 's.country_id', '=', 'c.id')
+      ->whereNull('s.deleted_at');
+      // ->join('users', 'articles.user_id', '=', 'user.id')
+
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
@@ -125,6 +171,6 @@ class EloquentStudent implements StudentInterface
    */
   public function delete($id)
   {
-    return $this->student->destroy($id);
+    return $this->Student->destroy($id);
   }
 }
