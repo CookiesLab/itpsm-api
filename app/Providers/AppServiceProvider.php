@@ -32,8 +32,10 @@ class AppServiceProvider extends ServiceProvider
     }
 
     $this->registerUserInterface();
+    $this->registerStudentInterface();
 
     $this->registerAuthenticationManagement();
+    $this->registerStudentManagement();
   }
 
   /**
@@ -72,7 +74,7 @@ class AppServiceProvider extends ServiceProvider
   protected function registerStudentInterface()
   {
     $this->app->bind('App\Repositories\Student\StudentInterface', function ($app) {
-      return new \App\Repositories\User\EloquentUser(new \App\Models\User());
+      return new \App\Repositories\Student\EloquentStudent(new \App\Models\Student());
     });
   }
 

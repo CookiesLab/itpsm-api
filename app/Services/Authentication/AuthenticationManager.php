@@ -42,7 +42,7 @@ class AuthenticationManager
     $this->Carbon = $Carbon;
   }
 
-  public function login($credentials, $user)
+  public function login($credentials, $request)
   {
     if (!Auth::attempt($credentials)) {
       return [
@@ -52,6 +52,7 @@ class AuthenticationManager
 
     try
     {
+      $user = $request->user();
       $tokenResult = $user->createToken('Personal Access Token');
       $token = $tokenResult->token;
       $token->expires_at = now()->addMinutes(120);
@@ -67,6 +68,7 @@ class AuthenticationManager
       ];
     }
     catch (\Throwable $th) {
+      dd($th);
       return [
         'success' => false,
         'message' =>  __('common.internal_error')

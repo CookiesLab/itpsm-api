@@ -26,8 +26,7 @@ class AuthController extends Controller
   public function login(LoginRequest $request)
   {
     $credentials = request(['email', 'password']);
-
-    $response = $this->AuthenticationManagerService->login($credentials, $request->user());
+    $response = $this->AuthenticationManagerService->login($credentials, $request);
 
     if (!$response['success']) {
       return response()->json([
