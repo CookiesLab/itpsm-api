@@ -45,7 +45,7 @@ class StudentFactory extends Factory
       'emergency_contact_name' => $this->faker->name($gender = 'male'),
       'emergency_contact_phone' => '7' . $this->faker->randomNumber(3, true) . '-' . $this->faker->randomNumber(4, true),
       'date_high_school_degree' => $this->faker->year($max = 'now'),
-      'entry date' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
+      'entry_date' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
       'country_id' => 1,
       'department_id' => 14,
       'municipality_id' => 3,

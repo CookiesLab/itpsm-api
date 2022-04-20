@@ -15,53 +15,44 @@ class CurriculaSeeder extends Seeder
         [
             'id' => 1,
             'name' => 'Técnico en Ingeniería de Construcción',
-            'curricula' => [
-                [
-                    'id' => 1,
-                    'name' => 'algo',
-                    'year' => 2022,
-                    'is_active' => true,
-                    'subjects' => [
-                        [
-                            'id' => 1,
-                            'name' => 'algo',
-                            'code' => '001',
-                            'cusub' => [
-                                [
-                                    'id' => 20,
-                                    'uv' => 10,
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
         ],
         [
             'id' => 2,
             'name' => 'Técnico Superior en Hostelería y Turismo',
-            'curricula' => [
+        ],
+    ];
+
+    private $subjects = [
+        [
+            'id' => 1,
+            'name' => 'Propiedades de los Agregados Pétreos y Cementos Hidráulicos',
+            'code' => '100042',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Inglés técnico',
+            'code' => '100043',
+        ],
+        [
+            'id' => 3,
+            'name' => 'Legislación Normativa y Trámites Legales',
+            'code' => '100044',
+        ]
+    ];
+
+    private $curriculum = [
+        [
+            'id' => 1,
+            'name' => 'Plan 2019-2020',
+            'year' => 2020,
+            'is_active' => true,
+            'curriculum_subjects' => [
                 [
-                    'id' => 2,
-                    'name' => 'algo',
-                    'year' => 2022,
-                    'is_active' => true,
-                    'subjects' => [
-                        [
-                            'id' => 2,
-                            'name' => 'algo',
-                            'code' => '002',
-                            'cusub' => [
-                                [
-                                    'id' => 21,
-                                    'uv' => 20,
-                                ]
-                            ]
-                        ]
-                    ]
+                    'id' => 1,
+                    'uv' => 83, 
                 ]
             ]
-        ],
+        ]
     ];
 
     /**
@@ -76,33 +67,33 @@ class CurriculaSeeder extends Seeder
               'id' => $career['id'],
               'name' => $career['name'],
             ]);
-
-            foreach ($career['curricula'] as $curricula) {
-              Curriculum::create([
+          }
+        
+        foreach ($this->subjects as &$subjects) {
+            Subject::create([
+                'id' => $subjects['id'],
+                'name' => $subjects['name'],
+                'code' => $subjects['code'],
+            ]);
+        }
+        
+        foreach ($this->curriculum as $curricula) {
+            Curriculum::create([
                 'id' => $curricula['id'],
                 'career_id' => $career['id'],
                 'name' => $curricula['name'],
-                'year' => $curricula['year'],
-                'is_active' => $curricula['is_active'],
-              ]);
+                'year' => $curricula['year'], 
+                'is_active' => $curricula['is_active'], 
+            ]);
+        }
 
-              foreach ($curricula['subjects'] as $subjects) {
-                  Subject::create([
-                      'id' => $subjects['id'],
-                      'name' => $subjects['name'],
-                      'code' => $subjects['code'],
-                  ]);
-
-                  foreach ($subjects['cusub'] as $subject) {
-                      CurriculumSubject::create([
-                          'id' => $subject['id'],
-                          'curriculum_id' => $curricula['id'],
-                          'subject_id' => $subjects['id'],
-                          'uv' => $subject['uv'],
-                      ]);
-                  }
-              }
-            }
+        foreach ($curriculum['curriculum_subjects'] as $cusub) {
+            CurriculumSubject::create([
+              'id' => $cusub['id'],
+              'curriculum_id' => $curricula['id'],
+              'subject_id' => $subjects['id'],
+              'uv' => $cusub['uv'],
+            ]);
           }
     }
 }
