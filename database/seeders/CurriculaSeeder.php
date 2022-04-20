@@ -87,7 +87,7 @@ class CurriculaSeeder extends Seeder
             ]);
         }
 
-        foreach ($curriculum['curriculum_subjects'] as $cusub) {
+        foreach ($curricula['curriculum_subjects'] as $cusub) {
             CurriculumSubject::create([
               'id' => $cusub['id'],
               'curriculum_id' => $curricula['id'],

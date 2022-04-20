@@ -23,7 +23,7 @@ return new class extends Migration
     Schema::create('subjects', function (Blueprint $table) {
       $table->id();
       $table->string('name', 255);
-      $table->string('code', 5);
+      $table->string('code', 6);
 
       $table->timestamps();
     });
