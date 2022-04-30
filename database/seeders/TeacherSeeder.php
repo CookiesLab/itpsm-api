@@ -69,7 +69,7 @@ class TeacherSeeder extends Seeder
         foreach ($this->degrees as &$degree) {
             TeacherDegree::create([
                 'id' => $degree['id'],
-                'teacher_id' => '1',
+                'teacher_id' => Teacher::all()->random()->id,
                 'degree' => $degree['degree'],
                 'date' => $degree['date'],
                 'institution' => $degree['institution'],
@@ -79,7 +79,7 @@ class TeacherSeeder extends Seeder
           foreach ($this->levels as &$level) {
             TeacherLanguage::create([
                 'id' => $level['id'],
-                'teacher_id' => '2',
+                'teacher_id' => Teacher::all()->random()->id,
                 'language_id' => $language['id'],
                 'level' => $level['level'],
             ]);
