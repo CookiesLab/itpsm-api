@@ -33,9 +33,11 @@ class AppServiceProvider extends ServiceProvider
 
     $this->registerUserInterface();
     $this->registerStudentInterface();
+    $this->registerTeacherInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
+    $this->registerTeacherManagement();
   }
 
   /**
@@ -92,6 +94,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Student\StudentManager', function ($app) {
       return new \App\Services\Student\StudentManager(
         $app->make('App\Repositories\Student\StudentInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a teacher interface instance.
+   *
+   * @return void
+   */
+  protected function registerTeacherInterface()
+  {
+    $this->app->bind('App\Repositories\Teacher\TeacherInterface', function ($app) {
+      return new \App\Repositories\Teacher\EloquentTeacher(
+        new \App\Models\Teacher(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a teacher interface instance.
+   *
+   * @return void
+   */
+  protected function registerTeacherManagement()
+  {
+    $this->app->bind('App\Services\Teacher\TeacherManager', function ($app) {
+      return new \App\Services\Teacher\TeacherManager(
+        $app->make('App\Repositories\Teacher\TeacherInterface'),
         new Carbon()
       );
     });
