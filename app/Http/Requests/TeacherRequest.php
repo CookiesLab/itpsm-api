@@ -26,7 +26,7 @@ class TeacherRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'birth_date' => 'required|string|email',
+            'birth_date' => 'required|string|date_format:Y-m-d',
             'nit' => 'string',
             'dui' => 'required|string',
             'isss_number' => 'string',
