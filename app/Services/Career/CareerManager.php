@@ -83,7 +83,6 @@ class CareerManager
 
     $this->Career->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($career) use (&$rows) {
 
-      $career->birth_date_with_format = !empty($career->birth_date)? $this->Carbon->createFromFormat('Y-m-d', $career->birth_date, config('app.timezone'))->format('d/m/Y') : null;
       $id = strval($career->id);
       unset($career->id);
 

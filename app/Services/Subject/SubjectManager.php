@@ -83,7 +83,6 @@ class SubjectManager
 
     $this->Subject->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($subject) use (&$rows) {
 
-      $subject->birth_date_with_format = !empty($subject->birth_date)? $this->Carbon->createFromFormat('Y-m-d', $subject->birth_date, config('app.timezone'))->format('d/m/Y') : null;
       $id = strval($subject->id);
       unset($subject->id);
 
