@@ -150,7 +150,7 @@ class AppServiceProvider extends ServiceProvider
       );
     });
   }
-
+}
 
   /**
    * Register a career interface instance.
@@ -182,7 +182,7 @@ class AppServiceProvider extends ServiceProvider
       );
     });
   }
-
+}
 
   /**
    * Register a subject interface instance.
