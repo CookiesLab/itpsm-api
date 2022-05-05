@@ -35,7 +35,10 @@ class TeacherRequest extends FormRequest
             'genre' => 'required|string',
             'address' => 'string',
             'phone_number' => 'string',
-            'home_phone_number' => 'string',
+            'municipality_id' => 'required',
+            'department_id' => 'required',
+            'country_id' => 'required',
+            'status_id' => 'required',
         ];
     }
 
@@ -48,6 +51,10 @@ class TeacherRequest extends FormRequest
       'dui.required' => 'El campo DUI es obligatorio',
       'email.required' => 'El campo correo electrónico es obligatorio',
       'genre.required' => 'El campo género es obligatorio',
+      'municipality_id.required' => 'El campo municipality_id es obligatorio',
+      'department_id.required' => 'El campo department_id es obligatorio',
+      'country_id.required' => 'El campo country_id es obligatorio',
+      'status_id.required' => 'El campo status_id es obligatorio',
     ];
   }
 }
