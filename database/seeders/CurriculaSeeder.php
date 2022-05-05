@@ -8,6 +8,7 @@ use App\Models\Career;
 use App\Models\Curriculum;
 use App\Models\Subject;
 use App\Models\CurriculumSubject;
+use App\Models\Prerequisite;
 
 class CurriculaSeeder extends Seeder
 {
@@ -148,6 +149,106 @@ class CurriculaSeeder extends Seeder
       'name' => 'Práctica Profesional',
       'code' => '100066',
     ],
+    [
+      'id' => 26,
+      'name' => 'Elaboración de Inventarios de Recursos Turísticos',
+      'code' => '200039',
+    ],
+    [
+      'id' => 27,
+      'name' => 'Aplicación de Técnicas Elementales de Cocina',
+      'code' => '200040',
+    ],
+    [
+      'id' => 28,
+      'name' => 'Seguridad e Higiene Ocupacional en la Hostelería y Turismo',
+      'code' => '200041',
+    ],
+    [
+      'id' => 29,
+      'name' => 'Ética Profesional en la Hostelería y Turismo',
+      'code' => '200042',
+    ],
+    [
+      'id' => 30,
+      'name' => 'Uso de Vocabulario en Inglés en la Hostelería',
+      'code' => '200043',
+    ],
+    [
+      'id' => 31,
+      'name' => 'Diseño de Productos Turísticos Locales y Regionales',
+      'code' => '200044',
+    ],
+    [
+      'id' => 32,
+      'name' => 'Aplicación de Técnicas Profesionales de Cocina',
+      'code' => '200045',
+    ],
+    [
+      'id' => 33,
+      'name' => 'Gestión del Área de Recepción en la Industria Hotelera',
+      'code' => '200046',
+    ],
+    [
+      'id' => 34,
+      'name' => 'plicación de Software y Redes Sociales en la Hostelería y Turismo',
+      'code' => '200047',
+    ],
+    [
+      'id' => 35,
+      'name' => 'Etiqueta y Protocolo en Hostelería y Turismo',
+      'code' => '200048',
+    ],
+    [
+      'id' => 36,
+      'name' => 'Comercialización de Productos Turísticos Locales y Regionales',
+      'code' => '200049',
+    ],
+    [
+      'id' => 37,
+      'name' => 'Preparación de Bebidas',
+      'code' => '200050',
+    ],
+    [
+      'id' => 38,
+      'name' => 'Gestión del Talento Humano en Empresas Turísticas y Hoteles',
+      'code' => '200051',
+    ],
+    [
+      'id' => 39,
+      'name' => 'Aplicación de Técnicas de Guía Turístico',
+      'code' => '200052',
+    ],
+    [
+      'id' => 40,
+      'name' => 'Uso de Vocabulario en Inglés en la Industria Turística',
+      'code' => '200053',
+    ],
+    [
+      'id' => 41,
+      'name' => 'Mediación Turística en Agencias de Viajes',
+      'code' => '200054',
+    ],
+    [
+      'id' => 42,
+      'name' => 'Preparación de Pan y Repostería',
+      'code' => '200055',
+    ],
+    [
+      'id' => 43,
+      'name' => 'Gestión del Área de Alimentos y Bebidas en la Hostelería',
+      'code' => '200056',
+    ],
+    [
+      'id' => 44,
+      'name' => 'Gestión de Eventos Turísticos',
+      'code' => '200057',
+    ],
+    [
+      'id' => 45,
+      'name' => 'Diseño de Modelos de Negocios',
+      'code' => '200058',
+    ],
   ];
 
   private $curriculum = [
@@ -284,6 +385,115 @@ class CurriculaSeeder extends Seeder
           'uv' => 4,
         ],
       ]
+      ],
+    [
+      'id' => 2,
+      'name' => 'Plan 2019-2020 de la carrera Técnico Superior en Hostelería y Turismo',
+      'career_id' => 2,
+      'year' => 2020,
+      'is_active' => true,
+      'curriculum_subjects' => [
+        [
+          'id' => 26,
+          'subject_id' => 26,
+          'uv' => 4,
+        ],
+        [
+          'id' => 27,
+          'subject_id' => 27,
+          'uv' => 5,
+        ],
+        [
+          'id' => 28,
+          'subject_id' => 28,
+          'uv' => 4,
+        ],
+        [
+          'id' => 29,
+          'subject_id' => 29,
+          'uv' => 3,
+        ],
+        [
+          'id' => 30,
+          'subject_id' => 30,
+          'uv' => 4,
+        ],
+        [
+          'id' => 31,
+          'subject_id' => 31,
+          'uv' => 5,
+        ],
+        [
+          'id' => 32,
+          'subject_id' => 32,
+          'uv' => 5,
+        ],
+        [
+          'id' => 33,
+          'subject_id' => 33,
+          'uv' => 5,
+        ],
+        [
+          'id' => 34,
+          'subject_id' => 34,
+          'uv' => 4,
+        ],
+        [
+          'id' => 35,
+          'subject_id' => 35,
+          'uv' => 3,
+        ],
+        [
+          'id' => 36,
+          'subject_id' => 36,
+          'uv' => 3,
+        ],
+        [
+          'id' => 37,
+          'subject_id' => 37,
+          'uv' => 4,
+        ],
+        [
+          'id' => 38,
+          'subject_id' => 38,
+          'uv' => 4,
+        ],
+        [
+          'id' => 39,
+          'subject_id' => 39,
+          'uv' => 4,
+        ],
+        [
+          'id' => 40,
+          'subject_id' => 40,
+          'uv' => 4,
+        ],
+        [
+          'id' => 41,
+          'subject_id' => 41,
+          'uv' => 4,
+        ],
+        [
+          'id' => 42,
+          'subject_id' => 42,
+          'uv' => 4,
+        ],
+        [
+          'id' => 43,
+          'subject_id' => 43,
+          'uv' => 3,
+        ],
+        [
+          'id' => 44,
+          'subject_id' => 44,
+          'uv' => 5,
+        ],
+        [
+          'id' => 45,
+          'subject_id' => 45,
+          'uv' => 4,
+        ],
+      ]
     ]
   ];
 
@@ -361,10 +571,17 @@ class CurriculaSeeder extends Seeder
         CurriculumSubject::create([
           'id' => $cusub['id'],
           'curriculum_id' => $curricula['id'],
-          'subject_id' => $subjects['id'],
+          'subject_id' => $cusub['subject_id'],
           'uv' => $cusub['uv'],
         ]);
       }
     }
+      /*
+      foreach ($this->prerequisites as $prereq) {
+        Prerequisite::create([
+          'id' => $prereq['prerequisite_id'],
+          'curriculum_subject_id' => $prereq['curriculum_subject_id'],
+        ]);
+      }*/
   }
 }
