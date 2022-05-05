@@ -7,6 +7,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\CurriculumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,6 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('careers', CareerController::class);
 
     Route::apiResource('subjects', SubjectController::class);
+
+    Route::apiResource('curricula', CurriculumController::class);
 });
