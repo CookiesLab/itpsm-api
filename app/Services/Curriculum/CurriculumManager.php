@@ -2,26 +2,26 @@
 
 /**
  * @file
- * Subject Management Interface Implementation.
+ * Curriculum Management Interface Implementation.
  *
  * All ModuleName code is copyright by the original authors and released under the GNU Aferro General Public License version 3 (AGPLv3) or later.
  * See COPYRIGHT and LICENSE.
  */
 
-namespace App\Services\Subject;
+namespace App\Services\Curriculum;
 
-use App\Repositories\Subject\SubjectInterface;
+use App\Repositories\Curriculum\CurriculumInterface;
 use Carbon\Carbon;
 
-class SubjectManager
+class CurriculumManager
 {
   /**
-   * Subject
+   * Curriculum
    *
-   * @var App\Repositories\Subject\SubjectInterface;
+   * @var App\Repositories\Curriculum\CurriculumInterface;
    *
    */
-  protected $Subject;
+  protected $Curriculum;
 
   /**
    * Carbon instance
@@ -40,12 +40,12 @@ class SubjectManager
   protected $responseType;
 
   public function __construct(
-    SubjectInterface $Subject,
+    CurriculumInterface $Curriculum,
     Carbon $Carbon
   ) {
-    $this->Subject = $Subject;
+    $this->Curriculum = $Curriculum;
     $this->Carbon = $Carbon;
-    $this->responseType = 'subjects';
+    $this->responseType = 'curricula';
   }
 
   public function getTableRowsWithPagination($request, $pager = true, $returnJson = true)
@@ -77,19 +77,19 @@ class SubjectManager
 
     if ($pager)
     {
-      $count = $this->Subject->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      $count = $this->Curriculum->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->Subject->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($subject) use (&$rows) {
+    $this->Curriculum->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($curriculum) use (&$rows) {
 
-      $id = strval($subject->id);
-      unset($subject->id);
+      $id = strval($curriculum->id);
+      unset($curriculum->id);
 
       array_push($rows, [
         'type' => $this->responseType,
         'id' => $id,
-        'attributes' => $subject
+        'attributes' => $curriculum
       ]);
     });
 
@@ -101,41 +101,41 @@ class SubjectManager
     ];
   }
 
-  public function getSubject($id)
+  public function getCurriculum($id)
   {
-    return $this->Subject->byId($id);
+    return $this->Curriculum->byId($id);
   }
 
   public function create($request)
   {
-    $subject = $this->Subject->create($request->all());
-    $id = strval($subject->id);
-    unset($subject->id);
+    $curriculum = $this->Curriculum->create($request->all());
+    $id = strval($curriculum->id);
+    unset($curriculum->id);
 
     return [
       'success' => true,
-      'subject' => $subject,
+      'curriculum' => $curriculum,
       'id' => $id,
     ];
   }
 
   public function update($request, $id)
   {
-    $subject = $this->Subject->byId($id);
+    $curriculum = $this->Curriculum->byId($id);
 
-    if (empty($subject)) {
+    if (empty($curriculum)) {
       return [
         'success' => false,
       ];
     }
 
-    $this->Subject->update($request->all(), $subject);
-    $subject = $this->Subject->byId($id);
-    unset($subject->id);
+    $this->Curriculum->update($request->all(), $curriculum);
+    $curriculum = $this->Curriculum->byId($id);
+    unset($curriculum->id);
 
     return [
       'success' => true,
-      'subject' => $subject,
+      'curriculum' => $curriculum,
       'id' => $id,
     ];
 
@@ -143,13 +143,13 @@ class SubjectManager
 
   public function delete($id)
   {
-    $Subject = $this->Subject->byId($id);
+    $Curriculum = $this->Curriculum->byId($id);
 
-    if (empty($Subject)) {
+    if (empty($Curriculum)) {
       return false;
     }
 
-    $this->Subject->delete($id);
+    $this->Curriculum->delete($id);
 
     return true;
   }

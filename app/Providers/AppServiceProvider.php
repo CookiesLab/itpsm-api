@@ -36,12 +36,14 @@ class AppServiceProvider extends ServiceProvider
     $this->registerTeacherInterface();
     $this->registerCareerInterface();
     $this->registerSubjectInterface();
+    $this->registerCurriculumInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
     $this->registerTeacherManagement();
     $this->registerCareerManagement();
     $this->registerSubjectManagement();
+    $this->registerCurriculumManagement();
   }
 
   /**
@@ -166,7 +168,7 @@ class AppServiceProvider extends ServiceProvider
   }
 
 
-/**
+  /**
    * Register a subject interface instance.
    *
    * @return void
@@ -192,6 +194,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Subject\SubjectManager', function ($app) {
       return new \App\Services\Subject\SubjectManager(
         $app->make('App\Repositories\Subject\SubjectInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a curriculum interface instance.
+   *
+   * @return void
+   */
+  protected function registerCurriculumInterface()
+  {
+    $this->app->bind('App\Repositories\Curriculum\CurriculumInterface', function ($app) {
+      return new \App\Repositories\Curriculum\EloquentCurriculum(
+        new \App\Models\Curriculum(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a curriculum interface instance.
+   *
+   * @return void
+   */
+  protected function registerCurriculumManagement()
+  {
+    $this->app->bind('App\Services\Curriculum\CurriculumManager', function ($app) {
+      return new \App\Services\Curriculum\CurriculumManager(
+        $app->make('App\Repositories\Curriculum\CurriculumInterface'),
         new Carbon()
       );
     });
