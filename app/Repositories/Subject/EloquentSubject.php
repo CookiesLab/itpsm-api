@@ -2,29 +2,29 @@
 
 /**
  * @file
- * EloquentCareer
+ * EloquentSubject
  *
  * All code is copyright by the original authors and released under the GNU Aferro General Public License version 3 (AGPLv3) or later.
  * See COPYRIGHT and LICENSE.
  */
 
-namespace App\Repositories\Career;
+namespace App\Repositories\Subject;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\Career;
+use App\Models\Subject;
 
-class EloquentCareer implements CareerInterface
+class EloquentSubject implements SubjectInterface
 {
 
   /**
-   * Career
+   * Subject
    *
-   * @var App\Models\Career;
+   * @var App\Models\Subject;
    *
    */
-  protected $Career;
+  protected $Subject;
 
   /**
    * DB
@@ -34,24 +34,26 @@ class EloquentCareer implements CareerInterface
    */
   protected $DB;
 
-  public function __construct(Model $Career, DB $DB)
+  public function __construct(Model $Subject, DB $DB)
   {
-    $this->Career = $Career;
+    $this->Subject = $Subject;
     $this->DB = $DB;
   }
 
   /**
-   * Retrieve list of Careers
+   * Retrieve list of Subjects
    *
    * @return Illuminate\Database\Eloquent\Collection
    */
   public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
   {
-    $query = $this->DB::table('careers AS c')
+    $query = $this->DB::table('subjects AS s')
       ->select(
-        'c.id',
-        'c.name'
+        's.id',
+        's.name',
+        's.code'
       );
+
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
@@ -83,62 +85,62 @@ class EloquentCareer implements CareerInterface
   }
 
   /**
-   * Get an Career by id
+   * Get an Subject by id
    *
    * @param  int $id
    *
-   * @return App\Models\Career
+   * @return App\Models\Subject
    */
   public function byId($id)
   {
-    return $this->Career->find($id);
+    return $this->Subject->find($id);
   }
 
   /**
-   * Create a new Career
+   * Create a new Subject
    *
    * @param array $data
    * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
    *
-   * @return App\Models\Career $Career
+   * @return App\Models\Subject $Subject
    */
   public function create(array $data)
   {
-    $career = new Career();
-    $career->fill($data)->save();
+    $subject = new Subject();
+    $subject->fill($data)->save();
 
-    return $career;
+    return $subject;
   }
 
   /**
-   * Update an existing Career
+   * Update an existing Subject
    *
    * @param array $data
    * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
    *
-   * @param App\Models\Career $Career
+   * @param App\Models\Subject $Subject
    *
    * @return boolean
    */
-  public function update(array $data, $career = null)
+  public function update(array $data, $subject = null)
   {
-    if (empty($career)) {
-      $career = $this->byId($data['id']);
+    if (empty($subject)) {
+      $subject = $this->byId($data['id']);
     }
 
-    return $career->update($data);
+    return $subject->update($data);
   }
 
   /**
-   * Delete existing Career
+   * Delete existing Subject
    *
    * @param integer $id
-   * 	An Career id
+   * 	An Subject id
    *
    * @return boolean
    */
   public function delete($id)
   {
-    return $this->Career->destroy($id);
+    return $this->Subject->destroy($id);
   }
 }
