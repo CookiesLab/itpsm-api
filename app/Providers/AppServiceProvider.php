@@ -34,10 +34,12 @@ class AppServiceProvider extends ServiceProvider
     $this->registerUserInterface();
     $this->registerStudentInterface();
     $this->registerTeacherInterface();
+    $this->registerCareerInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
     $this->registerTeacherManagement();
+    $this->registerCareerManagement();
   }
 
   /**
@@ -125,6 +127,39 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Teacher\TeacherManager', function ($app) {
       return new \App\Services\Teacher\TeacherManager(
         $app->make('App\Repositories\Teacher\TeacherInterface'),
+        new Carbon()
+      );
+    });
+  }
+}
+
+
+/**
+   * Register a career interface instance.
+   *
+   * @return void
+   */
+  protected function registerCareerInterface()
+  {
+    $this->app->bind('App\Repositories\Career\CareerInterface', function ($app) {
+      return new \App\Repositories\Career\EloquentCareer(
+        new \App\Models\Career(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a career interface instance.
+   *
+   * @return void
+   */
+  protected function registerCareerManagement()
+  {
+    $this->app->bind('App\Services\Career\CareerManager', function ($app) {
+      return new \App\Services\Career\CareerManager(
+        $app->make('App\Repositories\Career\CareerInterface'),
         new Carbon()
       );
     });
