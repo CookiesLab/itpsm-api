@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCareerInterface();
     $this->registerSubjectInterface();
     $this->registerCurriculumInterface();
+    $this->registerPrerequisiteInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -44,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCareerManagement();
     $this->registerSubjectManagement();
     $this->registerCurriculumManagement();
+    $this->registerPrerequisiteManagement();
   }
 
   /**
@@ -225,6 +227,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Curriculum\CurriculumManager', function ($app) {
       return new \App\Services\Curriculum\CurriculumManager(
         $app->make('App\Repositories\Curriculum\CurriculumInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a Prerequisite interface instance.
+   *
+   * @return void
+   */
+  protected function registerPrerequisiteInterface()
+  {
+    $this->app->bind('App\Repositories\Prerequisite\PrerequisiteInterface', function ($app) {
+      return new \App\Repositories\Prerequisite\EloquentPrerequisite(
+        new \App\Models\Prerequisite(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a Prerequisite interface instance.
+   *
+   * @return void
+   */
+  protected function registerPrerequisiteManagement()
+  {
+    $this->app->bind('App\Services\Prerequisite\PrerequisiteManager', function ($app) {
+      return new \App\Services\Prerequisite\PrerequisiteManager(
+        $app->make('App\Repositories\Prerequisite\PrerequisiteInterface'),
         new Carbon()
       );
     });
