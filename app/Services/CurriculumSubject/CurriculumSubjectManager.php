@@ -25,6 +25,14 @@ class CurriculumSubjectManager
   protected $CurriculumSubject;
 
   /**
+   * PrerequisiteManager
+   *
+   * @var App\Services\Prerequisite\PrerequisiteManager;
+   *
+   */
+  protected $PrerequisiteManager;
+
+  /**
    * Carbon instance
    *
    * @var Carbon\Carbon
@@ -42,9 +50,11 @@ class CurriculumSubjectManager
 
   public function __construct(
     CurriculumSubjectInterface $CurriculumSubject,
+    PrerequisiteManager $PrerequisiteManager,
     Carbon $Carbon
   ) {
     $this->CurriculumSubject = $CurriculumSubject;
+    $this->PrerequisiteManager = $PrerequisiteManager;
     $this->Carbon = $Carbon;
     $this->responseType = 'curriculum_subjects';
   }

@@ -100,7 +100,7 @@ class EloquentPrerequisite implements PrerequisiteInterface
    *
    * @return App\Models\Collection
    */
-  public function byCurriculumSubjectId($id)
+  public function byId($id)
   {
     return $this->Prerequisite
     ->where('curriculum_subject_id', '=', $id)

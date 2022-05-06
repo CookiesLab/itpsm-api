@@ -103,7 +103,7 @@ class PrerequisiteManager
 
   public function getPrerequisiteByCurriculumSubjectId($id)
   {
-    return $this->Prerequisite->byCurriculumSubjectId($id);
+    return $this->Prerequisite->byId($id);
   }
 
   public function create($request)

@@ -291,6 +291,7 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\CurriculumSubject\CurriculumSubjectManager', function ($app) {
       return new \App\Services\CurriculumSubject\CurriculumSubjectManager(
         $app->make('App\Repositories\CurriculumSubject\CurriculumSubjectInterface'),
+        $app->make('App\Services\Prerequisite\PrerequisiteManager'),
         new Carbon()
       );
     });
