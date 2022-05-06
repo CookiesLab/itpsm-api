@@ -47,7 +47,7 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
    */
   public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
   {
-    $query = $this->DB::table('curriculumSubjects AS cs')
+    $query = $this->DB::table('curriculum_subjects AS cs')
       ->select(
         'cs.id',
         'cs.uv',
