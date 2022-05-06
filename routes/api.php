@@ -9,6 +9,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PrerequisiteController;
+use App\Http\Controllers\CurriculumSubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,6 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('curricula', CurriculumController::class);
 
     Route::apiResource('prerequisites', PrerequisiteController::class);
+
+    Route::apiResource('curriculum-subjects', CurriculumSubjectController::class);
 });
