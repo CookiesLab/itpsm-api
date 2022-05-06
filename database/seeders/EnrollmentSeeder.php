@@ -17,17 +17,14 @@ class EnrollmentSeeder extends Seeder
 {
     private $periods = [
         [
-            'id' => 1,
             'code' => 01,
             'year' => 2022,
         ],
         [
-            'id' => 2,
             'code' => 02,
             'year' => 2022,
         ],
         [
-            'id' => 3,
             'code' => 03,
             'year' => 2022,
         ],
@@ -35,17 +32,14 @@ class EnrollmentSeeder extends Seeder
 
     private $sections = [
         [
-            'code' => 1,
             'quota' => 25,
             'schedule' => 'horario',
         ],
         [
-            'code' => 2,
             'quota' => 45,
             'schedule' => 'horario',
         ],
         [
-            'code' => 3,
             'quota' => 15,
             'schedule' => 'horario',
         ],
@@ -53,21 +47,18 @@ class EnrollmentSeeder extends Seeder
 
     private $evaluations = [
         [
-            'id' => 1,
             'name' => 'Parcial 1',
             'description' => 'Parcial 1',
             'date' => '2022-02-02',
             'porcentaje' => 20.5,
         ],
         [
-            'id' => 2,
             'name' => 'Parcial 2',
             'description' => 'Parcial 2',
             'date' => '2022-02-02',
             'porcentaje' => 50,
         ],
         [
-            'id' => 3,
             'name' => 'Parcial 3',
             'description' => 'Parcial 3',
             'date' => '2022-02-05',
@@ -105,7 +96,6 @@ class EnrollmentSeeder extends Seeder
     {
         foreach ($this->periods as &$period) {
             Period::create([
-              'id' => $period['id'],
               'code' => $period['code'],
               'year' => $period['year'],
             ]);
@@ -115,8 +105,7 @@ class EnrollmentSeeder extends Seeder
             Section::create([
               'teacher_id' => Teacher::all()->random()->id,
               'curriculum_subject_id' => CurriculumSubject::all()->random()->id,
-              'period_id' => $period['id'],
-              'code' => $section['code'],
+              'period_id' => Period::all()->random()->id,
               'quota' => $section['quota'],
               'schedule' => $section['schedule'],
             ]);
@@ -124,12 +113,11 @@ class EnrollmentSeeder extends Seeder
 
         foreach ($this->evaluations as &$evaluation) {
             Evaluation::create([
-              'id' => $evaluation['id'],
               'name' => $evaluation['name'],
               'description' => $evaluation['description'],
               'date' => $evaluation['date'],
               'porcentaje' => $evaluation['porcentaje'],
-              'section_id' => $section['code'],
+              'section_id' => Section::all()->random()->code,
             ]);
         }
 
@@ -138,7 +126,7 @@ class EnrollmentSeeder extends Seeder
               'student_id' => Student::all()->random()->id,
               'teacher_id' => Teacher::all()->random()->id,
               'curriculum_subject_id' => CurriculumSubject::all()->random()->id,
-              'period_id' => $period['code'],
+              'period_id' => Period::all()->random()->id,
               'code' => $enrollment['code'],
               'final_score' => $enrollment['final_score'],
               'is_approved' => $enrollment['is_approved'],
@@ -148,7 +136,7 @@ class EnrollmentSeeder extends Seeder
 
         ScoreEvaluation::create([
             'student_id' => Student::all()->random()->id,
-            'evaluation_id' => $evaluation['id'],
+            'evaluation_id' => Evaluation::all()->random()->id,
             'score' => 8,
         ]);
     }
