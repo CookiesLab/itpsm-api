@@ -57,7 +57,7 @@ class EloquentPrerequisite implements PrerequisiteInterface
         'c.id AS curricula_id',
         'c.name AS curricula_name',
         'c.year AS curricula_year',
-        'c.is_active, AS curricula_is_active'
+        'c.is_active AS curricula_is_active'
       )
       ->join('curriculum_subjects as cs', 'p.curriculum_subject_id', '=', 'cs.id')
       ->join('subjects as s', 'cs.subject_id', '=', 's.id')
