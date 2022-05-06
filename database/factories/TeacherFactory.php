@@ -25,7 +25,6 @@ class TeacherFactory extends Factory
   public function definition()
   {
     return [
-      'id' => $this->faker->unique()->randomNumber(1,false),
       'name' => $this->faker->firstName,
       'last_name' => $this->faker->lastName,
       'birth_date' => $this->faker->dateTimeBetween('-30 years', '-18 years'),

@@ -9,6 +9,9 @@ use App\Models\Curriculum;
 use App\Models\Subject;
 use App\Models\CurriculumSubject;
 use App\Models\Prerequisite;
+use App\Models\StudentCurriculum;
+use App\Models\Scholarship;
+use App\Models\Student;
 
 class CurriculaSeeder extends Seeder
 {
@@ -536,6 +539,32 @@ class CurriculaSeeder extends Seeder
     ],
   ];
 
+  private $scholarships = [
+    [
+      'name' => 'Beca 1',
+      'scholarship_foundation' => 'Fundacion 1',
+    ],
+    [
+      'name' => 'Beca 2',
+      'scholarship_foundation' => 'Fundacion 2',
+    ],
+  ];
+
+  private $student_curricula = [
+    [
+      'cum' => 8.9,
+      'entry_year' => 2017,
+      'graduation_year' => '2022-05-06',
+      'scholarship_rate' => 150,
+    ],
+    [
+      'cum' => 6.5,
+      'entry_year' => 2021,
+      'graduation_year' => null,
+      'scholarship_rate' => null,
+    ],
+  ];
+
   /**
    * Run the database seeds.
    *
@@ -581,6 +610,25 @@ class CurriculaSeeder extends Seeder
         Prerequisite::create([
           'prerequisite_id' => $prereq['prerequisite_id'],
           'curriculum_subject_id' => $prereq['curriculum_subject_id'],
+        ]);
+      }
+
+      foreach ($this->scholarships as $scholar) {
+        Scholarship::create([
+          'name' => $scholar['name'],
+          'scholarship_foundation' => $scholar['scholarship_foundation'],
+        ]);
+      }
+
+      foreach ($this->student_curricula as $stude) {
+        StudentCurriculum::create([
+          'cum' => $stude['cum'],
+          'entry_year' => $stude['entry_year'],
+          'graduation_year' => $stude['graduation_year'],
+          'scholarship_rate' => $stude['scholarship_rate'],
+          'student_id' => Student::all()->random()->id,
+          'curriculum_id' => Curriculum::all()->random()->id,
+          'scholarship_id' => Scholarship::all()->random()->id,
         ]);
       }
   }

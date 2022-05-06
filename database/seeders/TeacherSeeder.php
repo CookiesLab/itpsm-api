@@ -57,7 +57,7 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        Teacher::factory(7)->create();
+        Teacher::factory(10)->create();
 
         foreach ($this->languages as &$language) {
             Language::create([
