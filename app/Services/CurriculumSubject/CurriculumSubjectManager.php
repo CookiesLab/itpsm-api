@@ -11,6 +11,7 @@
 namespace App\Services\CurriculumSubject;
 
 use App\Repositories\CurriculumSubject\CurriculumSubjectInterface;
+use App\Services\Prerequisite\PrerequisiteManager;
 use Carbon\Carbon;
 
 class CurriculumSubjectManager
@@ -83,7 +84,7 @@ class CurriculumSubjectManager
 
     $this->CurriculumSubject->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($curriculumSubject) use (&$rows) {
 
-      // $curriculumSubject->prerequisites = $this->Manager->getPrerequisiteBySubjectId($curriculumSubject->id);
+      $curriculumSubject->prerequisites = $this->PrerequisiteManager->getPrerequisiteByCurriculumSubjectId($curriculumSubject->id);
       $id = strval($curriculumSubject->id);
       unset($curriculumSubject->id);
 
