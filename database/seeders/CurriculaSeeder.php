@@ -576,12 +576,12 @@ class CurriculaSeeder extends Seeder
         ]);
       }
     }
-      /*
+      
       foreach ($this->prerequisites as $prereq) {
         Prerequisite::create([
-          'id' => $prereq['prerequisite_id'],
+          'prerequisite_id' => $prereq['prerequisite_id'],
           'curriculum_subject_id' => $prereq['curriculum_subject_id'],
         ]);
-      }*/
+      }
   }
 }
