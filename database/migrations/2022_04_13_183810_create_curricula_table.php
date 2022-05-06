@@ -86,7 +86,6 @@ return new class extends Migration
     });
 
     Schema::create('prerequisites', function (Blueprint $table) {
-      $table->id();
 
       /**
        * Fields with missing Primary Key
@@ -94,7 +93,8 @@ return new class extends Migration
       $table->unsignedBigInteger('curriculum_subject_id')->index();
       $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
 
-      // Hace falta el campo del prerequisito
+      $table->unsignedBigInteger('prerequisite_id')->index();
+      $table->foreign('prerequisite_id')->references('id')->on('curriculum_subjects');
 
       $table->timestamps();
     });
