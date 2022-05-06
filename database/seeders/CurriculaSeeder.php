@@ -537,6 +537,15 @@ class CurriculaSeeder extends Seeder
       'curriculum_subject_id' => 20,
       'prerequisite_id' => 17,
     ],
+    // Borrar estos 2 registros: Los agregué para probar algo
+    [
+      'curriculum_subject_id' => 45,
+      'prerequisite_id' => 40,
+    ],
+    [
+      'curriculum_subject_id' => 45,
+      'prerequisite_id' => 41,
+    ],
   ];
 
   private $scholarships = [
