@@ -39,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCurriculumInterface();
     $this->registerPrerequisiteInterface();
     $this->registerCurriculumSubjectInterface();
+    $this->registerScholarshipInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -48,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCurriculumManagement();
     $this->registerPrerequisiteManagement();
     $this->registerCurriculumSubjectManagement();
+    $this->registerScholarshipManagement();
   }
 
   /**
@@ -292,6 +294,37 @@ class AppServiceProvider extends ServiceProvider
       return new \App\Services\CurriculumSubject\CurriculumSubjectManager(
         $app->make('App\Repositories\CurriculumSubject\CurriculumSubjectInterface'),
         $app->make('App\Services\Prerequisite\PrerequisiteManager'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a Scholarship interface instance.
+   *
+   * @return void
+   */
+  protected function registerScholarshipInterface()
+  {
+    $this->app->bind('App\Repositories\Scholarship\ScholarshipInterface', function ($app) {
+      return new \App\Repositories\Scholarship\EloquentScholarship(
+        new \App\Models\Scholarship(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a Scholarship interface instance.
+   *
+   * @return void
+   */
+  protected function registerScholarshipManagement()
+  {
+    $this->app->bind('App\Services\Scholarship\ScholarshipManager', function ($app) {
+      return new \App\Services\Scholarship\ScholarshipManager(
+        $app->make('App\Repositories\Scholarship\ScholarshipInterface'),
         new Carbon()
       );
     });
