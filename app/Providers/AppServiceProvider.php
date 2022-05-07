@@ -40,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerPrerequisiteInterface();
     $this->registerCurriculumSubjectInterface();
     $this->registerScholarshipInterface();
+    $this->registerStudentCurriculaInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -50,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerPrerequisiteManagement();
     $this->registerCurriculumSubjectManagement();
     $this->registerScholarshipManagement();
+    $this->registerStudentCurriculaManagement();
   }
 
   /**
@@ -325,6 +327,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Scholarship\ScholarshipManager', function ($app) {
       return new \App\Services\Scholarship\ScholarshipManager(
         $app->make('App\Repositories\Scholarship\ScholarshipInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a StudentCurricula interface instance.
+   *
+   * @return void
+   */
+  protected function registerStudentCurriculaInterface()
+  {
+    $this->app->bind('App\Repositories\StudentCurricula\StudentCurriculaInterface', function ($app) {
+      return new \App\Repositories\StudentCurricula\EloquentStudentCurricula(
+        new \App\Models\StudentCurricula(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a StudentCurricula interface instance.
+   *
+   * @return void
+   */
+  protected function registerStudentCurriculaManagement()
+  {
+    $this->app->bind('App\Services\StudentCurricula\StudentCurriculaManager', function ($app) {
+      return new \App\Services\StudentCurricula\StudentCurriculaManager(
+        $app->make('App\Repositories\StudentCurricula\StudentCurriculaInterface'),
         new Carbon()
       );
     });
