@@ -58,6 +58,8 @@ return new class extends Migration
       $table->id();
       $table->string('name', 255);
       $table->text('description');
+
+      $table->timestamps();
     });
 
     Schema::create('student_medical_exams', function (Blueprint $table) {
