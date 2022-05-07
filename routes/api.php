@@ -11,6 +11,7 @@ use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\PrerequisiteController;
 use App\Http\Controllers\CurriculumSubjectController;
 use App\Http\Controllers\ScholarshipController;
+use App\Http\Controllers\StudentCurriculaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,6 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('curriculum-subjects', CurriculumSubjectController::class);
 
     Route::apiResource('scholarships', ScholarshipController::class);
+
+    Route::apiResource('student-curricula', StudentCurriculaController::class);
 });
