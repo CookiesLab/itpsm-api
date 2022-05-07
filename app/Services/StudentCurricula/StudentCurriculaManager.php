@@ -114,7 +114,7 @@ class StudentCurriculaManager
 
     return [
       'success' => true,
-      'studentCurricula' => $studentCurricula,
+      'student_curricula' => $studentCurricula,
       'id' => $id,
     ];
   }
@@ -135,7 +135,7 @@ class StudentCurriculaManager
 
     return [
       'success' => true,
-      'studentCurricula' => $studentCurricula,
+      'student_curricula' => $studentCurricula,
       'id' => $id,
     ];
 
