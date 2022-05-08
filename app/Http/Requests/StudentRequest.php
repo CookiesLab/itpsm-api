@@ -34,7 +34,6 @@ class StudentRequest extends FormRequest
       'municipality_id' => 'required',
       'department_id' => 'required',
       'country_id' => 'required',
-      'status_id' => 'required',
     ];
   }
 
@@ -56,7 +55,6 @@ class StudentRequest extends FormRequest
       'municipality_id.required' => 'El campo municipality_id es obligatorio',
       'department_id.required' => 'El campo department_id es obligatorio',
       'country_id.required' => 'El campo country_id es obligatorio',
-      'status_id.required' => 'El campo status_id es obligatorio',
     ];
   }
 }
