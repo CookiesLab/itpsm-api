@@ -48,9 +48,6 @@ return new class extends Migration
       $table->unsignedBigInteger('country_id')->index();
       $table->foreign('country_id')->references('id')->on('countries');
 
-      $table->unsignedBigInteger('status_id')->index();
-      $table->foreign('status_id')->references('id')->on('statuses');
-
       $table->timestamps();
       $table->softDeletes();
     });
