@@ -63,9 +63,9 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
         'st.id AS student_id',
         'st.name AS student_name',
         'st.last_name AS student_last_name',
-        'st.carnet AS student_carnet' 
+        'st.carnet AS student_carnet'
       )
-      ->join('scholarships as s', 'sc.scholarship_id', '=', 's.id')
+      ->leftJoin('scholarships as s', 'sc.scholarship_id', '=', 's.id')
       ->join('curricula as c', 'sc.curriculum_id', '=', 'c.id')
       ->join('students as st', 'sc.student_id', '=', 'st.id');
 

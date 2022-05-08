@@ -66,7 +66,7 @@ return new class extends Migration
       /**
        * Make nullable
        */
-      $table->unsignedBigInteger('scholarship_id')->index();
+      $table->unsignedBigInteger('scholarship_id')->nullable();
       $table->foreign('scholarship_id')->references('id')->on('scholarships')->nullable();
 
       $table->timestamps();
