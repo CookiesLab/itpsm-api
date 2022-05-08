@@ -51,17 +51,17 @@ class EloquentPrerequisite implements PrerequisiteInterface
       ->select(
         'p.curriculum_subject_id',
         'p.prerequisite_id',
-        's.id AS subject_id',
-        's.name AS subject_name',
-        's.code AS subject_code',
-        'c.id AS curricula_id',
-        'c.name AS curricula_name',
-        'c.year AS curricula_year',
-        'c.is_active AS curricula_is_active'
-      )
-      ->join('curriculum_subjects as cs', 'p.curriculum_subject_id', '=', 'cs.id')
-      ->join('subjects as s', 'cs.subject_id', '=', 's.id')
-      ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id');
+        // 's.id AS subject_id',
+        // 's.name AS subject_name',
+        // 's.code AS subject_code',
+        // 'c.id AS curricula_id',
+        // 'c.name AS curricula_name',
+        // 'c.year AS curricula_year',
+        // 'c.is_active AS curricula_is_active'
+      );
+      // ->join('curriculum_subjects as cs', 'p.curriculum_subject_id', '=', 'cs.id')
+      // ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+      // ->join('subjects as s', 'cs.subject_id', '=', 's.id');
 
 
     if (!empty($filter)) {
@@ -104,11 +104,10 @@ class EloquentPrerequisite implements PrerequisiteInterface
   {
     return new Collection(
       $this->DB::table('prerequisites AS p')
-        ->join('curriculum_subjects as cs', 'p.curriculum_subject_id', '=', 'cs.id')
+        ->join('curriculum_subjects as cs', 'p.prerequisite_id', '=', 'cs.id')
         ->join('subjects as s', 'cs.subject_id', '=', 's.id')
         ->where('p.curriculum_subject_id', '=', $id)
         ->get(array(
-          'p.*',
           's.id AS subject_id',
           's.code AS subject_code',
           's.name AS subject_name',

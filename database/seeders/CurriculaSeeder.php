@@ -261,6 +261,7 @@ class CurriculaSeeder extends Seeder
       'career_id' => 1,
       'year' => 2020,
       'is_active' => true,
+      'is_approved' => false,
       'curriculum_subjects' => [
         [
           'id' => 1,
@@ -395,6 +396,7 @@ class CurriculaSeeder extends Seeder
       'career_id' => 2,
       'year' => 2020,
       'is_active' => true,
+      'is_approved' => false,
       'curriculum_subjects' => [
         [
           'id' => 26,
@@ -603,6 +605,7 @@ class CurriculaSeeder extends Seeder
         'name' => $curricula['name'],
         'year' => $curricula['year'],
         'is_active' => $curricula['is_active'],
+        'is_approved' => $curricula['is_approved'],
       ]);
 
       foreach ($curricula['curriculum_subjects'] as $cusub) {
@@ -614,7 +617,7 @@ class CurriculaSeeder extends Seeder
         ]);
       }
     }
-      
+
       foreach ($this->prerequisites as $prereq) {
         Prerequisite::create([
           'prerequisite_id' => $prereq['prerequisite_id'],

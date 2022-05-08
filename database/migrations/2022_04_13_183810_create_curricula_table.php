@@ -23,7 +23,7 @@ return new class extends Migration
     Schema::create('subjects', function (Blueprint $table) {
       $table->id();
       $table->string('name', 255);
-      $table->string('code', 6);
+      $table->string('code', 6)->unique();
 
       $table->timestamps();
     });
@@ -41,6 +41,7 @@ return new class extends Migration
       $table->string('name', 255);
       $table->integer('year');
       $table->boolean('is_active');
+      $table->boolean('is_approved');
 
       $table->unsignedBigInteger('career_id')->index();
       $table->foreign('career_id')->references('id')->on('careers');
@@ -54,14 +55,13 @@ return new class extends Migration
       $table->date('graduation_year')->nullable();
       $table->float('scholarship_rate')->nullable();
 
-      /**
-       * Fields with missing Primary Key
-       */
       $table->unsignedBigInteger('student_id')->index();
       $table->foreign('student_id')->references('id')->on('students');
 
       $table->unsignedBigInteger('curriculum_id')->index();
       $table->foreign('curriculum_id')->references('id')->on('curricula');
+
+      $table->primary(['student_id', 'curriculum_id']);
 
       /**
        * Make nullable
@@ -86,15 +86,13 @@ return new class extends Migration
     });
 
     Schema::create('prerequisites', function (Blueprint $table) {
-
-      /**
-       * Fields with missing Primary Key
-       */
       $table->unsignedBigInteger('curriculum_subject_id')->index();
       $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
 
       $table->unsignedBigInteger('prerequisite_id')->index();
       $table->foreign('prerequisite_id')->references('id')->on('curriculum_subjects');
+
+      $table->primary(['curriculum_subject_id', 'prerequisite_id']);
 
       $table->timestamps();
     });

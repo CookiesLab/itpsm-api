@@ -69,11 +69,11 @@ class StudentCurriculaManager
       $sortColumn = $request['sort'];
       $sortOrder = 'asc';
     }
-    else
-    {
-      $sortColumn = 'id';
-      $sortOrder = 'desc';
-    }
+    // else
+    // {
+    //   $sortColumn = 'id';
+    //   $sortOrder = 'desc';
+    // }
 
     if ($pager)
     {
@@ -83,12 +83,12 @@ class StudentCurriculaManager
 
     $this->StudentCurricula->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($studentCurricula) use (&$rows) {
 
-      $id = strval($studentCurricula->id);
-      unset($studentCurricula->id);
+      // $id = strval($studentCurricula->id);
+      // unset($studentCurricula->id);
 
       array_push($rows, [
         'type' => $this->responseType,
-        'id' => $id,
+        //'id' => $id,
         'attributes' => $studentCurricula
       ]);
     });
