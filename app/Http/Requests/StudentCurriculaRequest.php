@@ -24,11 +24,10 @@ class StudentCurriculaRequest extends FormRequest
     public function rules()
     {
         return [
-            'cum' => 'required|float',
+            'cum' => 'required|numeric',
             'entry_year' => 'required|integer',
             'student_id' => 'required',
             'curriculum_id' => 'required',
-            'scholarship_id' => 'required',
         ];
     }
 
@@ -39,7 +38,6 @@ class StudentCurriculaRequest extends FormRequest
           'entry_year.required' => 'El campo entry_year es obligatorio',
           'student_id.required' => 'El campo student_id es obligatorio',
           'curriculum_id.required' => 'El campo curriculum_id es obligatorio',
-          'scholarship_id.required' => 'El campo scholarship_id es obligatorio',
       ];
     }
 }
