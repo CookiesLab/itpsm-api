@@ -113,5 +113,6 @@ return new class extends Migration
     Schema::dropIfExists('scholarships');
     Schema::dropIfExists('prerequisites');
     Schema::dropIfExists('curriculum_subjects');
+    Schema::dropIfExists('student_curricula');
   }
 };
