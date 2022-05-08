@@ -35,6 +35,7 @@ return new class extends Migration
       $table->string('emergency_contact_phone', 15)->nullable();
       $table->string('diseases')->nullable();
       $table->string('allergies')->nullable();
+      $table->string('medicines', 255)->nullable();
       $table->date('entry_date')->nullable();
       $table->integer('date_high_school_degree')->nullable();
 
