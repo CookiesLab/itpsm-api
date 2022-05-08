@@ -341,7 +341,7 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Repositories\StudentCurricula\StudentCurriculaInterface', function ($app) {
       return new \App\Repositories\StudentCurricula\EloquentStudentCurricula(
-        new \App\Models\StudentCurricula(),
+        new \App\Models\StudentCurriculum(),
         new \Illuminate\Support\Facades\DB()
       );
     });

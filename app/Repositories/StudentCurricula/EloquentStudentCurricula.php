@@ -13,18 +13,18 @@ namespace App\Repositories\StudentCurricula;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\StudentCurricula;
+use App\Models\StudentCurriculum;
 
 class EloquentStudentCurricula implements StudentCurriculaInterface
 {
 
   /**
-   * StudentCurricula
+   * StudentCurriculum
    *
-   * @var App\Models\StudentCurricula;
+   * @var App\Models\StudentCurriculum;
    *
    */
-  protected $StudentCurricula;
+  protected $StudentCurriculum;
 
   /**
    * DB
@@ -34,14 +34,14 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
    */
   protected $DB;
 
-  public function __construct(Model $StudentCurricula, DB $DB)
+  public function __construct(Model $StudentCurriculum, DB $DB)
   {
-    $this->StudentCurricula = $StudentCurricula;
+    $this->StudentCurriculum = $StudentCurriculum;
     $this->DB = $DB;
   }
 
   /**
-   * Retrieve list of StudentCurriculas
+   * Retrieve list of StudentCurricula
    *
    * @return Illuminate\Database\Eloquent\Collection
    */
@@ -100,40 +100,40 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
   }
 
   /**
-   * Get an StudentCurricula by id
+   * Get an StudentCurriculum by id
    *
    * @param  int $id
    *
-   * @return App\Models\StudentCurricula
+   * @return App\Models\StudentCurriculum
    */
   public function byId($id)
   {
-    return $this->StudentCurricula->find($id);
+    return $this->StudentCurriculum->find($id);
   }
 
   /**
-   * Create a new StudentCurricula
+   * Create a new StudentCurriculum
    *
    * @param array $data
    * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
    *
-   * @return App\Models\StudentCurricula $StudentCurricula
+   * @return App\Models\StudentCurriculum $StudentCurriculum
    */
   public function create(array $data)
   {
-    $studentCurricula = new StudentCurricula();
+    $studentCurricula = new StudentCurriculum();
     $studentCurricula->fill($data)->save();
 
     return $studentCurricula;
   }
 
   /**
-   * Update an existing StudentCurricula
+   * Update an existing StudentCurriculum
    *
    * @param array $data
    * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
    *
-   * @param App\Models\StudentCurricula $StudentCurricula
+   * @param App\Models\StudentCurriculum $StudentCurriculum
    *
    * @return boolean
    */
@@ -147,15 +147,15 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
   }
 
   /**
-   * Delete existing StudentCurricula
+   * Delete existing StudentCurriculum
    *
    * @param integer $id
-   * 	An StudentCurricula id
+   * 	An StudentCurriculum id
    *
    * @return boolean
    */
   public function delete($id)
   {
-    return $this->StudentCurricula->destroy($id);
+    return $this->StudentCurriculum->destroy($id);
   }
 }
