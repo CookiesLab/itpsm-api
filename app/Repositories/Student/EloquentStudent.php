@@ -70,6 +70,7 @@ class EloquentStudent implements StudentInterface
         's.emergency_contact_phone',
         's.diseases',
         's.allergies',
+        's.medicines',
         's.date_high_school_degree',
         'm.id AS municipality_id',
         'm.name AS municipality',
