@@ -102,9 +102,18 @@ class EloquentPrerequisite implements PrerequisiteInterface
    */
   public function byId($id)
   {
-    return $this->Prerequisite
-    ->where('curriculum_subject_id', '=', $id)
-    ->get();
+    return new Collection(
+      $this->DB->table('prerequisites AS p')
+        ->join('curriculum_subjects as cs', 'p.curriculum_subject_id', '=', 'cs.id')
+        ->join('subjects as s', 'cs.subject_id', '=', 's.id')
+        ->where('p.curriculum_subject_id', '=', $id)
+        ->get(array(
+          'p.*',
+          's.id AS subject_id',
+          's.code AS subject_code',
+          's.name AS subject_name',
+        ))
+    );
   }
 
   /**
@@ -139,7 +148,7 @@ class EloquentPrerequisite implements PrerequisiteInterface
       $prerequisite = $this->byId($data['id']);
     }
 
-    return $teacher->update($data);
+    return $prerequisite->update($data);
   }
 
   /**
