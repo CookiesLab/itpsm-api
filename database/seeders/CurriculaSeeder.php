@@ -9,7 +9,7 @@ use App\Models\Curriculum;
 use App\Models\Subject;
 use App\Models\CurriculumSubject;
 use App\Models\Prerequisite;
-use App\Models\StudentCurriculum;
+use App\Models\StudentCurricula;
 use App\Models\Scholarship;
 use App\Models\Student;
 
@@ -630,7 +630,7 @@ class CurriculaSeeder extends Seeder
       }
 
       foreach ($this->student_curricula as $stude) {
-        StudentCurriculum::create([
+        StudentCurricula::create([
           'cum' => $stude['cum'],
           'entry_year' => $stude['entry_year'],
           'graduation_year' => $stude['graduation_year'],
