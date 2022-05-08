@@ -49,7 +49,6 @@ class StudentFactory extends Factory
       'country_id' => 1,
       'department_id' => 14,
       'municipality_id' => 3,
-      'status_id' => 1,
     ];
   }
 }
