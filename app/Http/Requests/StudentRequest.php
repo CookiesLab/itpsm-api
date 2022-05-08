@@ -24,10 +24,17 @@ class StudentRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'required|string',
-      'last_name' => 'required|string',
+      'carnet' => 'required|string|max:25',
+      'name' => 'required|string|max:255',
+      'last_name' => 'required|string|max:255',
       'email' => 'required|string|email',
-      'name' => 'required|string',
+      'gender' => 'required',
+      'relationship' => 'required',
+      'status' => 'required',
+      'municipality_id' => 'required',
+      'department_id' => 'required',
+      'country_id' => 'required',
+      'status_id' => 'required',
     ];
   }
 
@@ -39,9 +46,17 @@ class StudentRequest extends FormRequest
   public function messages()
   {
     return [
-      'email.required' => __('common.fieldIsRequired', ['field' => __('auth.email')]),
-      'name.required' => __('common.fieldIsRequired', ['field' => __('auth.email')]),
-      'last_name.required' => __('common.fieldIsRequired', ['field' => __('auth.password')]),
+      'carnet.required' => 'El campo carnet es obligatorio',
+      'name.required' => 'El campo nombre es obligatorio',
+      'last_name.required' => 'El campo last_name es obligatorio',
+      'email.required' => 'El campo email es obligatorio',
+      'gender.required' => 'El campo gender es obligatorio',
+      'relationship.required' => 'El campo relationship es obligatorio',
+      'status.required' => 'El campo status es obligatorio',
+      'municipality_id.required' => 'El campo municipality_id es obligatorio',
+      'department_id.required' => 'El campo department_id es obligatorio',
+      'country_id.required' => 'El campo country_id es obligatorio',
+      'status_id.required' => 'El campo status_id es obligatorio',
     ];
   }
 }
