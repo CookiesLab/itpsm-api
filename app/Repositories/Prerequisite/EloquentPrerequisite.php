@@ -103,7 +103,7 @@ class EloquentPrerequisite implements PrerequisiteInterface
   public function byId($id)
   {
     return new Collection(
-      $this->DB->table('prerequisites AS p')
+      $this->DB::table('prerequisites AS p')
         ->join('curriculum_subjects as cs', 'p.curriculum_subject_id', '=', 'cs.id')
         ->join('subjects as s', 'cs.subject_id', '=', 's.id')
         ->where('p.curriculum_subject_id', '=', $id)
