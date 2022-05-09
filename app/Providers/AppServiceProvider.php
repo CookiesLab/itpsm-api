@@ -108,6 +108,7 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Student\StudentManager', function ($app) {
       return new \App\Services\Student\StudentManager(
         $app->make('App\Repositories\Student\StudentInterface'),
+        $app->make('dompdf.wrapper'),
         new Carbon()
       );
     });
