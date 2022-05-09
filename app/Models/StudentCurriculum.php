@@ -20,7 +20,7 @@ class StudentCurriculum extends Model
       'student_id',
       'curriculum_id',
       'scholarship_id',
-      'graduation_date',
+      'graduation_year',
       'scholarship_rate',
     ];
 }

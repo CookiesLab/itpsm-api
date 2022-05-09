@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Prerequisite extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'curriculum_subject_id',
+        'prerequisite_id'
+    ];
 }
