@@ -83,7 +83,7 @@ class PeriodManager
 
     $this->Period->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($period) use (&$rows) {
 
-      $period->label = str_pad($period->code, 1, "0", STR_PAD_LEFT)."-".$period->year
+      $period->label = str_pad($period->code, 2, "0", STR_PAD_LEFT)."-".$period->year
       $id = strval($period->id);
       unset($period->id);
 
