@@ -11,7 +11,7 @@
 namespace App\Services\Student;
 
 use App\Repositories\Student\StudentInterface;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Pdf;
 use Carbon\Carbon;
 
 class StudentManager
@@ -118,6 +118,13 @@ class StudentManager
 
   public function createDefaultPdf($id) {
 
+    $data = [];
+    $data['student'] = $this->getStudent($id);
+
+    return $this->Dompdf
+      ->loadView('student-personal-data-pdf', $data)
+      ->setPaper('letter')
+      ->download('estudiante.pdf');
   }
 
   public function create($request)

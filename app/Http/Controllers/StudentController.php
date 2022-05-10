@@ -183,4 +183,10 @@ class StudentController extends Controller
       ]
     ], 200);
   }
+
+  public function createDefaultPdf(Request $request)
+  {
+    $studentId = $request->input('id');
+    return $this->StudentManagerService->createDefaultPdf($studentId);
+  }
 }
