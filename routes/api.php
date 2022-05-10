@@ -12,6 +12,7 @@ use App\Http\Controllers\PrerequisiteController;
 use App\Http\Controllers\CurriculumSubjectController;
 use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\StudentCurriculaController;
+use App\Http\Controllers\PeriodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,6 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('scholarships', ScholarshipController::class);
 
     Route::apiResource('student-curricula', StudentCurriculaController::class);
+
+    Route::apiResource('periods', PeriodController::class);
 });

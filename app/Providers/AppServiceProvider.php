@@ -41,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCurriculumSubjectInterface();
     $this->registerScholarshipInterface();
     $this->registerStudentCurriculaInterface();
+    $this->registerPeriodInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -52,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCurriculumSubjectManagement();
     $this->registerScholarshipManagement();
     $this->registerStudentCurriculaManagement();
+    $this->registerPeriodManagement();
   }
 
   /**
@@ -358,6 +360,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\StudentCurricula\StudentCurriculaManager', function ($app) {
       return new \App\Services\StudentCurricula\StudentCurriculaManager(
         $app->make('App\Repositories\StudentCurricula\StudentCurriculaInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a Period interface instance.
+   *
+   * @return void
+   */
+  protected function registerPeriodInterface()
+  {
+    $this->app->bind('App\Repositories\Period\PeriodInterface', function ($app) {
+      return new \App\Repositories\Period\EloquentPeriod(
+        new \App\Models\Period(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a Period interface instance.
+   *
+   * @return void
+   */
+  protected function registerPeriodManagement()
+  {
+    $this->app->bind('App\Services\Period\PeriodManager', function ($app) {
+      return new \App\Services\Period\PeriodManager(
+        $app->make('App\Repositories\Period\PeriodInterface'),
         new Carbon()
       );
     });
