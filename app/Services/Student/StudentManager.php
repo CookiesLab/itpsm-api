@@ -11,6 +11,7 @@
 namespace App\Services\Student;
 
 use App\Repositories\Student\StudentInterface;
+use Barryvdh\DomPDF\Pdf;
 use Carbon\Carbon;
 
 class StudentManager
@@ -22,6 +23,12 @@ class StudentManager
    *
    */
   protected $Student;
+
+  /**
+	* Barryvdh\DomPDF\PDF
+	* @var Excel
+	*/
+	protected $Dompdf;
 
   /**
    * Carbon instance
@@ -41,9 +48,11 @@ class StudentManager
 
   public function __construct(
     StudentInterface $Student,
+    PDF $Dompdf,
     Carbon $Carbon
   ) {
     $this->Student = $Student;
+    $this->Dompdf = $Dompdf;
     $this->Carbon = $Carbon;
     $this->responseType = 'students';
   }
@@ -105,6 +114,17 @@ class StudentManager
   public function getStudent($id)
   {
     return $this->Student->byId($id);
+  }
+
+  public function createDefaultPdf($id) {
+
+    $data = [];
+    $data['student'] = $this->getStudent($id);
+
+    return $this->Dompdf
+      ->loadView('student-personal-data-pdf', $data)
+      ->setPaper('letter')
+      ->download('estudiante.pdf');
   }
 
   public function create($request)

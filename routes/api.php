@@ -54,4 +54,6 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('student-curricula', StudentCurriculaController::class);
 
     Route::apiResource('periods', PeriodController::class);
+
+    Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');
 });
