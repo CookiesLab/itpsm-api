@@ -53,6 +53,7 @@ class EloquentCurriculum implements CurriculumInterface
         'c.name',
         'c.year',
         'c.is_active',
+        'c.is_approved',
         'ca.id AS career_id',
         'ca.name AS career_name'
       )
