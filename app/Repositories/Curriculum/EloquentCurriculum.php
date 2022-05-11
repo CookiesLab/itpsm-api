@@ -58,10 +58,9 @@ class EloquentCurriculum implements CurriculumInterface
       )
       ->join('careers as ca', 'c.career_id', '=', 'ca.id');
 
-
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['name', 'email'] as $key => $value) {
+        foreach (['c.name', 'c.year', 'ca.name'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
           //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
         }
