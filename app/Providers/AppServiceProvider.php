@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerScholarshipInterface();
     $this->registerStudentCurriculaInterface();
     $this->registerPeriodInterface();
+    $this->registerSectionInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -54,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerScholarshipManagement();
     $this->registerStudentCurriculaManagement();
     $this->registerPeriodManagement();
+    $this->registerSectionManagement();
   }
 
   /**
@@ -392,6 +394,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Period\PeriodManager', function ($app) {
       return new \App\Services\Period\PeriodManager(
         $app->make('App\Repositories\Period\PeriodInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a Section interface instance.
+   *
+   * @return void
+   */
+  protected function registerSectionInterface()
+  {
+    $this->app->bind('App\Repositories\Section\SectionInterface', function ($app) {
+      return new \App\Repositories\Section\EloquentSection(
+        new \App\Models\Section(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a Section interface instance.
+   *
+   * @return void
+   */
+  protected function registerSectionManagement()
+  {
+    $this->app->bind('App\Services\Section\SectionManager', function ($app) {
+      return new \App\Services\Section\SectionManager(
+        $app->make('App\Repositories\Section\SectionInterface'),
         new Carbon()
       );
     });

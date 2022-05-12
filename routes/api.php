@@ -13,6 +13,7 @@ use App\Http\Controllers\CurriculumSubjectController;
 use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\StudentCurriculaController;
 use App\Http\Controllers\PeriodController;
+use App\Http\Controllers\SectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,8 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('student-curricula', StudentCurriculaController::class);
 
     Route::apiResource('periods', PeriodController::class);
+
+    Route::apiResource('sections', SectionController::class);
 
     Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');
 });
