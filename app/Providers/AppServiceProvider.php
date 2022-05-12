@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerStudentCurriculaInterface();
     $this->registerPeriodInterface();
     $this->registerSectionInterface();
+    $this->registerEnrollmentInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -56,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerStudentCurriculaManagement();
     $this->registerPeriodManagement();
     $this->registerSectionManagement();
+    $this->registerEnrollmentManagement();
   }
 
   /**
@@ -425,6 +427,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Section\SectionManager', function ($app) {
       return new \App\Services\Section\SectionManager(
         $app->make('App\Repositories\Section\SectionInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a Enrollment interface instance.
+   *
+   * @return void
+   */
+  protected function registerEnrollmentInterface()
+  {
+    $this->app->bind('App\Repositories\Enrollment\EnrollmentInterface', function ($app) {
+      return new \App\Repositories\Enrollment\EloquentEnrollment(
+        new \App\Models\Enrollment(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a Enrollment interface instance.
+   *
+   * @return void
+   */
+  protected function registerEnrollmentManagement()
+  {
+    $this->app->bind('App\Services\Enrollment\EnrollmentManager', function ($app) {
+      return new \App\Services\Enrollment\EnrollmentManager(
+        $app->make('App\Repositories\Enrollment\EnrollmentInterface'),
         new Carbon()
       );
     });
