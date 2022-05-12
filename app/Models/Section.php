@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'code',
+        'quota',
+        'schedule',
+        'teacher_id',
+        'curriculum_subject_id',
+        'period_id'
+    ];
 }
