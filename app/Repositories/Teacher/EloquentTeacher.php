@@ -80,7 +80,7 @@ class EloquentTeacher implements TeacherInterface
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['name', 'email'] as $key => $value) {
+        foreach (['t.name', 't.last_name', 't.email', 't.nit', 't.dui', 't.nup_number', 't.isss_number'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
           //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
         }

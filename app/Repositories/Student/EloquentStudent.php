@@ -88,7 +88,7 @@ class EloquentStudent implements StudentInterface
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['name', 'email'] as $key => $value) {
+        foreach (['s.carnet', 's.name', 's.last_name', 's.email', 'm.name', 'd.name'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
           //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
         }
