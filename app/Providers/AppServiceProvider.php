@@ -45,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerSectionInterface();
     $this->registerEnrollmentInterface();
     $this->registerEvaluationInterface();
+    $this->registerScoreEvaluationInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -60,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerSectionManagement();
     $this->registerEnrollmentManagement();
     $this->registerEvaluationManagement();
+    $this-registerScoreEvaluationManagement();
   }
 
   /**
@@ -491,6 +493,37 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Evaluation\EvaluationManager', function ($app) {
       return new \App\Services\Evaluation\EvaluationManager(
         $app->make('App\Repositories\Evaluation\EvaluationInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a ScoreEvaluation interface instance.
+   *
+   * @return void
+   */
+  protected function registerScoreEvaluationInterface()
+  {
+    $this->app->bind('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface', function ($app) {
+      return new \App\Repositories\ScoreEvaluation\EloquentScoreEvaluation(
+        new \App\Models\ScoreEvaluation(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a ScoreEvaluation interface instance.
+   *
+   * @return void
+   */
+  protected function registerScoreEvaluationManagement()
+  {
+    $this->app->bind('App\Services\ScoreEvaluation\ScoreEvaluationManager', function ($app) {
+      return new \App\Services\ScoreEvaluation\ScoreEvaluationManager(
+        $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
         new Carbon()
       );
     });
