@@ -92,7 +92,7 @@
     "components": {
         "securitySchemes": {
             "passport": {
-                "type": "oauth2",
+                "type": "apiKey",
                 "description": "Laravel passport oauth2 security.",
                 "in": "header",
                 "scheme": "https",
