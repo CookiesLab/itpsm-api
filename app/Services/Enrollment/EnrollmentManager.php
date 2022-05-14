@@ -69,11 +69,11 @@ class EnrollmentManager
       $sortColumn = $request['sort'];
       $sortOrder = 'asc';
     }
-    else
-    {
-      $sortColumn = 'id';
-      $sortOrder = 'desc';
-    }
+    // else
+    // {
+    //   $sortColumn = 'id';
+    //   $sortOrder = 'desc';
+    // }
 
     if ($pager)
     {
@@ -83,12 +83,12 @@ class EnrollmentManager
 
     $this->Enrollment->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($enrollment) use (&$rows) {
 
-      $id = strval($enrollment->id);
-      unset($enrollment->id);
+      // $id = strval($enrollment->id);
+      // unset($enrollment->id);
 
       array_push($rows, [
         'type' => $this->responseType,
-        'id' => $id,
+        // 'id' => $id,
         'attributes' => $enrollment
       ]);
     });

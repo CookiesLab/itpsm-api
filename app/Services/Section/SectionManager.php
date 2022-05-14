@@ -69,11 +69,11 @@ class SectionManager
       $sortColumn = $request['sort'];
       $sortOrder = 'asc';
     }
-    else
-    {
-      $sortColumn = 'id';
-      $sortOrder = 'desc';
-    }
+    // else
+    // {
+    //   $sortColumn = 'id';
+    //   $sortOrder = 'desc';
+    // }
 
     if ($pager)
     {
@@ -83,12 +83,12 @@ class SectionManager
 
     $this->Section->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($section) use (&$rows) {
 
-      $id = strval($section->id);
-      unset($section->id);
+      // $id = strval($section->id);
+      // unset($section->id);
 
       array_push($rows, [
         'type' => $this->responseType,
-        'id' => $id,
+        // 'id' => $id,
         'attributes' => $section
       ]);
     });
