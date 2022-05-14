@@ -59,15 +59,20 @@ class CurriculumSubjectManager
     $this->responseType = 'curriculum_subjects';
   }
 
-  public function getTableRowsWithPagination($request, $pager = true, $returnJson = true)
+  public function getTableRowsWithPagination($request, $pager = true)
   {
     $rows = [];
     $limit = $offset = $count = $page = $totalPages = 0;
-    $filter = $sortColumn = $sortOrder = '';
+    $filter = $sortColumn = $sortOrder = $customQuery = '';
 
     if (!empty($request['filter']))
     {
       $filter = $request['filter'];
+    }
+
+    if (!empty($request['query']))
+    {
+      $customQuery = json_decode($request['query'], true)['query'];
     }
 
     if (!empty($request['sort']) && $request['sort'][0] == '-')
@@ -88,11 +93,11 @@ class CurriculumSubjectManager
 
     if ($pager)
     {
-      $count = $this->CurriculumSubject->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      $count = $this->CurriculumSubject->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery);
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->CurriculumSubject->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($curriculumSubject) use (&$rows) {
+    $this->CurriculumSubject->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery)->each(function ($curriculumSubject) use (&$rows) {
 
       $curriculumSubject->prerequisites = $this->PrerequisiteManager->getPrerequisiteByCurriculumSubjectId($curriculumSubject->id);
       $id = strval($curriculumSubject->id);

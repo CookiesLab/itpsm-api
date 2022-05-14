@@ -45,7 +45,7 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
    *
    * @return Illuminate\Database\Eloquent\Collection
    */
-  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
+  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null, $customQuery = null)
   {
     $query = $this->DB::table('curriculum_subjects AS cs')
       ->select(
@@ -57,12 +57,37 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
       )
       ->join('subjects as s', 'cs.subject_id', '=', 's.id');
 
+    if (!empty($customQuery)) {
+      $query->whereNested(function ($dbQuery) use ($customQuery) {
+        foreach ($customQuery as $statement) {
+
+          if($statement['op'] == 'is not in')
+          {
+            $dbQuery->whereNotIn($statement['field'], explode(',',$statement['data']));
+            continue;
+          }
+
+          if($statement['op'] == 'is null')
+          {
+            $dbQuery->whereNull($statement['field']);
+            continue;
+          }
+
+          if($statement['op'] == 'is not null')
+          {
+            $dbQuery->whereNotNull($statement['field']);
+            continue;
+          }
+
+          $dbQuery->where($statement['field'], $statement['op'], $statement['data']);
+        }
+      });
+    }
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['name', 'email'] as $key => $value) {
+        foreach (['s.name', 's.code'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
-          //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
         }
       });
     }
