@@ -42,9 +42,7 @@ class StudentController extends Controller
    *    path="/api/students",
    *    operationId="getStudents",
    *    tags={"Students"},
-   *  security={
-   *  {"passport": {}},
-   *   },
+   * security={{"bearer_token":{}}},
    *    summary="Get list of students",
    *    description="Returns list of students",
    * 
