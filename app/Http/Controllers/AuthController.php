@@ -64,7 +64,7 @@ class AuthController extends Controller
    *    ),
    *    @OA\Response(
    *      response=404,
-   *      description="not found"
+   *      description="Not Found"
    *    ),
    *    @OA\Response(
    *      response=403,

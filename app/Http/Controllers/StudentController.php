@@ -37,6 +37,42 @@ class StudentController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+  /** 
+   *  @OA\Get(
+   *    path="/api/students",
+   *    operationId="getStudents",
+   *    tags={"Students"},
+   *  security={
+   *  {"passport": {}},
+   *   },
+   *    summary="Get list of students",
+   *    description="Returns list of students",
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->StudentManagerService->getTableRowsWithPagination(request()->all());
