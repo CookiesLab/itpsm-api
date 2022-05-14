@@ -15,6 +15,7 @@ use App\Http\Controllers\StudentCurriculaController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\EvaluationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,8 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('sections', SectionController::class);
 
     Route::apiResource('enrollments', EnrollmentController::class);
+
+    Route::apiResource('evaluations', EvaluationController::class);
 
     Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');
 });
