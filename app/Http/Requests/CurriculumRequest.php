@@ -26,7 +26,7 @@ class CurriculumRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'year' => 'required|integer',
-            'is_active' => 'required|boolean'
+            'is_active' => 'required|boolean',
             'career_id' => 'required',
             'is_approved' => 'required|boolean',
         ];
@@ -38,7 +38,7 @@ class CurriculumRequest extends FormRequest
       'name.required' => 'El campo nombre es obligatorio',
       'year.required' => 'El campo año es obligatorio',
       'is_active.required' => 'El campo is_active es obligatorio',
-      'career_id.required' => 'El campo career_id es obligatorio'
+      'career_id.required' => 'El campo career_id es obligatorio',
       'is_approved.required' => 'El campo is_approved es obligatorio'
     ];
   }
