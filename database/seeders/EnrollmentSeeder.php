@@ -50,19 +50,19 @@ class EnrollmentSeeder extends Seeder
             'name' => 'Parcial 1',
             'description' => 'Parcial 1',
             'date' => '2022-02-02',
-            'porcentaje' => 20.5,
+            'percentage' => 20.5,
         ],
         [
             'name' => 'Parcial 2',
             'description' => 'Parcial 2',
             'date' => '2022-02-02',
-            'porcentaje' => 50,
+            'percentage' => 50,
         ],
         [
             'name' => 'Parcial 3',
             'description' => 'Parcial 3',
             'date' => '2022-02-05',
-            'porcentaje' => 30,
+            'percentage' => 30,
         ],
     ];
 
@@ -116,7 +116,7 @@ class EnrollmentSeeder extends Seeder
               'name' => $evaluation['name'],
               'description' => $evaluation['description'],
               'date' => $evaluation['date'],
-              'porcentaje' => $evaluation['porcentaje'],
+              'percentage' => $evaluation['percentage'],
               'section_id' => Section::all()->random()->code,
             ]);
         }

@@ -49,7 +49,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->text('description')->nullable();
             $table->date('date');
-            $table->float('porcentaje');
+            $table->float('percentage');
 
             $table->unsignedBigInteger('section_id')->index();
             $table->foreign('section_id')->references('code')->on('sections');
