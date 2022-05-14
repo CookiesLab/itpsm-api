@@ -99,13 +99,9 @@ class StudentCurriculaController extends Controller
       ], 404);
     }
 
-    $id = strval($studentCurricula->id);
-    unset($studentCurricula->id);
-
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-        'id' => $id,
         'attributes' => $studentCurricula
       ],
       'jsonapi' => [

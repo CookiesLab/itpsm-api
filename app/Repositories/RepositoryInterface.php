@@ -13,15 +13,15 @@ use Illuminate\Database\Eloquent\Model;
 
 interface RepositoryInterface {
 
-    /**
-     * Retrieve list of user
-    *
-    *
-    * @return Illuminate\Database\Eloquent\Collection
-    */
-    public function searchTableRowsWithPagination();
+  /**
+   * Retrieve list of user
+  *
+  *
+  * @return Illuminate\Database\Eloquent\Collection
+  */
+  public function searchTableRowsWithPagination();
 
-    /**
+  /**
 	* Get an user by id
 	*
 	* @param  int $id

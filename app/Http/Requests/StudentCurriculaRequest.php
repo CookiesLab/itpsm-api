@@ -26,8 +26,6 @@ class StudentCurriculaRequest extends FormRequest
         return [
             'cum' => 'required|numeric',
             'entry_year' => 'required|integer',
-            'student_id' => 'required',
-            'curriculum_id' => 'required',
         ];
     }
 
@@ -36,8 +34,6 @@ class StudentCurriculaRequest extends FormRequest
       return [
           'cum.required' => 'El campo cum es obligatorio',
           'entry_year.required' => 'El campo entry_year es obligatorio',
-          'student_id.required' => 'El campo student_id es obligatorio',
-          'curriculum_id.required' => 'El campo curriculum_id es obligatorio',
       ];
     }
 }

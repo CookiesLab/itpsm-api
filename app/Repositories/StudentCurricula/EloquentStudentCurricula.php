@@ -108,7 +108,12 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
    */
   public function byId($id)
   {
-    return $this->StudentCurriculum->find($id);
+    $ids = get_keys_data($id);
+
+    return $this->StudentCurriculum
+      ->where('student_id', intval($ids[0]))
+      ->where('curriculum_id', intval($ids[1]))
+      ->first();
   }
 
   /**

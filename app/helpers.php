@@ -65,3 +65,20 @@ if (!function_exists('encode_requested_data')) {
     }
   }
 }
+
+if (!function_exists('get_keys_data')) {
+  /**
+   * Enconde requested data
+   *
+   * @param  array $input
+   * @param  integer $count total number of records
+   * @param  integer $limit number of rows to be shown into the grid
+   * @param  integer $offset start position
+   *
+   * @return array
+   */
+  function get_keys_data($ids)
+  {
+    return explode('_', $ids);
+  }
+}

@@ -23,4 +23,13 @@ class StudentCurriculum extends Model
       'graduation_year',
       'scholarship_rate',
     ];
+
+    protected function setKeysForSaveQuery($query)
+    {
+      $query
+          ->where('student_id', '=', $this->getAttribute('student_id'))
+          ->where('curriculum_id', '=', $this->getAttribute('curriculum_id'));
+
+      return $query;
+    }
 }
