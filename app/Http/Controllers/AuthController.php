@@ -23,6 +23,55 @@ class AuthController extends Controller
     $this->AuthenticationManagerService = $AuthenticationManagerService;
   }
 
+  /**
+   *  @OA\Post(
+   *    path="/api/login",
+   *    operationId="Login",
+   *    tags={"Login"},
+   *    summary="User Login",
+   *    description="User Login here",
+   * 
+   *    @OA\Parameter(
+   *      name="email",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *    @OA\Parameter(
+   *      name="password",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated"
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden"
+   *    ) 
+   * )
+   */
   public function login(LoginRequest $request)
   {
     $credentials = request(['email', 'password']);

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StudentRequest;
+use App\Http\Requests\ScoreEvaluationRequest;
 use Illuminate\Http\Request;
-use App\Services\Student\StudentManager;
+use App\Services\ScoreEvaluation\ScoreEvaluationManager;
 
-class StudentController extends Controller
+class ScoreEvaluationController extends Controller
 {
   /**
-   * Student Manager Service
+   * ScoreEvaluation Manager Service
    *
-   * @var App\Services\StudentManager\StudentManagementInterface;
+   * @var App\Services\ScoreEvaluationManager\ScoreEvaluationManagementInterface;
    *
    */
-  protected $StudentManagerService;
+  protected $ScoreEvaluationManagerService;
 
   /**
    * responseType
@@ -25,10 +25,10 @@ class StudentController extends Controller
   protected $responseType;
 
   public function __construct(
-    StudentManager $StudentManagerService
+    ScoreEvaluationManager $ScoreEvaluationManagerService
   ) {
-    $this->StudentManagerService = $StudentManagerService;
-    $this->responseType = 'students';
+    $this->ScoreEvaluationManagerService = $ScoreEvaluationManagerService;
+    $this->responseType = 'scoreEvaluations';
   }
 
 
@@ -37,45 +37,9 @@ class StudentController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  /** 
-   *  @OA\Get(
-   *    path="/api/students",
-   *    operationId="getStudents",
-   *    tags={"Students"},
-   *  security={
-   *  {"passport": {}},
-   *   },
-   *    summary="Get list of students",
-   *    description="Returns list of students",
-   * 
-   *    @OA\Response(
-   *      response=200,
-   *      description="Success",
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *      )
-   *    ),
-   *    @OA\Response(
-   *      response=401,
-   *      description="Unauthenticated",
-   *    ),
-   *    @OA\Response(
-   *      response=403,
-   *      description="Forbidden",
-   *    ),
-   *    @OA\Response(
-   *      response=400,
-   *      description="Bad Request"
-   *    ),
-   *    @OA\Response(
-   *      response=404,
-   *      description="Not Found"
-   *    )
-   *  )
-  */
   public function index()
   {
-    $response = $this->StudentManagerService->getTableRowsWithPagination(request()->all());
+    $response = $this->ScoreEvaluationManagerService->getTableRowsWithPagination(request()->all());
 
     return response()->json([
       'meta' => [
@@ -96,15 +60,15 @@ class StudentController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(StudentRequest $request)
+  public function store(ScoreEvaluationRequest $request)
   {
-    $response = $this->StudentManagerService->create($request);
+    $response = $this->ScoreEvaluationManagerService->create($request);
 
     return response()->json([
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['student']
+        'attributes' => $response['scoreEvaluation']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -115,19 +79,19 @@ class StudentController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Models\Student  $Student
+   * @param  \App\Models\ScoreEvaluation  $ScoreEvaluation
    * @return \Illuminate\Http\Response
    */
   public function show($id)
   {
-    $student = $this->StudentManagerService->getStudent($id);
+    $scoreEvaluation = $this->ScoreEvaluationManagerService->getScoreEvaluation($id);
 
-    if (empty($student)) {
+    if (empty($scoreEvaluation)) {
       return response()->json([
         'errors' => [
           'status' => '401',
           'title' => __('base.failure'),
-          'detail' => __('base.StudentNotFound')
+          'detail' => __('base.ScoreEvaluationNotFound')
         ],
         'jsonapi' => [
           'version' => "1.00"
@@ -135,14 +99,14 @@ class StudentController extends Controller
       ], 404);
     }
 
-    $id = strval($student->id);
-    unset($student->id);
+    $id = strval($scoreEvaluation->id);
+    unset($scoreEvaluation->id);
 
     return response()->json([
       'data' => [
         'type' => $this->responseType,
         'id' => $id,
-        'attributes' => $student
+        'attributes' => $scoreEvaluation
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -154,12 +118,12 @@ class StudentController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request $request
-   * @param  \App\Models\Student  $Student
+   * @param  \App\Models\ScoreEvaluation  $ScoreEvaluation
    * @return \Illuminate\Http\Response
    */
-  public function update(StudentRequest $request, $data)
+  public function update(ScoreEvaluationRequest $request, $data)
   {
-    $response = $this->StudentManagerService->update($request, $data);
+    $response = $this->ScoreEvaluationManagerService->update($request, $data);
 
     if (!$response['success']) {
       return response()->json([
@@ -178,7 +142,7 @@ class StudentController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['student']
+        'attributes' => $response['scoreEvaluation']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -189,12 +153,12 @@ class StudentController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Models\Student  $Student
+   * @param  \App\Models\ScoreEvaluation  $ScoreEvaluation
    * @return \Illuminate\Http\Response
    */
   public function destroy($request)
   {
-    $response = $this->StudentManagerService->delete($request);
+    $response = $this->ScoreEvaluationManagerService->delete($request);
 
     if (!$response) {
       return response()->json([
@@ -218,11 +182,5 @@ class StudentController extends Controller
         'version' => "1.00"
       ]
     ], 200);
-  }
-
-  public function createDefaultPdf(Request $request)
-  {
-    $studentId = $request->input('id');
-    return $this->StudentManagerService->createDefaultPdf($studentId);
   }
 }
