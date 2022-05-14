@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerSectionManagement();
     $this->registerEnrollmentManagement();
     $this->registerEvaluationManagement();
-    $this-registerScoreEvaluationManagement();
+    $this->registerScoreEvaluationManagement();
   }
 
   /**
