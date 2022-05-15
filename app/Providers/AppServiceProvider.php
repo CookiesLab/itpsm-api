@@ -46,6 +46,9 @@ class AppServiceProvider extends ServiceProvider
     $this->registerEnrollmentInterface();
     $this->registerEvaluationInterface();
     $this->registerScoreEvaluationInterface();
+    $this->registerCountryInterface();
+    $this->registerDepartmentInterface();
+    $this->registerMunicipalityInterface();
 
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
@@ -62,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerEnrollmentManagement();
     $this->registerEvaluationManagement();
     $this->registerScoreEvaluationManagement();
+    $this->registerInitialConfigManagement();
   }
 
   /**
@@ -524,6 +528,71 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\ScoreEvaluation\ScoreEvaluationManager', function ($app) {
       return new \App\Services\ScoreEvaluation\ScoreEvaluationManager(
         $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
+        new Carbon()
+      );
+    });
+  }
+
+  /**
+   * Register a Country interface instance.
+   *
+   * @return void
+   */
+  protected function registerCountryInterface()
+  {
+    $this->app->bind('App\Repositories\Country\CountryInterface', function ($app) {
+      return new \App\Repositories\Country\EloquentCountry(
+        new \App\Models\Country(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+  /**
+   * Register a Department interface instance.
+   *
+   * @return void
+   */
+  protected function registerDepartmentInterface()
+  {
+    $this->app->bind('App\Repositories\Department\DepartmentInterface', function ($app) {
+      return new \App\Repositories\Department\EloquentDepartment(
+        new \App\Models\Department(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+  /**
+   * Register a Municipality interface instance.
+   *
+   * @return void
+   */
+  protected function registerMunicipalityInterface()
+  {
+    $this->app->bind('App\Repositories\Municipality\MunicipalityInterface', function ($app) {
+      return new \App\Repositories\Municipality\EloquentMunicipality(
+        new \App\Models\Municipality(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
+
+  /**
+   * Register a InitialConfig interface instance.
+   *
+   * @return void
+   */
+  protected function registerInitialConfigManagement()
+  {
+    $this->app->bind('App\Services\InitialConfig\InitialConfigManager', function ($app) {
+      return new \App\Services\InitialConfig\InitialConfigManager(
+        $app->make('App\Repositories\Country\CountryInterface'),
+        $app->make('App\Repositories\Department\DepartmentInterface'),
+        $app->make('App\Repositories\Municipality\MunicipalityInterface'),
+        $app->make('App\Services\Career\CareerManager'),
+        $app->make('App\Services\Subject\SubjectManager'),
         new Carbon()
       );
     });

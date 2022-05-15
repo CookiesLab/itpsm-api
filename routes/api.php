@@ -17,6 +17,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ScoreEvaluationController;
+use App\Http\Controllers\InitialConfigController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +69,6 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('score-evaluations', ScoreEvaluationController::class);
 
     Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');
+
+    Route::get('initial-config', [InitialConfigController::class, 'getInitialConfig'])->name('initial.config');
 });
