@@ -38,15 +38,10 @@ class InitialConfigController extends Controller
    */
   public function getInitialConfig()
   {
-    $response = $this->InitialConfigManagerService->getInitialConfig(request()->all());
+    $data = $this->InitialConfigManagerService->getInitialConfig(request()->all());
 
     return response()->json([
-      'meta' => [
-        'page' => $response['page'],
-        'totalPages' => $response['totalPages'],
-        'records' => $response['records'],
-      ],
-      'data' => $response['rows'],
+      'data' => $data,
       'jsonapi' => [
         'version' => "1.00"
       ]

@@ -92,10 +92,9 @@ class InitialConfigManager
 
   public function getInitialConfig($request)
   {
-
     return [
-      'careers' => $this->CareerManager->getTableRowsWithPagination($request, false),
-      'subjects' => $this->SubjectManager->getTableRowsWithPagination($request, false)
+      'careers' => $this->CareerManager->getTableRowsWithPagination($request, false)['rows'],
+      'subjects' => $this->SubjectManager->getTableRowsWithPagination($request, false)['rows']
     ];
   }
 
