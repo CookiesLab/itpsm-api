@@ -476,6 +476,293 @@ class StudentController extends Controller
    * @param  \App\Models\Student  $Student
    * @return \Illuminate\Http\Response
    */
+    /** 
+   *  @OA\Put(
+   *    path="/api/students/{id}",
+   *    operationId="putStudents",
+   *    tags={"Students"},
+   * security={{"bearer_token":{}}},
+   *    summary="Update student",
+   *    description="Update student",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="carnet",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="last_name",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="email",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="birth_date",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        format="date"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="address",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="home_phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="gender",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength=1,
+   *        maxLength=1
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="relationship",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength=1,
+   *        maxLength=1
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="status",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength=1,
+   *        maxLength=1
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="blood_type",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="mother_name",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="mother_phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="father_name",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="father_phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string",
+   *        maxLength=15
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="emergency_contact_name",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="emergency_contact_phone",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string",
+   *        maxLength=15
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="diseases",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="allergies",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="medicines",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="entry_date",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string",
+   *        format="date"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="date_high_school_degree",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="municipality_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="department_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="country_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function update(StudentRequest $request, $data)
   {
     $response = $this->StudentManagerService->update($request, $data);
