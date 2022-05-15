@@ -179,6 +179,7 @@ return [
                 */
 
                 // Open API 3.0 support
+                /*
                 'passport' => [ // Unique name of security
                     'type' => 'apiKey', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
                     'description' => 'Laravel passport apiKey security.',
@@ -193,7 +194,7 @@ return [
                             "scopes" => []
                         ],
                     ],
-                ],
+                ],*/
                 'bearer_token' => [ // Unique name of security
                     'type' => 'apiKey', // Valid values are "basic", "apiKey" or "oauth2".
                     'description' => 'Enter token in format (Bearer <token>)',

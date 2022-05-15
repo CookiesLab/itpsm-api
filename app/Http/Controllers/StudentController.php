@@ -94,6 +94,284 @@ class StudentController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+  /** 
+   *  @OA\Post(
+   *    path="/api/students",
+   *    operationId="postStudents",
+   *    tags={"Students"},
+   * security={{"bearer_token":{}}},
+   *    summary="Create student",
+   *    description="Create student",
+   * 
+   *    @OA\Parameter(
+   *      name="carnet",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="last_name",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="email",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="birth_date",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        format="date"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="address",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="phone_number",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="home_phone_number",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="gender",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength=1,
+   *        maxLength=1
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="relationship",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength=1,
+   *        maxLength=1
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="status",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength=1,
+   *        maxLength=1
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="blood_type",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="mother_name",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="mother_phone_number",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="father_name",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="father_phone_number",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string",
+   *        maxLength=15
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="emergency_contact_name",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="emergency_contact_phone",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string",
+   *        maxLength=15
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="diseases",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="allergies",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="medicines",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="entry_date",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string",
+   *        format="date"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="date_high_school_degree",
+   *      in="path",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="municipality_id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="department_id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="country_id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function store(StudentRequest $request)
   {
     $response = $this->StudentManagerService->create($request);
@@ -116,6 +394,49 @@ class StudentController extends Controller
    * @param  \App\Models\Student  $Student
    * @return \Illuminate\Http\Response
    */
+  /** 
+   *  @OA\Get(
+   *    path="/api/students/{id}",
+   *    operationId="get student by id",
+   *    tags={"Students"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get student by id",
+   *    description="Returns student by id",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function show($id)
   {
     $student = $this->StudentManagerService->getStudent($id);
