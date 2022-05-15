@@ -103,9 +103,9 @@ class StudentController extends Controller
    *    summary="Create student",
    *    description="Create student",
    * 
-   *    @OA\Parameter(
+   * @OA\Parameter(
    *      name="carnet",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string"
@@ -114,7 +114,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="name",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string"
@@ -123,7 +123,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="last_name",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string"
@@ -132,7 +132,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="email",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string"
@@ -141,7 +141,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="birth_date",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string",
@@ -151,7 +151,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="address",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -160,7 +160,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="phone_number",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -169,7 +169,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="home_phone_number",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -178,7 +178,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="gender",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string",
@@ -189,7 +189,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="relationship",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string",
@@ -200,7 +200,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="status",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="string",
@@ -211,7 +211,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="blood_type",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -220,7 +220,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="mother_name",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -229,7 +229,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="mother_phone_number",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -238,7 +238,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="father_name",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -247,7 +247,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="father_phone_number",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string",
@@ -257,7 +257,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="emergency_contact_name",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -266,7 +266,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="emergency_contact_phone",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string",
@@ -276,7 +276,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="diseases",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -285,7 +285,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="allergies",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -294,7 +294,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="medicines",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string"
@@ -303,7 +303,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="entry_date",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="string",
@@ -313,7 +313,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="date_high_school_degree",
-   *      in="path",
+   *      in="formData",
    *      required=false,
    *      @OA\Schema(
    *        type="integer"
@@ -322,7 +322,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="municipality_id",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
@@ -331,7 +331,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="department_id",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
@@ -340,7 +340,7 @@ class StudentController extends Controller
    * 
    *    @OA\Parameter(
    *      name="country_id",
-   *      in="path",
+   *      in="formData",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
