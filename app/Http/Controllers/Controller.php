@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  *   version="1.0.0",
- *   title="Api doc test",
+ *   title="ITPSM API",
  * )
 */
 class Controller extends BaseController
