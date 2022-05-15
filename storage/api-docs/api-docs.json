@@ -97,7 +97,7 @@
                 "parameters": [
                     {
                         "name": "carnet",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -105,7 +105,7 @@
                     },
                     {
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -113,7 +113,7 @@
                     },
                     {
                         "name": "last_name",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -121,7 +121,7 @@
                     },
                     {
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -129,7 +129,7 @@
                     },
                     {
                         "name": "birth_date",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -138,7 +138,7 @@
                     },
                     {
                         "name": "address",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -146,7 +146,7 @@
                     },
                     {
                         "name": "phone_number",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -154,7 +154,7 @@
                     },
                     {
                         "name": "home_phone_number",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -162,7 +162,7 @@
                     },
                     {
                         "name": "gender",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -172,7 +172,7 @@
                     },
                     {
                         "name": "relationship",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -182,7 +182,7 @@
                     },
                     {
                         "name": "status",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -192,7 +192,7 @@
                     },
                     {
                         "name": "blood_type",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -200,7 +200,7 @@
                     },
                     {
                         "name": "mother_name",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -208,7 +208,7 @@
                     },
                     {
                         "name": "mother_phone_number",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -216,7 +216,7 @@
                     },
                     {
                         "name": "father_name",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -224,7 +224,7 @@
                     },
                     {
                         "name": "father_phone_number",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -233,7 +233,7 @@
                     },
                     {
                         "name": "emergency_contact_name",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -241,7 +241,7 @@
                     },
                     {
                         "name": "emergency_contact_phone",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -250,7 +250,7 @@
                     },
                     {
                         "name": "diseases",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -258,7 +258,7 @@
                     },
                     {
                         "name": "allergies",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -266,7 +266,7 @@
                     },
                     {
                         "name": "medicines",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -274,7 +274,7 @@
                     },
                     {
                         "name": "entry_date",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -283,7 +283,7 @@
                     },
                     {
                         "name": "date_high_school_degree",
-                        "in": "path",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "integer"
@@ -291,7 +291,7 @@
                     },
                     {
                         "name": "municipality_id",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -299,7 +299,7 @@
                     },
                     {
                         "name": "department_id",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -307,7 +307,7 @@
                     },
                     {
                         "name": "country_id",
-                        "in": "path",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "integer"
