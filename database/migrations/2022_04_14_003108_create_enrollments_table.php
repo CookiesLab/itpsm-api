@@ -97,6 +97,8 @@ return new class extends Migration
             $table->unsignedBigInteger('teacher_id')->index();
             $table->foreign('teacher_id')->references('id')->on('teachers');
 
+            $table->primary(['student_id', 'teacher_id', 'curriculum_subject_id', 'period_id', 'code']);
+
             $table->timestamps();
         });
     }

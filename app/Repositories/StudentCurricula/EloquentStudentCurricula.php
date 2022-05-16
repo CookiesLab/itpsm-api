@@ -165,6 +165,6 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
       $studentCurricula = $this->byId($id);
     }
 
-    return $studentCurricula->destroy($id);
+    return $studentCurricula->delete();
   }
 }

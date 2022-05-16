@@ -98,7 +98,15 @@ class EloquentEnrollment implements EnrollmentInterface
    */
   public function byId($id)
   {
-    return $this->Enrollment->find($id);
+    $ids = get_keys_data($id);
+
+    return $this->StudentCurriculum
+      ->where('student_id', intval($ids[0]))
+      ->where('teacher_id', intval($ids[1]))
+      ->where('curriculum_subject_id', intval($ids[2]))
+      ->where('period_id', intval($ids[3]))
+      ->where('code', intval($ids[4]))
+      ->first();
   }
 
   /**
@@ -144,8 +152,12 @@ class EloquentEnrollment implements EnrollmentInterface
    *
    * @return boolean
    */
-  public function delete($id)
+  public function delete($id, $enrollment = null)
   {
-    return $this->Enrollment->destroy($id);
+    if (empty($enrollment)) {
+      $enrollment = $this->byId($id);
+    }
+
+    return $enrollment->delete();
   }
 }

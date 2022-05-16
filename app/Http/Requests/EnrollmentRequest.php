@@ -26,12 +26,7 @@ class EnrollmentRequest extends FormRequest
         return [
             'final_score' => 'required|float',
             'is_approved' => 'required|boolean',
-            'enrollment' => 'required|integer',
-            'curriculum_subject_id' => 'required',
-            'period_id' => 'required',
-            'code' => 'required',
-            'student_id' => 'required',
-            'teacher_id' => 'required',
+            'enrollment' => 'required|integer'
         ];
     }
 
@@ -40,12 +35,7 @@ class EnrollmentRequest extends FormRequest
       return [
           'final_score.required' => 'El campo final_score es obligatorio',
           'is_approved.required' => 'El campo is_approved es obligatorio',
-          'enrollment.required' => 'El campo enrollment es obligatorio',
-          'curriculum_subject_id.required' => 'El campo curriculum_subject_id es obligatorio',
-          'period_id.required' => 'El campo period_id es obligatorio',
-          'code.required' => 'El campo code es obligatorio',
-          'student_id.required' => 'El campo student_id es obligatorio',
-          'teacher_id.required' => 'El campo teacher_id es obligatorio',
+          'enrollment.required' => 'El campo enrollment es obligatorio'
       ];
     }
 }

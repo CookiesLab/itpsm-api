@@ -157,6 +157,6 @@ class EloquentSection implements SectionInterface
       $section = $this->byId($id);
     }
 
-    return $section->destroy($id);
+    return $section->delete();
   }
 }
