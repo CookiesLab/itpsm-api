@@ -32,14 +32,17 @@ class EnrollmentSeeder extends Seeder
 
     private $sections = [
         [
+            'code' => 1,
             'quota' => 25,
             'schedule' => 'horario',
         ],
         [
+            'code' => 2,
             'quota' => 45,
             'schedule' => 'horario',
         ],
         [
+            'code' => 3,
             'quota' => 15,
             'schedule' => 'horario',
         ],
@@ -108,6 +111,7 @@ class EnrollmentSeeder extends Seeder
               'period_id' => Period::all()->random()->id,
               'quota' => $section['quota'],
               'schedule' => $section['schedule'],
+              'code' => $section['code'],
             ]);
         }
 
