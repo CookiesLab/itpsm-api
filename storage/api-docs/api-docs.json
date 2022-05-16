@@ -98,6 +98,7 @@
                     {
                         "name": "name",
                         "in": "query",
+                        "description": "Career name to create",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -143,6 +144,7 @@
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "Career id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -186,6 +188,7 @@
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "Career id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -237,6 +240,7 @@
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "Career id",
                         "required": true,
                         "schema": {
                             "type": "integer"

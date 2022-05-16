@@ -106,9 +106,10 @@ class CareerController extends Controller
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
+   *      description="Career name to create",
    *      required=true,
    *      @OA\Schema(
-   *        type="string"
+   *        type="string",
    *      )
    *    ),
    * 
@@ -117,7 +118,7 @@ class CareerController extends Controller
    *      description="Success",
    *      @OA\MediaType(
    *        mediaType="application/json",
-   *      )
+   *      ),
    *    ),
    *    @OA\Response(
    *      response=401,
@@ -171,6 +172,7 @@ class CareerController extends Controller
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
+   *      description="Career id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
@@ -254,6 +256,7 @@ class CareerController extends Controller
    *      name="id",
    *      in="path",
    *      required=true,
+   *      description="Career id",
    *      @OA\Schema(
    *        type="integer"
    *      )
@@ -340,6 +343,7 @@ class CareerController extends Controller
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
+   *      description="Career id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
