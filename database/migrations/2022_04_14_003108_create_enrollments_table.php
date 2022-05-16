@@ -40,6 +40,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('period_id')->index();
             $table->foreign('period_id')->references('id')->on('periods');
+
+            $table->primary(['curriculum_subject_id', 'period_id', 'code']);
             
             $table->timestamps();
         });

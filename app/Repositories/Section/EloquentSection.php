@@ -99,7 +99,13 @@ class EloquentSection implements SectionInterface
    */
   public function byId($id)
   {
-    return $this->Section->find($id);
+    $ids = get_keys_data($id);
+
+    return $this->StudentCurriculum
+      ->where('curriculum_subject_id', intval($ids[0]))
+      ->where('period_id', intval($ids[1]))
+      ->where('code', intval($ids[2]))
+      ->first();
   }
 
   /**
@@ -145,8 +151,12 @@ class EloquentSection implements SectionInterface
    *
    * @return boolean
    */
-  public function delete($id)
+  public function delete($id, $section = null)
   {
-    return $this->Section->destroy($id);
+    if (empty($section)) {
+      $section = $this->byId($id);
+    }
+
+    return $section->destroy($id);
   }
 }

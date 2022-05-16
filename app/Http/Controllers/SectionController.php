@@ -99,13 +99,9 @@ class SectionController extends Controller
       ], 404);
     }
 
-    $id = strval($section->id);
-    unset($section->id);
-
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-        'id' => $id,
         'attributes' => $section
       ],
       'jsonapi' => [

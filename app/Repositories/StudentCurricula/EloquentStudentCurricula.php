@@ -159,8 +159,12 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
    *
    * @return boolean
    */
-  public function delete($id)
+  public function delete($id, $studentCurricula = null)
   {
-    return $this->StudentCurriculum->destroy($id);
+    if (empty($studentCurricula)) {
+      $studentCurricula = $this->byId($id);
+    }
+
+    return $studentCurricula->destroy($id);
   }
 }
