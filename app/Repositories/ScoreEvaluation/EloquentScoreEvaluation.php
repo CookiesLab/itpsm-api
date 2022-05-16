@@ -93,7 +93,12 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
    */
   public function byId($id)
   {
-    return $this->ScoreEvaluation->find($id);
+    $ids = get_keys_data($id);
+
+    return $this->StudentCurriculum
+      ->where('student_id', intval($ids[0]))
+      ->where('evaluation_id', intval($ids[1]))
+      ->first();
   }
 
   /**
@@ -139,8 +144,12 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
    *
    * @return boolean
    */
-  public function delete($id)
+  public function delete($id, $scoreEvaluation = null)
   {
-    return $this->ScoreEvaluation->destroy($id);
+    if (empty($scoreEvaluation)) {
+      $scoreEvaluation = $this->byId($id);
+    }
+
+    return $scoreEvaluation->delete();
   }
 }

@@ -24,18 +24,14 @@ class EvaluationScoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id' => 'required',
-            'evaluation_id' => 'required',
-            'score' => 'required|float',
+            'score' => 'required|float'
         ];
     }
 
     public function messages()
     {
       return [
-          'student_id.required' => 'El campo student_id es obligatorio',
-          'evaluation_id.required' => 'El campo evaluation_id es obligatorio',
-          'score.required' => 'El campo score es obligatorio',
+          'score.required' => 'El campo score es obligatorio'
       ];
     }
 }

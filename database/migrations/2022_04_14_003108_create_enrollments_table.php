@@ -70,6 +70,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('evaluation_id')->index();
             $table->foreign('evaluation_id')->references('id')->on('evaluations');
+
+            $table->primary(['student_id', 'evaluation_id']);
             
             $table->timestamps();
         });

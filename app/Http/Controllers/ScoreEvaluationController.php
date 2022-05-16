@@ -99,13 +99,9 @@ class ScoreEvaluationController extends Controller
       ], 404);
     }
 
-    $id = strval($scoreEvaluation->id);
-    unset($scoreEvaluation->id);
-
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-        'id' => $id,
         'attributes' => $scoreEvaluation
       ],
       'jsonapi' => [
