@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('code');
             $table->integer('year');
-            
+
             $table->timestamps();
         });
 
@@ -25,7 +25,6 @@ return new class extends Migration
             /**
              * Check this field
              */
-            $table->id('code');
             $table->integer('quota');
             $table->string('schedule', 255);
 
@@ -35,14 +34,16 @@ return new class extends Migration
             /**
              * Fields with missing Primary Key
              */
+            $table->unsignedBigInteger('code')->index();
+
             $table->unsignedBigInteger('curriculum_subject_id')->index();
             $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
 
             $table->unsignedBigInteger('period_id')->index();
             $table->foreign('period_id')->references('id')->on('periods');
 
-            $table->primary(['curriculum_subject_id', 'period_id', 'code']);
-            
+            $table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
+
             $table->timestamps();
         });
 
@@ -55,7 +56,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('section_id')->index();
             $table->foreign('section_id')->references('code')->on('sections');
-            
+
             $table->timestamps();
         });
 
@@ -72,7 +73,7 @@ return new class extends Migration
             $table->foreign('evaluation_id')->references('id')->on('evaluations');
 
             $table->primary(['student_id', 'evaluation_id']);
-            
+
             $table->timestamps();
         });
 
@@ -89,7 +90,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('period_id')->index();
             $table->foreign('period_id')->references('id')->on('periods');
-            
+
             $table->unsignedBigInteger('code')->index();
             $table->foreign('code')->references('code')->on('sections');
 
@@ -99,7 +100,7 @@ return new class extends Migration
             $table->unsignedBigInteger('teacher_id')->index();
             $table->foreign('teacher_id')->references('id')->on('teachers');
 
-            $table->primary(['student_id', 'teacher_id', 'curriculum_subject_id', 'period_id', 'code']);
+            $table->primary(['student_id', 'teacher_id', 'curriculum_subject_id', 'period_id', 'code'], 'enrollment_primary');
 
             $table->timestamps();
         });
