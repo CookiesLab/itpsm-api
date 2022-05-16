@@ -94,8 +94,38 @@ class InitialConfigManager
   {
     return [
       'careers' => $this->CareerManager->getTableRowsWithPagination($request, false)['rows'],
-      'subjects' => $this->SubjectManager->getTableRowsWithPagination($request, false)['rows']
+      'subjects' => $this->SubjectManager->getTableRowsWithPagination($request, false)['rows'],
+      'countries' => $this->getCountryData(),
     ];
+  }
+
+  private function getCountryData()
+  {
+    $countries = $this->Country->searchTableRowsWithPagination();
+    $departments = $this->Department->searchTableRowsWithPagination();
+    $municipalities = $this->Municipality->searchTableRowsWithPagination();
+
+    $municipalitiesByDepartment = $municipalities->groupBy('department_id');
+    $departmentsByCountry = $departments->groupBy('country_id');
+
+    $countries->each(function ($country) use ($departmentsByCountry, $municipalitiesByDepartment) {
+      $country->departments = $this->getDepartmentByCountry($country->id, $departmentsByCountry, $municipalitiesByDepartment);
+    });
+
+    return $countries;
+  }
+
+  private function getDepartmentByCountry($countryId, $departments, $municipalities)
+  {
+    return $departments[$countryId]->map(function ($department) use ($municipalities) {
+      $department->municipalities = $this->getMunicipalitiesByDepartment($department->id, $municipalities);
+      return $department;
+    });
+  }
+
+  private function getMunicipalitiesByDepartment($departmentId, $municipalities)
+  {
+    return $municipalities[$departmentId];
   }
 
 }
