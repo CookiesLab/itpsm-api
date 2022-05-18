@@ -49,8 +49,8 @@ class EloquentMunicipality implements MunicipalityInterface
   {
     $query = $this->DB::table('municipalities AS m')
       ->select(
-        'm.id',
-        'm.name',
+        'm.id AS value',
+        'm.name AS label',
         'm.country_id',
         'm.department_id'
       );

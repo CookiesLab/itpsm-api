@@ -49,8 +49,8 @@ class EloquentCountry implements CountryInterface
   {
     $query = $this->DB::table('countries AS c')
       ->select(
-        'c.id',
-        'c.name'
+        'c.id as value',
+        'c.name as label'
       );
 
 

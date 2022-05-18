@@ -49,8 +49,8 @@ class EloquentDepartment implements DepartmentInterface
   {
     $query = $this->DB::table('departments AS d')
       ->select(
-        'd.id',
-        'd.name',
+        'd.id AS value',
+        'd.name AS label',
         'd.country_id'
       );
 
