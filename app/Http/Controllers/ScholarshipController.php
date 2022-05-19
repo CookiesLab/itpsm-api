@@ -37,6 +37,40 @@ class ScholarshipController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+     /** 
+   *  @OA\Get(
+   *    path="/api/scholarships",
+   *    operationId="getScholarships",
+   *    tags={"Scholarships"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get scholarship list",
+   *    description="Returns scholarship list",
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->ScholarshipManagerService->getTableRowsWithPagination(request()->all());
@@ -60,6 +94,61 @@ class ScholarshipController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+     /** 
+   *  @OA\Post(
+   *    path="/api/scholarships",
+   *    operationId="postScholarship",
+   *    tags={"Scholarships"},
+   * security={{"bearer_token":{}}},
+   *    summary="Create Scholarship",
+   *    description="Create Scholarship",
+   * 
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="query",
+   *      description="Scholarship name",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="scholarship_foundation",
+   *      in="query",
+   *      description="Scholarship foundation",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),
+   * 
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      ),
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function store(ScholarshipRequest $request)
   {
     $response = $this->ScholarshipManagerService->create($request);
@@ -82,6 +171,50 @@ class ScholarshipController extends Controller
    * @param  \App\Models\Scholarship  $Scholarship
    * @return \Illuminate\Http\Response
    */
+    /** 
+   *  @OA\Get(
+   *    path="/api/scholarships/{id}",
+   *    operationId="get scholarship by id",
+   *    tags={"Scholarships"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get scholarship by id",
+   *    description="Returns scholarship by id",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="Scholarship id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function show($id)
   {
     $scholarship = $this->ScholarshipManagerService->getScholarship($id);
@@ -121,6 +254,70 @@ class ScholarshipController extends Controller
    * @param  \App\Models\Scholarship  $Scholarship
    * @return \Illuminate\Http\Response
    */
+      /** 
+   *  @OA\Put(
+   *    path="/api/scholarhips/{id}",
+   *    operationId="putScholarship",
+   *    tags={"Scholarships"},
+   * security={{"bearer_token":{}}},
+   *    summary="Update Scholarship",
+   *    description="Update Scholarship",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      description="Scholarship id",
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="query",
+   *      required=true,
+   *      description="Scholarship name",
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="scholarship_foundation",
+   *      in="query",
+   *      description="Scholarship foundation",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function update(ScholarshipRequest $request, $data)
   {
     $response = $this->ScholarshipManagerService->update($request, $data);
@@ -156,6 +353,50 @@ class ScholarshipController extends Controller
    * @param  \App\Models\Scholarship  $Scholarship
    * @return \Illuminate\Http\Response
    */
+    /** 
+   *  @OA\Delete(
+   *    path="/api/scholarships/{id}",
+   *    operationId="delete scholarships by id",
+   *    tags={"Scholarships"},
+   * security={{"bearer_token":{}}},
+   *    summary="Delete scholarship by id",
+   *    description="Deletes scholarship by id",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="Scholarship id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function destroy($request)
   {
     $response = $this->ScholarshipManagerService->delete($request);
