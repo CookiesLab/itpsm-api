@@ -37,6 +37,40 @@ class SubjectController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+     /** 
+   *  @OA\Get(
+   *    path="/api/subjects",
+   *    operationId="getSubjects",
+   *    tags={"Subjects"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get subjects list",
+   *    description="Returns subjects list",
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->SubjectManagerService->getTableRowsWithPagination(request()->all());
@@ -60,6 +94,60 @@ class SubjectController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+     /** 
+   *  @OA\Post(
+   *    path="/api/subjects",
+   *    operationId="postSubjects",
+   *    tags={"Subjects"},
+   * security={{"bearer_token":{}}},
+   *    summary="Create subjects",
+   *    description="Create subjects",
+   * 
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="query",
+   *      description="Subject name",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="code",
+   *      in="query",
+   *      description="Subject code",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      ),
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function store(SubjectRequest $request)
   {
     $response = $this->SubjectManagerService->create($request);
@@ -82,6 +170,50 @@ class SubjectController extends Controller
    * @param  \App\Models\Subject  $Subject
    * @return \Illuminate\Http\Response
    */
+    /** 
+   *  @OA\Get(
+   *    path="/api/subjects/{id}",
+   *    operationId="get subjects by id",
+   *    tags={"Subjects"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get subject by id",
+   *    description="Returns subject by id",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="Subject id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function show($id)
   {
     $subject = $this->SubjectManagerService->getSubject($id);
@@ -121,6 +253,70 @@ class SubjectController extends Controller
    * @param  \App\Models\Subject  $Subject
    * @return \Illuminate\Http\Response
    */
+        /** 
+   *  @OA\Put(
+   *    path="/api/subjects/{id}",
+   *    operationId="putSubjects",
+   *    tags={"Subjects"},
+   * security={{"bearer_token":{}}},
+   *    summary="Update subject",
+   *    description="Update subject",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      description="Subject id",
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="query",
+   *      description="Subject name",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="code",
+   *      in="query",
+   *      description="Subject code",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function update(SubjectRequest $request, $data)
   {
     $response = $this->SubjectManagerService->update($request, $data);
@@ -156,6 +352,50 @@ class SubjectController extends Controller
    * @param  \App\Models\Subject  $Subject
    * @return \Illuminate\Http\Response
    */
+    /** 
+   *  @OA\Delete(
+   *    path="/api/subjects/{id}",
+   *    operationId="delete subject by id",
+   *    tags={"Subjects"},
+   * security={{"bearer_token":{}}},
+   *    summary="Delete subject by id",
+   *    description="Deletes subject by id",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="Subject id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function destroy($request)
   {
     $response = $this->SubjectManagerService->delete($request);
