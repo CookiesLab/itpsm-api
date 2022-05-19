@@ -109,7 +109,7 @@ class InitialConfigManager
     $departmentsByCountry = $departments->groupBy('country_id');
 
     $countries->each(function ($country) use ($departmentsByCountry, $municipalitiesByDepartment) {
-      $country->departments = $this->getDepartmentByCountry($country->id, $departmentsByCountry, $municipalitiesByDepartment);
+      $country->departments = $this->getDepartmentByCountry($country->value, $departmentsByCountry, $municipalitiesByDepartment);
     });
 
     return $countries;
@@ -118,7 +118,7 @@ class InitialConfigManager
   private function getDepartmentByCountry($countryId, $departments, $municipalities)
   {
     return $departments[$countryId]->map(function ($department) use ($municipalities) {
-      $department->municipalities = $this->getMunicipalitiesByDepartment($department->id, $municipalities);
+      $department->municipalities = $this->getMunicipalitiesByDepartment($department->value, $municipalities);
       return $department;
     });
   }
