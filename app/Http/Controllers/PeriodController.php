@@ -37,6 +37,40 @@ class PeriodController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+     /** 
+   *  @OA\Get(
+   *    path="/api/periods",
+   *    operationId="getPeriods",
+   *    tags={"Periods"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get periods list",
+   *    description="Returns periods list",
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->PeriodManagerService->getTableRowsWithPagination(request()->all());
@@ -60,6 +94,60 @@ class PeriodController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+     /** 
+   *  @OA\Post(
+   *    path="/api/periods",
+   *    operationId="postPeriods",
+   *    tags={"Periods"},
+   * security={{"bearer_token":{}}},
+   *    summary="Create period",
+   *    description="Create period",
+   * 
+   *    @OA\Parameter(
+   *      name="code",
+   *      in="query",
+   *      description="Period name to create",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="year",
+   *      in="query",
+   *      description="Period year",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      ),
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function store(PeriodRequest $request)
   {
     $response = $this->PeriodManagerService->create($request);
@@ -82,6 +170,50 @@ class PeriodController extends Controller
    * @param  \App\Models\Period  $Period
    * @return \Illuminate\Http\Response
    */
+    /** 
+   *  @OA\Get(
+   *    path="/api/periods/{id}",
+   *    operationId="get period by id",
+   *    tags={"Periods"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get period by id",
+   *    description="Returns period by id",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="Period id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function show($id)
   {
     $period = $this->PeriodManagerService->getPeriod($id);
@@ -121,6 +253,70 @@ class PeriodController extends Controller
    * @param  \App\Models\Period  $Period
    * @return \Illuminate\Http\Response
    */
+      /** 
+   *  @OA\Put(
+   *    path="/api/periods/{id}",
+   *    operationId="putPeriod",
+   *    tags={"Periods"},
+   * security={{"bearer_token":{}}},
+   *    summary="Update period",
+   *    description="Update period",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      description="Period id",
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="code",
+   *      in="query",
+   *      description="Period code",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="year",
+   *      in="query",
+   *      description="Period year",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function update(PeriodRequest $request, $data)
   {
     $response = $this->PeriodManagerService->update($request, $data);
@@ -156,6 +352,50 @@ class PeriodController extends Controller
    * @param  \App\Models\Period  $Period
    * @return \Illuminate\Http\Response
    */
+    /** 
+   *  @OA\Delete(
+   *    path="/api/periods/{id}",
+   *    operationId="delete period by id",
+   *    tags={"Periods"},
+   * security={{"bearer_token":{}}},
+   *    summary="Delete period by id",
+   *    description="Deletes period by id",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="Period id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function destroy($request)
   {
     $response = $this->PeriodManagerService->delete($request);
