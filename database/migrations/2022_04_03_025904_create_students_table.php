@@ -40,6 +40,7 @@ return new class extends Migration
       $table->unsignedBigInteger('entry_date')->nullable();
       $table->integer('entry_period')->nullable();
       $table->integer('date_high_school_degree')->nullable();
+      $table->boolean('is_user_created')->default(0);
 
       $table->unsignedBigInteger('municipality_id')->index();
       $table->foreign('municipality_id')->references('id')->on('municipalities');

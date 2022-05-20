@@ -888,4 +888,9 @@ class StudentController extends Controller
     $studentId = $request->input('id');
     return $this->StudentManagerService->createDefaultPdf($studentId);
   }
+
+  public function generateSystemUsers(Request $request)
+  {
+    return $this->StudentManagerService->generateSystemUsers();
+  }
 }

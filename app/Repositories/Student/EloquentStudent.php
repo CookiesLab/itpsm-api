@@ -190,4 +190,17 @@ class EloquentStudent implements StudentInterface
   {
     return $this->Student->where('entry_date', $entryYear)->count() + 1;
   }
+
+  /**
+   * Get next carnet
+   *
+   * @param integer $id
+   * 	An Student id
+   *
+   * @return boolean
+   */
+  public function getWithoutUser()
+  {
+    return $this->Student->where('is_user_created', 0)->get();
+  }
 }

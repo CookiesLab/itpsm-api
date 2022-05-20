@@ -20,6 +20,7 @@ class Student extends Model
         'name',
         'last_name',
         'email',
+        'institutional_email',
         'birth_date',
         'address',
         'phone_number',
@@ -37,10 +38,12 @@ class Student extends Model
         'diseases',
         'allergies',
         'entry_date',
+        'entry_period',
         'date_high_school_degree',
         'municipality_id',
         'department_id',
         'country_id',
-        'status_id'
+        'status_id',
+        'is_user_created',
     ];
 }

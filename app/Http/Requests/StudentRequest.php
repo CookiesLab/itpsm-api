@@ -28,6 +28,7 @@ class StudentRequest extends FormRequest
       'last_name' => 'required|string|max:255',
       'email' => 'required|string|email',
       'gender' => 'required',
+      'birth_date' => 'required',
       'relationship' => 'required',
       'status' => 'required',
       'municipality_id' => 'required',

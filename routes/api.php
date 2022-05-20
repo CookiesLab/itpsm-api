@@ -70,5 +70,7 @@ Route::middleware('auth:api')->group(function() {
 
     Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');
 
+    Route::post('students/generate-system-users', [StudentController::class, 'generateSystemUsers'])->name('students.generate-system-users');
+
     Route::get('initial-config', [InitialConfigController::class, 'getInitialConfig'])->name('initial.config');
 });

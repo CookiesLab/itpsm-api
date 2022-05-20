@@ -127,6 +127,20 @@ class StudentManager
       ->download('estudiante.pdf');
   }
 
+  public function generateSystemUsers() {
+
+    $students = $this->Student->getWithoutUser();
+
+    $data = [
+
+    ];
+
+    return $this->Dompdf
+      ->loadView('system-users-data-pdf', $data)
+      ->setPaper('letter')
+      ->download('estudiante.pdf');
+  }
+
   public function create($request)
   {
     try {
