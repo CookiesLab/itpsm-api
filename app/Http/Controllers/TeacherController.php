@@ -37,6 +37,40 @@ class TeacherController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+  /**
+   *  @OA\Get(
+   *    path="/api/teachers",
+   *    operationId="getTeachers",
+   *    tags={"Teachers"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get list of teachers",
+   *    description="Returns list of teachers",
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->TeacherManagerService->getTableRowsWithPagination(request()->all());
@@ -60,6 +94,187 @@ class TeacherController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+    /**
+   *  @OA\Post(
+   *    path="/api/teachers",
+   *    operationId="postTeachers",
+   *    tags={"Teachers"},
+   * security={{"bearer_token":{}}},
+   *    summary="Create teachers",
+   *    description="Create teachers",
+   *
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="last_name",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="birth_date",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        format="date"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="nit",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="dui",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="isss_number",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="nup_number",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="email",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="genre",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength= 1,
+   *        maxLength= 1
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="address",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="home_phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="municipality_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="department_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="country_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="status_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function store(TeacherRequest $request)
   {
     $response = $this->TeacherManagerService->create($request);
@@ -82,6 +297,49 @@ class TeacherController extends Controller
    * @param  \App\Models\Teacher  $Teacher
    * @return \Illuminate\Http\Response
    */
+   /**
+   *  @OA\Get(
+   *    path="/api/teachers/{id}",
+   *    operationId="get teacher by id",
+   *    tags={"Teachers"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get teacher by id",
+   *    description="Returns teacher by id",
+   *
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function show($id)
   {
     $teacher = $this->TeacherManagerService->getTeacher($id);
@@ -121,6 +379,196 @@ class TeacherController extends Controller
    * @param  \App\Models\Teacher  $Teacher
    * @return \Illuminate\Http\Response
    */
+      /**
+   *  @OA\Post(
+   *    path="/api/teachers{id}",
+   *    operationId="putTeachers",
+   *    tags={"Teachers"},
+   * security={{"bearer_token":{}}},
+   *    summary="Update teachers",
+   *    description="Update teachers",
+   * 
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="name",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="last_name",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="birth_date",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        format="date"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="nit",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="dui",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="isss_number",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="nup_number",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="email",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="genre",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength= 1,
+   *        maxLength= 1
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="address",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="home_phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="municipality_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="department_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="country_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="status_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function update(TeacherRequest $request, $data)
   {
     $response = $this->TeacherManagerService->update($request, $data);
@@ -156,6 +604,49 @@ class TeacherController extends Controller
    * @param  \App\Models\Teacher  $Teacher
    * @return \Illuminate\Http\Response
    */
+   /**
+   *  @OA\Delete(
+   *    path="/api/teachers/{id}",
+   *    operationId="delete teacher by id",
+   *    tags={"Teachers"},
+   * security={{"bearer_token":{}}},
+   *    summary="Delete teacher by id",
+   *    description="Delete teacher by id",
+   *
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function destroy($request)
   {
     $response = $this->TeacherManagerService->delete($request);
