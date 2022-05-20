@@ -104,6 +104,16 @@ class SectionController extends Controller
    *    description="Create section",
    * 
    *    @OA\Parameter(
+   *      name="code",
+   *      in="query",
+   *      description="Section code",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
    *      name="quota",
    *      in="query",
    *      description="Section quota",

@@ -256,7 +256,7 @@ class ScholarshipController extends Controller
    */
       /** 
    *  @OA\Put(
-   *    path="/api/scholarhips/{id}",
+   *    path="/api/scholarships/{id}",
    *    operationId="putScholarship",
    *    tags={"Scholarships"},
    * security={{"bearer_token":{}}},
