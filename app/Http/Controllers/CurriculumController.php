@@ -129,7 +129,9 @@ class CurriculumController extends Controller
    *      description="Is curricula active?",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
+   *        minimum=0,
+   *        maximum=1
    *      )
    *    ),
    * 
@@ -139,7 +141,9 @@ class CurriculumController extends Controller
    *      description="Is curricula currently approved?",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
+   *        minimum=0,
+   *        maximum=1
    *      )
    *    ),
    * 
@@ -327,7 +331,9 @@ class CurriculumController extends Controller
    *      description="Is curricula active?",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
+   *        minimum=0,
+   *        maximum=1
    *      )
    *    ),
    * 
@@ -337,7 +343,9 @@ class CurriculumController extends Controller
    *      description="Is curricula currently approved?",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
+   *        minimum=0,
+   *        maximum=1
    *      )
    *    ),
    * 

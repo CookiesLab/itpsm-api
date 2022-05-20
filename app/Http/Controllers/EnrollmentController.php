@@ -119,7 +119,9 @@ class EnrollmentController extends Controller
    *      description="Is tehe enrollment approved",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
+   *        minimum=0,
+   *        maximum=1
    *      )
    *    ),
    * 
@@ -129,7 +131,7 @@ class EnrollmentController extends Controller
    *      description="Enrollment",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
    *      )
    *    ),
    * 
@@ -343,7 +345,9 @@ class EnrollmentController extends Controller
    *      description="Is tehe enrollment approved",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
+   *        minimum=0,
+   *        maximum=1
    *      )
    *    ),
    * 
@@ -353,7 +357,7 @@ class EnrollmentController extends Controller
    *      description="Enrollment",
    *      required=true,
    *      @OA\Schema(
-   *        type="boolean",
+   *        type="integer",
    *      )
    *    ),
    * 

@@ -25,7 +25,7 @@ class EnrollmentRequest extends FormRequest
     {
         return [
             'final_score' => 'required|numeric',
-            'is_approved' => 'required|boolean',
+            'is_approved' => 'required|integer',
             'enrollment' => 'required|integer'
         ];
     }

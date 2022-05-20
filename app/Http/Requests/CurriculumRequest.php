@@ -26,9 +26,9 @@ class CurriculumRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'year' => 'required|integer',
-            'is_active' => 'required|boolean',
+            'is_active' => 'required|integer',
             'career_id' => 'required',
-            'is_approved' => 'required|boolean',
+            'is_approved' => 'required|integer',
         ];
     }
 

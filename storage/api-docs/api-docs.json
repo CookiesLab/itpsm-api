@@ -340,7 +340,9 @@
                         "description": "Is curricula active?",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "maximum": 1,
+                            "minimum": 0
                         }
                     },
                     {
@@ -349,7 +351,18 @@
                         "description": "Is curricula currently approved?",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "maximum": 1,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "career_id",
+                        "in": "query",
+                        "description": "Career id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],
@@ -465,7 +478,9 @@
                         "description": "Is curricula active?",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "maximum": 1,
+                            "minimum": 0
                         }
                     },
                     {
@@ -474,7 +489,9 @@
                         "description": "Is curricula currently approved?",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "maximum": 1,
+                            "minimum": 0
                         }
                     }
                 ],
@@ -864,7 +881,9 @@
                         "description": "Is tehe enrollment approved",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "maximum": 1,
+                            "minimum": 0
                         }
                     },
                     {
@@ -873,7 +892,7 @@
                         "description": "Enrollment",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer"
                         }
                     },
                     {
@@ -1026,7 +1045,9 @@
                         "description": "Is tehe enrollment approved",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer",
+                            "maximum": 1,
+                            "minimum": 0
                         }
                     },
                     {
@@ -1035,7 +1056,7 @@
                         "description": "Enrollment",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer"
                         }
                     },
                     {
@@ -1823,52 +1844,6 @@
                     }
                 ]
             },
-            "delete": {
-                "tags": [
-                    "Scholarships"
-                ],
-                "summary": "Delete scholarship by id",
-                "description": "Deletes scholarship by id",
-                "operationId": "delete scholarships by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Scholarship id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            }
-        },
-        "/api/scholarhips/{id}": {
             "put": {
                 "tags": [
                     "Scholarships"
@@ -1902,6 +1877,50 @@
                         "required": true,
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Scholarships"
+                ],
+                "summary": "Delete scholarship by id",
+                "description": "Deletes scholarship by id",
+                "operationId": "delete scholarships by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Scholarship id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],
@@ -1974,6 +1993,15 @@
                 "description": "Create section",
                 "operationId": "postSection",
                 "parameters": [
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "Section code",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
                     {
                         "name": "quota",
                         "in": "query",
