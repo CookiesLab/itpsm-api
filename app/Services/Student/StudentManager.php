@@ -11,6 +11,8 @@
 namespace App\Services\Student;
 
 use App\Repositories\Student\StudentInterface;
+use App\Repositories\User\UserInterface;
+use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Pdf;
 use Carbon\Carbon;
 
@@ -23,6 +25,14 @@ class StudentManager
    *
    */
   protected $Student;
+
+  /**
+   * User
+   *
+   * @var App\Repositories\User\UserInterface;
+   *
+   */
+  protected $User;
 
   /**
 	* Barryvdh\DomPDF\PDF
@@ -48,16 +58,18 @@ class StudentManager
 
   public function __construct(
     StudentInterface $Student,
+    UserInterface $User,
     PDF $Dompdf,
     Carbon $Carbon
   ) {
     $this->Student = $Student;
+    $this->User = $User;
     $this->Dompdf = $Dompdf;
     $this->Carbon = $Carbon;
     $this->responseType = 'students';
   }
 
-  public function getTableRowsWithPagination($request, $pager = true, $returnJson = true)
+  public function getTableRowsWithPagination($request, $pager = true)
   {
     $rows = [];
     $limit = $offset = $count = $page = $totalPages = 0;
@@ -129,10 +141,30 @@ class StudentManager
 
   public function generateSystemUsers() {
 
-    $students = $this->Student->getWithoutUser();
+    $users = [];
+
+    $this->Student->getWithoutUser()->each(function ($student) use (&$users) {
+      $generatedPassword = strtoupper(Str::random(8));
+
+      $data = [
+        'name'=> $student->name . ' ' . $student->last_name,
+        'email'=> $student->institutional_email,
+        'password'=> bcrypt($generatedPassword),
+        'system_reference_table'=> 'students',
+        'system_reference_id'=> $student->id,
+      ];
+
+      $user = $this->User->create($data);
+      $this->Student->update(['is_user_created' => 1], $student);
+
+      $user->carnet = $student->carnet;
+      $user->password = $generatedPassword;
+
+      array_push($users, $user);
+    });
 
     $data = [
-
+      'users' => $users
     ];
 
     return $this->Dompdf

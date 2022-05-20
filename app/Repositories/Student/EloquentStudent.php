@@ -75,6 +75,7 @@ class EloquentStudent implements StudentInterface
         's.allergies',
         's.medicines',
         's.date_high_school_degree',
+        's.is_user_created',
         'm.id AS municipality_id',
         'm.name AS municipality',
         'd.id AS department_id',
