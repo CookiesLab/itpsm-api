@@ -24,7 +24,7 @@ class EnrollmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'final_score' => 'required|float',
+            'final_score' => 'required|numeric',
             'is_approved' => 'required|boolean',
             'enrollment' => 'required|integer'
         ];

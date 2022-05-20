@@ -143,6 +143,16 @@ class CurriculumController extends Controller
    *      )
    *    ),
    * 
+   *    @OA\Parameter(
+   *      name="career_id",
+   *      in="query",
+   *      description="Career id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
    *    @OA\Response(
    *      response=200,
    *      description="Success",

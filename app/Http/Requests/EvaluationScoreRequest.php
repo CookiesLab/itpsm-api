@@ -24,7 +24,7 @@ class EvaluationScoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'score' => 'required|float'
+            'score' => 'required|numeric'
         ];
     }
 
