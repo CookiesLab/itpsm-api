@@ -37,7 +37,7 @@ class StudentController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  /** 
+  /**
    *  @OA\Get(
    *    path="/api/students",
    *    operationId="getStudents",
@@ -45,7 +45,7 @@ class StudentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get list of students",
    *    description="Returns list of students",
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -94,7 +94,7 @@ class StudentController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  /** 
+  /**
    *  @OA\Post(
    *    path="/api/students",
    *    operationId="postStudents",
@@ -102,7 +102,7 @@ class StudentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Create student",
    *    description="Create student",
-   * 
+   *
    * @OA\Parameter(
    *      name="carnet",
    *      in="query",
@@ -111,7 +111,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -120,7 +120,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="last_name",
    *      in="query",
@@ -129,7 +129,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="email",
    *      in="query",
@@ -138,7 +138,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="birth_date",
    *      in="query",
@@ -148,7 +148,7 @@ class StudentController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="address",
    *      in="query",
@@ -157,7 +157,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="phone_number",
    *      in="query",
@@ -166,7 +166,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="home_phone_number",
    *      in="query",
@@ -175,7 +175,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="gender",
    *      in="query",
@@ -186,7 +186,7 @@ class StudentController extends Controller
    *        maxLength=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="relationship",
    *      in="query",
@@ -197,7 +197,7 @@ class StudentController extends Controller
    *        maxLength=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="status",
    *      in="query",
@@ -208,7 +208,7 @@ class StudentController extends Controller
    *        maxLength=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="blood_type",
    *      in="query",
@@ -217,7 +217,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="mother_name",
    *      in="query",
@@ -226,7 +226,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="mother_phone_number",
    *      in="query",
@@ -235,7 +235,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="father_name",
    *      in="query",
@@ -244,7 +244,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="father_phone_number",
    *      in="query",
@@ -254,7 +254,7 @@ class StudentController extends Controller
    *        maxLength=15
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="emergency_contact_name",
    *      in="query",
@@ -263,7 +263,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="emergency_contact_phone",
    *      in="query",
@@ -273,7 +273,7 @@ class StudentController extends Controller
    *        maxLength=15
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="diseases",
    *      in="query",
@@ -282,7 +282,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="allergies",
    *      in="query",
@@ -291,7 +291,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="medicines",
    *      in="query",
@@ -300,7 +300,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="entry_date",
    *      in="query",
@@ -310,7 +310,7 @@ class StudentController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="date_high_school_degree",
    *      in="query",
@@ -319,7 +319,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="municipality_id",
    *      in="query",
@@ -328,7 +328,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="department_id",
    *      in="query",
@@ -337,7 +337,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="country_id",
    *      in="query",
@@ -346,7 +346,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -376,6 +376,20 @@ class StudentController extends Controller
   {
     $response = $this->StudentManagerService->create($request);
 
+
+    if (!$response['success']) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => $response['message'],
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
     return response()->json([
       'data' => [
         'type' => $this->responseType,
@@ -394,7 +408,7 @@ class StudentController extends Controller
    * @param  \App\Models\Student  $Student
    * @return \Illuminate\Http\Response
    */
-  /** 
+  /**
    *  @OA\Get(
    *    path="/api/students/{id}",
    *    operationId="get student by id",
@@ -402,7 +416,7 @@ class StudentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get student by id",
    *    description="Returns student by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -411,7 +425,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -476,7 +490,7 @@ class StudentController extends Controller
    * @param  \App\Models\Student  $Student
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Put(
    *    path="/api/students/{id}",
    *    operationId="putStudents",
@@ -484,7 +498,7 @@ class StudentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update student",
    *    description="Update student",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -493,7 +507,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="carnet",
    *      in="query",
@@ -502,7 +516,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -511,7 +525,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="last_name",
    *      in="query",
@@ -520,7 +534,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="email",
    *      in="query",
@@ -529,7 +543,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="birth_date",
    *      in="query",
@@ -539,7 +553,7 @@ class StudentController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="address",
    *      in="query",
@@ -548,7 +562,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="phone_number",
    *      in="query",
@@ -557,7 +571,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="home_phone_number",
    *      in="query",
@@ -566,7 +580,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="gender",
    *      in="query",
@@ -577,7 +591,7 @@ class StudentController extends Controller
    *        maxLength=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="relationship",
    *      in="query",
@@ -588,7 +602,7 @@ class StudentController extends Controller
    *        maxLength=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="status",
    *      in="query",
@@ -599,7 +613,7 @@ class StudentController extends Controller
    *        maxLength=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="blood_type",
    *      in="query",
@@ -608,7 +622,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="mother_name",
    *      in="query",
@@ -617,7 +631,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="mother_phone_number",
    *      in="query",
@@ -626,7 +640,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="father_name",
    *      in="query",
@@ -635,7 +649,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="father_phone_number",
    *      in="query",
@@ -645,7 +659,7 @@ class StudentController extends Controller
    *        maxLength=15
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="emergency_contact_name",
    *      in="query",
@@ -654,7 +668,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="emergency_contact_phone",
    *      in="query",
@@ -664,7 +678,7 @@ class StudentController extends Controller
    *        maxLength=15
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="diseases",
    *      in="query",
@@ -673,7 +687,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="allergies",
    *      in="query",
@@ -682,7 +696,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="medicines",
    *      in="query",
@@ -691,7 +705,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="entry_date",
    *      in="query",
@@ -701,7 +715,7 @@ class StudentController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="date_high_school_degree",
    *      in="query",
@@ -710,7 +724,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="municipality_id",
    *      in="query",
@@ -719,7 +733,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="department_id",
    *      in="query",
@@ -728,7 +742,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="country_id",
    *      in="query",
@@ -737,7 +751,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -798,7 +812,7 @@ class StudentController extends Controller
    * @param  \App\Models\Student  $Student
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Delete(
    *    path="/api/students/{id}",
    *    operationId="delete student by id",
@@ -806,7 +820,7 @@ class StudentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Delete student by id",
    *    description="Deletes student by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -815,7 +829,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",

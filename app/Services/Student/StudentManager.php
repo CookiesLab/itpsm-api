@@ -129,15 +129,29 @@ class StudentManager
 
   public function create($request)
   {
-    $student = $this->Student->create($request->all());
-    $id = strval($student->id);
-    unset($student->id);
+    try {
+      $data = $request->all();
 
-    return [
-      'success' => true,
-      'student' => $student,
-      'id' => $id,
-    ];
+      $carnet = $this->generateCarnet($data['last_name'], $data['entry_date'], $data['entry_period']);
+      $data['carnet'] = $carnet;
+      $data['institutional_email'] = $carnet . "@" . config('app.institutional_email_domain');
+
+      $student = $this->Student->create($data);
+      $id = strval($student->id);
+      unset($student->id);
+
+      return [
+        'success' => true,
+        'student' => $student,
+        'id' => $id,
+      ];
+    }
+    catch (\Exception $e) {
+      return [
+        'success' => false,
+        'message' => $e->getMessage(),
+      ];
+    }
   }
 
   public function update($request, $id)
@@ -173,5 +187,10 @@ class StudentManager
     $this->Student->delete($id);
 
     return true;
+  }
+
+  private function generateCarnet($lastName, $entryYear, $entryPeriod) {
+    $carnet = strtoupper(substr($lastName, 0, 2)) . str_pad($entryPeriod, 2, '0', STR_PAD_LEFT) . ($entryYear % 100) . str_pad($this->Student->getNextCarnet($entryYear), 4, '0', STR_PAD_LEFT);
+    return $carnet;
   }
 }

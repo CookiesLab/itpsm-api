@@ -124,6 +124,8 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+    
+    'institutional_email_domain' => 'itpms.edu.sv',
 
     /*
     |--------------------------------------------------------------------------

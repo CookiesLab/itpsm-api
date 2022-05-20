@@ -68,6 +68,9 @@ class EloquentStudent implements StudentInterface
         's.father_phone_number',
         's.emergency_contact_name',
         's.emergency_contact_phone',
+        's.institutional_email',
+        's.entry_date',
+        's.entry_period',
         's.diseases',
         's.allergies',
         's.medicines',
@@ -173,5 +176,18 @@ class EloquentStudent implements StudentInterface
   public function delete($id)
   {
     return $this->Student->destroy($id);
+  }
+
+  /**
+   * Get next carnet
+   *
+   * @param integer $id
+   * 	An Student id
+   *
+   * @return boolean
+   */
+  public function getNextCarnet($entryYear)
+  {
+    return $this->Student->where('entry_date', $entryYear)->count() + 1;
   }
 }

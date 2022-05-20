@@ -19,6 +19,7 @@ return new class extends Migration
       $table->string('name', 255);
       $table->string('last_name', 255);
       $table->string('email', 255);
+      $table->string('institutional_email', 255);
       $table->date('birth_date');
       $table->text('address')->nullable();
       $table->string('phone_number', 15)->nullable();
@@ -36,7 +37,8 @@ return new class extends Migration
       $table->string('diseases')->nullable();
       $table->string('allergies')->nullable();
       $table->string('medicines', 255)->nullable();
-      $table->date('entry_date')->nullable();
+      $table->unsignedBigInteger('entry_date')->nullable();
+      $table->integer('entry_period')->nullable();
       $table->integer('date_high_school_degree')->nullable();
 
       $table->unsignedBigInteger('municipality_id')->index();
