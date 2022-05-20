@@ -380,7 +380,7 @@ class TeacherController extends Controller
    * @return \Illuminate\Http\Response
    */
       /**
-   *  @OA\Post(
+   *  @OA\Put(
    *    path="/api/teachers{id}",
    *    operationId="putTeachers",
    *    tags={"Teachers"},
