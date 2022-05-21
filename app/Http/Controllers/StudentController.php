@@ -306,8 +306,16 @@ class StudentController extends Controller
    *      in="query",
    *      required=false,
    *      @OA\Schema(
-   *        type="string",
-   *        format="date"
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="entry_period",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="integer"
    *      )
    *    ),
    *
@@ -545,6 +553,15 @@ class StudentController extends Controller
    *    ),
    *
    *    @OA\Parameter(
+   *      name="institutional_email",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
    *      name="birth_date",
    *      in="query",
    *      required=true,
@@ -711,8 +728,16 @@ class StudentController extends Controller
    *      in="query",
    *      required=false,
    *      @OA\Schema(
-   *        type="string",
-   *        format="date"
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="entry_period",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="integer"
    *      )
    *    ),
    *

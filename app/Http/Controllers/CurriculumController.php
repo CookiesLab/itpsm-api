@@ -126,7 +126,7 @@ class CurriculumController extends Controller
    *    @OA\Parameter(
    *      name="is_active",
    *      in="query",
-   *      description="Is curricula active?",
+   *      description="0 false, 1 true",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -138,7 +138,7 @@ class CurriculumController extends Controller
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
-   *      description="Is curricula currently approved?",
+   *      description="0 false, 1 true",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -328,7 +328,7 @@ class CurriculumController extends Controller
    *    @OA\Parameter(
    *      name="is_active",
    *      in="query",
-   *      description="Is curricula active?",
+   *      description="0 false, 1 true",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -340,12 +340,22 @@ class CurriculumController extends Controller
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
-   *      description="Is curricula currently approved?",
+   *      description="0 false, 1 true",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
    *        minimum=0,
    *        maximum=1
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="career_id",
+   *      in="query",
+   *      description="Career id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
    *      )
    *    ),
    * 

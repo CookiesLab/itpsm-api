@@ -381,7 +381,7 @@ class TeacherController extends Controller
    */
       /**
    *  @OA\Put(
-   *    path="/api/teachers{id}",
+   *    path="/api/teachers/{id}",
    *    operationId="putTeachers",
    *    tags={"Teachers"},
    * security={{"bearer_token":{}}},

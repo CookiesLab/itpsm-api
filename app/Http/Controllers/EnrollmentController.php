@@ -116,7 +116,7 @@ class EnrollmentController extends Controller
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
-   *      description="Is tehe enrollment approved",
+   *      description="0 false, 1 true",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -342,7 +342,7 @@ class EnrollmentController extends Controller
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
-   *      description="Is tehe enrollment approved",
+   *      description="0 false, 1 true",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
