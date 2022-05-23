@@ -37,7 +37,57 @@ class CurriculumSubjectController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-
+      /** 
+   *  @OA\Get(
+   *    path="/api/curriculum-subjects",
+   *    operationId="get curriculum-subjects",
+   *    tags={"Curriculum subjects"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get curriculum-subjects",
+   *    description="Returns curriculum-subjects and allows to filter by curriculum id and subject id ",
+   * 
+   *    @OA\Parameter(
+   *      name="query",
+   *      in="query",
+   *      description="query format like:{"query":[{"field":"cs.curriculum_id","op":"=","data":"2"}]}",
+   *      required=false,
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *  
+   *        @OA\Schema(
+   *          type="object",
+   *          @OA\Property(property="field",  type="string"),
+   *          @OA\Property(property="op",  type="string"),
+   *          @OA\Property(property="data",  type="string"),
+   *        )
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->CurriculumSubjectManagerService->getTableRowsWithPagination(request()->all());
@@ -147,57 +197,6 @@ class CurriculumSubjectController extends Controller
    * @param  \App\Models\CurriculumSubject  $CurriculumSubject
    * @return \Illuminate\Http\Response
    */
-    /** 
-   *  @OA\Get(
-   *    path="/api/curriculum-subjects",
-   *    operationId="get curriculum-subjects by id",
-   *    tags={"Curriculum subjects"},
-   * security={{"bearer_token":{}}},
-   *    summary="Get curriculum-subjects by id",
-   *    description="Returns curriculum-subjects by id",
-   * 
-   *    @OA\Parameter(
-   *      name="query",
-   *      in="query",
-   *      description="curriculum-subjects id",
-   *      required=true,
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *  
-   *        @OA\Schema(
-   *          type="object",
-   *          @OA\Property(property="field",  type="string"),
-   *          @OA\Property(property="op",  type="string"),
-   *          @OA\Property(property="data",  type="string"),
-   *        )
-   *      )
-   *    ),
-   * 
-   *    @OA\Response(
-   *      response=200,
-   *      description="Success",
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *      )
-   *    ),
-   *    @OA\Response(
-   *      response=401,
-   *      description="Unauthenticated",
-   *    ),
-   *    @OA\Response(
-   *      response=403,
-   *      description="Forbidden",
-   *    ),
-   *    @OA\Response(
-   *      response=400,
-   *      description="Bad Request"
-   *    ),
-   *    @OA\Response(
-   *      response=404,
-   *      description="Not Found"
-   *    )
-   *  )
-  */
   public function show($id)
   {
     $curriculumSubject = $this->CurriculumSubjectManagerService->getCurriculumSubject($id);
