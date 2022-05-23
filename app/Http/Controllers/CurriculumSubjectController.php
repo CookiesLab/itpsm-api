@@ -37,40 +37,7 @@ class CurriculumSubjectController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-     /** 
-   *  @OA\Get(
-   *    path="/api/curriculum-subjects",
-   *    operationId="getCurriculum-subjects",
-   *    tags={"Curriculum subjects"},
-   * security={{"bearer_token":{}}},
-   *    summary="Get curriculum-subjects list",
-   *    description="Returns curriculum-subjects list",
-   * 
-   *    @OA\Response(
-   *      response=200,
-   *      description="Success",
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *      )
-   *    ),
-   *    @OA\Response(
-   *      response=401,
-   *      description="Unauthenticated",
-   *    ),
-   *    @OA\Response(
-   *      response=403,
-   *      description="Forbidden",
-   *    ),
-   *    @OA\Response(
-   *      response=400,
-   *      description="Bad Request"
-   *    ),
-   *    @OA\Response(
-   *      response=404,
-   *      description="Not Found"
-   *    )
-   *  )
-  */
+
   public function index()
   {
     $response = $this->CurriculumSubjectManagerService->getTableRowsWithPagination(request()->all());
@@ -182,7 +149,7 @@ class CurriculumSubjectController extends Controller
    */
     /** 
    *  @OA\Get(
-   *    path="/api/curriculum-subjects/{id}",
+   *    path="/api/curriculum-subjects",
    *    operationId="get curriculum-subjects by id",
    *    tags={"Curriculum subjects"},
    * security={{"bearer_token":{}}},
@@ -190,12 +157,19 @@ class CurriculumSubjectController extends Controller
    *    description="Returns curriculum-subjects by id",
    * 
    *    @OA\Parameter(
-   *      name="id",
-   *      in="path",
+   *      name="query",
+   *      in="query",
    *      description="curriculum-subjects id",
    *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *  
+   *        @OA\Schema(
+   *          type="object",
+   *          @OA\Property(property="field",  type="string"),
+   *          @OA\Property(property="op",  type="string"),
+   *          @OA\Property(property="data",  type="string"),
+   *        )
    *      )
    *    ),
    * 

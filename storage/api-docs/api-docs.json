@@ -337,7 +337,7 @@
                     {
                         "name": "is_active",
                         "in": "query",
-                        "description": "Is curricula active?",
+                        "description": "0 false, 1 true",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -348,7 +348,7 @@
                     {
                         "name": "is_approved",
                         "in": "query",
-                        "description": "Is curricula currently approved?",
+                        "description": "0 false, 1 true",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -475,7 +475,7 @@
                     {
                         "name": "is_active",
                         "in": "query",
-                        "description": "Is curricula active?",
+                        "description": "0 false, 1 true",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -486,12 +486,21 @@
                     {
                         "name": "is_approved",
                         "in": "query",
-                        "description": "Is curricula currently approved?",
+                        "description": "0 false, 1 true",
                         "required": true,
                         "schema": {
                             "type": "integer",
                             "maximum": 1,
                             "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "career_id",
+                        "in": "query",
+                        "description": "Career id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],
@@ -571,9 +580,17 @@
                 "tags": [
                     "Curriculum subjects"
                 ],
-                "summary": "Get curriculum-subjects list",
-                "description": "Returns curriculum-subjects list",
-                "operationId": "getCurriculum-subjects",
+                "summary": "Get curriculum-subjects by id",
+                "description": "Returns curriculum-subjects by id",
+                "operationId": "get curriculum-subjects by id",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "curriculum-subjects id",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -664,50 +681,6 @@
             }
         },
         "/api/curriculum-subjects/{id}": {
-            "get": {
-                "tags": [
-                    "Curriculum subjects"
-                ],
-                "summary": "Get curriculum-subjects by id",
-                "description": "Returns curriculum-subjects by id",
-                "operationId": "get curriculum-subjects by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "curriculum-subjects id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            },
             "put": {
                 "tags": [
                     "Curriculum subjects"
@@ -878,7 +851,7 @@
                     {
                         "name": "is_approved",
                         "in": "query",
-                        "description": "Is tehe enrollment approved",
+                        "description": "0 false, 1 true",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -1042,7 +1015,7 @@
                     {
                         "name": "is_approved",
                         "in": "query",
-                        "description": "Is tehe enrollment approved",
+                        "description": "0 false, 1 true",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -2478,8 +2451,15 @@
                         "in": "query",
                         "required": false,
                         "schema": {
-                            "type": "string",
-                            "format": "date"
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "entry_period",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
                         }
                     },
                     {
@@ -2628,6 +2608,14 @@
                     },
                     {
                         "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "institutional_email",
                         "in": "query",
                         "required": true,
                         "schema": {
@@ -2784,8 +2772,15 @@
                         "in": "query",
                         "required": false,
                         "schema": {
-                            "type": "string",
-                            "format": "date"
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "entry_period",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
                         }
                     },
                     {
@@ -3376,51 +3371,6 @@
                     }
                 ]
             },
-            "delete": {
-                "tags": [
-                    "Teachers"
-                ],
-                "summary": "Delete teacher by id",
-                "description": "Delete teacher by id",
-                "operationId": "delete teacher by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            }
-        },
-        "/api/teachers{id}": {
             "put": {
                 "tags": [
                     "Teachers"
@@ -3563,6 +3513,49 @@
                     {
                         "name": "status_id",
                         "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Teachers"
+                ],
+                "summary": "Delete teacher by id",
+                "description": "Delete teacher by id",
+                "operationId": "delete teacher by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "integer"

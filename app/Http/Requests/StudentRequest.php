@@ -24,11 +24,9 @@ class StudentRequest extends FormRequest
   public function rules()
   {
     return [
-      'carnet' => 'required|string|max:25',
       'name' => 'required|string|max:255',
       'last_name' => 'required|string|max:255',
       'email' => 'required|string|email',
-      'institutional_email' => 'required|string|email',
       'gender' => 'required',
       'birth_date' => 'required',
       'relationship' => 'required',
@@ -47,11 +45,9 @@ class StudentRequest extends FormRequest
   public function messages()
   {
     return [
-      'carnet.required' => 'El campo carnet es obligatorio',
       'name.required' => 'El campo nombre es obligatorio',
       'last_name.required' => 'El campo last_name es obligatorio',
       'email.required' => 'El campo email es obligatorio',
-      'institutional_email.required' => 'El campo institutional_email es obligatorio',
       'gender.required' => 'El campo gender es obligatorio',
       'birth_date.required' => 'El campo birth_date es obligatorio',
       'relationship.required' => 'El campo relationship es obligatorio',
