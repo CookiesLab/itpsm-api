@@ -49,7 +49,7 @@ class CurriculumSubjectController extends Controller
    *    @OA\Parameter(
    *      name="query",
    *      in="query",
-   *      description="filter format like:{""query"":[{""field"":""sc.curriculum_id"",""op"":""="",""data"":""2""}]}",
+   *      description="filter format like:{""query"":[{""field"":""cs.curriculum_id"",""op"":""="",""data"":""2""}]}",
    *      required=false,
    *      @OA\MediaType(
    *        mediaType="application/json",
