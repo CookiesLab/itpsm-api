@@ -30,6 +30,7 @@ return new class extends Migration
       $table->string('phone_number', 15)->nullable();
       $table->string('home_phone_number', 15)->nullable();
       $table->unsignedBigInteger('entry_date')->nullable();
+      $table->char('status', 1);
       $table->boolean('is_user_created')->default(0);
 
       $table->unsignedBigInteger('municipality_id')->index();
@@ -40,9 +41,6 @@ return new class extends Migration
 
       $table->unsignedBigInteger('country_id')->index();
       $table->foreign('country_id')->references('id')->on('countries');
-
-      $table->unsignedBigInteger('status_id')->index();
-      $table->foreign('status_id')->references('id')->on('statuses');
 
       $table->timestamps();
       $table->softDeletes();

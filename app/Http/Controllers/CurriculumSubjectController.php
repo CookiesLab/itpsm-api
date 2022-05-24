@@ -37,7 +37,7 @@ class CurriculumSubjectController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Get(
    *    path="/api/curriculum-subjects",
    *    operationId="get curriculum-subjects",
@@ -45,7 +45,7 @@ class CurriculumSubjectController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get curriculum-subjects",
    *    description="Returns curriculum-subjects and allows to filter by curriculum id and subject id ",
-   * 
+   *
    *    @OA\Parameter(
    *      name="query",
    *      in="query",
@@ -53,7 +53,7 @@ class CurriculumSubjectController extends Controller
    *      required=false,
    *      @OA\MediaType(
    *        mediaType="application/json",
-   *  
+   *
    *        @OA\Schema(
    *          type="object",
    *          @OA\Property(property="field",  type="string"),
@@ -62,7 +62,7 @@ class CurriculumSubjectController extends Controller
    *        )
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -111,7 +111,7 @@ class CurriculumSubjectController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Post(
    *    path="/api/curriculum-subjects",
    *    operationId="postCurriculum-subjects",
@@ -119,7 +119,7 @@ class CurriculumSubjectController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Create curriculum-subjects",
    *    description="Create curriculum-subjects",
-   * 
+   *
    *    @OA\Parameter(
    *      name="uv",
    *      in="query",
@@ -129,7 +129,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_id",
    *      in="query",
@@ -139,7 +139,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="subject_id",
    *      in="query",
@@ -149,7 +149,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -183,7 +183,7 @@ class CurriculumSubjectController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['curriculumSubject']
+        'attributes' => $response['curriculum_subject']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -236,7 +236,7 @@ class CurriculumSubjectController extends Controller
    * @param  \App\Models\CurriculumSubject  $CurriculumSubject
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Put(
    *    path="/api/curriculum-subjects/{id}",
    *    operationId="putCurriculum-subjects",
@@ -244,7 +244,7 @@ class CurriculumSubjectController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update curriculum-subjects",
    *    description="Update curriculum-subjects",
-   * 
+   *
    *   @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -254,7 +254,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="uv",
    *      in="query",
@@ -264,7 +264,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_id",
    *      in="query",
@@ -274,7 +274,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="subject_id",
    *      in="query",
@@ -284,7 +284,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -331,7 +331,7 @@ class CurriculumSubjectController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['curriculumSubject']
+        'attributes' => $response['curriculum_subject']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -345,7 +345,7 @@ class CurriculumSubjectController extends Controller
    * @param  \App\Models\CurriculumSubject  $CurriculumSubject
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Delete(
    *    path="/api/curriculum-subjects/{id}",
    *    operationId="Delete curriculum-subjects by id",
@@ -353,7 +353,7 @@ class CurriculumSubjectController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Delete curriculum-subjects by id",
    *    description="Delete curriculum-subjects by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -363,7 +363,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",

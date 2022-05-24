@@ -62,6 +62,7 @@ class EloquentTeacher implements TeacherInterface
         't.institutional_email',
         't.genre',
         't.address',
+        't.status',
         't.phone_number',
         't.home_phone_number',
         't.entry_date',
@@ -71,15 +72,11 @@ class EloquentTeacher implements TeacherInterface
         'd.name AS department',
         'c.id AS country_id',
         'c.name AS country',
-        's.name AS status_name',
-        's.type AS statues_type'
       )
       ->join('municipalities as m', 't.municipality_id', '=', 'm.id')
       ->join('departments as d', 't.department_id', '=', 'd.id')
       ->join('countries as c', 't.country_id', '=', 'c.id')
-      ->join('statuses as s', 't.status_id', '=', 's.id')
       ->whereNull('t.deleted_at');
-
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {

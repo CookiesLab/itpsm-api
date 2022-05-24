@@ -42,7 +42,7 @@ class TeacherFactory extends Factory
       'municipality_id' => 3,
       'department_id' => 14,
       'country_id' => 1,
-      'status_id' => 1,
+      'status' => 'A',
       'entry_date' => 2022,
 
     ];
