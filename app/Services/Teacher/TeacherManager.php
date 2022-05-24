@@ -11,6 +11,9 @@
 namespace App\Services\Teacher;
 
 use App\Repositories\Teacher\TeacherInterface;
+use App\Repositories\User\UserInterface;
+use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Pdf;
 use Carbon\Carbon;
 
 class TeacherManager
@@ -22,6 +25,20 @@ class TeacherManager
    *
    */
   protected $Teacher;
+
+  /**
+   * User
+   *
+   * @var App\Repositories\User\UserInterface;
+   *
+   */
+  protected $User;
+
+  /**
+	* Barryvdh\DomPDF\PDF
+	* @var Excel
+	*/
+	protected $Dompdf;
 
   /**
    * Carbon instance
@@ -41,9 +58,13 @@ class TeacherManager
 
   public function __construct(
     TeacherInterface $Teacher,
+    UserInterface $User,
+    PDF $Dompdf,
     Carbon $Carbon
   ) {
     $this->Teacher = $Teacher;
+    $this->User = $User;
+    $this->Dompdf = $Dompdf;
     $this->Carbon = $Carbon;
     $this->responseType = 'teachers';
   }
@@ -106,6 +127,41 @@ class TeacherManager
   {
     return $this->Teacher->byId($id);
   }
+
+  public function generateSystemUsers() {
+
+    $users = [];
+
+    $this->Teacher->getWithoutUser()->each(function ($teacher) use (&$users) {
+      $generatedPassword = strtoupper(Str::random(8));
+
+      $data = [
+        'name'=> $teacher->name . ' ' . $teacher->last_name,
+        'email'=> $teacher->institutional_email,
+        'password'=> bcrypt($generatedPassword),
+        'system_reference_table'=> 'teachers',
+        'system_reference_id'=> $teacher->id,
+      ];
+
+      $user = $this->User->create($data);
+      $this->Teacher->update(['is_user_created' => 1], $teacher);
+
+      $user->carnet = $teacher->carnet;
+      $user->password = $generatedPassword;
+
+      array_push($users, $user);
+    });
+
+    $data = [
+      'users' => $users
+    ];
+
+    return $this->Dompdf
+      ->loadView('system-users-data-pdf', $data)
+      ->setPaper('letter')
+      ->download('UsuariosCreados.pdf');
+  }
+
 
   public function create($request)
   {
