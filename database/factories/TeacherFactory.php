@@ -25,6 +25,7 @@ class TeacherFactory extends Factory
   public function definition()
   {
     return [
+      'carnet' => '00' . $this->faker->unique()->randomNumber(4) . '22',
       'name' => $this->faker->firstName,
       'last_name' => $this->faker->lastName,
       'birth_date' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
@@ -33,6 +34,7 @@ class TeacherFactory extends Factory
       'isss_number' => $this->faker->numerify('#########'),
       'nup_number' => $this->faker->numerify('#########'),
       'email' => $this->faker->email,
+      'institutional_email' => $this->faker->email,
       'genre' => $this->faker->randomElement($array = array ('M','F')),
       'address' => $this->faker->address,
       'phone_number' => '7' . $this->faker->randomNumber(3, true) . '-' . $this->faker->randomNumber(4, true),
@@ -41,6 +43,8 @@ class TeacherFactory extends Factory
       'department_id' => 14,
       'country_id' => 1,
       'status_id' => 1,
+      'entry_date' => 2022,
+
     ];
   }
 }

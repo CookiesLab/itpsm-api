@@ -50,6 +50,7 @@ class EloquentTeacher implements TeacherInterface
     $query = $this->DB::table('teachers AS t')
       ->select(
         't.id',
+        't.carnet',
         't.name',
         't.last_name',
         't.birth_date',
@@ -58,10 +59,12 @@ class EloquentTeacher implements TeacherInterface
         't.isss_number',
         't.nup_number',
         't.email',
+        't.institutional_email',
         't.genre',
         't.address',
         't.phone_number',
         't.home_phone_number',
+        't.entry_date',
         'm.id AS municipality_id',
         'm.name AS municipality',
         'd.id AS department_id',
@@ -80,7 +83,7 @@ class EloquentTeacher implements TeacherInterface
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['t.name', 't.last_name', 't.email', 't.nit', 't.dui', 't.nup_number', 't.isss_number'] as $key => $value) {
+        foreach (['t.name', 't.carnet', 't.last_name', 't.email', 't.nit', 't.dui', 't.nup_number', 't.isss_number'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
           //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
         }
@@ -165,5 +168,31 @@ class EloquentTeacher implements TeacherInterface
   public function delete($id)
   {
     return $this->Teacher->destroy($id);
+  }
+
+  /**
+   * Get next carnet
+   *
+   * @param integer $id
+   * 	An Student id
+   *
+   * @return boolean
+   */
+  public function getNextCarnet($entryYear)
+  {
+    return $this->Teacher->where('entry_date', $entryYear)->count() + 1;
+  }
+
+  /**
+   * Get next carnet
+   *
+   * @param integer $id
+   * 	An Student id
+   *
+   * @return boolean
+   */
+  public function getWithoutUser()
+  {
+    return $this->Teacher->where('is_user_created', 0)->get();
   }
 }

@@ -109,7 +109,13 @@ class TeacherManager
 
   public function create($request)
   {
-    $teacher = $this->Teacher->create($request->all());
+    $data = $request->all();
+
+    $carnet = $this->generateCarnet($data['last_name'], $data['entry_date'], $data['birth_date']);
+    $data['carnet'] = $carnet;
+    $data['institutional_email'] = $carnet . "@" . config('app.institutional_email_domain');
+
+    $teacher = $this->Teacher->create($data);
     $id = strval($teacher->id);
     unset($teacher->id);
 
@@ -153,5 +159,11 @@ class TeacherManager
     $this->Teacher->delete($id);
 
     return true;
+  }
+
+  private function generateCarnet($lastName, $entryYear, $birthDate) {
+    $birthYear = $this->Carbon->createFromFormat('Y-m-d', $birthDate, config('app.timezone'))->year;
+    $carnet = strtoupper(substr($lastName, 0, 2)) . ($birthYear % 100) . ($entryYear % 100) . str_pad($this->Teacher->getNextCarnet($entryYear), 3, '0', STR_PAD_LEFT);
+    return $carnet;
   }
 }
