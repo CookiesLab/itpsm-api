@@ -565,7 +565,7 @@ class CurriculaSeeder extends Seeder
     [
       'cum' => 8.9,
       'entry_year' => 2017,
-      'graduation_year' => '2022-05-06',
+      'graduation_year' => 2022,
       'scholarship_rate' => 150,
     ],
     [

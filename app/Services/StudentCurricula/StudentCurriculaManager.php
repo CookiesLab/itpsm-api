@@ -48,11 +48,16 @@ class StudentCurriculaManager
     $this->responseType = 'student_curricula';
   }
 
-  public function getTableRowsWithPagination($request, $pager = true, $returnJson = true)
+  public function getTableRowsWithPagination($request, $pager = true)
   {
     $rows = [];
     $limit = $offset = $count = $page = $totalPages = 0;
-    $filter = $sortColumn = $sortOrder = '';
+    $filter = $sortColumn = $sortOrder = $customQuery = '';
+
+    if (!empty($request['query']))
+    {
+      $customQuery = json_decode($request['query'], true)['query'];
+    }
 
     if (!empty($request['filter']))
     {
@@ -77,11 +82,11 @@ class StudentCurriculaManager
 
     if ($pager)
     {
-      $count = $this->StudentCurricula->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      $count = $this->StudentCurricula->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery);
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->StudentCurricula->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($studentCurricula) use (&$rows) {
+    $this->StudentCurricula->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery)->each(function ($studentCurricula) use (&$rows) {
 
       // $id = strval($studentCurricula->id);
       // unset($studentCurricula->id);

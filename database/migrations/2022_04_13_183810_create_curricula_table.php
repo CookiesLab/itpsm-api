@@ -52,7 +52,7 @@ return new class extends Migration
     Schema::create('student_curricula', function (Blueprint $table) {
       $table->float('cum');
       $table->integer('entry_year');
-      $table->date('graduation_year')->nullable();
+      $table->integer('graduation_year')->nullable();
       $table->float('scholarship_rate')->nullable();
 
       $table->unsignedBigInteger('student_id')->index();
