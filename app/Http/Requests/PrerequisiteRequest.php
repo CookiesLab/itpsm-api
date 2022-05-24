@@ -32,8 +32,8 @@ class PrerequisiteRequest extends FormRequest
     public function messages()
     {
       return [
-          'prerequisite_id.required' => 'El campo prerequisite_id es obligatorio',
-          'curriculum_subject_id.required' => 'El campo curriculum_subject_id es obligatorio'
+          'prerequisite_id.required' => 'El campo id de prerequisito es obligatorio',
+          'curriculum_subject_id.required' => 'El campo id de curriculum subject es obligatorio'
       ];
     }
 }

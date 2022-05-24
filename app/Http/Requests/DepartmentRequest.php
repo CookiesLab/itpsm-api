@@ -33,7 +33,7 @@ class DepartmentRequest extends FormRequest
     {
       return [
           'name.required' => 'El campo name es obligatorio',
-          'country_id.required' => 'El campo country_id es obligatorio',
+          'country_id.required' => 'El campo pais es obligatorio',
       ];
     }
 }

@@ -34,8 +34,8 @@ class CurriculumSubjectRequest extends FormRequest
     {
       return [
           'uv.required' => 'El campo uv es obligatorio',
-          'curriculum_id.required' => 'El campo curriculum_id es obligatorio',
-          'subject_id.required' => 'El campo subject_id es obligatorio',
+          'curriculum_id.required' => 'El campo curriculum es obligatorio',
+          'subject_id.required' => 'El campo materia es obligatorio',
       ];
     }
 }

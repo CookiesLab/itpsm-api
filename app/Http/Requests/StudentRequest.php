@@ -52,9 +52,9 @@ class StudentRequest extends FormRequest
       'birth_date.required' => 'El campo birth_date es obligatorio',
       'relationship.required' => 'El campo relationship es obligatorio',
       'status.required' => 'El campo status es obligatorio',
-      'municipality_id.required' => 'El campo municipality_id es obligatorio',
-      'department_id.required' => 'El campo department_id es obligatorio',
-      'country_id.required' => 'El campo country_id es obligatorio',
+      'municipality_id.required' => 'El campo municipio es obligatorio',
+      'department_id.required' => 'El campo departamento es obligatorio',
+      'country_id.required' => 'El campo pais es obligatorio',
     ];
   }
 }

@@ -35,7 +35,7 @@ class SectionRequest extends FormRequest
       return [
           'quota.required' => 'El campo quota es obligatorio',
           'schedule.required' => 'El campo schedule es obligatorio',
-          'teacher_id.required' => 'El campo teacher_id es obligatorio'
+          'teacher_id.required' => 'El campo maestro es obligatorio'
       ];
     }
 }

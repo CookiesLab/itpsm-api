@@ -48,10 +48,10 @@ class TeacherRequest extends FormRequest
       'email.required' => 'El campo correo electrónico es obligatorio',
       'genre.required' => 'El campo género es obligatorio',
       'entry_date.required' => 'El campo año de ingreso es obligatorio',
-      'municipality_id.required' => 'El campo municipality_id es obligatorio',
-      'department_id.required' => 'El campo department_id es obligatorio',
-      'country_id.required' => 'El campo country_id es obligatorio',
-      'status_id.required' => 'El campo status_id es obligatorio',
+      'municipality_id.required' => 'El campo municipio es obligatorio',
+      'department_id.required' => 'El campo departamento es obligatorio',
+      'country_id.required' => 'El campo pais es obligatorio',
+      'status_id.required' => 'El campo status es obligatorio',
     ];
   }
 }
