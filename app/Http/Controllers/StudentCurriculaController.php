@@ -41,7 +41,7 @@ class StudentCurriculaController extends Controller
    *  @OA\Get(
    *    path="/api/student-curricula",
    *    operationId="get student-curricula",
-   *    tags={"Student Curricula"},
+   *    tags={"Enroll student to curricula"},
    * security={{"bearer_token":{}}},
    *    summary="Get student-curricula",
    *    description="Returns student-curricula and allows to filter by student id or curriculum id ",
@@ -115,10 +115,10 @@ class StudentCurriculaController extends Controller
    *  @OA\Post(
    *    path="/api/student-curricula",
    *    operationId="postStudent-curricula",
-   *    tags={"Student Curricula"},
+   *    tags={"Enroll student to curricula"},
    * security={{"bearer_token":{}}},
-   *    summary="Create student-curricula",
-   *    description="Create student-curricula",
+   *    summary="Enroll student to curricula",
+   *    description="Enroll student to curricula",
    *
    * @OA\Parameter(
    *      name="cum",

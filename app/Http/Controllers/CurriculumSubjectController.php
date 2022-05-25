@@ -41,7 +41,7 @@ class CurriculumSubjectController extends Controller
    *  @OA\Get(
    *    path="/api/curriculum-subjects",
    *    operationId="get curriculum-subjects",
-   *    tags={"Curriculum subjects"},
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
    *    summary="Get curriculum-subjects",
    *    description="Returns curriculum-subjects and allows to filter by curriculum id and subject id ",
@@ -115,15 +115,15 @@ class CurriculumSubjectController extends Controller
    *  @OA\Post(
    *    path="/api/curriculum-subjects",
    *    operationId="postCurriculum-subjects",
-   *    tags={"Curriculum subjects"},
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
-   *    summary="Create curriculum-subjects",
-   *    description="Create curriculum-subjects",
+   *    summary="Associate subjects to curriculum",
+   *    description="Associate subject to curriculum",
    *
    *    @OA\Parameter(
    *      name="uv",
    *      in="query",
-   *      description="Curriculum subject UV",
+   *      description="Subject UV",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -143,7 +143,7 @@ class CurriculumSubjectController extends Controller
    *    @OA\Parameter(
    *      name="subject_id",
    *      in="query",
-   *      description="Subject id associated with the curriculum",
+   *      description="Subject id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -240,7 +240,7 @@ class CurriculumSubjectController extends Controller
    *  @OA\Put(
    *    path="/api/curriculum-subjects/{id}",
    *    operationId="putCurriculum-subjects",
-   *    tags={"Curriculum subjects"},
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
    *    summary="Update curriculum-subjects",
    *    description="Update curriculum-subjects",
@@ -258,7 +258,7 @@ class CurriculumSubjectController extends Controller
    *    @OA\Parameter(
    *      name="uv",
    *      in="query",
-   *      description="Curriculum subject UV",
+   *      description="Subject UV",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -278,7 +278,7 @@ class CurriculumSubjectController extends Controller
    *    @OA\Parameter(
    *      name="subject_id",
    *      in="query",
-   *      description="Subject id associated with the curriculum",
+   *      description="Subject id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
@@ -349,7 +349,7 @@ class CurriculumSubjectController extends Controller
    *  @OA\Delete(
    *    path="/api/curriculum-subjects/{id}",
    *    operationId="Delete curriculum-subjects by id",
-   *    tags={"Curriculum subjects"},
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
    *    summary="Delete curriculum-subjects by id",
    *    description="Delete curriculum-subjects by id",
