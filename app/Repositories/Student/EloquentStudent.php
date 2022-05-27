@@ -76,6 +76,10 @@ class EloquentStudent implements StudentInterface
         's.medicines',
         's.date_high_school_degree',
         's.is_user_created',
+        's.is_live_in_rural_area',
+        's.is_private_high_school',
+        's.high_school_name',
+        's.high_school_option',
         'm.id AS municipality_id',
         'm.name AS municipality',
         'd.id AS department_id',
@@ -88,7 +92,6 @@ class EloquentStudent implements StudentInterface
       ->join('countries as c', 's.country_id', '=', 'c.id')
       ->whereNull('s.deleted_at');
       // ->join('users', 'articles.user_id', '=', 'user.id')
-
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
