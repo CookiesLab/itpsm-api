@@ -33,7 +33,7 @@ class TeacherRequest extends FormRequest
             'municipality_id' => 'required',
             'department_id' => 'required',
             'country_id' => 'required',
-            'status_id' => 'required',
+            'status' => 'required',
             'entry_date' => 'required',
         ];
     }
