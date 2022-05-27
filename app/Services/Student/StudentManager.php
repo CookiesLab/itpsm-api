@@ -170,7 +170,7 @@ class StudentManager
     return $this->Dompdf
       ->loadView('system-users-data-pdf', $data)
       ->setPaper('letter')
-      ->download('estudiante.pdf');
+      ->download('UsuariosCreados.pdf');
   }
 
   public function create($request)

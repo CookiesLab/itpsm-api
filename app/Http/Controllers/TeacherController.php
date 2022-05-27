@@ -130,7 +130,7 @@ class TeacherController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="nit",
    *      in="query",
@@ -139,7 +139,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="dui",
    *      in="query",
@@ -148,7 +148,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="isss_number",
    *      in="query",
@@ -157,7 +157,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="nup_number",
    *      in="query",
@@ -166,7 +166,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="email",
    *      in="query",
@@ -175,7 +175,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="genre",
    *      in="query",
@@ -240,7 +240,7 @@ class TeacherController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="status_id",
    *      in="query",
@@ -387,7 +387,7 @@ class TeacherController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update teachers",
    *    description="Update teachers",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -424,7 +424,7 @@ class TeacherController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="nit",
    *      in="query",
@@ -433,7 +433,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="dui",
    *      in="query",
@@ -442,7 +442,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="isss_number",
    *      in="query",
@@ -451,7 +451,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="nup_number",
    *      in="query",
@@ -460,7 +460,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="email",
    *      in="query",
@@ -469,7 +469,7 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="genre",
    *      in="query",
@@ -534,7 +534,7 @@ class TeacherController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="status_id",
    *      in="query",
@@ -673,5 +673,10 @@ class TeacherController extends Controller
         'version' => "1.00"
       ]
     ], 200);
+  }
+
+  public function generateSystemUsers(Request $request)
+  {
+    return $this->TeacherManagerService->generateSystemUsers();
   }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
   {
     Schema::create('teachers', function (Blueprint $table) {
       $table->id();
+      $table->string('carnet', 25)->unique();
       $table->string('name', 255);
       $table->string('last_name', 255);
       $table->date('birth_date');
@@ -23,10 +24,14 @@ return new class extends Migration
       $table->string('isss_number', 20)->nullable();
       $table->string('nup_number', 30)->nullable();
       $table->string('email', 255);
+      $table->string('institutional_email', 255);
       $table->char('genre', 1);
       $table->text('address')->nullable();
       $table->string('phone_number', 15)->nullable();
       $table->string('home_phone_number', 15)->nullable();
+      $table->unsignedBigInteger('entry_date')->nullable();
+      $table->char('status', 1);
+      $table->boolean('is_user_created')->default(0);
 
       $table->unsignedBigInteger('municipality_id')->index();
       $table->foreign('municipality_id')->references('id')->on('municipalities');
@@ -36,9 +41,6 @@ return new class extends Migration
 
       $table->unsignedBigInteger('country_id')->index();
       $table->foreign('country_id')->references('id')->on('countries');
-
-      $table->unsignedBigInteger('status_id')->index();
-      $table->foreign('status_id')->references('id')->on('statuses');
 
       $table->timestamps();
       $table->softDeletes();

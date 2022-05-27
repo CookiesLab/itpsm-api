@@ -37,6 +37,57 @@ class StudentCurriculaController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+       /** 
+   *  @OA\Get(
+   *    path="/api/student-curricula",
+   *    operationId="get student-curricula",
+   *    tags={"Enroll student to curricula"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get student-curricula",
+   *    description="Returns student-curricula and allows to filter by student id or curriculum id ",
+   * 
+   *    @OA\Parameter(
+   *      name="query",
+   *      in="query",
+   *      description="query format like:{""query"":[{""field"":""cs.student_id"",""op"":""="",""data"":""2""}]}",
+   *      required=false,
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *  
+   *        @OA\Schema(
+   *          type="object",
+   *          @OA\Property(property="field",  type="string"),
+   *          @OA\Property(property="op",  type="string"),
+   *          @OA\Property(property="data",  type="string"),
+   *        )
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->StudentCurriculaManagerService->getTableRowsWithPagination(request()->all());
@@ -60,6 +111,104 @@ class StudentCurriculaController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+   /**
+   *  @OA\Post(
+   *    path="/api/student-curricula",
+   *    operationId="postStudent-curricula",
+   *    tags={"Enroll student to curricula"},
+   * security={{"bearer_token":{}}},
+   *    summary="Enroll student to curricula",
+   *    description="Enroll student to curricula",
+   *
+   * @OA\Parameter(
+   *      name="cum",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="number"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="entry_year",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="graduation_year",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string",
+   *        format="date",
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="scholarship_rate",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="student_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="curriculum_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="scholarship_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function store(StudentCurriculaRequest $request)
   {
     $response = $this->StudentCurriculaManagerService->create($request);

@@ -42,6 +42,11 @@ return new class extends Migration
       $table->integer('date_high_school_degree')->nullable();
       $table->boolean('is_user_created')->default(0);
 
+      $table->boolean('is_live_in_rural_area')->default(0);
+      $table->boolean('is_private_high_school')->default(0);
+      $table->string('high_school_name', 255)->nullable();
+      $table->string('high_school_option', 255)->nullable();
+
       $table->unsignedBigInteger('municipality_id')->index();
       $table->foreign('municipality_id')->references('id')->on('municipalities');
 

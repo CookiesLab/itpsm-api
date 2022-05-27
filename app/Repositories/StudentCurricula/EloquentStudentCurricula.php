@@ -45,7 +45,7 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
    *
    * @return Illuminate\Database\Eloquent\Collection
    */
-  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
+  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null, $customQuery = null)
   {
     $query = $this->DB::table('student_curricula AS sc')
       ->select(
@@ -69,6 +69,32 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
       ->join('curricula as c', 'sc.curriculum_id', '=', 'c.id')
       ->join('students as st', 'sc.student_id', '=', 'st.id');
 
+    if (!empty($customQuery)) {
+      $query->whereNested(function ($dbQuery) use ($customQuery) {
+        foreach ($customQuery as $statement) {
+
+          if($statement['op'] == 'is not in')
+          {
+            $dbQuery->whereNotIn($statement['field'], explode(',',$statement['data']));
+            continue;
+          }
+
+          if($statement['op'] == 'is null')
+          {
+            $dbQuery->whereNull($statement['field']);
+            continue;
+          }
+
+          if($statement['op'] == 'is not null')
+          {
+            $dbQuery->whereNotNull($statement['field']);
+            continue;
+          }
+
+          $dbQuery->where($statement['field'], $statement['op'], $statement['data']);
+        }
+      });
+    }
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {

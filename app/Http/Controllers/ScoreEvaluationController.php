@@ -37,6 +37,57 @@ class ScoreEvaluationController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+       /** 
+   *  @OA\Get(
+   *    path="/api/score-evaluations",
+   *    operationId="getScore-evaluations",
+   *    tags={"Assign evaluation score"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get evaluation score list",
+   *    description="Returns evaluation score list and allows to filter by student id or evaluation id ",
+   * 
+   *  @OA\Parameter(
+   *      name="query",
+   *      in="query",
+   *      description="filter format like:{""query"":[{""field"":""se.student_id"",""op"":""="",""data"":""2""}]}",
+   *      required=false,
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *
+   *        @OA\Schema(
+   *          type="object",
+   *          @OA\Property(property="field",  type="string"),
+   *          @OA\Property(property="op",  type="string"),
+   *          @OA\Property(property="data",  type="string"),
+   *        )
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function index()
   {
     $response = $this->ScoreEvaluationManagerService->getTableRowsWithPagination(request()->all());
@@ -60,6 +111,70 @@ class ScoreEvaluationController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+       /** 
+   *  @OA\Post(
+   *    path="/api/score-evaluations",
+   *    operationId="postScore-evaluations",
+   *    tags={"Assign evaluation score"},
+   * security={{"bearer_token":{}}},
+   *    summary="Assign evaluation score",
+   *    description="Assign evaluation score",
+   * 
+   *    @OA\Parameter(
+   *      name="score",
+   *      in="query",
+   *      description="Evaluation score",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="number",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="student_id",
+   *      in="query",
+   *      description="Student to assign score",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="evaluation_id",
+   *      in="query",
+   *      description="Evaluation to assign score",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      ),
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function store(ScoreEvaluationRequest $request)
   {
     $response = $this->ScoreEvaluationManagerService->create($request);
@@ -117,6 +232,80 @@ class ScoreEvaluationController extends Controller
    * @param  \App\Models\ScoreEvaluation  $ScoreEvaluation
    * @return \Illuminate\Http\Response
    */
+  /** 
+   *  @OA\Put(
+   *    path="/api/score-evaluations/{id}",
+   *    operationId="putScore-evaluations",
+   *    tags={"Assign evaluation score"},
+   * security={{"bearer_token":{}}},
+   *    summary="Update evaluation score",
+   *    description="Update evaluation score",
+   * 
+   *   @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      description="Score evaluation id",
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="score",
+   *      in="query",
+   *      description="Evaluation score",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="number",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="student_id",
+   *      in="query",
+   *      description="Student to assign score",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Parameter(
+   *      name="evaluation_id",
+   *      in="query",
+   *      description="Evaluation to assign score",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer",
+   *      )
+   *    ),
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      ),
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function update(ScoreEvaluationRequest $request, $data)
   {
     $response = $this->ScoreEvaluationManagerService->update($request, $data);
@@ -152,6 +341,50 @@ class ScoreEvaluationController extends Controller
    * @param  \App\Models\ScoreEvaluation  $ScoreEvaluation
    * @return \Illuminate\Http\Response
    */
+        /**
+   *  @OA\Delete(
+   *    path="/api/score-evaluations/{id}",
+   *    operationId="Delete score-evaluations by id",
+   *    tags={"Assign evaluation score"},
+   * security={{"bearer_token":{}}},
+   *    summary="Delete score-evaluations by id",
+   *    description="Delete score-evaluations by id",
+   *
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="score-evaluations id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function destroy($request)
   {
     $response = $this->ScoreEvaluationManagerService->delete($request);

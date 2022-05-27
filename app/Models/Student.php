@@ -45,5 +45,9 @@ class Student extends Model
         'country_id',
         'status_id',
         'is_user_created',
+        'is_live_in_rural_area',
+        'is_private_high_school',
+        'high_school_name',
+        'high_school_option',
     ];
 }

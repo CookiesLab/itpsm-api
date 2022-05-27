@@ -11,6 +11,9 @@
 namespace App\Services\Teacher;
 
 use App\Repositories\Teacher\TeacherInterface;
+use App\Repositories\User\UserInterface;
+use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Pdf;
 use Carbon\Carbon;
 
 class TeacherManager
@@ -22,6 +25,20 @@ class TeacherManager
    *
    */
   protected $Teacher;
+
+  /**
+   * User
+   *
+   * @var App\Repositories\User\UserInterface;
+   *
+   */
+  protected $User;
+
+  /**
+	* Barryvdh\DomPDF\PDF
+	* @var Excel
+	*/
+	protected $Dompdf;
 
   /**
    * Carbon instance
@@ -41,9 +58,13 @@ class TeacherManager
 
   public function __construct(
     TeacherInterface $Teacher,
+    UserInterface $User,
+    PDF $Dompdf,
     Carbon $Carbon
   ) {
     $this->Teacher = $Teacher;
+    $this->User = $User;
+    $this->Dompdf = $Dompdf;
     $this->Carbon = $Carbon;
     $this->responseType = 'teachers';
   }
@@ -107,9 +128,50 @@ class TeacherManager
     return $this->Teacher->byId($id);
   }
 
+  public function generateSystemUsers() {
+
+    $users = [];
+
+    $this->Teacher->getWithoutUser()->each(function ($teacher) use (&$users) {
+      $generatedPassword = strtoupper(Str::random(8));
+
+      $data = [
+        'name'=> $teacher->name . ' ' . $teacher->last_name,
+        'email'=> $teacher->institutional_email,
+        'password'=> bcrypt($generatedPassword),
+        'system_reference_table'=> 'teachers',
+        'system_reference_id'=> $teacher->id,
+      ];
+
+      $user = $this->User->create($data);
+      $this->Teacher->update(['is_user_created' => 1], $teacher);
+
+      $user->carnet = $teacher->carnet;
+      $user->password = $generatedPassword;
+
+      array_push($users, $user);
+    });
+
+    $data = [
+      'users' => $users
+    ];
+
+    return $this->Dompdf
+      ->loadView('system-users-data-pdf', $data)
+      ->setPaper('letter')
+      ->download('UsuariosCreados.pdf');
+  }
+
+
   public function create($request)
   {
-    $teacher = $this->Teacher->create($request->all());
+    $data = $request->all();
+
+    $carnet = $this->generateCarnet($data['last_name'], $data['entry_date'], $data['birth_date']);
+    $data['carnet'] = $carnet;
+    $data['institutional_email'] = $carnet . "@" . config('app.institutional_email_domain');
+
+    $teacher = $this->Teacher->create($data);
     $id = strval($teacher->id);
     unset($teacher->id);
 
@@ -153,5 +215,11 @@ class TeacherManager
     $this->Teacher->delete($id);
 
     return true;
+  }
+
+  private function generateCarnet($lastName, $entryYear, $birthDate) {
+    $birthYear = $this->Carbon->createFromFormat('Y-m-d', $birthDate, config('app.timezone'))->year;
+    $carnet = strtoupper(substr($lastName, 0, 2)) . ($birthYear % 100) . ($entryYear % 100) . str_pad($this->Teacher->getNextCarnet($entryYear), 3, '0', STR_PAD_LEFT);
+    return $carnet;
   }
 }

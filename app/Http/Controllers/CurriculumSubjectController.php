@@ -37,15 +37,32 @@ class CurriculumSubjectController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-     /** 
+      /**
    *  @OA\Get(
    *    path="/api/curriculum-subjects",
-   *    operationId="getCurriculum-subjects",
-   *    tags={"Curriculum subjects"},
+   *    operationId="get curriculum-subjects",
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
-   *    summary="Get curriculum-subjects list",
-   *    description="Returns curriculum-subjects list",
-   * 
+   *    summary="Get curriculum-subjects",
+   *    description="Returns curriculum-subjects and allows to filter by curriculum id and subject id ",
+   *
+   *    @OA\Parameter(
+   *      name="query",
+   *      in="query",
+   *      description="filter format like:{""query"":[{""field"":""cs.curriculum_id"",""op"":""="",""data"":""2""}]}",
+   *      required=false,
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *
+   *        @OA\Schema(
+   *          type="object",
+   *          @OA\Property(property="field",  type="string"),
+   *          @OA\Property(property="op",  type="string"),
+   *          @OA\Property(property="data",  type="string"),
+   *        )
+   *      )
+   *    ),
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -94,25 +111,25 @@ class CurriculumSubjectController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Post(
    *    path="/api/curriculum-subjects",
    *    operationId="postCurriculum-subjects",
-   *    tags={"Curriculum subjects"},
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
-   *    summary="Create curriculum-subjects",
-   *    description="Create curriculum-subjects",
-   * 
+   *    summary="Associate subjects to curriculum",
+   *    description="Associate subject to curriculum",
+   *
    *    @OA\Parameter(
    *      name="uv",
    *      in="query",
-   *      description="Curriculum subject UV",
+   *      description="Subject UV",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_id",
    *      in="query",
@@ -122,17 +139,17 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="subject_id",
    *      in="query",
-   *      description="Subject id associated with the curriculum",
+   *      description="Subject id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -166,7 +183,7 @@ class CurriculumSubjectController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['curriculumSubject']
+        'attributes' => $response['curriculum_subject']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -180,50 +197,6 @@ class CurriculumSubjectController extends Controller
    * @param  \App\Models\CurriculumSubject  $CurriculumSubject
    * @return \Illuminate\Http\Response
    */
-    /** 
-   *  @OA\Get(
-   *    path="/api/curriculum-subjects/{id}",
-   *    operationId="get curriculum-subjects by id",
-   *    tags={"Curriculum subjects"},
-   * security={{"bearer_token":{}}},
-   *    summary="Get curriculum-subjects by id",
-   *    description="Returns curriculum-subjects by id",
-   * 
-   *    @OA\Parameter(
-   *      name="id",
-   *      in="path",
-   *      description="curriculum-subjects id",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   * 
-   *    @OA\Response(
-   *      response=200,
-   *      description="Success",
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *      )
-   *    ),
-   *    @OA\Response(
-   *      response=401,
-   *      description="Unauthenticated",
-   *    ),
-   *    @OA\Response(
-   *      response=403,
-   *      description="Forbidden",
-   *    ),
-   *    @OA\Response(
-   *      response=400,
-   *      description="Bad Request"
-   *    ),
-   *    @OA\Response(
-   *      response=404,
-   *      description="Not Found"
-   *    )
-   *  )
-  */
   public function show($id)
   {
     $curriculumSubject = $this->CurriculumSubjectManagerService->getCurriculumSubject($id);
@@ -263,15 +236,15 @@ class CurriculumSubjectController extends Controller
    * @param  \App\Models\CurriculumSubject  $CurriculumSubject
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Put(
    *    path="/api/curriculum-subjects/{id}",
    *    operationId="putCurriculum-subjects",
-   *    tags={"Curriculum subjects"},
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
    *    summary="Update curriculum-subjects",
    *    description="Update curriculum-subjects",
-   * 
+   *
    *   @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -281,17 +254,17 @@ class CurriculumSubjectController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="uv",
    *      in="query",
-   *      description="Curriculum subject UV",
+   *      description="Subject UV",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_id",
    *      in="query",
@@ -301,17 +274,17 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="subject_id",
    *      in="query",
-   *      description="Subject id associated with the curriculum",
+   *      description="Subject id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -358,7 +331,7 @@ class CurriculumSubjectController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['curriculumSubject']
+        'attributes' => $response['curriculum_subject']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -372,15 +345,15 @@ class CurriculumSubjectController extends Controller
    * @param  \App\Models\CurriculumSubject  $CurriculumSubject
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Delete(
    *    path="/api/curriculum-subjects/{id}",
    *    operationId="Delete curriculum-subjects by id",
-   *    tags={"Curriculum subjects"},
+   *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
    *    summary="Delete curriculum-subjects by id",
    *    description="Delete curriculum-subjects by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -390,7 +363,7 @@ class CurriculumSubjectController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",

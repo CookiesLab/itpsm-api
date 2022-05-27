@@ -37,7 +37,7 @@ class EvaluationRequest extends FormRequest
           'name.required' => 'El campo name es obligatorio',
           'date.required' => 'El campo date es obligatorio',
           'percentage.required' => 'El campo percentage es obligatorio',
-          'section_id.required' => 'El campo section_id es obligatorio',
+          'section_id.required' => 'El campo seccion es obligatorio',
       ];
     }
 }
