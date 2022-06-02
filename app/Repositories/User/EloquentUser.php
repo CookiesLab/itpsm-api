@@ -165,7 +165,7 @@ class EloquentUser implements UserInterface {
         ->where('system_reference_id', $referenceId)
         ->first();
 
-        return $user->update($data)
+        return $user->update($data);
     }
 
 }
