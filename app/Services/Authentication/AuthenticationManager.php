@@ -55,7 +55,7 @@ class AuthenticationManager
       $user = $request->user();
       $tokenResult = $user->createToken('Personal Access Token');
       $token = $tokenResult->token;
-      $token->expires_at = now()->addMinutes(120);
+      $token->expires_at = now('-6:00')->addHours(6);
 
       $token->save();
 
@@ -83,7 +83,7 @@ class AuthenticationManager
       $user = $this->User->create($data);
       $tokenResult = $user->createToken('Personal Access Token');
       $token = $tokenResult->token;
-      $token->expires_at = now()->addMinutes(120);
+      $token->expires_at = now('-6:00')->addHours(6);
       $token->save();
 
       return [
