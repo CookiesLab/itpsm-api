@@ -125,4 +125,22 @@ class AuthenticationManager
       'message' => __('auth.logoutSuccess'),
     ];
   }
+
+  public function resetPassword($request)
+  {
+    $data = $request->all();
+    $referenceTable = $data['reference_table'];
+    $referenceId = $data['reference_id'];
+    $newData = [
+      'password' => $data['password']
+    ];
+
+    $this->User->resetPassword($newData, $referenceTable, $referenceId);
+
+    return [
+      'success' => true,
+      'referenceTable' => $referenceTable,
+      'referenceId' => $referenceId,
+    ];
+  }
 }

@@ -147,4 +147,25 @@ class EloquentUser implements UserInterface {
     {
         return $this->User->destroy($id);
     }
+
+    /**
+     * Update an User password
+     * 
+    * @param array $data
+    * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
+    *
+    * @param integer $referenceTable
+    * @param integer $referenceId	
+    *
+    * @return boolean
+    */
+    public function resetPassword(array $data, $referenceTable, $referenceId) {
+        $user = $this->User
+        ->where('system_reference_table', $referenceTable)
+        ->where('system_reference_id', $referenceId)
+        ->first();
+
+        return $user->update($data)
+    }
+
 }

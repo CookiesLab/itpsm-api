@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Services\Authentication\AuthenticationManager;
 
 class AuthController extends Controller
@@ -162,5 +163,9 @@ class AuthController extends Controller
   public function logout(Request $request)
   {
     return $this->AuthenticationManagerService->logout($request);
+  }
+
+  public function resetPassword(ResetPasswordRequest $request) {
+    return $this->AuthenticationManagerService->resetPassword($request);
   }
 }

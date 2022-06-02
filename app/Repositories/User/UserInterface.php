@@ -22,4 +22,17 @@ interface UserInterface extends RepositoryInterface {
 	*/
     public function byEmail($email);
 
+	/**
+	* Update an User password
+	*
+	* @param array $data
+	* 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
+	*
+	* @param string $referenceTable
+    * @param string $referenceId;
+	*
+	* @return boolean
+	*/
+    public function resetPassword(array $data, $referenceTable, $referenceId)
+
 }

@@ -75,4 +75,6 @@ Route::middleware('auth:api')->group(function() {
     Route::post('teachers/generate-system-users', [TeacherController::class, 'generateSystemUsers'])->name('teachers.generate-system-users');
 
     Route::get('initial-config', [InitialConfigController::class, 'getInitialConfig'])->name('initial.config');
+
+    Route::put('reset-password', [AuthController::class, 'resetPassword'])->name('update.password');
 });
