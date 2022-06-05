@@ -25,8 +25,8 @@ class ResetPasswordRequest extends FormRequest
   {
     return [
       'password' => 'required|string|min:8',
-      'reference_table' => 'required',
-      'reference_id' => 'required'
+      'system_reference_table' => 'required',
+      'system_reference_id' => 'required'
     ];
   }
 

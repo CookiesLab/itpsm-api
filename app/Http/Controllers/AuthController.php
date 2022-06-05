@@ -31,7 +31,7 @@ class AuthController extends Controller
    *    tags={"Login"},
    *    summary="User Login",
    *    description="User Login here",
-   * 
+   *
    *    @OA\Parameter(
    *      name="email",
    *      in="query",
@@ -70,7 +70,7 @@ class AuthController extends Controller
    *    @OA\Response(
    *      response=403,
    *      description="Forbidden"
-   *    ) 
+   *    )
    * )
    */
   public function login(LoginRequest $request)
@@ -166,6 +166,21 @@ class AuthController extends Controller
   }
 
   public function resetPassword(ResetPasswordRequest $request) {
-    return $this->AuthenticationManagerService->resetPassword($request);
+    $data = [
+      'system_reference_table' => $request->system_reference_table,
+      'system_reference_id' => $request->system_reference_id,
+      'password' => bcrypt($request->password),
+    ];
+
+    $response = $this->AuthenticationManagerService->resetPassword($data);
+
+    return response()->json([
+      'data' => [
+        'success' => $response,
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
   }
 }

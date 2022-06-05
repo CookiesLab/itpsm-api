@@ -76,5 +76,5 @@ Route::middleware('auth:api')->group(function() {
 
     Route::get('initial-config', [InitialConfigController::class, 'getInitialConfig'])->name('initial.config');
 
-    Route::put('reset-password', [AuthController::class, 'resetPassword'])->name('update.password');
+    Route::put('users/reset-password', [AuthController::class, 'resetPassword'])->name('user.reset-password');
 });

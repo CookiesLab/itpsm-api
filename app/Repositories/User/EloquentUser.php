@@ -150,12 +150,12 @@ class EloquentUser implements UserInterface {
 
     /**
      * Update an User password
-     * 
+     *
     * @param array $data
     * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
     *
     * @param integer $referenceTable
-    * @param integer $referenceId	
+    * @param integer $referenceId
     *
     * @return boolean
     */
@@ -164,6 +164,11 @@ class EloquentUser implements UserInterface {
         ->where('system_reference_table', $referenceTable)
         ->where('system_reference_id', $referenceId)
         ->first();
+
+        if(empty($user))
+        {
+            return false;
+        }
 
         return $user->update($data);
     }

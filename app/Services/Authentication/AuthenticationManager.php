@@ -126,21 +126,19 @@ class AuthenticationManager
     ];
   }
 
-  public function resetPassword($request)
+  public function resetPassword($data)
   {
-    $data = $request->all();
-    $referenceTable = $data['reference_table'];
-    $referenceId = $data['reference_id'];
-    $newData = [
-      'password' => $data['password']
-    ];
+    try {
+      $updatedPassword = [
+        'password' => $data['password']
+      ];
 
-    $this->User->resetPassword($newData, $referenceTable, $referenceId);
+      $response = $this->User->resetPassword($updatedPassword, $data['system_reference_table'], $data['system_reference_id']);
 
-    return [
-      'success' => true,
-      'referenceTable' => $referenceTable,
-      'referenceId' => $referenceId,
-    ];
+      return $response;
+    }
+    catch (\Throwable $th) {
+      return false;
+    }
   }
 }
