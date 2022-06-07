@@ -19,8 +19,8 @@ class RoleController extends Controller
 
   public function create(Request $request)
   {
-    $receivedData = $request->data;
-    $response = $this->RoleManagerService->create($receivedData['attributes']['name']);
+    $data = $request->data;
+    $response = $this->RoleManagerService->create($data['attributes']['name']);
     if (!$response['success']) {
       return response()->json([
         'errors' => [
