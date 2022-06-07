@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Roles\EloquentRoles;
+use App\Services\Roles\RoleManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\UrlGenerator;
 use Carbon\Carbon;
@@ -66,6 +68,8 @@ class AppServiceProvider extends ServiceProvider
     $this->registerEvaluationManagement();
     $this->registerScoreEvaluationManagement();
     $this->registerInitialConfigManagement();
+
+    $this->registerRolesInterface();
   }
 
   /**
@@ -158,6 +162,21 @@ class AppServiceProvider extends ServiceProvider
         $app->make('App\Repositories\User\UserInterface'),
         $app->make('dompdf.wrapper'),
         new Carbon()
+      );
+    });
+  }
+
+  protected function registerRolesInterface()
+  {
+    $this->app->bind('App\Repositories\Roles\RoleInterface', function ($app) {
+      return new EloquentRoles();
+    });
+  }
+  protected function registerRoleManagement()
+  {
+    $this->app->bind('App\Services\Roles\RoleManager', function ($app) {
+      return new RoleManager(
+        $app->make('App\Repositories\Roles\RoleInterface')
       );
     });
   }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,7 +33,11 @@ use App\Http\Controllers\InitialConfigController;
 
 Route::post('login', 'App\Http\Controllers\AuthController@login')->name('login');
 
-Route::post('register', [AuthController::class, 'register'])->name('register');
+Route::post('register', [AuthController::
+class, 'register'])->name('register');
+
+Route::post('role', [RoleController::class, 'create'])->name('create-roles');
+
 
 Route::middleware('auth:api')->group(function() {
 
