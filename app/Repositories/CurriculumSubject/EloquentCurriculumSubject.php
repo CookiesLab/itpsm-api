@@ -51,6 +51,7 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
       ->select(
         'cs.id',
         'cs.uv',
+        'cs.cycle',
         's.id AS subject_id',
         's.name AS subject_name',
         's.code AS subject_code'

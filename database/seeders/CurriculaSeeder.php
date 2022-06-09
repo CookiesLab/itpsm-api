@@ -194,7 +194,7 @@ class CurriculaSeeder extends Seeder
     ],
     [
       'id' => 34,
-      'name' => 'plicación de Software y Redes Sociales en la Hostelería y Turismo',
+      'name' => 'Aplicación de Software y Redes Sociales en la Hostelería y Turismo',
       'code' => '200047',
     ],
     [
@@ -267,126 +267,151 @@ class CurriculaSeeder extends Seeder
           'id' => 1,
           'subject_id' => 1,
           'uv' => 3,
+          'cycle' => 1
         ],
         [
           'id' => 2,
           'subject_id' => 2,
           'uv' => 2,
+          'cycle' => 1
         ],
         [
           'id' => 3,
           'subject_id' => 3,
           'uv' => 3,
+          'cycle' => 1
         ],
         [
           'id' => 4,
           'subject_id' => 4,
           'uv' => 4,
+          'cycle' => 1
         ],
         [
           'id' => 5,
           'subject_id' => 5,
           'uv' => 5,
+          'cycle' => 1
         ],
         [
           'id' => 6,
           'subject_id' => 6,
           'uv' => 3,
+          'cycle' => 1
         ],
         [
           'id' => 7,
           'subject_id' => 7,
           'uv' => 3,
+          'cycle' => 1
         ],
         [
           'id' => 8,
           'subject_id' => 8,
           'uv' => 4,
+          'cycle' => 2
         ],
         [
           'id' => 9,
           'subject_id' => 9,
           'uv' => 3,
+          'cycle' => 2
         ],
         [
           'id' => 10,
           'subject_id' => 10,
           'uv' => 3,
+          'cycle' => 2
         ],
         [
           'id' => 11,
           'subject_id' => 11,
           'uv' => 5,
+          'cycle' => 2
         ],
         [
           'id' => 12,
           'subject_id' => 12,
           'uv' => 5,
+          'cycle' => 2
         ],
         [
           'id' => 13,
           'subject_id' => 13,
           'uv' => 4,
+          'cycle' => 2
         ],
         [
           'id' => 14,
           'subject_id' => 14,
           'uv' => 3,
+          'cycle' => 3
         ],
         [
           'id' => 15,
           'subject_id' => 15,
           'uv' => 3,
+          'cycle' => 3
         ],
         [
           'id' => 16,
           'subject_id' => 16,
           'uv' => 3,
+          'cycle' => 3
         ],
         [
           'id' => 17,
           'subject_id' => 17,
           'uv' => 5,
+          'cycle' => 3
         ],
         [
           'id' => 18,
           'subject_id' => 18,
           'uv' => 5,
+          'cycle' => 3
         ],
         [
           'id' => 19,
           'subject_id' => 19,
           'uv' => 5,
+          'cycle' => 3
         ],
         [
           'id' => 20,
           'subject_id' => 20,
           'uv' => 4,
+          'cycle' => 4
         ],
         [
           'id' => 21,
           'subject_id' => 21,
           'uv' => 5,
+          'cycle' => 4
         ],
         [
           'id' => 22,
           'subject_id' => 22,
           'uv' => 2,
+          'cycle' => 4
         ],
         [
           'id' => 23,
           'subject_id' => 23,
           'uv' => 4,
+          'cycle' => 4
         ],
         [
           'id' => 24,
           'subject_id' => 24,
           'uv' => 2,
+          'cycle' => 4
         ],
         [
           'id' => 25,
           'subject_id' => 25,
           'uv' => 4,
+          'cycle' => 4
         ],
       ]
       ],
@@ -402,101 +427,121 @@ class CurriculaSeeder extends Seeder
           'id' => 26,
           'subject_id' => 26,
           'uv' => 4,
+          'cycle' => 1
         ],
         [
           'id' => 27,
           'subject_id' => 27,
           'uv' => 5,
+          'cycle' => 1
         ],
         [
           'id' => 28,
           'subject_id' => 28,
           'uv' => 4,
+          'cycle' => 1
         ],
         [
           'id' => 29,
           'subject_id' => 29,
           'uv' => 3,
+          'cycle' => 1
         ],
         [
           'id' => 30,
           'subject_id' => 30,
           'uv' => 4,
+          'cycle' => 1
         ],
         [
           'id' => 31,
           'subject_id' => 31,
           'uv' => 5,
+          'cycle' => 2
         ],
         [
           'id' => 32,
           'subject_id' => 32,
           'uv' => 5,
+          'cycle' => 2
         ],
         [
           'id' => 33,
           'subject_id' => 33,
           'uv' => 5,
+          'cycle' => 2
         ],
         [
           'id' => 34,
           'subject_id' => 34,
           'uv' => 4,
+          'cycle' => 2
         ],
         [
           'id' => 35,
           'subject_id' => 35,
           'uv' => 3,
+          'cycle' => 2
         ],
         [
           'id' => 36,
           'subject_id' => 36,
           'uv' => 3,
+          'cycle' => 3
         ],
         [
           'id' => 37,
           'subject_id' => 37,
           'uv' => 4,
+          'cycle' => 3
         ],
         [
           'id' => 38,
           'subject_id' => 38,
           'uv' => 4,
+          'cycle' => 3
         ],
         [
           'id' => 39,
           'subject_id' => 39,
           'uv' => 4,
+          'cycle' => 3
         ],
         [
           'id' => 40,
           'subject_id' => 40,
           'uv' => 4,
+          'cycle' => 3
         ],
         [
           'id' => 41,
           'subject_id' => 41,
           'uv' => 4,
+          'cycle' => 4
         ],
         [
           'id' => 42,
           'subject_id' => 42,
           'uv' => 4,
+          'cycle' => 4
         ],
         [
           'id' => 43,
           'subject_id' => 43,
           'uv' => 3,
+          'cycle' => 4
         ],
         [
           'id' => 44,
           'subject_id' => 44,
           'uv' => 5,
+          'cycle' => 4
         ],
         [
           'id' => 45,
           'subject_id' => 45,
           'uv' => 4,
+          'cycle' => 4
         ],
       ]
     ]
@@ -614,6 +659,7 @@ class CurriculaSeeder extends Seeder
           'curriculum_id' => $curricula['id'],
           'subject_id' => $cusub['subject_id'],
           'uv' => $cusub['uv'],
+          'cycle' => $cusub['cycle']
         ]);
       }
     }

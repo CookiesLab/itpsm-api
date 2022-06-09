@@ -75,6 +75,7 @@ return new class extends Migration
     Schema::create('curriculum_subjects', function (Blueprint $table) {
       $table->id();
       $table->integer('uv');
+      $table->integer('cycle');
 
       $table->unsignedBigInteger('curriculum_id')->index();
       $table->foreign('curriculum_id')->references('id')->on('curricula');
