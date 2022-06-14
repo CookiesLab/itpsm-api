@@ -170,4 +170,70 @@ class CurriculumSubjectManager
 
     return true;
   }
+
+  public function createCurriculumSubjects(array $input)
+  {
+    // Missing begin transaction 
+    try {
+      $curriculumSubjectIds = array();
+      $this->CurriculumSubject->byId($input['curriculum_id'])->each(function($CurriculumSubject) use (&$curriculumSubjectIds)
+      {
+        array_push($curriculumSubjectIds, $CurriculumSubject->id);
+      });
+
+      foreach ($input['subjects'] as $key => $item)
+      {
+        $curriculumSubject = array(
+          'curriculum_id' => $item['curriculum_id'],
+          'subject_id' => $item['subject_id'],
+          'uv' => $item['uv'],
+          'cycle' => $item['cycle']
+        );
+
+        if(isset($item['id']) && !empty($item['id'])) 
+        {
+          $curriculumSubject['id'] = $item['id'];
+          $this->update($curriculumSubject, $item['id']);
+          
+          $key = array_search($curriculumSubject['id'], $curriculumSubjectIds);
+          unset($curriculumSubjectIds[$key]);
+        }
+        else 
+        {
+          $response = json_decode($this->create($curriculumSubject));
+          $input['subjects'][$key]['id'] = $response['id'];
+        }
+      }
+
+      if(!empty($curriculumSubjectIds))
+      {
+        foreach ($curriculumSubjectIds as $key => $id)
+        {
+          $this->delete($id)
+        }
+      }
+
+      // Missing commit transaction
+    }
+    catch (\Exception $e)
+    {
+      // $this->rollBack($openTransaction);
+
+      throw $e;
+    }
+    catch (\Throwable $e)
+    {
+      // $this->rollBack($openTransaction);
+
+      throw $e;
+    }
+
+    return json_encode(
+      array(
+        'success' => $this->Lang->get('form.defaultSuccessSaveMessage'),
+        'id' => $input['curriculum_id'],
+        'articles' => $input['subjects']
+      )
+    );
+  }
 }
