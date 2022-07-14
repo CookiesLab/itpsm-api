@@ -88,7 +88,7 @@ class CurriculumSubjectManager
     else
     {
       $sortColumn = 'id';
-      $sortOrder = 'desc';
+      $sortOrder = 'asc';
     }
 
     if ($pager)
