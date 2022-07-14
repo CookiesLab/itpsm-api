@@ -90,7 +90,7 @@ class CurriculumSubjectController extends Controller
   */
   public function index()
   {
-    $response = $this->CurriculumSubjectManagerService->getTableRowsWithPagination(request()->all());
+    $response = $this->CurriculumSubjectManagerService->getTableRowsWithPagination(request()->all(), false);
 
     return response()->json([
       'meta' => [

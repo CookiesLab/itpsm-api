@@ -173,7 +173,7 @@ class CurriculumSubjectManager
 
   public function createCurriculumSubjects(array $input)
   {
-    // Missing begin transaction 
+    // Missing begin transaction
     try {
       $curriculumSubjectIds = array();
       $this->CurriculumSubject->byId($input['curriculum_id'])->each(function($CurriculumSubject) use (&$curriculumSubjectIds)
@@ -190,17 +190,17 @@ class CurriculumSubjectManager
           'cycle' => $item['cycle']
         );
 
-        if(isset($item['id']) && !empty($item['id'])) 
+        if(isset($item['id']) && !empty($item['id']))
         {
           $curriculumSubject['id'] = $item['id'];
           $this->update($curriculumSubject, $item['id']);
-          
+
           $key = array_search($curriculumSubject['id'], $curriculumSubjectIds);
           unset($curriculumSubjectIds[$key]);
         }
-        else 
+        else
         {
-          $response = json_decode($this->create($curriculumSubject));
+          $response = $this->create($curriculumSubject);
           $input['subjects'][$key]['id'] = $response['id'];
         }
       }
@@ -209,7 +209,7 @@ class CurriculumSubjectManager
       {
         foreach ($curriculumSubjectIds as $key => $id)
         {
-          $this->delete($id)
+          $this->delete($id);
         }
       }
 
