@@ -126,6 +126,32 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
   }
 
   /**
+   * Get subjects by curriculum id
+   *
+   * @param integer $id
+   *
+   * @return boolean
+   */
+  public function getSubjectsByCurriculumId($curriculumId)
+  {
+    return new Collection(
+      $this->DB::table('curriculum_subjects AS cs')
+        ->select(
+          'cs.id',
+          'cs.uv',
+          'cs.cycle',
+          's.id AS subject_id',
+          's.name AS subject_name',
+          's.code AS subject_code'
+        )
+        ->join('subjects as s', 'cs.subject_id', '=', 's.id')
+        ->where('cs.curriculum_id', $curriculumId)
+        ->orderBy('cs.id', 'asc')
+        ->get()
+    );
+  }
+
+  /**
    * Create a new CurriculumSubject
    *
    * @param array $data

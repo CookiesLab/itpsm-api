@@ -183,6 +183,7 @@ class CurriculumSubjectController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
+        'curriculum_subjects' => $response['curriculum_subjects'],
         'attributes' => $response['curriculum_subject']
       ],
       'jsonapi' => [
@@ -331,6 +332,7 @@ class CurriculumSubjectController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
+        'curriculum_subjects' => $response['curriculum_subjects'],
         'attributes' => $response['curriculum_subject']
       ],
       'jsonapi' => [
@@ -393,7 +395,7 @@ class CurriculumSubjectController extends Controller
   {
     $response = $this->CurriculumSubjectManagerService->delete($request);
 
-    if (!$response) {
+    if (!$response['success']) {
       return response()->json([
         'errors' => [
           'status' => '401',
@@ -410,6 +412,7 @@ class CurriculumSubjectController extends Controller
       'data' => [
         'type' => $this->responseType,
         'success' => __('base.delete'),
+        'curriculum_subjects' => $response['curriculum_subjects']
       ],
       'jsonapi' => [
         'version' => "1.00"

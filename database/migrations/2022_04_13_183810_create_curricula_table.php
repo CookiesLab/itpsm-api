@@ -47,6 +47,7 @@ return new class extends Migration
       $table->foreign('career_id')->references('id')->on('careers');
 
       $table->timestamps();
+      $table->softDeletes();
     });
 
     Schema::create('student_curricula', function (Blueprint $table) {
@@ -70,6 +71,7 @@ return new class extends Migration
       $table->foreign('scholarship_id')->references('id')->on('scholarships')->nullable();
 
       $table->timestamps();
+      $table->softDeletes();
     });
 
     Schema::create('curriculum_subjects', function (Blueprint $table) {
@@ -84,6 +86,7 @@ return new class extends Migration
       $table->foreign('subject_id')->references('id')->on('subjects');
 
       $table->timestamps();
+      $table->softDeletes();
     });
 
     Schema::create('prerequisites', function (Blueprint $table) {

@@ -132,6 +132,7 @@ class CurriculumSubjectManager
     return [
       'success' => true,
       'curriculum_subject' => $curriculumSubject,
+      'curriculum_subjects' => $this->CurriculumSubject->getSubjectsByCurriculumId($curriculumSubject->curriculum_id),
       'id' => $id,
     ];
   }
@@ -153,6 +154,7 @@ class CurriculumSubjectManager
     return [
       'success' => true,
       'curriculum_subject' => $curriculumSubject,
+      'curriculum_subjects' => $this->CurriculumSubject->getSubjectsByCurriculumId($curriculumSubject->curriculum_id),
       'id' => $id,
     ];
 
@@ -163,12 +165,18 @@ class CurriculumSubjectManager
     $CurriculumSubject = $this->CurriculumSubject->byId($id);
 
     if (empty($CurriculumSubject)) {
-      return false;
+      return [
+        'success' => false,
+      ];
     }
 
     $this->CurriculumSubject->delete($id);
 
-    return true;
+    return [
+      'success' => true,
+      'curriculum_subjects' => $this->CurriculumSubject->getSubjectsByCurriculumId($CurriculumSubject->curriculum_id),
+      'id' => $id,
+    ];
   }
 
   public function createCurriculumSubjects(array $input)
