@@ -16,6 +16,7 @@ class CurriculumSubject extends Model
      */
     protected $fillable = [
         'uv',
+        'cycle',
         'curriculum_id',
         'subject_id'
     ];
