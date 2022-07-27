@@ -56,7 +56,8 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
         's.name AS subject_name',
         's.code AS subject_code'
       )
-      ->join('subjects as s', 'cs.subject_id', '=', 's.id');
+      ->join('subjects as s', 'cs.subject_id', '=', 's.id')
+      ->whereNull('cs.deleted_at');
 
     if (!empty($customQuery)) {
       $query->whereNested(function ($dbQuery) use ($customQuery) {
@@ -147,6 +148,7 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
         ->join('subjects as s', 'cs.subject_id', '=', 's.id')
         ->where('cs.curriculum_id', $curriculumId)
         ->orderBy('cs.id', 'asc')
+        ->whereNull('cs.deleted_at')
         ->get()
     );
   }
