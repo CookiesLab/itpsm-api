@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Services\Authentication\AuthenticationManager;
 
+
 class AuthController extends Controller
 {
   /**
