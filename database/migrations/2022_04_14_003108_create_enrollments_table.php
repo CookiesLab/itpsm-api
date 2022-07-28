@@ -17,19 +17,19 @@ return new class extends Migration
             $table->id();
             $table->integer('code');
             $table->integer('year');
+            $table->boolean('is_closed')->default(0);
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('sections', function (Blueprint $table) {
-            /**
-             * Check this field
-             */
+
             $table->integer('quota');
             $table->string('schedule', 255);
 
-            $table->unsignedBigInteger('teacher_id')->index();
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
 
             /**
              * Fields with missing Primary Key
@@ -45,6 +45,7 @@ return new class extends Migration
             $table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('evaluations', function (Blueprint $table) {
