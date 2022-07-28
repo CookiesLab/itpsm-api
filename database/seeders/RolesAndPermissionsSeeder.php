@@ -33,13 +33,31 @@ class RolesAndPermissionsSeeder extends Seeder
 
     // create roles and assign created permissions
 
-    Role::create(['name' => 'Administrador']);
+    Role::create(['name' => 'Super Admin']);
 
     Role::create(['name' => 'Registro Académico'])
-      ->givePermissionTo(['editar notas', 'leer notas', 'leer nota']);
+      ->givePermissionTo([
+
+        'editar notas',
+        'leer notas',
+        'leer nota',
+
+        'crear estudiantes',
+        'editar estudiantes',
+        'leer estudiantes',
+        'leer estudiante',
+      ]);
 
     Role::create(['name' => 'Maestro'])
-      ->givePermissionTo(['crear notas', 'editar notas', 'leer notas','leer nota']);
+      ->givePermissionTo([
+        'crear notas',
+        'editar notas',
+        'leer notas',
+        'leer nota',
+
+        'leer estudiantes',
+        'leer estudiante',
+      ]);
 
     Role::create(['name' => 'Estudiante'])
       ->givePermissionTo(['leer nota']);

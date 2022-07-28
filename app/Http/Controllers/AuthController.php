@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Services\Authentication\AuthenticationManager;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -20,12 +20,13 @@ class AuthController extends Controller
 
   public function __construct(
     AuthenticationManager $AuthenticationManagerService
-  ) {
+  )
+  {
     $this->AuthenticationManagerService = $AuthenticationManagerService;
   }
 
   /**
-   *  @OA\Post(
+   * @OA\Post(
    *    path="/api/login",
    *    operationId="Login",
    *    tags={"Login"},
@@ -118,6 +119,7 @@ class AuthController extends Controller
       'name' => $request->name,
       'email' => $request->email,
       'password' => bcrypt($request->password),
+      'role_id' => $request->role_id
     ];
 
     $response = $this->AuthenticationManagerService->register($data);
@@ -165,7 +167,8 @@ class AuthController extends Controller
     return $this->AuthenticationManagerService->logout($request);
   }
 
-  public function resetPassword(ResetPasswordRequest $request) {
+  public function resetPassword(ResetPasswordRequest $request)
+  {
     $data = [
       'system_reference_table' => $request->system_reference_table,
       'system_reference_id' => $request->system_reference_id,

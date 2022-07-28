@@ -10,10 +10,10 @@
 
 namespace App\Services\Authentication;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
 use App\Repositories\User\UserInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class AuthenticationManager
 {
@@ -36,23 +36,23 @@ class AuthenticationManager
 
   public function __construct(
     UserInterface $User,
-    Carbon $Carbon
-  ) {
+    Carbon        $Carbon
+  )
+  {
     $this->User = $User;
     $this->Carbon = $Carbon;
   }
 
   public function login($credentials, $request)
   {
-    if (!Auth::attempt($credentials)) {
+    if (!Auth::guard('web')->attempt($credentials)) {
       return [
         'success' => false,
       ];
     }
 
-    try
-    {
-      $user = $request->user();
+    try {
+      $user = $this->User->byEmail($request->email);
       $tokenResult = $user->createToken('Personal Access Token');
       $token = $tokenResult->token;
       $token->expires_at = now('-6:00')->addHours(6);
@@ -66,21 +66,23 @@ class AuthenticationManager
         'token_type' => 'Bearer',
         'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
       ];
-    }
-    catch (\Throwable $th) {
-      dd($th);
+    } catch (\Throwable $th) {
+//      dd($th);
       return [
         'success' => false,
-        'message' =>  __('common.internal_error')
+        'message' => __('common.internal_error')
       ];
     }
   }
 
   public function register($data)
   {
-    try
-    {
+    try {
       $user = $this->User->create($data);
+      $Role = Role::findById($data['role_id']);
+
+      $user->assignRole($Role->name);
+
       $tokenResult = $user->createToken('Personal Access Token');
       $token = $tokenResult->token;
       $token->expires_at = now('-6:00')->addHours(6);
@@ -93,11 +95,10 @@ class AuthenticationManager
         'token_type' => 'Bearer',
         'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
       ];
-    }
-    catch (\Throwable $th) {
+    } catch (\Throwable $th) {
       return [
         'success' => false,
-        'message' =>  __('common.internal_error')
+        'message' => __('common.internal_error')
       ];
     }
 
@@ -136,8 +137,7 @@ class AuthenticationManager
       $response = $this->User->resetPassword($updatedPassword, $data['system_reference_table'], $data['system_reference_id']);
 
       return $response;
-    }
-    catch (\Throwable $th) {
+    } catch (\Throwable $th) {
       return false;
     }
   }

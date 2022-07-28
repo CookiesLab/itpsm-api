@@ -24,6 +24,7 @@ return [
     'name' => 'Nombre de usuario',
     'email' => 'Correo electrónico',
     'password' => 'Contraseña',
+    'role_id' =>'Id del rol',
 
     'emailUnique' => 'El correo electrónico ya está en uso.',
     'passwordMin' => 'La contraseña es demasiado corta.',

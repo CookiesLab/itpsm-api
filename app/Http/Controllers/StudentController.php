@@ -30,7 +30,12 @@ class StudentController extends Controller
   {
     $this->StudentManagerService = $StudentManagerService;
     $this->responseType = 'students';
-    $this->middleware('role:');
+    $this->middleware('role:Super Admin|permission:leer estudiantes',['only'=>'index']);
+    $this->middleware('role:Super Admin|permission:crear estudiantes',['only'=>'store']);
+    $this->middleware('role:Super Admin|permission:leer estudiante',['only'=>'show']);
+    $this->middleware('role:Super Admin|permission:editar estudiante',['only'=>'update']);
+    $this->middleware('role:Super Admin|permission:borrar estudiantes',['only'=>'destroy']);
+
   }
 
 
@@ -87,7 +92,8 @@ class StudentController extends Controller
       'jsonapi' => [
         'version' => "1.00"
       ]
-    ], 200);
+
+    ]);
   }
 
   /**
@@ -384,6 +390,7 @@ class StudentController extends Controller
    */
   public function store(StudentRequest $request)
   {
+    $user= $request->user()->getRoleNames();
     $response = $this->StudentManagerService->create($request);
 
 
