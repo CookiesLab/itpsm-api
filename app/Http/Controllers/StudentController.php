@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
-use Illuminate\Http\Request;
 use App\Services\Student\StudentManager;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -26,9 +26,11 @@ class StudentController extends Controller
 
   public function __construct(
     StudentManager $StudentManagerService
-  ) {
+  )
+  {
     $this->StudentManagerService = $StudentManagerService;
     $this->responseType = 'students';
+    $this->middleware('role:');
   }
 
 
@@ -38,7 +40,7 @@ class StudentController extends Controller
    * @return \Illuminate\Http\Response
    */
   /**
-   *  @OA\Get(
+   * @OA\Get(
    *    path="/api/students",
    *    operationId="getStudents",
    *    tags={"Students"},
@@ -70,7 +72,7 @@ class StudentController extends Controller
    *      description="Not Found"
    *    )
    *  )
-  */
+   */
   public function index()
   {
     $response = $this->StudentManagerService->getTableRowsWithPagination(request()->all());
@@ -91,11 +93,11 @@ class StudentController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param \Illuminate\Http\Request $request
    * @return \Illuminate\Http\Response
    */
   /**
-   *  @OA\Post(
+   * @OA\Post(
    *    path="/api/students",
    *    operationId="postStudents",
    *    tags={"Students"},
@@ -309,7 +311,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="entry_period",
    *      in="query",
@@ -379,7 +381,7 @@ class StudentController extends Controller
    *      description="Not Found"
    *    )
    *  )
-  */
+   */
   public function store(StudentRequest $request)
   {
     $response = $this->StudentManagerService->create($request);
@@ -413,11 +415,11 @@ class StudentController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Models\Student  $Student
+   * @param \App\Models\Student $Student
    * @return \Illuminate\Http\Response
    */
   /**
-   *  @OA\Get(
+   * @OA\Get(
    *    path="/api/students/{id}",
    *    operationId="get student by id",
    *    tags={"Students"},
@@ -458,7 +460,7 @@ class StudentController extends Controller
    *      description="Not Found"
    *    )
    *  )
-  */
+   */
   public function show($id)
   {
     $student = $this->StudentManagerService->getStudent($id);
@@ -494,12 +496,12 @@ class StudentController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  \Illuminate\Http\Request $request
-   * @param  \App\Models\Student  $Student
+   * @param \Illuminate\Http\Request $request
+   * @param \App\Models\Student $Student
    * @return \Illuminate\Http\Response
    */
-    /**
-   *  @OA\Put(
+  /**
+   * @OA\Put(
    *    path="/api/students/{id}",
    *    operationId="putStudents",
    *    tags={"Students"},
@@ -560,7 +562,7 @@ class StudentController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="birth_date",
    *      in="query",
@@ -731,7 +733,7 @@ class StudentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="entry_period",
    *      in="query",
@@ -801,7 +803,7 @@ class StudentController extends Controller
    *      description="Not Found"
    *    )
    *  )
-  */
+   */
   public function update(StudentRequest $request, $data)
   {
     $response = $this->StudentManagerService->update($request, $data);
@@ -834,11 +836,11 @@ class StudentController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Models\Student  $Student
+   * @param \App\Models\Student $Student
    * @return \Illuminate\Http\Response
    */
-    /**
-   *  @OA\Delete(
+  /**
+   * @OA\Delete(
    *    path="/api/students/{id}",
    *    operationId="delete student by id",
    *    tags={"Students"},
@@ -879,7 +881,7 @@ class StudentController extends Controller
    *      description="Not Found"
    *    )
    *  )
-  */
+   */
   public function destroy($request)
   {
     $response = $this->StudentManagerService->delete($request);

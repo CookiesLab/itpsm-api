@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
       CurriculaSeeder::class,
       TeacherSeeder::class,
       EnrollmentSeeder::class,
+      RolesAndPermissionsSeeder::class
   ]);
   }
 }
