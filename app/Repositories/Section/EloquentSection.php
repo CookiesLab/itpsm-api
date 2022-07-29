@@ -45,7 +45,7 @@ class EloquentSection implements SectionInterface
    *
    * @return Illuminate\Database\Eloquent\Collection
    */
-  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
+  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null, $customQuery = null)
   {
     $query = $this->DB::table('sections AS s')
       ->select(
@@ -60,6 +60,32 @@ class EloquentSection implements SectionInterface
       )
       ->join('teachers as t', 's.teacher_id', '=', 't.id');
 
+    if (!empty($customQuery)) {
+      $query->whereNested(function ($dbQuery) use ($customQuery) {
+        foreach ($customQuery as $statement) {
+
+          if($statement['op'] == 'is not in')
+          {
+            $dbQuery->whereNotIn($statement['field'], explode(',',$statement['data']));
+            continue;
+          }
+
+          if($statement['op'] == 'is null')
+          {
+            $dbQuery->whereNull($statement['field']);
+            continue;
+          }
+
+          if($statement['op'] == 'is not null')
+          {
+            $dbQuery->whereNotNull($statement['field']);
+            continue;
+          }
+
+          $dbQuery->where($statement['field'], $statement['op'], $statement['data']);
+        }
+      });
+    }
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {

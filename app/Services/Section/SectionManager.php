@@ -48,15 +48,20 @@ class SectionManager
     $this->responseType = 'sections';
   }
 
-  public function getTableRowsWithPagination($request, $pager = true, $returnJson = true)
+  public function getTableRowsWithPagination($request, $pager = true)
   {
     $rows = [];
     $limit = $offset = $count = $page = $totalPages = 0;
-    $filter = $sortColumn = $sortOrder = '';
+    $filter = $sortColumn = $sortOrder = $customQuery =  '';
 
     if (!empty($request['filter']))
     {
       $filter = $request['filter'];
+    }
+
+    if (!empty($request['query']))
+    {
+      $customQuery = json_decode($request['query'], true)['query'];
     }
 
     if (!empty($request['sort']) && $request['sort'][0] == '-')
@@ -77,11 +82,11 @@ class SectionManager
 
     if ($pager)
     {
-      $count = $this->Section->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      $count = $this->Section->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery);
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->Section->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($section) use (&$rows) {
+    $this->Section->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery)->each(function ($section) use (&$rows) {
 
       // $id = strval($section->id);
       // unset($section->id);
