@@ -616,6 +616,7 @@ class AppServiceProvider extends ServiceProvider
         $app->make('App\Services\Career\CareerManager'),
         $app->make('App\Services\Subject\SubjectManager'),
         $app->make('App\Services\Curriculum\CurriculumManager'),
+        $app->make('App\Services\CurriculumSubject\CurriculumSubjectManager'),
         new Carbon()
       );
     });

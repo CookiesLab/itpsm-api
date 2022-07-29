@@ -14,6 +14,7 @@ use App\Repositories\Municipality\MunicipalityInterface;
 use App\Services\Career\CareerManager;
 use App\Services\Subject\SubjectManager;
 use App\Services\Curriculum\CurriculumManager;
+use App\Services\CurriculumSubject\CurriculumSubjectManager;
 use Carbon\Carbon;
 
 class InitialConfigManager
@@ -67,6 +68,14 @@ class InitialConfigManager
   protected $CurriculumManager;
 
   /**
+   * CurriculumManager
+   *
+   * @var App\Services\Curriculum\CurriculumManager;
+   *
+   */
+  protected $CurriculumSubjectManager;
+
+  /**
    * Carbon instance
    *
    * @var Carbon\Carbon
@@ -89,6 +98,7 @@ class InitialConfigManager
     CareerManager $CareerManager,
     SubjectManager $SubjectManager,
     CurriculumManager $CurriculumManager,
+    CurriculumSubjectManager $CurriculumSubjectManager,
     Carbon $Carbon
   ) {
     $this->Country = $Country;
@@ -97,6 +107,7 @@ class InitialConfigManager
     $this->CareerManager = $CareerManager;
     $this->SubjectManager = $SubjectManager;
     $this->CurriculumManager = $CurriculumManager;
+    $this->CurriculumSubjectManager = $CurriculumSubjectManager;
     $this->Carbon = $Carbon;
     $this->responseType = 'initialConfig';
   }
@@ -107,6 +118,7 @@ class InitialConfigManager
       'careers' => $this->CareerManager->getTableRowsWithPagination($request, false)['rows'],
       'subjects' => $this->SubjectManager->getTableRowsWithPagination($request, false)['rows'],
       'curricula' => $this->CurriculumManager->getTableRowsWithPagination($request, false)['rows'],
+      'curriculum_subjects' => $this->CurriculumSubjectManager->getTableRowsWithPagination($request, false)['rows'],
       'countries' => $this->getCountryData(),
     ];
   }
