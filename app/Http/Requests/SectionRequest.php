@@ -26,7 +26,8 @@ class SectionRequest extends FormRequest
         return [
             'quota' => 'required|integer',
             'schedule' => 'required|string|max:255',
-            'teacher_id' => 'required',
+            'curriculum_subject_id' => 'required',
+            'period_id' => 'required',
         ];
     }
 
@@ -35,7 +36,8 @@ class SectionRequest extends FormRequest
       return [
           'quota.required' => 'El campo quota es obligatorio',
           'schedule.required' => 'El campo schedule es obligatorio',
-          'teacher_id.required' => 'El campo maestro es obligatorio'
+          'curriculum_subject_id.required' => 'El campo Materia es obligatorio',
+          'period_id.required' => 'El campo ciclo es obligatorio'
       ];
     }
 }

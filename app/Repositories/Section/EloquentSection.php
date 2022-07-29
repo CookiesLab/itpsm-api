@@ -60,7 +60,7 @@ class EloquentSection implements SectionInterface
         'ca.name AS career_label',
         $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
       )
-      ->join('teachers as t', 's.teacher_id', '=', 't.id')
+      ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
       ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
       ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
       ->join('careers as ca', 'c.career_id', '=', 'ca.id')
@@ -95,7 +95,7 @@ class EloquentSection implements SectionInterface
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['name', 'email'] as $key => $value) {
+        foreach (['m.name', 'c.name', 'ca.name'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
           //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
         }
@@ -138,6 +138,40 @@ class EloquentSection implements SectionInterface
       ->where('period_id', intval($ids[1]))
       ->where('code', intval($ids[2]))
       ->first();
+  }
+
+  /**
+   * Get sections by period id
+   *
+   * @param integer $id
+   *
+   * @return boolean
+   */
+  public function getSectionsByPeriodId($periodId)
+  {
+    return new Collection(
+      $this->DB::table('sections AS s')
+        ->select(
+          's.code',
+          's.quota',
+          's.schedule',
+          's.curriculum_subject_id',
+          's.period_id',
+          's.teacher_id',
+          'm.name AS curriculum_subject_label',
+          'c.name AS curriculum_label',
+          'ca.name AS career_label',
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
+        )
+        ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
+        ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
+        ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+        ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+        ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+        ->where('s.period_id', $periodId)
+        ->orderBy('s.code', 'asc')
+        ->get()
+    );
   }
 
   /**

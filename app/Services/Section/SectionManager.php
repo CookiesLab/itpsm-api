@@ -120,6 +120,7 @@ class SectionManager
     return [
       'success' => true,
       'section' => $section,
+      'period_sections' => $this->Section->getSectionsByPeriodId($section->period_id),
       'id' => $id,
     ];
   }
@@ -141,6 +142,7 @@ class SectionManager
     return [
       'success' => true,
       'section' => $section,
+      'period_sections' => $this->Section->getSectionsByPeriodId($section->period_id),
       'id' => $id,
     ];
 
@@ -148,14 +150,20 @@ class SectionManager
 
   public function delete($id)
   {
-    $Section = $this->Section->byId($id);
+    $section = $this->Section->byId($id);
 
-    if (empty($Section)) {
-      return false;
+    if (empty($section)) {
+      return [
+        'success' => false,
+      ];
     }
 
     $this->Section->delete($id);
 
-    return true;
+    return [
+      'success' => true,
+      'period_sections' => $this->Section->getSectionsByPeriodId($section->period_id),
+      'id' => $id,
+    ];
   }
 }

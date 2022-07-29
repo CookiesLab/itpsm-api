@@ -37,7 +37,7 @@ class SectionController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Get(
    *    path="/api/sections",
    *    operationId="getSections",
@@ -45,7 +45,7 @@ class SectionController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get section list",
    *    description="Returns section list",
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -94,7 +94,7 @@ class SectionController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Post(
    *    path="/api/sections",
    *    operationId="postSection",
@@ -102,7 +102,7 @@ class SectionController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Create section",
    *    description="Create section",
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="query",
@@ -112,7 +112,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="quota",
    *      in="query",
@@ -122,7 +122,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="schedule",
    *      in="query",
@@ -132,7 +132,7 @@ class SectionController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="teacher_id",
    *      in="query",
@@ -142,7 +142,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_subject_id",
    *      in="query",
@@ -152,7 +152,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *   @OA\Parameter(
    *      name="period_id",
    *      in="query",
@@ -162,7 +162,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -195,6 +195,7 @@ class SectionController extends Controller
     return response()->json([
       'data' => [
         'type' => $this->responseType,
+        'period_sections' => $response['period_sections'],
         'id' => $response['id'],
         'attributes' => $response['section']
       ],
@@ -210,7 +211,7 @@ class SectionController extends Controller
    * @param  \App\Models\Section  $Section
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Get(
    *    path="/api/sections/{code}",
    *    operationId="get section by code",
@@ -218,7 +219,7 @@ class SectionController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get section by id",
    *    description="Returns section by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="path",
@@ -228,7 +229,7 @@ class SectionController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -289,7 +290,7 @@ class SectionController extends Controller
    * @param  \App\Models\Section  $Section
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Put(
    *    path="/api/sections/{code}",
    *    operationId="putSection",
@@ -297,7 +298,7 @@ class SectionController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update section",
    *    description="Update section",
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="path",
@@ -307,7 +308,7 @@ class SectionController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    *    @OA\Parameter(
    *      name="quota",
    *      in="query",
@@ -317,7 +318,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="schedule",
    *      in="query",
@@ -327,7 +328,7 @@ class SectionController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="teacher_id",
    *      in="query",
@@ -337,7 +338,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_subject_id",
    *      in="query",
@@ -347,7 +348,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *   @OA\Parameter(
    *      name="period_id",
    *      in="query",
@@ -357,7 +358,7 @@ class SectionController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -403,6 +404,7 @@ class SectionController extends Controller
     return response()->json([
       'data' => [
         'type' => $this->responseType,
+        'period_sections' => $response['period_sections'],
         'id' => $response['id'],
         'attributes' => $response['section']
       ],
@@ -418,7 +420,7 @@ class SectionController extends Controller
    * @param  \App\Models\Section  $Section
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Delete(
    *    path="/api/sections/{code}",
    *    operationId="delete section by code",
@@ -426,7 +428,7 @@ class SectionController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Delete section by code",
    *    description="Deletes section by code",
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="path",
@@ -436,7 +438,7 @@ class SectionController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -466,7 +468,7 @@ class SectionController extends Controller
   {
     $response = $this->SectionManagerService->delete($request);
 
-    if (!$response) {
+    if (!$response['success']) {
       return response()->json([
         'errors' => [
           'status' => '401',
@@ -482,6 +484,7 @@ class SectionController extends Controller
     return response()->json([
       'data' => [
         'type' => $this->responseType,
+        'period_sections' => $response['period_sections'],
         'success' => __('base.delete'),
       ],
       'jsonapi' => [
