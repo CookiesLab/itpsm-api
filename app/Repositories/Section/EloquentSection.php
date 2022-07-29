@@ -133,7 +133,7 @@ class EloquentSection implements SectionInterface
   {
     $ids = get_keys_data($id);
 
-    return $this->StudentCurriculum
+    return $this->Section
       ->where('curriculum_subject_id', intval($ids[0]))
       ->where('period_id', intval($ids[1]))
       ->where('code', intval($ids[2]))
