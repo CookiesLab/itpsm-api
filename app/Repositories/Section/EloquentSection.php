@@ -55,10 +55,16 @@ class EloquentSection implements SectionInterface
         's.curriculum_subject_id',
         's.period_id',
         's.teacher_id',
-        't.name',
-        't.last_name'
+        'm.name AS curriculum_subject_label',
+        'c.name AS curriculum_label',
+        'ca.name AS career_label',
+        $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
       )
-      ->join('teachers as t', 's.teacher_id', '=', 't.id');
+      ->join('teachers as t', 's.teacher_id', '=', 't.id')
+      ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
+      ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+      ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+      ->join('subjects as m', 'cs.subject_id', '=', 'm.id');
 
     if (!empty($customQuery)) {
       $query->whereNested(function ($dbQuery) use ($customQuery) {
