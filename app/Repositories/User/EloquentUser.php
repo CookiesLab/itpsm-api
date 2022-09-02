@@ -95,7 +95,7 @@ class EloquentUser implements UserInterface {
     */
     public function byEmail($email, $databaseConnectionName = null)
     {
-        return $this->User->where('email', '=', $email)->get();
+        return $this->User->where('email', '=', $email)->first();
     }
 
 

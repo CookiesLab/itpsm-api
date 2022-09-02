@@ -26,7 +26,8 @@ class RegisterRequest extends FormRequest
     return [
       'name' => 'required|string',
       'email' => 'required|string|email|unique:users',
-      'password' => 'required|string|min:8'
+      'password' => 'required|string|min:8',
+      'role_id' => 'required|integer|exists:roles,id'
     ];
   }
 
@@ -41,6 +42,12 @@ class RegisterRequest extends FormRequest
       'name.required' => __('common.fieldIsRequired', ['field' => __('auth.name')]),
       'email.required' => __('common.fieldIsRequired', ['field' => __('auth.email')]),
       'password.required' => __('common.fieldIsRequired', ['field' => __('auth.password')]),
+      'role_id.required' => __('common.fieldIsRequired', ['field' => __('auth.role_id')]),
+
+      'role_id.integer' => __('common.fieldIsInteger', ['field' => __('auth.role_id')]),
+      'role_id.exists' => __('common.idExists', ['id' => __('auth.role_id')]),
+
+
       'email.unique' => __('auth.emailUnique'),
       'password.min' => __('auth.passwordMin')
     ];
