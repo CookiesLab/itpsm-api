@@ -64,7 +64,8 @@ class EloquentSection implements SectionInterface
       ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
       ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
       ->join('careers as ca', 'c.career_id', '=', 'ca.id')
-      ->join('subjects as m', 'cs.subject_id', '=', 'm.id');
+      ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+      ->whereNull('s.deleted_at');
 
     if (!empty($customQuery)) {
       $query->whereNested(function ($dbQuery) use ($customQuery) {
@@ -137,7 +138,24 @@ class EloquentSection implements SectionInterface
       ->where('curriculum_subject_id', intval($ids[0]))
       ->where('period_id', intval($ids[1]))
       ->where('code', intval($ids[2]))
+      ->whereNull('deleted_at')
       ->first();
+  }
+
+  /**
+   * Get an Section by id
+   *
+   * @param  int $id
+   *
+   * @return App\Models\Section
+   */
+  public function countCurriculumSubjectByPeriod($curriculumSubjectId, $periodId)
+  {
+    return $this->Section
+      ->where('curriculum_subject_id', $curriculumSubjectId)
+      ->where('period_id', $periodId)
+      ->whereNull('deleted_at')
+      ->count();
   }
 
   /**
@@ -169,6 +187,7 @@ class EloquentSection implements SectionInterface
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')
         ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
         ->where('s.period_id', $periodId)
+        ->whereNull('s.deleted_at')
         ->orderBy('s.code', 'asc')
         ->get()
     );

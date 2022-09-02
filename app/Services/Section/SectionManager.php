@@ -113,7 +113,9 @@ class SectionManager
 
   public function create($request)
   {
-    $section = $this->Section->create($request->all());
+    $data = $request->all();
+    $data['code'] = $this->generateCode($data['curriculum_subject_id'], $data['period_id']);
+    $section = $this->Section->create($data);
     $id = strval($section->id);
     unset($section->id);
 
@@ -165,5 +167,10 @@ class SectionManager
       'period_sections' => $this->Section->getSectionsByPeriodId($section->period_id),
       'id' => $id,
     ];
+  }
+
+  private function generateCode($curriculumSubjectId, $periodId) {
+    $code = $this->Section->countCurriculumSubjectByPeriod($curriculumSubjectId, $periodId) + 1;
+    return $code;
   }
 }
