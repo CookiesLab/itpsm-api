@@ -24,6 +24,8 @@ class UserSeeder extends Seeder
       'remember_token' => Str::random(10),
     ));
 
+
+
     User::create(array(
       'name' => 'Walter Ayala',
       'email' => 'walterayala@itpsm.edu.sv',

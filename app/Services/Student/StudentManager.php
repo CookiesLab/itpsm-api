@@ -155,6 +155,7 @@ class StudentManager
       ];
 
       $user = $this->User->create($data);
+      $user->assignRole('student');
       $this->Student->update(['is_user_created' => 1], $student);
 
       $user->carnet = $student->carnet;
