@@ -57,16 +57,31 @@ class AuthenticationManager
       $token = $tokenResult->token;
       $token->expires_at = now('-6:00')->addHours(6);
 
+      if ($user->hasRole('admin')) {
+        $platformMenus = $this->getAdminPlatformMenus();
+      }
+      else if ($user->hasRole('teacher')) {
+        $platformMenus = $this->getTeacherPlatformMenus();
+      }
+      else if ($user->hasRole('student')) {
+        $platformMenus = $this->getStudentPlatformMenus();
+      }
+      else {
+        $platformMenus = [];
+      }
+
       $token->save();
 
       return [
         'success' => true,
         'user' => $user,
+        'platform_menus' => $platformMenus,
         'token' => $tokenResult->accessToken,
         'token_type' => 'Bearer',
         'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
       ];
     } catch (\Throwable $th) {
+      dd($th);
       return [
         'success' => false,
         'message' => __('common.internal_error')
@@ -139,5 +154,62 @@ class AuthenticationManager
     } catch (\Throwable $th) {
       return false;
     }
+  }
+
+  private function getAdminPlatformMenus(){
+    return [
+      [
+        "id" => 1,
+        "name" => 'Usuarios',
+        "redirectTo" => '/dashboard/usuarios',
+        "icon" => "MdSchool",
+      ],
+      [
+        "id" => 2,
+        "name" => 'Estudiantes',
+        "redirectTo" => '/dashboard/estudiantes',
+        "icon" => "MdSchool",
+      ],
+      [
+        "id" => 3,
+        "name" => 'Catedráticos',
+        "redirectTo" => '/dashboard/catedraticos',
+        "icon" => "GiTeacher",
+      ],
+      [
+        "id" => 4,
+        "name" => 'Plan de estudios',
+        "redirectTo" => '/dashboard/plan-de-estudio',
+        "icon" => "AiTwotoneSchedule",
+      ],
+      [
+        "id" => 5,
+        "name" => 'Ciclo de estudios',
+        "redirectTo" => '/dashboard/ciclo-de-estudios',
+        "icon" => "AiOutlineCalendar",
+      ],
+    ];
+  }
+
+  private function getTeacherPlatformMenus(){
+    return [
+      [
+        "id" => 7,
+        "name" => 'Mis secciones',
+        "redirectTo" => '/dashboard/mis-secciones',
+        "icon" => "MdSchool",
+      ],
+    ];
+  }
+
+  private function getStudentPlatformMenus(){
+    return [
+      [
+        "id" => 8,
+        "name" => 'Inscripción de materias',
+        "redirectTo" => '/dashboard/inscripcion-de-materias',
+        "icon" => "MdSchool",
+      ],
+    ];
   }
 }

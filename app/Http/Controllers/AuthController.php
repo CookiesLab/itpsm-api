@@ -103,6 +103,7 @@ class AuthController extends Controller
         'id' => strval($user->id),
         'message' => __('auth.success'),
         'attributes' => $user,
+        'platform_menus' => $response['platform_menus'],
         'token' => $response['token'],
         'token_type' => $response['token_type'],
         'expires_at' => $response['expires_at'],

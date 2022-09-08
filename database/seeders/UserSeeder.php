@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
    */
   public function run()
   {
-    User::create(array(
+    $user1 = User::create(array(
       'name' => 'Alvaro García',
       'email' => 'alvarogarcia@itpsm.edu.sv',
       'email_verified_at' => now(),
@@ -24,9 +24,7 @@ class UserSeeder extends Seeder
       'remember_token' => Str::random(10),
     ));
 
-
-
-    User::create(array(
+    $user2 = User::create(array(
       'name' => 'Walter Ayala',
       'email' => 'walterayala@itpsm.edu.sv',
       'email_verified_at' => now(),
@@ -50,12 +48,16 @@ class UserSeeder extends Seeder
       'remember_token' => Str::random(10),
     ));
 
-    User::create(array(
+    $user3 = User::create(array(
       'name' => 'Administracion',
       'email' => 'admin@itpsm.edu.sv',
       'email_verified_at' => now(),
       'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
       'remember_token' => Str::random(10),
     ));
+
+    $user1->assignRole('admin');
+    $user2->assignRole('admin');
+    $user3->assignRole('admin');
   }
 }

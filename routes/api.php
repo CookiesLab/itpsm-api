@@ -39,41 +39,50 @@ Route::middleware('auth:api')->group(function () {
 
   Route::get('logged-user', [AuthController::class, 'getLoggedUser'])->name('user');
 
-  Route::apiResource('students', StudentController::class);
-
-  Route::apiResource('teachers', TeacherController::class);
-
-  Route::apiResource('careers', CareerController::class);
-
-  Route::apiResource('subjects', SubjectController::class);
-
-  Route::apiResource('curricula', CurriculumController::class);
-
-  Route::apiResource('prerequisites', PrerequisiteController::class);
-
-  Route::apiResource('curriculum-subjects', CurriculumSubjectController::class);
-
-  Route::apiResource('scholarships', ScholarshipController::class);
-
-  Route::apiResource('student-curricula', StudentCurriculaController::class);
-
-  Route::apiResource('periods', PeriodController::class);
-
-  Route::apiResource('sections', SectionController::class);
-
-  Route::apiResource('enrollments', EnrollmentController::class);
-
-  Route::apiResource('evaluations', EvaluationController::class);
-
-  Route::apiResource('score-evaluations', ScoreEvaluationController::class);
-
-  Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');
-
-  Route::post('students/generate-system-users', [StudentController::class, 'generateSystemUsers'])->name('students.generate-system-users');
-
-  Route::post('teachers/generate-system-users', [TeacherController::class, 'generateSystemUsers'])->name('teachers.generate-system-users');
-
   Route::get('initial-config', [InitialConfigController::class, 'getInitialConfig'])->name('initial.config');
 
   Route::put('users/reset-password', [AuthController::class, 'resetPassword'])->name('user.reset-password');
+
+  Route::group(['middleware' => ['role:admin']], function () {
+    Route::apiResource('students', StudentController::class);
+
+    Route::apiResource('teachers', TeacherController::class);
+
+    Route::apiResource('careers', CareerController::class);
+
+    Route::apiResource('subjects', SubjectController::class);
+
+    Route::apiResource('curricula', CurriculumController::class);
+
+    Route::apiResource('prerequisites', PrerequisiteController::class);
+
+    Route::apiResource('curriculum-subjects', CurriculumSubjectController::class);
+
+    Route::apiResource('scholarships', ScholarshipController::class);
+
+    Route::apiResource('student-curricula', StudentCurriculaController::class);
+
+    Route::apiResource('periods', PeriodController::class);
+
+    Route::apiResource('sections', SectionController::class);
+
+    Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');
+
+    Route::post('students/generate-system-users', [StudentController::class, 'generateSystemUsers'])->name('students.generate-system-users');
+
+    Route::post('teachers/generate-system-users', [TeacherController::class, 'generateSystemUsers'])->name('teachers.generate-system-users');
+  });
+
+  Route::group(['middleware' => ['role:teacher']], function () {
+    Route::apiResource('evaluations', EvaluationController::class);
+
+    Route::apiResource('score-evaluations', ScoreEvaluationController::class);
+
+  });
+
+  Route::group(['middleware' => ['role:student']], function () {
+    Route::apiResource('enrollments', EnrollmentController::class);
+
+  });
+
 });
