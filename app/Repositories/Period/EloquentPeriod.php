@@ -52,13 +52,13 @@ class EloquentPeriod implements PeriodInterface
         'p.id',
         'p.code',
         'p.year',
-        'p.is_closed'
+        'p.status'
       );
 
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['p.code', 'p.year'] as $key => $value) {
+        foreach (['p.code', 'p.year', 'p.status'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
         }
       });
