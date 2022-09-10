@@ -19,14 +19,17 @@ class EnrollmentSeeder extends Seeder
         [
             'code' => 01,
             'year' => 2022,
+            'status' => 'C'
         ],
         [
             'code' => 02,
             'year' => 2022,
+            'status' => 'C'
         ],
         [
             'code' => 03,
             'year' => 2022,
+            'status' => 'I',
         ],
     ];
 
@@ -101,6 +104,7 @@ class EnrollmentSeeder extends Seeder
             Period::create([
               'code' => $period['code'],
               'year' => $period['year'],
+              'status' => $period['status'],
             ]);
         }
 

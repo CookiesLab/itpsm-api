@@ -16,6 +16,7 @@ class Period extends Model
      */
     protected $fillable = [
         'code',
-        'year'
+        'year',
+        'status',
     ];
 }

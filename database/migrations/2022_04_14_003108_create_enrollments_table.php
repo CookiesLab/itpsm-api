@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('code');
             $table->integer('year');
-            $table->boolean('is_closed')->default(0);
+            $table->char('status', 1);
 
             $table->timestamps();
             $table->softDeletes();
@@ -47,6 +47,25 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::create('schedules', function (Blueprint $table) {
+					$table->id();
+          $table->integer('day_of_week');
+          $table->time('start_hour');
+          $table->time('end_hour');
+
+					$table->unsignedBigInteger('code')->index();
+          $table->foreign('code')->references('code')->on('sections');
+
+          $table->unsignedBigInteger('curriculum_subject_id')->index();
+          $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
+
+          $table->unsignedBigInteger('period_id')->index();
+          $table->foreign('period_id')->references('id')->on('periods');
+
+          $table->timestamps();
+          $table->softDeletes();
+      });
 
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
