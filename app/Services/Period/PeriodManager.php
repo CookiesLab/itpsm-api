@@ -109,7 +109,9 @@ class PeriodManager
 
   public function getCurrentEnrollmentPeriod()
   {
-    return $this->Period->getActiveToBeEnrolled();
+    $period = $this->Period->getActiveToBeEnrolled();
+    $period->label = "Ciclo " . str_pad($period->code, 2, "0", STR_PAD_LEFT) . "-" . $period->year;
+    return $period;
   }
 
   public function create($request)

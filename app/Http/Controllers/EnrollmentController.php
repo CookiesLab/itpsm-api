@@ -156,6 +156,48 @@ class EnrollmentController extends Controller
     ], 201);
   }
 
+  public function getEnrolledCurriculumSubjects(Request $request)
+  {
+    $loggedUser = $request->user();
+    $studentId = $loggedUser->system_reference_id;
+
+    $currentPeriod = $this->PeriodManagerService->getCurrentEnrollmentPeriod();
+    $currentEnrolled = $this->EnrollmentManagerService->getCurrentEnrolled($studentId, $currentPeriod->id);
+
+    return response()->json([
+      'meta' => [
+        'page' => 1,
+        'totalPages' => 1,
+        'records' => $currentEnrolled->count(),
+        'period' => $currentPeriod,
+      ],
+      'data' => $currentEnrolled->toArray(),
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
+  public function getApprovedCurriculumSubjects(Request $request)
+  {
+    $loggedUser = $request->user();
+    $studentId = $loggedUser->system_reference_id;
+
+    $response = $this->EnrollmentManagerService->getCurriculumSubjectsApproved($studentId);
+
+    return response()->json([
+      'meta' => [
+        'page' => 1,
+        'totalPages' => 1,
+        'records' => $response->count(),
+      ],
+      'data' => $response->toArray(),
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
   /**
    * Display a listing of the resource.
    *

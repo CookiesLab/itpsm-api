@@ -84,7 +84,12 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('enrollments', EnrollmentController::class);
 
     Route::post('enrollment/enroll-subjects', [EnrollmentController::class, 'enrollSubjects'])->name('enrollment.enroll-subjects');
+
     Route::get('enrollment/active-subjects', [EnrollmentController::class, 'getSubjectsToBeEnrolled'])->name('enrollment.active-subjects');
+
+    Route::get('enrollment/enrolled-curriculum-subjects', [EnrollmentController::class, 'getEnrolledCurriculumSubjects'])->name('enrollment.enrolled-curriculum-subjects');
+
+    Route::get('enrollment/approved-subjects', [EnrollmentController::class, 'getApprovedCurriculumSubjects'])->name('enrollment.approved-subjects');
   });
 
 });
