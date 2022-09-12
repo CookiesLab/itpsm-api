@@ -206,8 +206,20 @@ class AuthenticationManager
     return [
       [
         "id" => 8,
+        "name" => 'Información personal',
+        "redirectTo" => '/dashboard/informacion-personal',
+        "icon" => "MdSchool",
+      ],
+      [
+        "id" => 9,
         "name" => 'Inscripción de materias',
         "redirectTo" => '/dashboard/inscripcion-de-materias',
+        "icon" => "MdSchool",
+      ],
+      [
+        "id" => 10,
+        "name" => 'Historial academico',
+        "redirectTo" => '/dashboard/historial-academico',
         "icon" => "MdSchool",
       ],
     ];
