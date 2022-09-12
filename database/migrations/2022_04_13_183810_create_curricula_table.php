@@ -62,6 +62,9 @@ return new class extends Migration
       $table->unsignedBigInteger('curriculum_id')->index();
       $table->foreign('curriculum_id')->references('id')->on('curricula');
 
+      $table->char('status', 1)->default('A'); // A -> Activo - G -> Finalizada - D -> Desertadaß
+      $table->integer('level')->default(1);
+
       $table->primary(['student_id', 'curriculum_id']);
 
       /**

@@ -83,6 +83,8 @@ Route::middleware('auth:api')->group(function () {
   Route::group(['middleware' => ['role:student']], function () {
     Route::apiResource('enrollments', EnrollmentController::class);
 
+    Route::post('enrollment/enroll-subjects', [EnrollmentController::class, 'enrollSubjects'])->name('enrollment.enroll-subjects');
+    Route::get('enrollment/active-subjects', [EnrollmentController::class, 'getSubjectsToBeEnrolled'])->name('enrollment.active-subjects');
   });
 
 });

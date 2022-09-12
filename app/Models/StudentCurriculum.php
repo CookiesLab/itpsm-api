@@ -22,6 +22,8 @@ class StudentCurriculum extends Model
       'scholarship_id',
       'graduation_year',
       'scholarship_rate',
+      'status',
+      'level',
     ];
 
     protected function setKeysForSaveQuery($query)

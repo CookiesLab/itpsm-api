@@ -53,6 +53,8 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
         'sc.entry_year',
         'sc.graduation_year',
         'sc.scholarship_rate',
+        'sc.status',
+        'sc.level',
         's.id AS scholarship_id',
         's.name AS scholarship_name',
         's.scholarship_foundation AS scholarship_foundation',
@@ -139,6 +141,14 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
     return $this->StudentCurriculum
       ->where('student_id', intval($ids[0]))
       ->where('curriculum_id', intval($ids[1]))
+      ->first();
+  }
+
+  public function activeCurriculaByStudentId($studentId)
+  {
+    return $this->StudentCurriculum
+      ->where('student_id', $studentId)
+      ->where('status', 'A')
       ->first();
   }
 

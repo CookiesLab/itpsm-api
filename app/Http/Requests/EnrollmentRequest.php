@@ -24,18 +24,21 @@ class EnrollmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'final_score' => 'required|numeric',
-            'is_approved' => 'required|integer',
-            'enrollment' => 'required|integer'
+            'student_id' => 'required|numeric',
+            'teacher_id' => 'numeric',
+            'curriculum_subject_id' => 'required|numeric',
+            'period_id' => 'required|numeric',
+            'code' => 'required|numeric',
+            'final_score' => 'numeric',
+            'is_approved' => 'integer',
+            'enrollment' => 'integer'
         ];
     }
 
     public function messages()
     {
       return [
-          'final_score.required' => 'El campo final_score es obligatorio',
-          'is_approved.required' => 'El campo is_approved es obligatorio',
-          'enrollment.required' => 'El campo enrollment es obligatorio'
+
       ];
     }
 }

@@ -84,6 +84,15 @@ class EloquentPeriod implements PeriodInterface
     );
   }
 
+  public function getActiveToBeEnrolled()
+  {
+    return $this->Period
+      ->where('status', '=', 'I')
+      ->where('year', '=', date('Y'))
+      ->first();
+  }
+
+
   /**
    * Get an Period by id
    *

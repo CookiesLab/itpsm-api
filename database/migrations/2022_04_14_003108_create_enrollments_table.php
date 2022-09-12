@@ -98,9 +98,9 @@ return new class extends Migration
         });
 
         Schema::create('enrollments', function (Blueprint $table) {
-            $table->float('final_score');
-            $table->boolean('is_approved');
-            $table->integer('enrollment');
+            $table->float('final_score')->nullable();
+            $table->boolean('is_approved')->nullable();
+            $table->integer('enrollment')->default(1);
 
             /**
              * Fields with missing Primary Key
@@ -117,10 +117,10 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id')->index();
             $table->foreign('student_id')->references('id')->on('students');
 
-            $table->unsignedBigInteger('teacher_id')->index();
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
 
-            $table->primary(['student_id', 'teacher_id', 'curriculum_subject_id', 'period_id', 'code'], 'enrollment_primary');
+            $table->primary(['student_id', 'curriculum_subject_id', 'period_id', 'code'], 'enrollment_primary');
 
             $table->timestamps();
         });

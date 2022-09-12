@@ -111,6 +111,11 @@ class SectionManager
     return $this->Section->byId($id);
   }
 
+  public function getByCurriculumIdAndLevel($periodId, $curriculumId, $level)
+  {
+    return $this->Section->byCurriculumIdAndLevel($periodId, $curriculumId, $level);
+  }
+
   public function create($request)
   {
     $data = $request->all();

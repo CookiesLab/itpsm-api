@@ -193,6 +193,45 @@ class EloquentSection implements SectionInterface
     );
   }
 
+    /**
+   * Get sections by period id
+   *
+   * @param integer $id
+   *
+   * @return boolean
+   */
+  public function byCurriculumIdAndLevel($periodId, $curriculumId, $level)
+  {
+    return new Collection(
+      $this->DB::table('sections AS s')
+        ->select(
+          's.code',
+          's.quota',
+          's.schedule',
+          's.curriculum_subject_id',
+          's.period_id',
+          's.teacher_id',
+          'm.name AS curriculum_subject_label',
+          'c.name AS curriculum_label',
+          'ca.name AS career_label',
+          'cs.cycle AS curriculum_subject_level',
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
+        )
+        ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
+        ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
+        ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+        ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+        ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+        ->where('cs.curriculum_id', $curriculumId)
+        ->where('cs.cycle', '<=', $level)
+        ->where('s.period_id', $periodId)
+        ->whereNull('s.deleted_at')
+        ->orderBy('s.code', 'asc')
+        ->get()
+    );
+  }
+
+
   /**
    * Create a new Section
    *

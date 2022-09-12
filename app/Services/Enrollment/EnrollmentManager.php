@@ -106,17 +106,33 @@ class EnrollmentManager
     return $this->Enrollment->byId($id);
   }
 
-  public function create($request)
+  public function getCurriculumSubjectsApproved($studentId)
   {
-    $enrollment = $this->Enrollment->create($request->all());
-    $id = strval($enrollment->id);
-    unset($enrollment->id);
+    return $this->Enrollment->getCurriculumSubjectsApproved($studentId);
+  }
 
-    return [
-      'success' => true,
-      'enrollment' => $enrollment,
-      'id' => $id,
-    ];
+  public function getCurrentEnrolled($studentId, $periodId)
+  {
+    return $this->Enrollment->byStudentIdAndPeriodId($studentId, $periodId);
+  }
+
+  public function create($subject)
+  {
+    try
+    {
+      $enrollment = $this->Enrollment->create($subject);
+
+      return [
+        'success' => true,
+        'enrollment' => $enrollment,
+      ];
+    }
+    catch (\Exception $e) {
+      return [
+        'success' => false,
+      ];
+    }
+
   }
 
   public function update($request, $id)

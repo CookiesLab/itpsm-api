@@ -107,6 +107,11 @@ class PeriodManager
     return $this->Period->byId($id);
   }
 
+  public function getCurrentEnrollmentPeriod()
+  {
+    return $this->Period->getActiveToBeEnrolled();
+  }
+
   public function create($request)
   {
     $period = $this->Period->create($request->all());

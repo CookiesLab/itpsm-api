@@ -4,17 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EnrollmentRequest;
 use Illuminate\Http\Request;
+use App\Services\StudentCurricula\StudentCurriculaManager;
 use App\Services\Enrollment\EnrollmentManager;
+use App\Services\Period\PeriodManager;
+use App\Services\Section\SectionManager;
 
 class EnrollmentController extends Controller
 {
   /**
    * Enrollment Manager Service
    *
-   * @var App\Services\EnrollmentManager\EnrollmentManagementInterface;
+   * @var App\Services\Enrollment\EnrollmentManagementInterface;
    *
    */
   protected $EnrollmentManagerService;
+
+  /**
+   * Enrollment Manager Service
+   *
+   * @var App\Services\StudentCurricula\StudentCurriculaManagementInterface;
+   *
+   */
+  protected $StudentCurriculaManagerService;
+
+  /**
+   * Enrollment Manager Service
+   *
+   * @var App\Services\Period\PeriodManagementInterface;
+   *
+   */
+  protected $PeriodManagerService;
+
+  /**
+   * Enrollment Manager Service
+   *
+   * @var App\Services\Section\SectionManagementInterface;
+   *
+   */
+  protected $SectionManagerService;
 
   /**
    * responseType
@@ -25,19 +52,116 @@ class EnrollmentController extends Controller
   protected $responseType;
 
   public function __construct(
-    EnrollmentManager $EnrollmentManagerService
+    EnrollmentManager $EnrollmentManagerService,
+    StudentCurriculaManager $StudentCurriculaManagerService,
+    PeriodManager $PeriodManagerService,
+    SectionManager $SectionManagerService,
   ) {
     $this->EnrollmentManagerService = $EnrollmentManagerService;
+    $this->StudentCurriculaManagerService = $StudentCurriculaManagerService;
+    $this->PeriodManagerService = $PeriodManagerService;
+    $this->SectionManagerService = $SectionManagerService;
     $this->responseType = 'enrollments';
   }
 
+  public function getSubjectsToBeEnrolled(Request $request)
+  {
+    $loggedUser = $request->user();
+    $studentId = $loggedUser->system_reference_id;
+
+    $errorMessage = '';
+    $currentPeriod = $this->PeriodManagerService->getCurrentEnrollmentPeriod();
+    $currentCurricula = $this->StudentCurriculaManagerService->getActiveCurriculaByStudentId($studentId);
+
+    if (empty($currentPeriod)) {
+      $errorMessage = 'No hay un ciclo de estudio para inscribir';
+    }
+
+    if (empty($currentCurricula)) {
+      $errorMessage = 'No tienes un plan de estudio activo';
+    }
+
+    if (!empty($errorMessage)) {
+      return response()->json([
+        'errors' => [
+          'status' => '404',
+          'title' => __('base.failure'),
+          'detail' => $errorMessage,
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    $rows = [];
+    $curriculumSubjectsApproved = $this->EnrollmentManagerService->getCurriculumSubjectsApproved($studentId);
+    $currentEnrolled = $this->EnrollmentManagerService->getCurrentEnrolled($studentId, $currentPeriod->id);
+
+    $this->SectionManagerService->getByCurriculumIdAndLevel($currentPeriod->id, $currentCurricula->curriculum_id, $currentCurricula->level)->each(function ($section) use (&$rows, &$curriculumSubjectsApproved, &$currentEnrolled) {
+      $isCurriculumSubjectApproved = $curriculumSubjectsApproved->search(function ($item) use (&$section) {
+        return $item->curriculum_subject_id == $section->curriculum_subject_id;
+      });
+
+      $isCurrentEnrolled = $currentEnrolled->search(function ($item2) use (&$section) {
+        return $item2->curriculum_subject_id == $section->curriculum_subject_id;
+      });
+
+      if (is_numeric($isCurriculumSubjectApproved) || is_numeric($isCurrentEnrolled)) {
+        return;
+      }
+
+      // TODO: Consultar horarios y validar prerequisitos;
+      array_push($rows, $section);
+    });
+
+    return response()->json([
+      'meta' => [
+      ],
+      'data' => [
+        'id' => $studentId,
+        'rows' => $rows,
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
+  public function enrollSubjects(Request $request)
+  {
+    $enrolled = $notEnrolled = [];
+
+    foreach ($request->subjects as $subject) {
+      // TODO: Verificar cupos disponibles
+      $response = $this->EnrollmentManagerService->create($subject);
+
+      if ($response['success']) {
+        array_push($enrolled, $response['enrollment']);
+      }
+      else {
+        array_push($notEnrolled, $subject);
+      }
+  }
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'enrolled' => $enrolled,
+        'notEnrolled' => $notEnrolled,
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 201);
+  }
 
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Get(
    *    path="/api/enrollments",
    *    operationId="getEnrollments",
@@ -45,7 +169,7 @@ class EnrollmentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get enrollments list",
    *    description="Returns enrollments list",
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -94,7 +218,7 @@ class EnrollmentController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Post(
    *    path="/api/enrollments",
    *    operationId="postEnrollments",
@@ -102,7 +226,7 @@ class EnrollmentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Create enrollment",
    *    description="Create enrollment",
-   * 
+   *
    *    @OA\Parameter(
    *      name="final_score",
    *      in="query",
@@ -112,7 +236,7 @@ class EnrollmentController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
@@ -124,7 +248,7 @@ class EnrollmentController extends Controller
    *        maximum=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="enrollment",
    *      in="query",
@@ -134,7 +258,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_subject_id",
    *      in="query",
@@ -144,7 +268,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="period_id",
    *      in="query",
@@ -154,7 +278,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="query",
@@ -164,7 +288,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *   *    @OA\Parameter(
    *      name="student_id",
    *      in="query",
@@ -183,7 +307,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -211,7 +335,7 @@ class EnrollmentController extends Controller
   */
   public function store(EnrollmentRequest $request)
   {
-    $response = $this->EnrollmentManagerService->create($request);
+    $response = $this->EnrollmentManagerService->create($request->all());
 
     return response()->json([
       'data' => [
@@ -231,7 +355,7 @@ class EnrollmentController extends Controller
    * @param  \App\Models\Enrollment  $Enrollment
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Get(
    *    path="/api/enrollments/{id}",
    *    operationId="get enrollment by id",
@@ -239,7 +363,7 @@ class EnrollmentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get enrollment by id",
    *    description="Returns enrollment by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -249,7 +373,7 @@ class EnrollmentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -310,7 +434,7 @@ class EnrollmentController extends Controller
    * @param  \App\Models\Enrollment  $Enrollment
    * @return \Illuminate\Http\Response
    * */
-  /** 
+  /**
    *  @OA\Put(
    *    path="/api/enrollments/{id}",
    *    operationId="putEnrollment",
@@ -318,7 +442,7 @@ class EnrollmentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update enrollment",
    *    description="Update enrollment",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -328,7 +452,7 @@ class EnrollmentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
  *    @OA\Parameter(
    *      name="final_score",
    *      in="query",
@@ -338,7 +462,7 @@ class EnrollmentController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
@@ -350,7 +474,7 @@ class EnrollmentController extends Controller
    *        maximum=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="enrollment",
    *      in="query",
@@ -360,7 +484,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="curriculum_subject_id",
    *      in="query",
@@ -370,7 +494,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="period_id",
    *      in="query",
@@ -380,7 +504,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="query",
@@ -390,7 +514,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *   *    @OA\Parameter(
    *      name="student_id",
    *      in="query",
@@ -409,7 +533,7 @@ class EnrollmentController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -471,7 +595,7 @@ class EnrollmentController extends Controller
    * @param  \App\Models\Enrollment  $Enrollment
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Delete(
    *    path="/api/enrollments/{id}",
    *    operationId="delete Enrollment by id",
@@ -479,7 +603,7 @@ class EnrollmentController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Delete Enrollment by id",
    *    description="Deletes Enrollment by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -489,7 +613,7 @@ class EnrollmentController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",

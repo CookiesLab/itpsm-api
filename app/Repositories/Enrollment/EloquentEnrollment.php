@@ -109,6 +109,77 @@ class EloquentEnrollment implements EnrollmentInterface
       ->first();
   }
 
+      /**
+   * Get sections by period id
+   *
+   * @param integer $id
+   *
+   * @return boolean
+   */
+  public function getCurriculumSubjectsApproved($studentId)
+  {
+    return new Collection(
+      $this->DB::table('enrollments AS e')
+        ->select(
+          'e.final_score',
+          'e.is_approved',
+          'e.curriculum_subject_id',
+          'e.period_id',
+          'e.code',
+          'e.enrollment',
+          'm.name AS curriculum_subject_label',
+          'c.name AS curriculum_label',
+          'ca.name AS career_label',
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+        )
+        ->leftJoin('teachers as t', 'e.teacher_id', '=', 't.id')
+        ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
+        ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+        ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+        ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+        ->where('e.student_id', $studentId)
+        ->where('e.is_approved', true)
+        ->orderBy('cs.cycle', 'asc')
+        ->get()
+    );
+  }
+
+  /**
+   * Get sections by period id
+   *
+   * @param integer $id
+   *
+   * @return boolean
+   */
+  public function byStudentIdAndPeriodId($studentId, $periodId)
+  {
+    return new Collection(
+      $this->DB::table('enrollments AS e')
+        ->select(
+          'e.final_score',
+          'e.is_approved',
+          'e.curriculum_subject_id',
+          'e.period_id',
+          'e.code',
+          'e.enrollment',
+          'm.name AS curriculum_subject_label',
+          'c.name AS curriculum_label',
+          'ca.name AS career_label',
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+        )
+        ->leftJoin('teachers as t', 'e.teacher_id', '=', 't.id')
+        ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
+        ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+        ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+        ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+        ->where('e.student_id', $studentId)
+        ->where('e.period_id', $periodId)
+        ->orderBy('cs.cycle', 'asc')
+        ->get()
+    );
+  }
+
+
   /**
    * Create a new Enrollment
    *
