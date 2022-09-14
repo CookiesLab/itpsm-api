@@ -215,6 +215,7 @@ class EloquentSection implements SectionInterface
           'c.name AS curriculum_label',
           'ca.name AS career_label',
           'cs.cycle AS curriculum_subject_level',
+          'cs.uv AS curriculum_subject_uv',
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
         )
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')

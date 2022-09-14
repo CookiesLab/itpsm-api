@@ -125,7 +125,7 @@ return [
 
   'cipher' => 'AES-256-CBC',
 
-  'institutional_email_domain' => 'itpms.edu.sv',
+  'institutional_email_domain' => 'itpsm.edu.sv',
 
   /*
   |--------------------------------------------------------------------------
