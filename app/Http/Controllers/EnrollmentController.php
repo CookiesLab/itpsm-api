@@ -130,10 +130,16 @@ class EnrollmentController extends Controller
 
   public function enrollSubjects(Request $request)
   {
+    $loggedUser = $request->user();
+    $studentId = $loggedUser->system_reference_id;
+
     $enrolled = $notEnrolled = [];
 
     foreach ($request->subjects as $subject) {
       // TODO: Verificar cupos disponibles
+      $subject['student_id'] = $studentId;
+      // TODO: Verificar la matricula
+      $subject['enrollment'] = 1;
       $response = $this->EnrollmentManagerService->create($subject);
 
       if ($response['success']) {
