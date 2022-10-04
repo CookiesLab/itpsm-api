@@ -7,7 +7,7 @@ use App\Services\Roles\RoleManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\UrlGenerator;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Schema;
 class AppServiceProvider extends ServiceProvider
 {
   /**
@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot(UrlGenerator $url)
   {
+    Schema::defaultStringLength(191);
     if (env('REDIRECT_HTTPS')) {
       $url->formatScheme('https://');
     }
@@ -51,11 +52,13 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCountryInterface();
     $this->registerDepartmentInterface();
     $this->registerMunicipalityInterface();
-
+    $this->registerScheduleInterface();
     $this->registerAuthenticationManagement();
     $this->registerStudentManagement();
     $this->registerTeacherManagement();
+    $this->registerUserManagement();
     $this->registerCareerManagement();
+    $this->registerScheduleManagement();
     $this->registerSubjectManagement();
     $this->registerCurriculumManagement();
     $this->registerPrerequisiteManagement();
@@ -156,7 +159,7 @@ class AppServiceProvider extends ServiceProvider
    */
   protected function registerTeacherManagement()
   {
-    $this->app->bind('App\Services\Teacher\TeacherManager', function ($app) {
+    $this->app->bind('App\Services\Teacher\UserManager', function ($app) {
       return new \App\Services\Teacher\TeacherManager(
         $app->make('App\Repositories\Teacher\TeacherInterface'),
         $app->make('App\Repositories\User\UserInterface'),
@@ -165,7 +168,22 @@ class AppServiceProvider extends ServiceProvider
       );
     });
   }
+  /**
+   * Register a teacher interface instance.
+   *
+   * @return void
+   */
+  protected function registerUserManagement()
+  {
+    $this->app->bind('App\Services\User\UserManager', function ($app) {
+      return new \App\Services\User\UserManager(
 
+        $app->make('App\Repositories\User\UserInterface'),
+        $app->make('dompdf.wrapper'),
+        new Carbon()
+      );
+    });
+  }
   protected function registerRolesInterface()
   {
     $this->app->bind('App\Repositories\Roles\RoleInterface', function ($app) {
@@ -523,7 +541,34 @@ class AppServiceProvider extends ServiceProvider
       );
     });
   }
-
+  /**
+   * Register a Evaluation interface instance.
+   *
+   * @return void
+   */
+  protected function registerScheduleInterface()
+  {
+    $this->app->bind('App\Repositories\Schedule\ScheduleInterface', function ($app) {
+      return new \App\Repositories\Schedule\EloquentSchedule(
+        new \App\Models\Schedule(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+  /**
+   * Register a Evaluation interface instance.
+   *
+   * @return void
+   */
+  protected function registerScheduleManagement()
+  {
+    $this->app->bind('App\Services\Schedule\ScheduleManager', function ($app) {
+      return new \App\Services\Schedule\ScheduleManager(
+        $app->make('App\Repositories\Schedule\ScheduleInterface'),
+        new Carbon()
+      );
+    });
+  }
   /**
    * Register a ScoreEvaluation interface instance.
    *
@@ -617,7 +662,8 @@ class AppServiceProvider extends ServiceProvider
         $app->make('App\Services\Subject\SubjectManager'),
         $app->make('App\Services\Curriculum\CurriculumManager'),
         $app->make('App\Services\CurriculumSubject\CurriculumSubjectManager'),
-        new Carbon()
+        new Carbon(),
+        $app->make('App\Services\Schedule\ScheduleManager'),
       );
     });
   }

@@ -18,7 +18,7 @@ class Section extends Model
     protected $fillable = [
         'code',
         'quota',
-        'schedule',
+        'id_schedule',
         'teacher_id',
         'curriculum_subject_id',
         'period_id'

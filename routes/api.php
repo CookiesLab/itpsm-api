@@ -17,6 +17,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentCurriculaController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,7 +64,7 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('student-curricula', StudentCurriculaController::class);
 
     Route::apiResource('periods', PeriodController::class);
-
+    Route::apiResource('users', UserController::class);
     Route::apiResource('sections', SectionController::class);
 
     Route::post('students/create-default-pdf', [StudentController::class, 'createDefaultPdf'])->name('students.create-default-pdf');

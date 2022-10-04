@@ -11,6 +11,7 @@ namespace App\Services\InitialConfig;
 use App\Repositories\Country\CountryInterface;
 use App\Repositories\Department\DepartmentInterface;
 use App\Repositories\Municipality\MunicipalityInterface;
+use App\Services\Schedule\ScheduleManager;
 use App\Services\Career\CareerManager;
 use App\Services\Subject\SubjectManager;
 use App\Services\Curriculum\CurriculumManager;
@@ -66,6 +67,13 @@ class InitialConfigManager
    *
    */
   protected $CurriculumManager;
+  /**
+   * ScheduleManager
+   *
+   * @var App\Services\Schedule\ScheduleManager;
+   *
+   */
+  protected $ScheduleManager;
 
   /**
    * CurriculumManager
@@ -92,6 +100,7 @@ class InitialConfigManager
   protected $responseType;
 
   public function __construct(
+
     CountryInterface $Country,
     DepartmentInterface $Department,
     MunicipalityInterface $Municipality,
@@ -99,8 +108,10 @@ class InitialConfigManager
     SubjectManager $SubjectManager,
     CurriculumManager $CurriculumManager,
     CurriculumSubjectManager $CurriculumSubjectManager,
-    Carbon $Carbon
+    Carbon $Carbon,
+     ScheduleManager $ScheduleManager,
   ) {
+    $this->Schedule = $ScheduleManager;
     $this->Country = $Country;
     $this->Department = $Department;
     $this->Municipality = $Municipality;
@@ -115,6 +126,7 @@ class InitialConfigManager
   public function getInitialConfig($request)
   {
     return [
+      'schedules' => $this->Schedule->getTableRowsWithPagination($request, false)['rows'],
       'careers' => $this->CareerManager->getTableRowsWithPagination($request, false)['rows'],
       'subjects' => $this->SubjectManager->getTableRowsWithPagination($request, false)['rows'],
       'curricula' => $this->CurriculumManager->getTableRowsWithPagination($request, false)['rows'],

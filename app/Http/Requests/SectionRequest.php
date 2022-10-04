@@ -25,7 +25,7 @@ class SectionRequest extends FormRequest
     {
         return [
             'quota' => 'required|integer',
-            'schedule' => 'required|string|max:255',
+            'id_schedule' => 'required|string|max:255',
             'curriculum_subject_id' => 'required',
             'period_id' => 'required',
         ];

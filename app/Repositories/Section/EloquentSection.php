@@ -51,16 +51,19 @@ class EloquentSection implements SectionInterface
       ->select(
         's.code',
         's.quota',
-        's.schedule',
+        's.id_schedule',
         's.curriculum_subject_id',
         's.period_id',
         's.teacher_id',
         'm.name AS curriculum_subject_label',
         'c.name AS curriculum_label',
         'ca.name AS career_label',
-        $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
+        $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+         $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
+        'sh.day_of_week AS day',
       )
       ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
+      ->leftJoin('schedules as sh', 's.id_schedule', '=', 'sh.id')
       ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
       ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
       ->join('careers as ca', 'c.career_id', '=', 'ca.id')
@@ -172,17 +175,21 @@ class EloquentSection implements SectionInterface
         ->select(
           's.code',
           's.quota',
-          's.schedule',
+          's.id_schedule',
           's.curriculum_subject_id',
           's.period_id',
           's.teacher_id',
           'm.name AS curriculum_subject_label',
           'c.name AS curriculum_label',
           'ca.name AS career_label',
-          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+          $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
+          'sh.day_of_week AS day'
         )
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
+        ->leftJoin('schedules as sh', 's.id_schedule', '=', 'sh.id')
         ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
+
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')
         ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
@@ -207,7 +214,7 @@ class EloquentSection implements SectionInterface
         ->select(
           's.code',
           's.quota',
-          's.schedule',
+          's.id_schedule',
           's.curriculum_subject_id',
           's.period_id',
           's.teacher_id',
@@ -216,9 +223,12 @@ class EloquentSection implements SectionInterface
           'ca.name AS career_label',
           'cs.cycle AS curriculum_subject_level',
           'cs.uv AS curriculum_subject_uv',
-          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name')
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+         $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
+          'sh.day_of_week AS day'
         )
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
+    ->leftJoin('schedules as sh', 's.id_schedule', '=', 'sh.id')
         ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')
@@ -243,6 +253,8 @@ class EloquentSection implements SectionInterface
    */
   public function create(array $data)
   {
+    error_log("¡La base de datos de Oracle no está disponible!", 0);
+
     $section = new Section();
     $section->fill($data)->save();
 

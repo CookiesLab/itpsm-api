@@ -36,7 +36,7 @@ class EloquentUser implements UserInterface {
     */
     public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
     {
-        $query = $this->User->select('id', 'name', 'username', 'email', 'phone_number', 'birth_date', 'created_at', 'updated_at');
+        $query = $this->User->select('id', 'name', 'email', 'system_reference_table');
 
         if(!empty($filter))
         {

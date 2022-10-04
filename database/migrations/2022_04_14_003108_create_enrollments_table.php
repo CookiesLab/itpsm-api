@@ -23,50 +23,51 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('sections', function (Blueprint $table) {
 
-            $table->integer('quota');
-            $table->string('schedule', 255);
-
-            $table->unsignedBigInteger('teacher_id')->nullable();
-            $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
-
-            /**
-             * Fields with missing Primary Key
-             */
-            $table->unsignedBigInteger('code')->index();
-
-            $table->unsignedBigInteger('curriculum_subject_id')->index();
-            $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
-
-            $table->unsignedBigInteger('period_id')->index();
-            $table->foreign('period_id')->references('id')->on('periods');
-
-            $table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
-
-            $table->timestamps();
-            $table->softDeletes();
-        });
 
         Schema::create('schedules', function (Blueprint $table) {
 					$table->id();
           $table->integer('day_of_week');
-          $table->time('start_hour');
-          $table->time('end_hour');
+          $table->string('start_hour');
+          $table->string('end_hour');
 
-					$table->unsignedBigInteger('code')->index();
-          $table->foreign('code')->references('code')->on('sections');
+					//$table->unsignedBigInteger('code')->index();
+          //$table->foreign('code')->references('code')->on('sections');
 
-          $table->unsignedBigInteger('curriculum_subject_id')->index();
-          $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
+          //$table->unsignedBigInteger('curriculum_subject_id')->index();
+          //$table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
 
-          $table->unsignedBigInteger('period_id')->index();
-          $table->foreign('period_id')->references('id')->on('periods');
+          //$table->unsignedBigInteger('period_id')->index();
+          //$table->foreign('period_id')->references('id')->on('periods');
 
           $table->timestamps();
           $table->softDeletes();
       });
+      Schema::create('sections', function (Blueprint $table) {
 
+        $table->integer('quota');
+        //$table->string('schedule', 255);
+
+        $table->unsignedBigInteger('teacher_id')->nullable();
+        $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
+
+        /**
+         * Fields with missing Primary Key
+         */
+        $table->unsignedBigInteger('code')->index();
+
+        $table->unsignedBigInteger('curriculum_subject_id')->index();
+        $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
+
+        $table->unsignedBigInteger('period_id')->index();
+        $table->foreign('period_id')->references('id')->on('periods');
+
+        $table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
+        $table->unsignedBigInteger('id_schedule')->index();
+        $table->foreign('code')->references('id')->on('schedules');
+        $table->timestamps();
+        $table->softDeletes();
+      });
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);

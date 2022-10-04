@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SectionRequest;
+use App\Http\Requests\TeacherRequest;
 use Illuminate\Http\Request;
-use App\Services\Section\SectionManager;
+use App\Services\User\UserManager;
 
-class SectionController extends Controller
+class UserController extends Controller
 {
   /**
-   * Section Manager Service
+   * Teacher Manager Service
    *
-   * @var App\Services\SectionManager\SectionManagementInterface;
+   * @var App\Services\UserManager\UserManagementInterface;
    *
    */
-  protected $SectionManagerService;
+  protected $UserManagerService;
 
   /**
    * responseType
@@ -25,10 +25,10 @@ class SectionController extends Controller
   protected $responseType;
 
   public function __construct(
-    SectionManager $SectionManagerService
+    UserManager $UserManagerService
   ) {
-    $this->SectionManagerService = $SectionManagerService;
-    $this->responseType = 'sections';
+    $this->UserManagerService = $UserManagerService;
+    $this->responseType = 'users';
   }
 
 
@@ -37,14 +37,14 @@ class SectionController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-     /**
+  /**
    *  @OA\Get(
-   *    path="/api/sections",
-   *    operationId="getSections",
-   *    tags={"Sections"},
+   *    path="/api/teachers",
+   *    operationId="getTeachers",
+   *    tags={"Teachers"},
    * security={{"bearer_token":{}}},
-   *    summary="Get section list",
-   *    description="Returns section list",
+   *    summary="Get list of teachers",
+   *    description="Returns list of teachers",
    *
    *    @OA\Response(
    *      response=200,
@@ -73,7 +73,7 @@ class SectionController extends Controller
   */
   public function index()
   {
-    $response = $this->SectionManagerService->getTableRowsWithPagination(request()->all());
+    $response = $this->UserManagerService->getTableRowsWithPagination(request()->all());
 
     return response()->json([
       'meta' => [
@@ -94,72 +94,159 @@ class SectionController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-     /**
+    /**
    *  @OA\Post(
-   *    path="/api/sections",
-   *    operationId="postSection",
-   *    tags={"Sections"},
+   *    path="/api/teachers",
+   *    operationId="postTeachers",
+   *    tags={"Teachers"},
    * security={{"bearer_token":{}}},
-   *    summary="Create section",
-   *    description="Create section",
+   *    summary="Create teachers",
+   *    description="Create teachers",
    *
    *    @OA\Parameter(
-   *      name="code",
+   *      name="name",
    *      in="query",
-   *      description="Section code",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
    *      )
    *    ),
    *
    *    @OA\Parameter(
-   *      name="quota",
+   *      name="last_name",
    *      in="query",
-   *      description="Section quota",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
    *      )
    *    ),
    *
    *    @OA\Parameter(
-   *      name="id_schedule",
+   *      name="birth_date",
    *      in="query",
-   *      description="Section schedule",
    *      required=true,
    *      @OA\Schema(
    *        type="string",
+   *        format="date"
    *      )
    *    ),
    *
    *    @OA\Parameter(
-   *      name="teacher_id",
+   *      name="nit",
    *      in="query",
-   *      description="Section teacher id",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
    *      )
    *    ),
    *
    *    @OA\Parameter(
-   *      name="curriculum_subject_id",
+   *      name="dui",
    *      in="query",
-   *      description="Section curriculum_subject_id",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
    *      )
    *    ),
    *
-   *   @OA\Parameter(
-   *      name="period_id",
+   *    @OA\Parameter(
+   *      name="isss_number",
    *      in="query",
-   *      description="Section period_id",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="nup_number",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="email",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="genre",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength= 1,
+   *        maxLength= 1
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="address",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="home_phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="municipality_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="department_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="country_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="status_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
    *      )
    *    ),
    *
@@ -168,7 +255,7 @@ class SectionController extends Controller
    *      description="Success",
    *      @OA\MediaType(
    *        mediaType="application/json",
-   *      ),
+   *      )
    *    ),
    *    @OA\Response(
    *      response=401,
@@ -188,16 +275,15 @@ class SectionController extends Controller
    *    )
    *  )
   */
-  public function store(SectionRequest $request)
+  public function store(TeacherRequest $request)
   {
-    $response = $this->SectionManagerService->create($request);
+    $response = $this->TeacherManagerService->create($request);
 
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-        'period_sections' => $response['period_sections'],
         'id' => $response['id'],
-        'attributes' => $response['section']
+        'attributes' => $response['teacher']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -208,22 +294,21 @@ class SectionController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Models\Section  $Section
+   * @param  \App\Models\Teacher  $Teacher
    * @return \Illuminate\Http\Response
    */
-    /**
+   /**
    *  @OA\Get(
-   *    path="/api/sections/{code}",
-   *    operationId="get section by code",
-   *    tags={"Sections"},
+   *    path="/api/teachers/{id}",
+   *    operationId="get teacher by id",
+   *    tags={"Teachers"},
    * security={{"bearer_token":{}}},
-   *    summary="Get section by id",
-   *    description="Returns section by id",
+   *    summary="Get teacher by id",
+   *    description="Returns teacher by id",
    *
    *    @OA\Parameter(
-   *      name="code",
+   *      name="id",
    *      in="path",
-   *      description="Section code",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
@@ -257,14 +342,14 @@ class SectionController extends Controller
   */
   public function show($id)
   {
-    $section = $this->SectionManagerService->getSection($id);
+    $teacher = $this->TeacherManagerService->getTeacher($id);
 
-    if (empty($section)) {
+    if (empty($teacher)) {
       return response()->json([
         'errors' => [
           'status' => '401',
           'title' => __('base.failure'),
-          'detail' => __('base.SectionNotFound')
+          'detail' => __('base.TeacherNotFound')
         ],
         'jsonapi' => [
           'version' => "1.00"
@@ -272,10 +357,14 @@ class SectionController extends Controller
       ], 404);
     }
 
+    $id = strval($teacher->id);
+    unset($teacher->id);
+
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-        'attributes' => $section
+        'id' => $id,
+        'attributes' => $teacher
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -287,75 +376,171 @@ class SectionController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request $request
-   * @param  \App\Models\Section  $Section
+   * @param  \App\Models\Teacher  $Teacher
    * @return \Illuminate\Http\Response
    */
       /**
    *  @OA\Put(
-   *    path="/api/sections/{code}",
-   *    operationId="putSection",
-   *    tags={"Sections"},
+   *    path="/api/teachers/{id}",
+   *    operationId="putTeachers",
+   *    tags={"Teachers"},
    * security={{"bearer_token":{}}},
-   *    summary="Update section",
-   *    description="Update section",
+   *    summary="Update teachers",
+   *    description="Update teachers",
    *
    *    @OA\Parameter(
-   *      name="code",
+   *      name="id",
    *      in="path",
    *      required=true,
-   *      description="Section code",
    *      @OA\Schema(
    *        type="integer"
    *      )
    *    ),
    *
-   *    *    @OA\Parameter(
-   *      name="quota",
+   *    @OA\Parameter(
+   *      name="name",
    *      in="query",
-   *      description="Section quota",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
    *      )
    *    ),
    *
    *    @OA\Parameter(
-   *      name="schedule",
+   *      name="last_name",
    *      in="query",
-   *      description="Section schedule",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="birth_date",
+   *      in="query",
    *      required=true,
    *      @OA\Schema(
    *        type="string",
+   *        format="date"
    *      )
    *    ),
    *
    *    @OA\Parameter(
-   *      name="teacher_id",
+   *      name="nit",
    *      in="query",
-   *      description="Section teacher id",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
    *      )
    *    ),
    *
    *    @OA\Parameter(
-   *      name="curriculum_subject_id",
+   *      name="dui",
    *      in="query",
-   *      description="Section curriculum_subject_id",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
    *      )
    *    ),
    *
-   *   @OA\Parameter(
-   *      name="period_id",
+   *    @OA\Parameter(
+   *      name="isss_number",
    *      in="query",
-   *      description="Section period_id",
    *      required=true,
    *      @OA\Schema(
-   *        type="integer",
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="nup_number",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="email",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="genre",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *        minLength= 1,
+   *        maxLength= 1
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="address",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="home_phone_number",
+   *      in="query",
+   *      required=false,
+   *      @OA\Schema(
+   *        type="string"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="municipality_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="department_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="country_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Parameter(
+   *      name="status_id",
+   *      in="query",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
    *      )
    *    ),
    *
@@ -384,9 +569,9 @@ class SectionController extends Controller
    *    )
    *  )
   */
-  public function update(SectionRequest $request, $data)
+  public function update(TeacherRequest $request, $data)
   {
-    $response = $this->SectionManagerService->update($request, $data);
+    $response = $this->TeacherManagerService->update($request, $data);
 
     if (!$response['success']) {
       return response()->json([
@@ -404,9 +589,8 @@ class SectionController extends Controller
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-        'period_sections' => $response['period_sections'],
         'id' => $response['id'],
-        'attributes' => $response['section']
+        'attributes' => $response['teacher']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -417,22 +601,21 @@ class SectionController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Models\Section  $Section
+   * @param  \App\Models\Teacher  $Teacher
    * @return \Illuminate\Http\Response
    */
-    /**
+   /**
    *  @OA\Delete(
-   *    path="/api/sections/{code}",
-   *    operationId="delete section by code",
-   *    tags={"Sections"},
+   *    path="/api/teachers/{id}",
+   *    operationId="delete teacher by id",
+   *    tags={"Teachers"},
    * security={{"bearer_token":{}}},
-   *    summary="Delete section by code",
-   *    description="Deletes section by code",
+   *    summary="Delete teacher by id",
+   *    description="Delete teacher by id",
    *
    *    @OA\Parameter(
-   *      name="code",
+   *      name="id",
    *      in="path",
-   *      description="Section code",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
@@ -466,9 +649,9 @@ class SectionController extends Controller
   */
   public function destroy($request)
   {
-    $response = $this->SectionManagerService->delete($request);
+    $response = $this->TeacherManagerService->delete($request);
 
-    if (!$response['success']) {
+    if (!$response) {
       return response()->json([
         'errors' => [
           'status' => '401',
@@ -484,12 +667,16 @@ class SectionController extends Controller
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-        'period_sections' => $response['period_sections'],
         'success' => __('base.delete'),
       ],
       'jsonapi' => [
         'version' => "1.00"
       ]
     ], 200);
+  }
+
+  public function generateSystemUsers(Request $request)
+  {
+    return $this->TeacherManagerService->generateSystemUsers();
   }
 }
