@@ -18,39 +18,50 @@ class CatalogSeeder extends Seeder
       'country_id' => 1,
       'municipalities' => [
         [
+          'id' => 1,
           'name' => 'Ahuachapán',
         ],
         [
+          'id' => 2,
           'name' => 'Apaneca',
         ],
         [
+          'id' => 3,
           'name' => 'Atiquizaya',
         ],
-        [
+        [ 'id' => 4,
           'name' => 'Concepción de Ataco',
         ],
         [
+          'id' => 5,
           'name' => 'El Refugio',
         ],
         [
+          'id' => 6,
           'name' => 'Guaymango',
         ],
         [
+          'id' => 7,
           'name' => 'Jujutla',
         ],
         [
+          'id' => 8,
           'name' => 'San Francisco Menéndez',
         ],
         [
+          'id' => 9,
           'name' => 'San Lorenzo',
         ],
         [
+          'id' => 10,
           'name' => 'San Pedro Puxtla',
         ],
         [
+          'id' => 11,
           'name' => 'Tacuba',
         ],
         [
+          'id' => 12,
           'name' => 'Turín',
         ],
       ]
@@ -923,10 +934,12 @@ class CatalogSeeder extends Seeder
 
       foreach ($department['municipalities'] as $municipality) {
         Municipality::create([
+          'id' => $municipality['id'],
           'name' => $municipality['name'],
           'department_id' => $department['id'],
           'country_id' => $department['country_id'],
         ]);
+
       }
     }
 
