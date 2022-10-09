@@ -165,7 +165,7 @@ class UserManager
     $data['carnet'] = $carnet;
     $data['institutional_email'] = $carnet . "@" . config('app.institutional_email_domain');
 
-    $teacher = $this->Teacher->create($data);
+    $teacher = $this->User->create($data);
     $id = strval($teacher->id);
     unset($teacher->id);
 

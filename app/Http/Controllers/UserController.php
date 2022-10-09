@@ -39,9 +39,9 @@ class UserController extends Controller
    */
   /**
    *  @OA\Get(
-   *    path="/api/teachers",
-   *    operationId="getTeachers",
-   *    tags={"Teachers"},
+   *    path="/api/users",
+   *    operationId="getUsers",
+   *    tags={"Users"},
    * security={{"bearer_token":{}}},
    *    summary="Get list of teachers",
    *    description="Returns list of teachers",
@@ -96,9 +96,9 @@ class UserController extends Controller
    */
     /**
    *  @OA\Post(
-   *    path="/api/teachers",
-   *    operationId="postTeachers",
-   *    tags={"Teachers"},
+   *    path="/api/users",
+   *    operationId="postUsers",
+   *    tags={"Users"},
    * security={{"bearer_token":{}}},
    *    summary="Create teachers",
    *    description="Create teachers",
@@ -275,9 +275,9 @@ class UserController extends Controller
    *    )
    *  )
   */
-  public function store(TeacherRequest $request)
+  public function store(UserRequest $request)
   {
-    $response = $this->TeacherManagerService->create($request);
+    $response = $this->UserManagerService->create($request);
 
     return response()->json([
       'data' => [
@@ -299,9 +299,9 @@ class UserController extends Controller
    */
    /**
    *  @OA\Get(
-   *    path="/api/teachers/{id}",
-   *    operationId="get teacher by id",
-   *    tags={"Teachers"},
+   *    path="/api/users/{id}",
+   *    operationId="get user by id",
+   *    tags={"Users"},
    * security={{"bearer_token":{}}},
    *    summary="Get teacher by id",
    *    description="Returns teacher by id",
@@ -381,9 +381,9 @@ class UserController extends Controller
    */
       /**
    *  @OA\Put(
-   *    path="/api/teachers/{id}",
-   *    operationId="putTeachers",
-   *    tags={"Teachers"},
+   *    path="/api/users/{id}",
+   *    operationId="putUsers",
+   *    tags={"Users"},
    * security={{"bearer_token":{}}},
    *    summary="Update teachers",
    *    description="Update teachers",
@@ -606,9 +606,9 @@ class UserController extends Controller
    */
    /**
    *  @OA\Delete(
-   *    path="/api/teachers/{id}",
-   *    operationId="delete teacher by id",
-   *    tags={"Teachers"},
+   *    path="/api/users/{id}",
+   *    operationId="delete user by id",
+   *    tags={"Users"},
    * security={{"bearer_token":{}}},
    *    summary="Delete teacher by id",
    *    description="Delete teacher by id",

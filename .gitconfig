@@ -3,3 +3,5 @@
 	email = 00300917@uca.edu.sv
 [safe]
 	directory = /home/frank/Documents/ITPSM/itpsm-api/
+[credential]
+    interactive = always
