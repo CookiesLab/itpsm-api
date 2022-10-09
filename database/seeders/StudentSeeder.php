@@ -21,10 +21,12 @@ class StudentSeeder extends Seeder
 
   private $disabilities = [
     [
+      'id' => 1,
       'disability' => 'Ceguera parcial',
       'subdisability' => null,
     ],
     [
+      'id' => 2,
       'disability' => 'Ceguera total',
       'subdisability' => null,
     ],
@@ -71,6 +73,7 @@ class StudentSeeder extends Seeder
 
     foreach ($this->disabilities as &$disa) {
       Disability::create([
+        'id' => $disa['id'],
         'disability' => $disa['disability'],
         'subdisability' => $disa['subdisability'],
       ]);
