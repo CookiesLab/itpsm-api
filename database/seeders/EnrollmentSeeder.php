@@ -83,12 +83,12 @@ class EnrollmentSeeder extends Seeder
             'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 2,
             'quota' => 45,
           'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 3,
             'quota' => 15,
           'id_schedule' => 1,
         ],
@@ -121,18 +121,21 @@ class EnrollmentSeeder extends Seeder
             'final_score' => 8.5,
             'is_approved' => true,
             'enrollment' => 1,
+          'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 3,
             'final_score' => 7.5,
             'is_approved' => false,
             'enrollment' => 3,
+          'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 2,
             'final_score' => 5.6,
             'is_approved' => true,
             'enrollment' => 4,
+          'id_schedule' => 1,
         ],
     ];
 
@@ -192,6 +195,7 @@ class EnrollmentSeeder extends Seeder
               'final_score' => $enrollment['final_score'],
               'is_approved' => $enrollment['is_approved'],
               'enrollment' => $enrollment['enrollment'],
+              'id_schedule' => $enrollment['id_schedule'],
             ]);
         }
 

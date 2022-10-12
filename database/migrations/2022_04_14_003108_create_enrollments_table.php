@@ -64,6 +64,7 @@ return new class extends Migration
 
         $table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
         $table->unsignedBigInteger('id_schedule')->index();
+        $table->foreign('id_schedule')->references('id')->on('schedules');
         $table->foreign('code')->references('id')->on('schedules');
         $table->timestamps();
         $table->softDeletes();
@@ -120,7 +121,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('teacher_id')->nullable();
             $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
-
+          $table->unsignedBigInteger('id_schedule')->index();
+          $table->foreign('id_schedule')->references('id')->on('schedules');
             $table->primary(['student_id', 'curriculum_subject_id', 'period_id', 'code'], 'enrollment_primary');
 
             $table->timestamps();
