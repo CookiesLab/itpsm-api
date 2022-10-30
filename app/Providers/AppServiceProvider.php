@@ -428,6 +428,9 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Repositories\Period\PeriodInterface', function ($app) {
       return new \App\Repositories\Period\EloquentPeriod(
+        new \App\Models\CurriculumSubject(),
+        new \App\Models\StudentCurriculum(),
+        new \App\Models\Enrollment(),
         new \App\Models\Period(),
         new \Illuminate\Support\Facades\DB()
       );
@@ -521,6 +524,7 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Repositories\Evaluation\EvaluationInterface', function ($app) {
       return new \App\Repositories\Evaluation\EloquentEvaluation(
+        
         new \App\Models\Evaluation(),
         new \Illuminate\Support\Facades\DB()
       );
@@ -537,6 +541,8 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Services\Evaluation\EvaluationManager', function ($app) {
       return new \App\Services\Evaluation\EvaluationManager(
+        $app->make('App\Repositories\Enrollment\EnrollmentInterface'),
+        $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
         $app->make('App\Repositories\Evaluation\EvaluationInterface'),
         new Carbon()
       );

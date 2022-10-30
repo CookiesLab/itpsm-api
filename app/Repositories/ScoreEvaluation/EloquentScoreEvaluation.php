@@ -58,7 +58,7 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
       ->join('students as st', 'st.id', '=', 'e.student_id')
       ->join('evaluations as ev', 's.id', '=', 'ev.section_id')
       ->leftjoin('score_evaluations as es', 'ev.id', '=', 'es.evaluation_id')
-      //->whereRaw('es.student_id =st.id')
+      ->whereRaw('es.student_id =st.id')
       ;
 
 
@@ -132,7 +132,7 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
    */
   public function byId($id)
   {
-    Log::emergency($id);
+   
     //$ids = get_keys_data($id);
 
     return $this->ScoreEvaluation
@@ -169,11 +169,12 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
    */
   public function update(array $data, $scoreEvaluation = null)
   {
-    if (empty($scoreEvaluation)) {
-      $scoreEvaluation = $this->byId($data['id']);
+    if (!empty($scoreEvaluation)) {
+    
+      $scoreEvaluation->update(['score' => $data['score']]);;
     }
 
-    return $scoreEvaluation->update($data);
+    return $scoreEvaluation;
   }
 
   /**
@@ -191,5 +192,34 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
     }
 
     return $scoreEvaluation->delete();
+  }
+  public function clean($id)
+  {
+    $scores=$this->ScoreEvaluation
+     
+      ->where('evaluation_id', intval($id))
+      ->get();
+    
+      foreach ($scores as $score) {
+   
+        $score->delete();
+      }
+
+
+  }
+   
+  public function insert_students_to_evaluations($students,$id)
+  {
+
+    foreach ($students as $student) {
+   
+      $this->ScoreEvaluation->insert([
+        'score' => null,
+        'student_id' => $student->student_id,
+        'evaluation_id' => $id,
+        'created_at' => now(),
+    ]);
+    }
+   
   }
 }

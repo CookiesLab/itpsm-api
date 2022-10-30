@@ -243,4 +243,17 @@ class EloquentEnrollment implements EnrollmentInterface
 
     return $enrollment->delete();
   }
+  public function getStudents($id)
+  {
+
+     
+    $query = $this->DB::table('enrollments AS e')
+    ->select('e.*')
+      ->where('e.code', '=', $id);
+     
+
+      return new Collection(
+        $query->get()
+      );
+  }
 }

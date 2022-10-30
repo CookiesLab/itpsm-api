@@ -428,12 +428,9 @@ class ScoreEvaluationController extends Controller
     foreach ($request->grades as $grade) {
      
       $eval=$grade['evaluation_id'];
-      if($grade['oldscore']==null ){
-        $response = $this->ScoreEvaluationManagerService->create($grade);
-      }else{
+     
         $response = $this->ScoreEvaluationManagerService->update($request, $grade);
-      }
-      
+     
 
       if ($response['success']) {
         array_push($enrolled, $response['scoreEvaluation']);

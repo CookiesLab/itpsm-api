@@ -182,6 +182,18 @@ class EvaluationController extends Controller
   public function store(EvaluationRequest $request)
   {
     $response = $this->EvaluationManagerService->create($request);
+    if(!$response['success']){
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.EvaluationNotCreated')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
 
     return response()->json([
       'data' => [

@@ -127,14 +127,13 @@ class ScoreEvaluationManager
   public function update($request, $id)
   {
     $scoreEvaluation = $this->ScoreEvaluation->byId($id);
-
+  
     if (empty($scoreEvaluation)) {
       return [
         'success' => false,
       ];
     }
-
-    $this->ScoreEvaluation->update($request->all(), $scoreEvaluation);
+  $this->ScoreEvaluation->update($id, $scoreEvaluation);
     $scoreEvaluation = $this->ScoreEvaluation->byId($id);
     unset($scoreEvaluation->id);
 
