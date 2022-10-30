@@ -22,7 +22,8 @@ class Enrollment extends Model
         'period_id',
         'code',
         'student_id',
-        'teacher_id'
+        'teacher_id',
+        'id_schedule'
     ];
 
     protected function setKeysForSaveQuery($query)

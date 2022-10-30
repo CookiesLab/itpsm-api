@@ -161,17 +161,15 @@ class UserManager
   {
     $data = $request->all();
 
-    $carnet = $this->generateCarnet($data['last_name'], $data['entry_date'], $data['birth_date']);
-    $data['carnet'] = $carnet;
-    $data['institutional_email'] = $carnet . "@" . config('app.institutional_email_domain');
+  
 
-    $teacher = $this->User->create($data);
-    $id = strval($teacher->id);
-    unset($teacher->id);
+    $user = $this->User->create($data);
+    $id = strval($user->id);
+    unset($user->id);
 
     return [
       'success' => true,
-      'teacher' => $teacher,
+      'user' => $user,
       'id' => $id,
     ];
   }

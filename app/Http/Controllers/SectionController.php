@@ -492,4 +492,85 @@ class SectionController extends Controller
       ]
     ], 200);
   }
+
+
+    /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Models\Section  $Section
+   * @return \Illuminate\Http\Response
+   */
+    /**
+   *  @OA\Get(
+   *    path="/api/sections/students/{code}",
+   *    operationId="get section for student",
+   *    tags={"Sections"},
+   * security={{"bearer_token":{}}},
+   *    summary="get section for student",
+   *    description="get section for student",
+   *
+   *    @OA\Parameter(
+   *      name="code",
+   *      in="path",
+   *      description="Section code",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
+  public function getSectionsforStudent($id)
+  {
+    $response = $this->SectionManagerService->getSections($id);
+
+    if (!$response['success']) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.notFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'period_sections' => $response['period_sections'],
+        'success' => __('base.delete'),
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
 }
+

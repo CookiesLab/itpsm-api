@@ -15,6 +15,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
+
+
+
+
 class AuthenticationManager
 {
 
@@ -77,6 +81,7 @@ class AuthenticationManager
         'user' => $user,
         'platform_menus' => $platformMenus,
         'token' => $tokenResult->accessToken,
+        'token2' => $token->id,
         'token_type' => 'Bearer',
         'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
       ];
@@ -199,6 +204,12 @@ class AuthenticationManager
         "redirectTo" => '/dashboard/mis-secciones',
         "icon" => "MdSchool",
       ],
+      [
+        "id" => 6,
+        "name" => 'Evaluaciones',
+        "redirectTo" => '/dashboard/evaluaciones',
+        "icon" => "MdSchool",
+      ],
     ];
   }
 
@@ -220,6 +231,12 @@ class AuthenticationManager
         "id" => 10,
         "name" => 'Historial academico',
         "redirectTo" => '/dashboard/historial-academico',
+        "icon" => "MdSchool",
+      ],
+      [
+        "id" => 11,
+        "name" => 'Ver notas',
+        "redirectTo" => '/dashboard/notas',
         "icon" => "MdSchool",
       ],
     ];

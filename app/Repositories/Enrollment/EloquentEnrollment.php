@@ -126,6 +126,7 @@ class EloquentEnrollment implements EnrollmentInterface
           'e.curriculum_subject_id',
           'e.period_id',
           'e.code',
+          
           'e.enrollment',
           'p.year AS period_year',
           'p.code AS period_code',
@@ -172,10 +173,12 @@ class EloquentEnrollment implements EnrollmentInterface
           'c.name AS curriculum_label',
           'ca.name AS career_label',
           'cs.uv AS curriculum_subject_uv',
-          $this->DB::raw('CONCAT(\'horario \') AS schedule'),
+          $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+          'sh.day_of_week AS day',
         )
         ->leftJoin('teachers as t', 'e.teacher_id', '=', 't.id')
+        ->leftJoin('schedules as sh', 'e.id_schedule', '=', 'sh.id')
         ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
         ->join('periods as p', 'e.period_id', '=', 'p.id')

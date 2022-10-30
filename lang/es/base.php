@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
+    'createperiod' => 'Ya existe un ciclo en ese estado',
     'failure' => 'Oops! Parece que hubo un error.',
     'delete' => 'Registro eliminado con exito.',
     'notFound' => 'Registro no encontrado.',

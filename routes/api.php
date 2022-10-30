@@ -78,12 +78,17 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('evaluations', EvaluationController::class);
 
     Route::apiResource('score-evaluations', ScoreEvaluationController::class);
+    Route::get('teacher/section', [TeacherController::class, 'getSections']);
+    Route::put('evaluations/publish/{id}', [EvaluationController::class, 'publishEvaluations']);
+    Route::put('evaluations/publishgrades/{id}', [EvaluationController::class, 'publishGrades']);
+    Route::post('score/insertGrades', [ScoreEvaluationController::class, 'insertGrades']);
 
   });
 
   Route::group(['middleware' => ['role:student']], function () {
     Route::apiResource('enrollments', EnrollmentController::class);
-
+    Route::get('section/getsubjects/{id}', [SectionController::class, 'getSectionsforStudent']);
+    Route::get('evaluations/student/{id}', [EvaluationController::class, 'getEvaluationsforStudent']);
     Route::post('enrollment/enroll-subjects', [EnrollmentController::class, 'enrollSubjects'])->name('enrollment.enroll-subjects');
 
     Route::get('enrollment/active-subjects', [EnrollmentController::class, 'getSubjectsToBeEnrolled'])->name('enrollment.active-subjects');

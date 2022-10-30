@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\UserRequest;
 use App\Http\Requests\TeacherRequest;
 use Illuminate\Http\Request;
 use App\Services\User\UserManager;
@@ -283,7 +283,7 @@ class UserController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['teacher']
+        'attributes' => $response['user']
       ],
       'jsonapi' => [
         'version' => "1.00"

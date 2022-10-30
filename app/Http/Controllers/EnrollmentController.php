@@ -84,7 +84,7 @@ class EnrollmentController extends Controller
     if (!empty($errorMessage)) {
       return response()->json([
         'errors' => [
-          'status' => '404',
+          'status' => '401',
           'title' => __('base.failure'),
           'detail' => $errorMessage,
         ],
@@ -168,6 +168,21 @@ class EnrollmentController extends Controller
     $studentId = $loggedUser->system_reference_id;
 
     $currentPeriod = $this->PeriodManagerService->getCurrentEnrollmentPeriod();
+    if (empty($currentPeriod)) {
+      $errorMessage = 'No hay un ciclo de estudio para inscribir';
+    }
+    if (!empty($errorMessage)) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => $errorMessage,
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
     $currentEnrolled = $this->EnrollmentManagerService->getCurrentEnrolled($studentId, $currentPeriod->id);
 
     return response()->json([

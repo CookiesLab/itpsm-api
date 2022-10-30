@@ -115,10 +115,33 @@ class EloquentPeriod implements PeriodInterface
    */
   public function create(array $data)
   {
+
+    if($data['status']=="I" || $data['status']=="A"){
+
+        $query = $this->DB::table('periods AS p')
+        ->select(
+          'p.id',
+          'p.code',
+          'p.year',
+          'p.status'
+        )->where('p.status', '=', $data['status'])->first();
+        if($query == null){
+          $period = new Period();
+          $period->fill($data)->save();
+      
+          return $period;
+        }else{
+          return null;
+        }
+      
+      
+    }
+
     $period = new Period();
     $period->fill($data)->save();
 
     return $period;
+  
   }
 
   /**
@@ -133,11 +156,28 @@ class EloquentPeriod implements PeriodInterface
    */
   public function update(array $data, $period = null)
   {
-    if (empty($period)) {
-      $period = $this->byId($data['id']);
-    }
+    if($data['status']=="I" || $data['status']=="A"){
 
-    return $period->update($data);
+      $query = $this->DB::table('periods AS p')
+      ->select(
+        'p.id',
+        'p.code',
+        'p.year',
+        'p.status'
+      )->where('p.status', '=', $data['status'])->first();
+      if($query == null){
+        $period = $this->byId($data['id']);
+        return $period->update($data);
+      }else{
+        return null;
+      }
+    
+    
+  }
+  $period = $this->byId($data['id']);
+  return $period->update($data);
+  
+  
   }
 
   /**

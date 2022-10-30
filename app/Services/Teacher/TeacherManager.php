@@ -12,6 +12,7 @@ namespace App\Services\Teacher;
 
 use App\Repositories\Teacher\TeacherInterface;
 use App\Repositories\User\UserInterface;
+use App\Repositories\Section\SectionInterface;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Pdf;
 use Carbon\Carbon;
@@ -33,6 +34,13 @@ class TeacherManager
    *
    */
   protected $User;
+    /**
+   * Section
+   *
+   * @var App\Repositories\Section\SectionInterface;
+   *
+   */
+  protected $Section;
 
   /**
 	* Barryvdh\DomPDF\PDF
@@ -59,11 +67,13 @@ class TeacherManager
   public function __construct(
     TeacherInterface $Teacher,
     UserInterface $User,
+    SectionInterface $Section,
     PDF $Dompdf,
     Carbon $Carbon
   ) {
     $this->Teacher = $Teacher;
     $this->User = $User;
+    $this->Section = $Section;
     $this->Dompdf = $Dompdf;
     $this->Carbon = $Carbon;
     $this->responseType = 'teachers';
@@ -122,11 +132,68 @@ class TeacherManager
       'records' => $count,
     ];
   }
+  
+  public function getTableRowsWithPaginationSection($request, $pager = true, $returnJson = true)
+  {
+
+    $rows = [];
+    $limit = $offset = $count = $page = $totalPages = 0;
+    $filter = $sortColumn = $sortOrder = '';
+    if (!empty($request['query']))
+    {
+      $customQuery = json_decode($request['query'], true)['query'];
+    }
+
+    if (!empty($request['filter']))
+    {
+      $filter = $request['filter'];
+    }
+
+    if (!empty($request['sort']) && $request['sort'][0] == '-')
+    {
+      $sortColumn = substr($request['sort'], 1);
+      $sortOrder = 'desc';
+    }
+    else if (!empty($request['sort']))
+    {
+      $sortColumn = $request['sort'];
+      $sortOrder = 'asc';
+    }
+    else
+    {
+      $sortColumn = 's.code';
+      $sortOrder = 'desc';
+    }
+
+    if ($pager)
+    {
+      $count = $this->Section->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery);
+      encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
+    }
+
+    $this->Section->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery)->each(function ($teacher) use (&$rows) {
+
+      array_push($rows, [
+        'type' => $this->responseType,
+        'id' => $teacher->code,
+        'attributes' => $teacher
+      ]);
+    });
+
+    return [
+      'rows' => $rows,
+      'page' => $page,
+      'totalPages' => $totalPages,
+      'records' => $count,
+    ];
+  }
 
   public function getTeacher($id)
   {
     return $this->Teacher->byId($id);
   }
+ 
+
 
   public function generateSystemUsers() {
 
@@ -138,7 +205,7 @@ class TeacherManager
       $data = [
         'name'=> $teacher->name . ' ' . $teacher->last_name,
         'email'=> $teacher->institutional_email,
-        'password'=> bcrypt($generatedPassword),
+        'password'=> $generatedPassword,
         'system_reference_table'=> 'teachers',
         'system_reference_id'=> $teacher->id,
       ];
@@ -148,8 +215,9 @@ class TeacherManager
       $this->Teacher->update(['is_user_created' => 1], $teacher);
 
       $user->carnet = $teacher->carnet;
+      $user->publicpassword = $generatedPassword;
       $user->password = $generatedPassword;
-
+      
       array_push($users, $user);
     });
 

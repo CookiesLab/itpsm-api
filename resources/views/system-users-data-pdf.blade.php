@@ -174,7 +174,7 @@
               <td>{{ $user->carnet }}</td>
               <td>{{ $user->name }}</td>
               <td>{{ $user->email }}</td>
-              <td>{{ $user->password }}</td>
+              <td>{{ $user->publicpassword }}</td>
             </tr>
           @endforeach
         </tbody>

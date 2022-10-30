@@ -83,12 +83,12 @@ class EnrollmentSeeder extends Seeder
             'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 2,
             'quota' => 45,
           'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 3,
             'quota' => 15,
           'id_schedule' => 1,
         ],
@@ -100,18 +100,21 @@ class EnrollmentSeeder extends Seeder
             'description' => 'Parcial 1',
             'date' => '2022-02-02',
             'percentage' => 20.5,
+            'is_public' => 0
         ],
         [
             'name' => 'Parcial 2',
             'description' => 'Parcial 2',
             'date' => '2022-02-02',
             'percentage' => 50,
+            'is_public' => 0
         ],
         [
             'name' => 'Parcial 3',
             'description' => 'Parcial 3',
             'date' => '2022-02-05',
             'percentage' => 30,
+            'is_public' => 0
         ],
     ];
 
@@ -121,18 +124,21 @@ class EnrollmentSeeder extends Seeder
             'final_score' => 8.5,
             'is_approved' => true,
             'enrollment' => 1,
+          'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 3,
             'final_score' => 7.5,
             'is_approved' => false,
             'enrollment' => 3,
+          'id_schedule' => 1,
         ],
         [
-            'code' => 1,
+            'code' => 2,
             'final_score' => 5.6,
             'is_approved' => true,
             'enrollment' => 4,
+          'id_schedule' => 1,
         ],
     ];
 
@@ -192,6 +198,7 @@ class EnrollmentSeeder extends Seeder
               'final_score' => $enrollment['final_score'],
               'is_approved' => $enrollment['is_approved'],
               'enrollment' => $enrollment['enrollment'],
+              'id_schedule' => $enrollment['id_schedule'],
             ]);
         }
 

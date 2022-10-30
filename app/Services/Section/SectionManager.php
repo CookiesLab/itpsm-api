@@ -174,7 +174,24 @@ class SectionManager
       'id' => $id,
     ];
   }
+  public function getSections($id)
+  {
+    $section = $this->Section->byStudentId($id);
 
+    if (empty($section)) {
+      return [
+        'success' => false,
+      ];
+    }
+
+ 
+
+    return [
+      'success' => true,
+      'period_sections' => $section,
+      'id' => $id,
+    ];
+  }
   private function generateCode($curriculumSubjectId, $periodId) {
     $code = $this->Section->countCurriculumSubjectByPeriod($curriculumSubjectId, $periodId) + 1;
     return $code;

@@ -151,17 +151,32 @@ class PeriodController extends Controller
   public function store(PeriodRequest $request)
   {
     $response = $this->PeriodManagerService->create($request);
+    if($response['success']){
+      return response()->json([
+        'data' => [
+          'type' => $this->responseType,
+          'id' => $response['id'],
+          'attributes' => $response['period']
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 201);
+    }
+   
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.createperiod'),
+          'detail' => __('base.createperiod')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $response['id'],
-        'attributes' => $response['period']
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 201);
+    
   }
 
   /**
@@ -325,8 +340,8 @@ class PeriodController extends Controller
       return response()->json([
         'errors' => [
           'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.notFound')
+          'title' => __('base.createperiod'),
+          'detail' => __('base.createperiod')
         ],
         'jsonapi' => [
           'version' => "1.00"

@@ -8,18 +8,25 @@ use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
+    public function login()
+    {
+        $response = $this->post('/api/login',[
+          'email'=> 'admin@itpsm.edu.sv',
+          'password' => 'password'
+        ]);
+       
+        return $response['data']['token'];
+       
+    }
     public function test_login_success()
     {
         $response = $this->post('/api/login',[
           'email'=> 'admin@itpsm.edu.sv',
           'password' => 'password'
         ]);
-
+        $response->dump();
+        print($response['data']['token']);
         $response->assertStatus(200);
     }
   public function test_login_fail()
