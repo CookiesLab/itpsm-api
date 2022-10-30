@@ -110,21 +110,29 @@ class PeriodManager
   public function getCurrentEnrollmentPeriod()
   {
     $period = $this->Period->getActiveToBeEnrolled();
-    $period->label = "Ciclo " . str_pad($period->code, 2, "0", STR_PAD_LEFT) . "-" . $period->year;
+    
+    //$period->label = "Ciclo " . str_pad($period->code, 2, "0", STR_PAD_LEFT) . "-" . $period->year;
     return $period;
   }
 
   public function create($request)
   {
-    $period = $this->Period->create($request->all());
-    $id = strval($period->id);
-    unset($period->id);
 
+    $period = $this->Period->create($request->all());
+    if($period != null){
+      $id = strval($period->id);
+      unset($period->id);
+  
+      return [
+        'success' => true,
+        'period' => $period,
+        'id' => $id,
+      ];
+    }
     return [
-      'success' => true,
-      'period' => $period,
-      'id' => $id,
+      'success' => false
     ];
+  
   }
 
   public function update($request, $id)
@@ -137,7 +145,12 @@ class PeriodManager
       ];
     }
 
-    $this->Period->update($request->all(), $period);
+    $a=$this->Period->update($request->all(), $period);
+    if ($a==null) {
+      return [
+        'success' => false,
+      ];
+    }
     $period = $this->Period->byId($id);
     unset($period->id);
 

@@ -163,6 +163,7 @@ class AppServiceProvider extends ServiceProvider
       return new \App\Services\Teacher\TeacherManager(
         $app->make('App\Repositories\Teacher\TeacherInterface'),
         $app->make('App\Repositories\User\UserInterface'),
+        $app->make('App\Repositories\Section\SectionInterface'),
         $app->make('dompdf.wrapper'),
         new Carbon()
       );
@@ -595,6 +596,7 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\ScoreEvaluation\ScoreEvaluationManager', function ($app) {
       return new \App\Services\ScoreEvaluation\ScoreEvaluationManager(
         $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
+    
         new Carbon()
       );
     });

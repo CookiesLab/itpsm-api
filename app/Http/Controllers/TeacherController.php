@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TeacherRequest;
 use Illuminate\Http\Request;
 use App\Services\Teacher\TeacherManager;
+use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Auth;
 class TeacherController extends Controller
 {
   /**
@@ -649,6 +651,7 @@ class TeacherController extends Controller
   */
   public function destroy($request)
   {
+   
     $response = $this->TeacherManagerService->delete($request);
 
     if (!$response) {
@@ -679,4 +682,76 @@ class TeacherController extends Controller
   {
     return $this->TeacherManagerService->generateSystemUsers();
   }
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Models\Teacher  $Teacher
+   * @return \Illuminate\Http\Response
+   */
+   /**
+   *  @OA\Get(
+   *    path="/api/teachers/sections",
+   *    operationId="get teacher sections by id",
+   *    tags={"Teachers"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get teacher sections by id",
+   *    description="Returns teacher sections by id",
+   *
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
+
+
+  public function getSections()
+  {
+    
+    $response = $this->TeacherManagerService->getTableRowsWithPaginationSection(request()->all());
+
+
+
+
+    return response()->json([
+      'meta' => [
+        'page' => $response['page'],
+        'totalPages' => $response['totalPages'],
+        'records' => $response['records'],
+      ],
+      'data' => $response['rows'],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ScoreEvaluationRequest;
 use Illuminate\Http\Request;
 use App\Services\ScoreEvaluation\ScoreEvaluationManager;
-
+use App\Services\Evaluation\EvaluationManager;
 class ScoreEvaluationController extends Controller
 {
   /**
@@ -15,6 +15,13 @@ class ScoreEvaluationController extends Controller
    *
    */
   protected $ScoreEvaluationManagerService;
+   /**
+   * ScoreEvaluation Manager Service
+   *
+   * @var App\Services\ScoreEvaluationManager\EvaluationManagementInterface;
+   *
+   */
+  protected $EvaluationManagerService;
 
   /**
    * responseType
@@ -25,9 +32,11 @@ class ScoreEvaluationController extends Controller
   protected $responseType;
 
   public function __construct(
-    ScoreEvaluationManager $ScoreEvaluationManagerService
+    ScoreEvaluationManager $ScoreEvaluationManagerService,
+    EvaluationManager $EvaluationManagerService
   ) {
     $this->ScoreEvaluationManagerService = $ScoreEvaluationManagerService;
+    $this->EvaluationManagerService = $EvaluationManagerService;
     $this->responseType = 'scoreEvaluations';
   }
 
@@ -412,4 +421,37 @@ class ScoreEvaluationController extends Controller
       ]
     ], 200);
   }
+  public function insertGrades(Request $request)
+  {
+    $eval=0;
+    $enrolled = $notEnrolled = [];
+    foreach ($request->grades as $grade) {
+     
+      $eval=$grade['evaluation_id'];
+      if($grade['oldscore']==null ){
+        $response = $this->ScoreEvaluationManagerService->create($grade);
+      }else{
+        $response = $this->ScoreEvaluationManagerService->update($request, $grade);
+      }
+      
+
+      if ($response['success']) {
+        array_push($enrolled, $response['scoreEvaluation']);
+      }
+      else {
+        array_push($notEnrolled, $grade);
+      }
+  }
+  $response2 = $this->EvaluationManagerService->uploadgrades($eval);
+  return response()->json([
+    'data' => [
+      'type' => $this->responseType,
+      'enrolled' => $enrolled,
+      'notEnrolled' => $notEnrolled,
+    ],
+    'jsonapi' => [
+      'version' => "1.00"
+    ]
+  ], 201);
+}
 }

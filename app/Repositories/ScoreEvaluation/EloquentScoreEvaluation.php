@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\ScoreEvaluation;
+use Illuminate\Support\Facades\Log;
 
 class EloquentScoreEvaluation implements ScoreEvaluationInterface
 {
@@ -45,14 +46,20 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
    *
    * @return Illuminate\Database\Eloquent\Collection
    */
-  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
+  public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null, $customQuery = null)
   {
-    $query = $this->DB::table('score_evaluations AS se')
+    $query = $this->DB::table('enrollments AS e')
       ->select(
-        'se.score',
-        'se.student_id',
-        'se.evaluation_id'
-      );
+        'es.score',
+        'e.student_id',
+        'st.carnet','st.name','st.last_name',
+        'ev.id'
+      )->join('sections as s', 's.id', '=', 'e.code')
+      ->join('students as st', 'st.id', '=', 'e.student_id')
+      ->join('evaluations as ev', 's.id', '=', 'ev.section_id')
+      ->leftjoin('score_evaluations as es', 'ev.id', '=', 'es.evaluation_id')
+      //->whereRaw('es.student_id =st.id')
+      ;
 
 
     if (!empty($filter)) {
@@ -60,6 +67,37 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
         foreach (['t.name', 't.last_name', 't.email', 't.nit', 't.dui', 't.nup_number', 't.isss_number'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
           //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
+        }
+      });
+    }
+    if (!empty($customQuery)) {
+      $query->whereNested(function ($dbQuery) use ($customQuery) {
+        foreach ($customQuery as $statement) {
+
+          if($statement['op'] == 'is not in')
+          {
+            $dbQuery->whereNotIn($statement['field'], explode(',',$statement['data']));
+            continue;
+          }
+
+          if($statement['op'] == 'is null')
+          {
+            $dbQuery->whereNull($statement['field']);
+            continue;
+          }
+
+          if($statement['op'] == 'is not null')
+          {
+            $dbQuery->whereNotNull($statement['field']);
+            continue;
+          }
+          if($statement['field'] == 'ev.id'){
+            $dbQuery->where($statement['field'], $statement['op'], $statement['data']);
+        
+            continue;
+          }
+          $dbQuery->where($statement['field'], $statement['op'], $statement['data']);
+         
         }
       });
     }
@@ -79,6 +117,7 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
     if (!empty($offset) && $offset != 0) {
       $query->skip($offset);
     }
+    Log::emergency($query->toSql());
     return new Collection(
       $query->get()
     );
@@ -93,11 +132,12 @@ class EloquentScoreEvaluation implements ScoreEvaluationInterface
    */
   public function byId($id)
   {
-    $ids = get_keys_data($id);
+    Log::emergency($id);
+    //$ids = get_keys_data($id);
 
-    return $this->StudentCurriculum
-      ->where('student_id', intval($ids[0]))
-      ->where('evaluation_id', intval($ids[1]))
+    return $this->ScoreEvaluation
+      ->where('student_id', intval($id['student_id']))
+      ->where('evaluation_id', intval($id['evaluation_id']))
       ->first();
   }
 

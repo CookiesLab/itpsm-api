@@ -105,6 +105,7 @@ class AuthController extends Controller
         'attributes' => $user,
         'platform_menus' => $response['platform_menus'],
         'token' => $response['token'],
+        'token2' => $response['token2'],
         'token_type' => $response['token_type'],
         'expires_at' => $response['expires_at'],
       ],

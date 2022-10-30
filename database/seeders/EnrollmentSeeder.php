@@ -100,18 +100,21 @@ class EnrollmentSeeder extends Seeder
             'description' => 'Parcial 1',
             'date' => '2022-02-02',
             'percentage' => 20.5,
+            'is_public' => 0
         ],
         [
             'name' => 'Parcial 2',
             'description' => 'Parcial 2',
             'date' => '2022-02-02',
             'percentage' => 50,
+            'is_public' => 0
         ],
         [
             'name' => 'Parcial 3',
             'description' => 'Parcial 3',
             'date' => '2022-02-05',
             'percentage' => 30,
+            'is_public' => 0
         ],
     ];
 

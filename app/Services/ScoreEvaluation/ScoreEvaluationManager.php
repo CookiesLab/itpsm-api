@@ -12,6 +12,7 @@ namespace App\Services\ScoreEvaluation;
 
 use App\Repositories\ScoreEvaluation\ScoreEvaluationInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ScoreEvaluationManager
 {
@@ -58,7 +59,10 @@ class ScoreEvaluationManager
     {
       $filter = $request['filter'];
     }
-
+    if (!empty($request['query']))
+    {
+      $customQuery = json_decode($request['query'], true)['query'];
+    }
     if (!empty($request['sort']) && $request['sort'][0] == '-')
     {
       $sortColumn = substr($request['sort'], 1);
@@ -77,11 +81,11 @@ class ScoreEvaluationManager
 
     if ($pager)
     {
-      $count = $this->ScoreEvaluation->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      $count = $this->ScoreEvaluation->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery);
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->ScoreEvaluation->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($scoreEvaluation) use (&$rows) {
+    $this->ScoreEvaluation->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder, $customQuery)->each(function ($scoreEvaluation) use (&$rows) {
 
     //   $id = strval($scoreEvaluation->id);
     //   unset($scoreEvaluation->id);
@@ -108,7 +112,8 @@ class ScoreEvaluationManager
 
   public function create($request)
   {
-    $scoreEvaluation = $this->ScoreEvaluation->create($request->all());
+
+    $scoreEvaluation = $this->ScoreEvaluation->create($request);
     $id = strval($scoreEvaluation->id);
     unset($scoreEvaluation->id);
 
@@ -118,7 +123,7 @@ class ScoreEvaluationManager
       'id' => $id,
     ];
   }
-
+  
   public function update($request, $id)
   {
     $scoreEvaluation = $this->ScoreEvaluation->byId($id);

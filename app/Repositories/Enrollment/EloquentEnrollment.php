@@ -126,6 +126,7 @@ class EloquentEnrollment implements EnrollmentInterface
           'e.curriculum_subject_id',
           'e.period_id',
           'e.code',
+          
           'e.enrollment',
           'p.year AS period_year',
           'p.code AS period_code',

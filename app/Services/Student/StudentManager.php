@@ -149,7 +149,7 @@ class StudentManager
       $data = [
         'name'=> $student->name . ' ' . $student->last_name,
         'email'=> $student->institutional_email,
-        'password'=> bcrypt($generatedPassword),
+        'password'=> $generatedPassword,
         'system_reference_table'=> 'students',
         'system_reference_id'=> $student->id,
       ];
@@ -159,6 +159,7 @@ class StudentManager
       $this->Student->update(['is_user_created' => 1], $student);
 
       $user->carnet = $student->carnet;
+      $user->publicpassword = $generatedPassword;
       $user->password = $generatedPassword;
 
       array_push($users, $user);

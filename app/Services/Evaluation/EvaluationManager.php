@@ -12,6 +12,7 @@ namespace App\Services\Evaluation;
 
 use App\Repositories\Evaluation\EvaluationInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class EvaluationManager
 {
@@ -52,11 +53,15 @@ class EvaluationManager
   {
     $rows = [];
     $limit = $offset = $count = $page = $totalPages = 0;
-    $filter = $sortColumn = $sortOrder = '';
+    $filter = $sortColumn = $sortOrder=$customQuery = '';
 
     if (!empty($request['filter']))
     {
       $filter = $request['filter'];
+    }
+    if (!empty($request['query']))
+    {
+      $customQuery = json_decode($request['query'], true)['query'];
     }
 
     if (!empty($request['sort']) && $request['sort'][0] == '-')
@@ -77,12 +82,12 @@ class EvaluationManager
 
     if ($pager)
     {
-      $count = $this->Evaluation->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      $count = $this->Evaluation->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder,$customQuery);
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->Evaluation->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($evaluation) use (&$rows) {
-
+    $this->Evaluation->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder,$customQuery)->each(function ($evaluation) use (&$rows) {
+      
       $id = strval($evaluation->id);
       unset($evaluation->id);
 
@@ -152,5 +157,74 @@ class EvaluationManager
     $this->Evaluation->delete($id);
 
     return true;
+  }
+
+  public function publish($id)
+  {
+  
+
+    $this->Evaluation->publish($id);
+   
+
+    return [
+      'success' => true,
+   
+    ];
+
+  }
+  public function publishgrades($id)
+  {
+  
+
+    $this->Evaluation->publishgrades($id);
+   
+
+    return [
+      'success' => true,
+   
+    ];
+
+  }
+  public function uploadgrades($id)
+  {
+  
+
+    $this->Evaluation->uploadgrades($id);
+   
+
+    return [
+      'success' => true,
+   
+    ];
+
+  }
+  public function getEvaluations($id)
+  {
+    $Evaluation = $this->Evaluation->byperiodId($id);
+
+    if (empty($Evaluation)) {
+      return [
+        'success' => false,
+       
+      ];
+    }
+    $rows = [];
+
+    $Evaluation->each(function ($evaluation) use (&$rows) {
+      
+      if($evaluation->status!=1){
+        unset($evaluation->score);
+      }
+      $id = strval($evaluation->id);
+     
+
+      array_push($rows, $evaluation);
+    });
+
+    return [
+      'success' => true,
+      'evaluation' => $rows,
+      'id' => $id,
+    ];
   }
 }

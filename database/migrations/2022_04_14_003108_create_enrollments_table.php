@@ -44,7 +44,7 @@ return new class extends Migration
           $table->softDeletes();
       });
       Schema::create('sections', function (Blueprint $table) {
-
+        $table->id();
         $table->integer('quota');
         //$table->string('schedule', 255);
 
@@ -62,10 +62,10 @@ return new class extends Migration
         $table->unsignedBigInteger('period_id')->index();
         $table->foreign('period_id')->references('id')->on('periods');
 
-        $table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
+        //$table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
         $table->unsignedBigInteger('id_schedule')->index();
         $table->foreign('id_schedule')->references('id')->on('schedules');
-        $table->foreign('code')->references('id')->on('schedules');
+        //$table->foreign('code')->references('id')->on('schedules');
         $table->timestamps();
         $table->softDeletes();
       });
@@ -75,9 +75,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('date');
             $table->float('percentage');
-
+            $table->boolean('is_public')->default(0);
             $table->unsignedBigInteger('section_id')->index();
-            $table->foreign('section_id')->references('code')->on('sections');
+            $table->foreign('section_id')->references('id')->on('sections');
 
             $table->timestamps();
         });
@@ -100,6 +100,7 @@ return new class extends Migration
         });
 
         Schema::create('enrollments', function (Blueprint $table) {
+         
             $table->float('final_score')->nullable();
             $table->boolean('is_approved')->nullable();
             $table->integer('enrollment')->default(1);
@@ -114,7 +115,7 @@ return new class extends Migration
             $table->foreign('period_id')->references('id')->on('periods');
 
             $table->unsignedBigInteger('code')->index();
-            $table->foreign('code')->references('code')->on('sections');
+            $table->foreign('code')->references('id')->on('sections');
 
             $table->unsignedBigInteger('student_id')->index();
             $table->foreign('student_id')->references('id')->on('students');
