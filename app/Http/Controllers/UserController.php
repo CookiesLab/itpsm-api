@@ -43,8 +43,8 @@ class UserController extends Controller
    *    operationId="getUsers",
    *    tags={"Users"},
    * security={{"bearer_token":{}}},
-   *    summary="Get list of teachers",
-   *    description="Returns list of teachers",
+   *    summary="Get list of users",
+   *    description="Returns list of users",
    *
    *    @OA\Response(
    *      response=200,
@@ -100,66 +100,11 @@ class UserController extends Controller
    *    operationId="postUsers",
    *    tags={"Users"},
    * security={{"bearer_token":{}}},
-   *    summary="Create teachers",
-   *    description="Create teachers",
+   *    summary="Create users",
+   *    description="Create users",
    *
    *    @OA\Parameter(
    *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="last_name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="birth_date",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="nit",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="dui",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="isss_number",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="nup_number",
    *      in="query",
    *      required=true,
    *      @OA\Schema(
@@ -175,78 +120,12 @@ class UserController extends Controller
    *        type="string"
    *      )
    *    ),
-   *
-   *    @OA\Parameter(
-   *      name="genre",
+   *      @OA\Parameter(
+   *      name="password",
    *      in="query",
    *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        minLength= 1,
-   *        maxLength= 1
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="address",
-   *      in="query",
-   *      required=false,
    *      @OA\Schema(
    *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="phone_number",
-   *      in="query",
-   *      required=false,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="home_phone_number",
-   *      in="query",
-   *      required=false,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="municipality_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="department_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="country_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="status_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
    *      )
    *    ),
    *
@@ -298,47 +177,7 @@ class UserController extends Controller
    * @return \Illuminate\Http\Response
    */
    /**
-   *  @OA\Get(
-   *    path="/api/users/{id}",
-   *    operationId="get user by id",
-   *    tags={"Users"},
-   * security={{"bearer_token":{}}},
-   *    summary="Get teacher by id",
-   *    description="Returns teacher by id",
-   *
-   *    @OA\Parameter(
-   *      name="id",
-   *      in="path",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Response(
-   *      response=200,
-   *      description="Success",
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *      )
-   *    ),
-   *    @OA\Response(
-   *      response=401,
-   *      description="Unauthenticated",
-   *    ),
-   *    @OA\Response(
-   *      response=403,
-   *      description="Forbidden",
-   *    ),
-   *    @OA\Response(
-   *      response=400,
-   *      description="Bad Request"
-   *    ),
-   *    @OA\Response(
-   *      response=404,
-   *      description="Not Found"
-   *    )
-   *  )
+   * 
   */
   public function show($id)
   {
@@ -388,72 +227,8 @@ class UserController extends Controller
    *    summary="Update teachers",
    *    description="Update teachers",
    *
-   *    @OA\Parameter(
-   *      name="id",
-   *      in="path",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
+   *   @OA\Parameter(
    *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="last_name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="birth_date",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="nit",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="dui",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="isss_number",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="nup_number",
    *      in="query",
    *      required=true,
    *      @OA\Schema(
@@ -469,81 +244,14 @@ class UserController extends Controller
    *        type="string"
    *      )
    *    ),
-   *
-   *    @OA\Parameter(
-   *      name="genre",
+   *      @OA\Parameter(
+   *      name="password",
    *      in="query",
    *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        minLength= 1,
-   *        maxLength= 1
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="address",
-   *      in="query",
-   *      required=false,
    *      @OA\Schema(
    *        type="string"
    *      )
    *    ),
-   *
-   *    @OA\Parameter(
-   *      name="phone_number",
-   *      in="query",
-   *      required=false,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="home_phone_number",
-   *      in="query",
-   *      required=false,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="municipality_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="department_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="country_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="status_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -569,9 +277,9 @@ class UserController extends Controller
    *    )
    *  )
   */
-  public function update(TeacherRequest $request, $data)
+  public function update(UserRequest $request, $data)
   {
-    $response = $this->TeacherManagerService->update($request, $data);
+    $response = $this->UserManagerService->update($request, $data);
 
     if (!$response['success']) {
       return response()->json([
@@ -590,7 +298,7 @@ class UserController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['teacher']
+        'attributes' => $response['user']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -605,47 +313,7 @@ class UserController extends Controller
    * @return \Illuminate\Http\Response
    */
    /**
-   *  @OA\Delete(
-   *    path="/api/users/{id}",
-   *    operationId="delete user by id",
-   *    tags={"Users"},
-   * security={{"bearer_token":{}}},
-   *    summary="Delete teacher by id",
-   *    description="Delete teacher by id",
-   *
-   *    @OA\Parameter(
-   *      name="id",
-   *      in="path",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Response(
-   *      response=200,
-   *      description="Success",
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *      )
-   *    ),
-   *    @OA\Response(
-   *      response=401,
-   *      description="Unauthenticated",
-   *    ),
-   *    @OA\Response(
-   *      response=403,
-   *      description="Forbidden",
-   *    ),
-   *    @OA\Response(
-   *      response=400,
-   *      description="Bad Request"
-   *    ),
-   *    @OA\Response(
-   *      response=404,
-   *      description="Not Found"
-   *    )
-   *  )
+   * 
   */
   public function destroy($request)
   {
@@ -675,8 +343,4 @@ class UserController extends Controller
     ], 200);
   }
 
-  public function generateSystemUsers(Request $request)
-  {
-    return $this->TeacherManagerService->generateSystemUsers();
-  }
 }

@@ -109,6 +109,7 @@ class EloquentUser implements UserInterface {
     */
     public function create(array $data)
     {
+        $data['system_reference_table']='admin';
         $user = new User();
         $user->fill($data)->save();
 

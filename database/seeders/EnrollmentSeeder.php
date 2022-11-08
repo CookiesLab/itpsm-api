@@ -31,6 +31,11 @@ class EnrollmentSeeder extends Seeder
         [
             'code' => 03,
             'year' => 2022,
+            'status' => 'A',
+        ],
+         [
+            'code' => 01,
+            'year' => 2023,
             'status' => 'I',
         ],
     ];
@@ -92,6 +97,20 @@ class EnrollmentSeeder extends Seeder
             'quota' => 15,
           'id_schedule' => 1,
         ],
+        [
+          'code' => 3,
+          'quota' => 15,
+        'id_schedule' => 3,
+      ],[
+        'code' => 3,
+        'quota' => 15,
+      'id_schedule' => 5,
+    ],[
+      'code' => 3,
+      'quota' => 15,
+    'id_schedule' => 7,
+  ],
+
     ];
 
     private $evaluations = [
@@ -140,6 +159,41 @@ class EnrollmentSeeder extends Seeder
             'enrollment' => 4,
           'id_schedule' => 1,
         ],
+        [
+          'code' => 2,
+          'final_score' => 5.6,
+          'is_approved' => true,
+          'enrollment' => 4,
+        'id_schedule' => 1,
+      ],
+      [
+        'code' => 2,
+        'final_score' => 5.6,
+        'is_approved' => true,
+        'enrollment' => 4,
+      'id_schedule' => 1,
+    ],
+    [
+      'code' => 2,
+      'final_score' => 5.6,
+      'is_approved' => true,
+      'enrollment' => 4,
+    'id_schedule' => 1,
+  ],
+  [
+    'code' => 2,
+    'final_score' => 5.6,
+    'is_approved' => true,
+    'enrollment' => 4,
+  'id_schedule' => 1,
+],
+[
+  'code' => 2,
+  'final_score' => 5.6,
+  'is_approved' => true,
+  'enrollment' => 4,
+'id_schedule' => 1,
+],
     ];
 
     /**
@@ -194,7 +248,7 @@ class EnrollmentSeeder extends Seeder
               'teacher_id' => Teacher::all()->random()->id,
               'curriculum_subject_id' => CurriculumSubject::all()->random()->id,
               'period_id' => Period::all()->random()->id,
-              'code' => $enrollment['code'],
+              'code' => Section::all()->random()->id,
               'final_score' => $enrollment['final_score'],
               'is_approved' => $enrollment['is_approved'],
               'enrollment' => $enrollment['enrollment'],

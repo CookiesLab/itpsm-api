@@ -911,12 +911,100 @@ class StudentController extends Controller
     ], 200);
   }
 
+  /**
+   *
+   *
+   * @param \App\Models\Student $Student
+   * @return \Illuminate\Http\Response
+   */
+  /**
+   * @OA\Post(
+   *    path="/api/students/create-default-pdf",
+   *    operationId="Generate pdf by student id",
+   *    tags={"Students"},
+   * security={{"bearer_token":{}}},
+   *    summary="Generate pdf by student id",
+   *    description="Generate pdf by student id",
+   *
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+   */
   public function createDefaultPdf(Request $request)
   {
     $studentId = $request->input('id');
     return $this->StudentManagerService->createDefaultPdf($studentId);
   }
 
+  /**
+   *
+   *
+   * @param \App\Models\Student $Student
+   * @return \Illuminate\Http\Response
+   */
+  /**
+   * @OA\Post(
+   *    path="/api/students/generate-system-users",
+   *    operationId="Generate users for students witout users",
+   *    tags={"Students"},
+   * security={{"bearer_token":{}}},
+   *    summary="Generate users for students witout users",
+   *    description="Generate users for students witout users",
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/pdf",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+   */
   public function generateSystemUsers(Request $request)
   {
     return $this->StudentManagerService->generateSystemUsers();

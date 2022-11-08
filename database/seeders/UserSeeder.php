@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
       'email_verified_at' => now(),
       'password' => 'password', // password
       'remember_token' => Str::random(10),
+      'system_reference_table'=>'admin'
     ));
 
     $user2 = User::create(array(
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
       'email_verified_at' => now(),
       'password' => 'password', // password
       'remember_token' => Str::random(10),
+      'system_reference_table'=>'admin'
     ));
 
     User::create(array(
@@ -38,6 +40,7 @@ class UserSeeder extends Seeder
       'email_verified_at' => now(),
       'password' => 'password', // password
       'remember_token' => Str::random(10),
+      'system_reference_table'=>'admin'
     ));
 
     User::create(array(
@@ -46,6 +49,7 @@ class UserSeeder extends Seeder
       'email_verified_at' => now(),
       'password' => 'password', // password
       'remember_token' => Str::random(10),
+      'system_reference_table'=>'admin'
     ));
 
     $user3 = User::create(array(
@@ -54,6 +58,7 @@ class UserSeeder extends Seeder
       'email_verified_at' => now(),
       'password' => 'password', // password
       'remember_token' => Str::random(10),
+      'system_reference_table'=>'admin'
     ));
 
     $user1->assignRole('admin');

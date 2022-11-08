@@ -503,16 +503,16 @@ class SectionController extends Controller
     /**
    *  @OA\Get(
    *    path="/api/sections/students/{code}",
-   *    operationId="get section for student",
+   *    operationId="get sections for student",
    *    tags={"Sections"},
    * security={{"bearer_token":{}}},
-   *    summary="get section for student",
-   *    description="get section for student",
+   *    summary="get sections for student",
+   *    description="get sections for student",
    *
    *    @OA\Parameter(
-   *      name="code",
+   *      name="Period id",
    *      in="path",
-   *      description="Section code",
+   *      description="Period id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"

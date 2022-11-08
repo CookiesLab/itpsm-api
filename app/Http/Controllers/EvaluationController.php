@@ -506,12 +506,12 @@ class EvaluationController extends Controller
    */
       /** 
    *  @OA\Put(
-   *    path="/api/evaluations/{id}",
-   *    operationId="putEvaluation",
+   *    path="api/evaluations/publish/{id}",
+   *    operationId="publishEvaluation",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Update evaluation",
-   *    description="Update evaluation",
+   *    summary="publish Evaluation to Students",
+   *    description="publish Evaluation  to Students",
    * 
    *    @OA\Parameter(
    *      name="id",
@@ -523,55 +523,7 @@ class EvaluationController extends Controller
    *      )
    *    ),
    * 
-   *    @OA\Parameter(
-   *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   * 
-   *    @OA\Parameter(
-   *      name="description",
-   *      in="query",
-   *      description="Evaluation description",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *      )
-   *    ),
-   * 
-   *    @OA\Parameter(
-   *      name="date",
-   *      in="query",
-   *      description="Evaluation date",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   * 
-   *     @OA\Parameter(
-   *      name="percentage",
-   *      in="query",
-   *      description="Evaluation percentage",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="number",
-   *      )
-   *    ),
-   * 
-   *    @OA\Parameter(
-   *      name="section_id",
-   *      in="query",
-   *      description="Evaluation section_id",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer",
-   *      )
-   *    ),
+   *
    * 
    *    @OA\Response(
    *      response=200,
@@ -633,12 +585,12 @@ class EvaluationController extends Controller
    */
       /** 
    *  @OA\Put(
-   *    path="/api/evaluations/{id}",
-   *    operationId="putEvaluation",
+   *    path="api/evaluations/publishgrades/{id}",
+   *    operationId="putEvaluationGrades",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Update evaluation",
-   *    description="Update evaluation",
+   *    summary="publish evaluation grades",
+   *    description="publish evaluation grades",
    * 
    *    @OA\Parameter(
    *      name="id",
@@ -647,56 +599,6 @@ class EvaluationController extends Controller
    *      description="Evaluation id",
    *      @OA\Schema(
    *        type="integer"
-   *      )
-   *    ),
-   * 
-   *    @OA\Parameter(
-   *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   * 
-   *    @OA\Parameter(
-   *      name="description",
-   *      in="query",
-   *      description="Evaluation description",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *      )
-   *    ),
-   * 
-   *    @OA\Parameter(
-   *      name="date",
-   *      in="query",
-   *      description="Evaluation date",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   * 
-   *     @OA\Parameter(
-   *      name="percentage",
-   *      in="query",
-   *      description="Evaluation percentage",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="number",
-   *      )
-   *    ),
-   * 
-   *    @OA\Parameter(
-   *      name="section_id",
-   *      in="query",
-   *      description="Evaluation section_id",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer",
    *      )
    *    ),
    * 
@@ -759,17 +661,17 @@ class EvaluationController extends Controller
    */
     /** 
    *  @OA\Get(
-   *    path="evaluations/student/{id}",
+   *    path="api/evaluations/student/{id}",
    *    operationId="get evaluations by student and period id",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Get evaluation by id",
-   *    description="Returns evaluation by id",
+   *    summary="Get evaluation by  student id",
+   *    description="Returns evaluations for the student",
    * 
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
-   *      description="Evaluation id",
+   *      description="Student id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"

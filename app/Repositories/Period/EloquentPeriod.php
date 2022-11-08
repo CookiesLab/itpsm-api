@@ -96,9 +96,10 @@ class EloquentPeriod implements PeriodInterface
 
   public function getActiveToBeEnrolled()
   {
+    Log::emergency( date('Y'));
     return $this->Period
       ->where('status', '=', 'I')
-      ->where('year', '=', date('Y'))
+    //  ->where('year', '=', date('Y'))
       ->first();
   }
 

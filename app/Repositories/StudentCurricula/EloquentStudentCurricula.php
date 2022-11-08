@@ -149,7 +149,7 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
     return $this->StudentCurriculum
       ->where('student_id', $studentId)
       ->where('status', 'A')
-      ->first();
+      ->get();
   }
 
   /**
