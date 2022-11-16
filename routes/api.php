@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function () {
   Route::put('users/reset-password', [AuthController::class, 'resetPassword'])->name('user.reset-password');
 
   Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('teachers/all', [TeacherController::class, 'allTeachers']);
     Route::apiResource('students', StudentController::class);
 
     Route::apiResource('teachers', TeacherController::class);

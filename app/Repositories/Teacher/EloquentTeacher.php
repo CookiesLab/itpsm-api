@@ -118,7 +118,20 @@ class EloquentTeacher implements TeacherInterface
   {
     return $this->Teacher->find($id);
   }
-
+/**
+   * Get an Teacher by id
+   *
+   * @param  int $id
+   *
+   * @return App\Models\Teacher
+   */
+  public function all()
+  {
+    return $this->Teacher->select(
+      'id as value',
+      $this->DB::raw('CONCAT(name, \' \', last_name) AS label'),
+    )->get();
+  }
   /**
    * Create a new Teacher
    *

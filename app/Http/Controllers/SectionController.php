@@ -133,6 +133,23 @@ class SectionController extends Controller
    *      )
    *    ),
    *
+   *     @OA\Parameter(
+   *      name="start_week",
+   *      in="query",
+   *      description="Section schedule",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),    @OA\Parameter(
+   *      name="end_week",
+   *      in="query",
+   *      description="Section schedule",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="string",
+   *      )
+   *    ),
    *    @OA\Parameter(
    *      name="teacher_id",
    *      in="query",

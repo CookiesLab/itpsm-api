@@ -8,7 +8,7 @@ use App\Services\StudentCurricula\StudentCurriculaManager;
 use App\Services\Enrollment\EnrollmentManager;
 use App\Services\Period\PeriodManager;
 use App\Services\Section\SectionManager;
-
+use Illuminate\Support\Facades\Log;
 class EnrollmentController extends Controller
 {
   /**
@@ -140,6 +140,8 @@ class EnrollmentController extends Controller
       $subject['student_id'] = $studentId;
       // TODO: Verificar la matricula
       $subject['enrollment'] = 1;
+      unset($subject->period_id);
+      Log::emergency($subject);
       $response = $this->EnrollmentManagerService->create($subject);
 
       if ($response['success']) {

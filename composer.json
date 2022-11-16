@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.0",
         "barryvdh/laravel-dompdf": "^1.0",
         "darkaonline/l5-swagger": "^8.3",
         "fakerphp/faker": "^1.9.1",
@@ -56,7 +56,7 @@
         "post-install-cmd": [ 
             "php artisan clear-compiled",
             "chmod -R 777 storage", 
-            "php artisan passport:keys"
+            "php artisan passport:keys --force"
         ]
     },
     "extra": {

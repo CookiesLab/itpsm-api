@@ -25,7 +25,7 @@ return new class extends Migration
 
 
 
-        Schema::create('schedules', function (Blueprint $table) {
+  /*      Schema::create('schedules', function (Blueprint $table) {
 					$table->id();
           $table->integer('day_of_week');
           $table->string('start_hour');
@@ -42,12 +42,13 @@ return new class extends Migration
 
           $table->timestamps();
           $table->softDeletes();
-      });
+      });*/
       Schema::create('sections', function (Blueprint $table) {
         $table->id();
         $table->integer('quota');
         //$table->string('schedule', 255);
-
+        $table->integer('start_week');
+        $table->integer('end_week');
         $table->unsignedBigInteger('teacher_id')->nullable();
         $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
 
@@ -63,8 +64,8 @@ return new class extends Migration
         $table->foreign('period_id')->references('id')->on('periods');
 
         //$table->primary(['curriculum_subject_id', 'period_id', 'code'], 'section_primary');
-        $table->unsignedBigInteger('id_schedule')->index();
-        $table->foreign('id_schedule')->references('id')->on('schedules');
+       /* $table->unsignedBigInteger('id_schedule')->index();
+        $table->foreign('id_schedule')->references('id')->on('schedules');*/
         //$table->foreign('code')->references('id')->on('schedules');
         $table->timestamps();
         $table->softDeletes();
@@ -75,7 +76,11 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('date');
             $table->float('percentage');
-            $table->boolean('is_public')->default(0);
+            $table->integer('is_public')->default(0);
+            $table->integer('is_approved')->default(0);
+            $table->integer('level')->default(1);
+            $table->unsignedBigInteger('principal_id')->nullable();
+            $table->foreign('principal_id')->references('id')->on('evaluations');
             $table->unsignedBigInteger('section_id')->index();
             $table->foreign('section_id')->references('id')->on('sections');
 
@@ -111,8 +116,8 @@ return new class extends Migration
             $table->unsignedBigInteger('curriculum_subject_id')->index();
             $table->foreign('curriculum_subject_id')->references('id')->on('curriculum_subjects');
 
-            $table->unsignedBigInteger('period_id')->index();
-            $table->foreign('period_id')->references('id')->on('periods');
+           /* $table->unsignedBigInteger('period_id')->index();
+            $table->foreign('period_id')->references('id')->on('periods');*/
 
             $table->unsignedBigInteger('code')->index();
             $table->foreign('code')->references('id')->on('sections');
@@ -120,11 +125,11 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id')->index();
             $table->foreign('student_id')->references('id')->on('students');
 
-            $table->unsignedBigInteger('teacher_id')->nullable();
+          /*  $table->unsignedBigInteger('teacher_id')->nullable();
             $table->foreign('teacher_id')->references('id')->on('teachers')->nullable();
           $table->unsignedBigInteger('id_schedule')->index();
           $table->foreign('id_schedule')->references('id')->on('schedules');
-            $table->primary(['student_id', 'curriculum_subject_id', 'period_id', 'code'], 'enrollment_primary');
+            $table->primary(['student_id', 'curriculum_subject_id', 'period_id', 'code'], 'enrollment_primary');*/
 
             $table->timestamps();
         });
