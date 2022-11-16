@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Section;
-
+use Illuminate\Support\Facades\Log;
 class EloquentSection implements SectionInterface
 {
 
@@ -91,7 +91,13 @@ class EloquentSection implements SectionInterface
             $dbQuery->whereNotNull($statement['field']);
             continue;
           }
+
+        
           if($statement['field'] == 's.teacher_id'){
+            if(is_null(auth()->user()->system_reference_id)){
+              $dbQuery->whereNotNull($statement['field']);
+              continue;
+            }
             $dbQuery->where($statement['field'], $statement['op'], auth()->user()->system_reference_id);
             continue;
           }
@@ -125,6 +131,7 @@ class EloquentSection implements SectionInterface
     if (!empty($offset) && $offset != 0) {
       $query->skip($offset);
     }
+    Log::emergency($query->toSql());
     return new Collection(
       $query->get()
     );

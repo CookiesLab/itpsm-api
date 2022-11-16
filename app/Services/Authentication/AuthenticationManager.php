@@ -192,6 +192,13 @@ class AuthenticationManager
         "name" => 'Ciclo de estudios',
         "redirectTo" => '/dashboard/ciclo-de-estudios',
         "icon" => "AiOutlineCalendar",
+      ]
+      ,
+      [
+        "id" => 12,
+        "name" => 'Aprobar Evaluaciones',
+        "redirectTo" => '/dashboard/aprovaciones',
+        "icon" => "AiOutlineCalendar",
       ],
     ];
   }

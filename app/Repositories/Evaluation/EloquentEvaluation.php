@@ -61,8 +61,8 @@ class EloquentEvaluation implements EvaluationInterface
         'sj.name as materia'
       )->join('sections as s', 's.id', '=', 'e.section_id')
       ->join('curriculum_subjects as cs', 'cs.id', '=', 's.curriculum_subject_id')
-      ->join('subjects as sj', 'sj.id', '=', 'cs.subject_id')
-      ->where('s.teacher_id', '=', auth()->user()->system_reference_id);
+      ->join('subjects as sj', 'sj.id', '=', 'cs.subject_id');
+      //->where('s.teacher_id', '=', auth()->user()->system_reference_id);
 
       if (!empty($customQuery)) {
         $query->whereNested(function ($dbQuery) use ($customQuery) {
