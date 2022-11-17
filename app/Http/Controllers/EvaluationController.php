@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EvaluationRequest;
 use Illuminate\Http\Request;
-use App\Services\Evaluation\EvaluationManager;
+use App\Services\Evaluation\CommentsManager;
 
 class EvaluationController extends Controller
 {
@@ -25,7 +25,7 @@ class EvaluationController extends Controller
   protected $responseType;
 
   public function __construct(
-    EvaluationManager $EvaluationManagerService
+      CommentsManager $EvaluationManagerService
   ) {
     $this->EvaluationManagerService = $EvaluationManagerService;
     $this->responseType = 'evaluations';
@@ -37,7 +37,7 @@ class EvaluationController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Get(
    *    path="/api/evaluations",
    *    operationId="getEvaluation",
@@ -45,7 +45,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get evaluation list",
    *    description="Returns evaluation list",
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -94,7 +94,7 @@ class EvaluationController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Post(
    *    path="/api/evaluations",
    *    operationId="postEvaluation",
@@ -102,7 +102,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Create evaluation",
    *    description="Create evaluation",
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -112,7 +112,7 @@ class EvaluationController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="description",
    *      in="query",
@@ -122,7 +122,7 @@ class EvaluationController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="date",
    *      in="query",
@@ -133,7 +133,7 @@ class EvaluationController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="percentage",
    *      in="query",
@@ -143,7 +143,7 @@ class EvaluationController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *   @OA\Parameter(
    *      name="section_id",
    *      in="query",
@@ -201,7 +201,7 @@ class EvaluationController extends Controller
    * @param  \App\Models\Evaluation  $Evaluation
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Get(
    *    path="/api/evaluations/{id}",
    *    operationId="get evaluation by id",
@@ -209,7 +209,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get evaluation by id",
    *    description="Returns evaluation by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -219,7 +219,7 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -284,7 +284,7 @@ class EvaluationController extends Controller
    * @param  \App\Models\Evaluation  $Evaluation
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Put(
    *    path="/api/evaluations/{id}",
    *    operationId="putEvaluation",
@@ -292,7 +292,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update evaluation",
    *    description="Update evaluation",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -302,7 +302,7 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -311,7 +311,7 @@ class EvaluationController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="description",
    *      in="query",
@@ -321,7 +321,7 @@ class EvaluationController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="date",
    *      in="query",
@@ -332,7 +332,7 @@ class EvaluationController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *     @OA\Parameter(
    *      name="percentage",
    *      in="query",
@@ -342,7 +342,7 @@ class EvaluationController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="section_id",
    *      in="query",
@@ -352,7 +352,7 @@ class EvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -413,7 +413,7 @@ class EvaluationController extends Controller
    * @param  \App\Models\Evaluation  $Evaluation
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Delete(
    *    path="/api/evaluations/{id}",
    *    operationId="delete evaluation by id",
@@ -421,7 +421,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Delete evaluation by id",
    *    description="Deletes evaluation by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -431,7 +431,7 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -484,7 +484,7 @@ class EvaluationController extends Controller
       ]
     ], 200);
   }
-  
+
   /**
    * Update the specified resource in storage.
    *
@@ -492,7 +492,7 @@ class EvaluationController extends Controller
    * @param  \App\Models\Evaluation  $Evaluation
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Put(
    *    path="/api/evaluations/{id}",
    *    operationId="putEvaluation",
@@ -500,7 +500,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update evaluation",
    *    description="Update evaluation",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -510,7 +510,7 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -519,7 +519,7 @@ class EvaluationController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="description",
    *      in="query",
@@ -529,7 +529,7 @@ class EvaluationController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="date",
    *      in="query",
@@ -540,7 +540,7 @@ class EvaluationController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *     @OA\Parameter(
    *      name="percentage",
    *      in="query",
@@ -550,7 +550,7 @@ class EvaluationController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="section_id",
    *      in="query",
@@ -560,7 +560,7 @@ class EvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -619,7 +619,7 @@ class EvaluationController extends Controller
    * @param  \App\Models\Evaluation  $Evaluation
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Put(
    *    path="/api/evaluations/{id}",
    *    operationId="putEvaluation",
@@ -627,7 +627,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update evaluation",
    *    description="Update evaluation",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -637,7 +637,7 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -646,7 +646,7 @@ class EvaluationController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="description",
    *      in="query",
@@ -656,7 +656,7 @@ class EvaluationController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="date",
    *      in="query",
@@ -667,7 +667,7 @@ class EvaluationController extends Controller
    *        format="date"
    *      )
    *    ),
-   * 
+   *
    *     @OA\Parameter(
    *      name="percentage",
    *      in="query",
@@ -677,7 +677,7 @@ class EvaluationController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="section_id",
    *      in="query",
@@ -687,7 +687,7 @@ class EvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -745,7 +745,7 @@ class EvaluationController extends Controller
    * @param  \App\Models\Evaluation  $Evaluation
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Get(
    *    path="evaluations/student/{id}",
    *    operationId="get evaluations by student and period id",
@@ -753,7 +753,7 @@ class EvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get evaluation by id",
    *    description="Returns evaluation by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -763,7 +763,7 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -811,7 +811,7 @@ class EvaluationController extends Controller
     return response()->json([
       'data' => [
         'type' => $this->responseType,
-       
+
         'attributes' => $evaluation['evaluation']
       ],
       'jsonapi' => [

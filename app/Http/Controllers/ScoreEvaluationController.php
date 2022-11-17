@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ScoreEvaluationRequest;
 use Illuminate\Http\Request;
 use App\Services\ScoreEvaluation\ScoreEvaluationManager;
-use App\Services\Evaluation\EvaluationManager;
+use App\Services\Evaluation\CommentsManager;
 class ScoreEvaluationController extends Controller
 {
   /**
@@ -32,8 +32,8 @@ class ScoreEvaluationController extends Controller
   protected $responseType;
 
   public function __construct(
-    ScoreEvaluationManager $ScoreEvaluationManagerService,
-    EvaluationManager $EvaluationManagerService
+      ScoreEvaluationManager $ScoreEvaluationManagerService,
+      CommentsManager $EvaluationManagerService
   ) {
     $this->ScoreEvaluationManagerService = $ScoreEvaluationManagerService;
     $this->EvaluationManagerService = $EvaluationManagerService;
@@ -46,7 +46,7 @@ class ScoreEvaluationController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-       /** 
+       /**
    *  @OA\Get(
    *    path="/api/score-evaluations",
    *    operationId="getScore-evaluations",
@@ -54,7 +54,7 @@ class ScoreEvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get evaluation score list",
    *    description="Returns evaluation score list and allows to filter by student id or evaluation id ",
-   * 
+   *
    *  @OA\Parameter(
    *      name="query",
    *      in="query",
@@ -71,7 +71,7 @@ class ScoreEvaluationController extends Controller
    *        )
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -120,7 +120,7 @@ class ScoreEvaluationController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-       /** 
+       /**
    *  @OA\Post(
    *    path="/api/score-evaluations",
    *    operationId="postScore-evaluations",
@@ -128,7 +128,7 @@ class ScoreEvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Assign evaluation score",
    *    description="Assign evaluation score",
-   * 
+   *
    *    @OA\Parameter(
    *      name="score",
    *      in="query",
@@ -138,7 +138,7 @@ class ScoreEvaluationController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="student_id",
    *      in="query",
@@ -148,7 +148,7 @@ class ScoreEvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="evaluation_id",
    *      in="query",
@@ -158,7 +158,7 @@ class ScoreEvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -241,7 +241,7 @@ class ScoreEvaluationController extends Controller
    * @param  \App\Models\ScoreEvaluation  $ScoreEvaluation
    * @return \Illuminate\Http\Response
    */
-  /** 
+  /**
    *  @OA\Put(
    *    path="/api/score-evaluations/{id}",
    *    operationId="putScore-evaluations",
@@ -249,7 +249,7 @@ class ScoreEvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update evaluation score",
    *    description="Update evaluation score",
-   * 
+   *
    *   @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -259,7 +259,7 @@ class ScoreEvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="score",
    *      in="query",
@@ -269,7 +269,7 @@ class ScoreEvaluationController extends Controller
    *        type="number",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="student_id",
    *      in="query",
@@ -279,7 +279,7 @@ class ScoreEvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="evaluation_id",
    *      in="query",
@@ -289,7 +289,7 @@ class ScoreEvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -426,14 +426,14 @@ class ScoreEvaluationController extends Controller
     $eval=0;
     $enrolled = $notEnrolled = [];
     foreach ($request->grades as $grade) {
-     
+
       $eval=$grade['evaluation_id'];
       if($grade['oldscore']==null ){
         $response = $this->ScoreEvaluationManagerService->create($grade);
       }else{
         $response = $this->ScoreEvaluationManagerService->update($request, $grade);
       }
-      
+
 
       if ($response['success']) {
         array_push($enrolled, $response['scoreEvaluation']);
