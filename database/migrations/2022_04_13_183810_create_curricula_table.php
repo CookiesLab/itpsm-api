@@ -40,6 +40,7 @@ return new class extends Migration
       $table->id();
       $table->string('name', 255);
       $table->integer('year');
+      $table->integer('total_uv');
       $table->boolean('is_active');
       $table->boolean('is_approved');
 
@@ -53,6 +54,7 @@ return new class extends Migration
     Schema::create('student_curricula', function (Blueprint $table) {
       $table->float('cum');
       $table->integer('entry_year');
+      $table->integer('uv')->default(0);;
       $table->integer('graduation_year')->nullable();
       $table->float('scholarship_rate')->nullable();
 

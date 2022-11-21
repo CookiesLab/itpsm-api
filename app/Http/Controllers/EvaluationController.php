@@ -182,6 +182,18 @@ class EvaluationController extends Controller
   public function store(EvaluationRequest $request)
   {
     $response = $this->EvaluationManagerService->create($request);
+    if(!$response['success']){
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.EvaluationNotCreated')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
 
     return response()->json([
       'data' => [
@@ -494,13 +506,15 @@ class EvaluationController extends Controller
    */
       /**
    *  @OA\Put(
-   *    path="/api/evaluations/{id}",
-   *    operationId="putEvaluation",
+   *    path="api/evaluations/publish/{id}",
+   *    operationId="publishEvaluation",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Update evaluation",
-   *    description="Update evaluation",
-   *
+
+   *    summary="publish Evaluation to Students",
+   *    description="publish Evaluation  to Students",
+   * 
+
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -510,7 +524,6 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
-   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -561,6 +574,7 @@ class EvaluationController extends Controller
    *      )
    *    ),
    *
+
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -621,13 +635,14 @@ class EvaluationController extends Controller
    */
       /**
    *  @OA\Put(
-   *    path="/api/evaluations/{id}",
-   *    operationId="putEvaluation",
+   *    path="api/evaluations/publishgrades/{id}",
+   *    operationId="putEvaluationGrades",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Update evaluation",
-   *    description="Update evaluation",
-   *
+
+   *    summary="publish evaluation grades",
+   *    description="publish evaluation grades",
+
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -637,6 +652,7 @@ class EvaluationController extends Controller
    *        type="integer"
    *      )
    *    ),
+
    *
    *    @OA\Parameter(
    *      name="name",
@@ -687,7 +703,7 @@ class EvaluationController extends Controller
    *        type="integer",
    *      )
    *    ),
-   *
+
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -747,17 +763,19 @@ class EvaluationController extends Controller
    */
     /**
    *  @OA\Get(
-   *    path="evaluations/student/{id}",
+   *    path="api/evaluations/student/{id}",
    *    operationId="get evaluations by student and period id",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Get evaluation by id",
-   *    description="Returns evaluation by id",
-   *
+
+   *    summary="Get evaluation by  student id",
+   *    description="Returns evaluations for the student",
+   * 
+
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
-   *      description="Evaluation id",
+   *      description="Student id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"

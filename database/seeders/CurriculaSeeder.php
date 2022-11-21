@@ -19,10 +19,12 @@ class CurriculaSeeder extends Seeder
     [
       'id' => 1,
       'name' => 'Técnico en Ingeniería de Construcción',
+      
     ],
     [
       'id' => 2,
       'name' => 'Técnico Superior en Hostelería y Turismo',
+      
     ],
   ];
 
@@ -262,6 +264,7 @@ class CurriculaSeeder extends Seeder
       'year' => 2020,
       'is_active' => true,
       'is_approved' => false,
+      'total_uv' => 92,
       'curriculum_subjects' => [
         [
           'id' => 1,
@@ -422,6 +425,7 @@ class CurriculaSeeder extends Seeder
       'year' => 2020,
       'is_active' => true,
       'is_approved' => false,
+      'total_uv' => 81,
       'curriculum_subjects' => [
         [
           'id' => 26,
@@ -632,6 +636,7 @@ class CurriculaSeeder extends Seeder
       Career::create([
         'id' => $career['id'],
         'name' => $career['name'],
+        
       ]);
     }
 
@@ -651,6 +656,7 @@ class CurriculaSeeder extends Seeder
         'year' => $curricula['year'],
         'is_active' => $curricula['is_active'],
         'is_approved' => $curricula['is_approved'],
+        'total_uv' => $curricula['total_uv'],
       ]);
 
       foreach ($curricula['curriculum_subjects'] as $cusub) {

@@ -164,6 +164,7 @@ class UserManager
   
 
     $user = $this->User->create($data);
+    $user->assignRole('admin');
     $id = strval($user->id);
     unset($user->id);
 
@@ -176,7 +177,7 @@ class UserManager
 
   public function update($request, $id)
   {
-    $teacher = $this->Teacher->byId($id);
+    $teacher = $this->User->byId($id);
 
     if (empty($teacher)) {
       return [
@@ -184,13 +185,13 @@ class UserManager
       ];
     }
 
-    $this->Teacher->update($request->all(), $teacher);
-    $teacher = $this->Teacher->byId($id);
+    $this->User->update($request->all(), $teacher);
+    $teacher = $this->User->byId($id);
     unset($teacher->id);
 
     return [
       'success' => true,
-      'teacher' => $teacher,
+      'user' => $teacher,
       'id' => $id,
     ];
 
