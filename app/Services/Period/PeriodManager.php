@@ -12,6 +12,7 @@ namespace App\Services\Period;
 
 use App\Repositories\Period\PeriodInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class PeriodManager
 {
@@ -110,7 +111,7 @@ class PeriodManager
   public function getCurrentEnrollmentPeriod()
   {
     $period = $this->Period->getActiveToBeEnrolled();
-    
+    Log::emergency($period);
     //$period->label = "Ciclo " . str_pad($period->code, 2, "0", STR_PAD_LEFT) . "-" . $period->year;
     return $period;
   }

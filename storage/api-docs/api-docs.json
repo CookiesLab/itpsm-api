@@ -898,6 +898,182 @@
                 ]
             }
         },
+        "/api/enrollment/active-subjects": {
+            "get": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": " Get subjects to be enrolled in the active period filter by level and student curricula ",
+                "description": " Get subjects to be enrolled in the active period  by level and student curricula",
+                "operationId": "getEnrollmentstomake",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/enrollment/enroll-subjects": {
+            "post": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": "enroll subjects to the active period",
+                "description": "enroll subjects to the active period",
+                "operationId": "Enrollmentsmake",
+                "parameters": [
+                    {
+                        "name": "Subjects",
+                        "in": "query",
+                        "description": "Subjects to be enrolled",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "lastName": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "companyId": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "accountNumber": {
+                                        "type": "number",
+                                        "example": ""
+                                    },
+                                    "netPay": {
+                                        "type": "money",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/enrollment/enrolled-curriculum-subjects": {
+            "get": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": " Get subjects enrolled for the active period",
+                "description": " Get subjects enrolled for the active period",
+                "operationId": "getEnrollmentsmade",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/enrollment/approved-subjects": {
+            "get": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": " Get subjects for academic history",
+                "description": " Get subjects for academic history",
+                "operationId": "getEnrollmentsforhistory",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/enrollments": {
             "get": {
                 "tags": [
@@ -2752,6 +2928,52 @@
                 ]
             }
         },
+        "/api/sections/students/{code}": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "summary": "get section for student",
+                "description": "get section for student",
+                "operationId": "get section for student",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Section code",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/students": {
             "get": {
                 "tags": [
@@ -3389,6 +3611,86 @@
                         "description": "Success",
                         "content": {
                             "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/students/create-default-pdf": {
+            "post": {
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Generate pdf by student id",
+                "description": "Generate pdf by student id",
+                "operationId": "Generate pdf by student id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/students/generate-system-users": {
+            "post": {
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Generate users for students witout users",
+                "description": "Generate users for students witout users",
+                "operationId": "Generate users for students witout users",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/pdf": {}
                         }
                     },
                     "401": {

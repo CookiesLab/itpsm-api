@@ -421,6 +421,82 @@ class ScoreEvaluationController extends Controller
       ]
     ], 200);
   }
+  /**
+   * Save or Update the score of evaluations
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+       /** 
+   *  @OA\Post(
+   *    path="/api/score/insertGrades",
+   *    operationId="postGradesEvaluations",
+   *    tags={"Assign evaluation score"},
+   * security={{"bearer_token":{}}},
+   *    summary="Save evaluation score",
+   *    description="Save evaluation score",
+   * 
+ *  @OA\Parameter(
+   *      name="Grades",
+   *      in="query",
+   *      description="Grades to update",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="array",
+   *        @OA\Items(   @OA\Property(
+ *                         property="firstName",
+ *                         type="string",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="lastName",
+ *                         type="string",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="companyId",
+ *                         type="string",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="accountNumber",
+ *                         type="number",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="netPay",
+ *                         type="money",
+ *                         example=""
+ *                      ),
+ * )
+*       
+   * 
+   * 
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      ),
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function insertGrades(Request $request)
   {
     $eval=0;
@@ -428,10 +504,9 @@ class ScoreEvaluationController extends Controller
     foreach ($request->grades as $grade) {
 
       $eval=$grade['evaluation_id'];
-      if($grade['oldscore']==null ){
-        $response = $this->ScoreEvaluationManagerService->create($grade);
-      }else{
+     
         $response = $this->ScoreEvaluationManagerService->update($request, $grade);
+
       }
 
 

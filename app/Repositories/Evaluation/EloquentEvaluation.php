@@ -159,7 +159,9 @@ class EloquentEvaluation implements EvaluationInterface
         'e.is_approved'
       )->join('sections as s', 's.id', '=', 'e.section_id')
       ->join('enrollments as r', 'r.code', '=', 'e.section_id')
+      ->join('students as st', 'st.id', '=', 'r.student_id')
       ->leftjoin('score_evaluations as sc', 'sc.evaluation_id', '=', 'e.id')
+      ->whereRaw('sc.student_id =st.id')
       ->where('r.student_id', '=', auth()->user()->system_reference_id)
       ->where('e.is_public', '=', '1');
 
@@ -178,6 +180,12 @@ class EloquentEvaluation implements EvaluationInterface
    */
   public function create(array $data)
   {
+    Log::emergency($data);
+    $porcentaje=$this->Evaluation->where('section_id','=', $data['section_id'])->sum('percentage');
+    if($porcentaje+$data['percentage']>100){
+      return null;
+    }
+   
     $evaluation = new Evaluation();
     $evaluation->fill($data)->save();
 
@@ -249,7 +257,7 @@ class EloquentEvaluation implements EvaluationInterface
     $evaluations=$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->get();
 
     foreach ($evaluations as $evaluation) {
-      Log::emergency($evaluation);
+    
       $evaluation->is_public=1;
       $evaluation->save();
 
@@ -268,6 +276,7 @@ class EloquentEvaluation implements EvaluationInterface
       $evaluation->save();
 
     }
+    return $evaluations;
     //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->delete();
     //$this->Evaluation->where('section_id', $id)->destroy();
   }
@@ -291,7 +300,7 @@ class EloquentEvaluation implements EvaluationInterface
     $evaluations=$this->Evaluation->where('id','=', $id)->get();
 
     foreach ($evaluations as $evaluation) {
-      Log::emergency($evaluation);
+   
       $evaluation->status=0;
       $evaluation->save();
 
@@ -299,4 +308,7 @@ class EloquentEvaluation implements EvaluationInterface
     //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->delete();
     //$this->Evaluation->where('section_id', $id)->destroy();
   }
+
+
+
 }

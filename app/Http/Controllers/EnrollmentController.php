@@ -9,6 +9,7 @@ use App\Services\Enrollment\EnrollmentManager;
 use App\Services\Period\PeriodManager;
 use App\Services\Section\SectionManager;
 use Illuminate\Support\Facades\Log;
+
 class EnrollmentController extends Controller
 {
   /**
@@ -63,7 +64,45 @@ class EnrollmentController extends Controller
     $this->SectionManagerService = $SectionManagerService;
     $this->responseType = 'enrollments';
   }
-
+/**
+   * Get subjects to be enrolled in the active period
+   *
+   * @return \Illuminate\Http\Response
+   */
+     /**
+   *  @OA\Get(
+   *    path="/api/enrollment/active-subjects",
+   *    operationId="getEnrollmentstomake",
+   *    tags={"Enrollments"},
+   * security={{"bearer_token":{}}},
+   *    summary=" Get subjects to be enrolled in the active period filter by level and student curricula ",
+   *    description=" Get subjects to be enrolled in the active period  by level and student curricula",
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function getSubjectsToBeEnrolled(Request $request)
   {
     $loggedUser = $request->user();
@@ -72,7 +111,7 @@ class EnrollmentController extends Controller
     $errorMessage = '';
     $currentPeriod = $this->PeriodManagerService->getCurrentEnrollmentPeriod();
     $currentCurricula = $this->StudentCurriculaManagerService->getActiveCurriculaByStudentId($studentId);
-
+    Log::emergency($currentCurricula);
     if (empty($currentPeriod)) {
       $errorMessage = 'No hay un ciclo de estudio para inscribir';
     }
@@ -97,8 +136,10 @@ class EnrollmentController extends Controller
     $rows = [];
     $curriculumSubjectsApproved = $this->EnrollmentManagerService->getCurriculumSubjectsApproved($studentId);
     $currentEnrolled = $this->EnrollmentManagerService->getCurrentEnrolled($studentId, $currentPeriod->id);
-
-    $this->SectionManagerService->getByCurriculumIdAndLevel($currentPeriod->id, $currentCurricula->curriculum_id, $currentCurricula->level)->each(function ($section) use (&$rows, &$curriculumSubjectsApproved, &$currentEnrolled) {
+    foreach ($currentCurricula as $Curricula) {
+      
+    
+    $this->SectionManagerService->getByCurriculumIdAndLevel($currentPeriod->id, $Curricula->curriculum_id, $Curricula->level)->each(function ($section) use (&$rows, &$curriculumSubjectsApproved, &$currentEnrolled) {
       $isCurriculumSubjectApproved = $curriculumSubjectsApproved->search(function ($item) use (&$section) {
         return $item->curriculum_subject_id == $section->curriculum_subject_id;
       });
@@ -114,7 +155,7 @@ class EnrollmentController extends Controller
       // TODO: Consultar horarios y validar prerequisitos;
       array_push($rows, $section);
     });
-
+  }
     return response()->json([
       'meta' => [
       ],
@@ -127,36 +168,130 @@ class EnrollmentController extends Controller
       ]
     ], 200);
   }
-
+/**
+   * enroll subjects to the active period
+   *
+   * @return \Illuminate\Http\Response
+   */
+     /**
+   *  @OA\Post(
+   *    path="/api/enrollment/enroll-subjects",
+   *    operationId="Enrollmentsmake",
+   *    tags={"Enrollments"},
+   * security={{"bearer_token":{}}},
+   *    summary="enroll subjects to the active period",
+   *    description="enroll subjects to the active period",
+   *
+   *  @OA\Parameter(
+   *      name="Subjects",
+   *      in="query",
+   *      description="Subjects to be enrolled",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="array",
+   *        @OA\Items(   @OA\Property(
+ *                         property="firstName",
+ *                         type="string",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="lastName",
+ *                         type="string",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="companyId",
+ *                         type="string",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="accountNumber",
+ *                         type="number",
+ *                         example=""
+ *                      ),
+ *                      @OA\Property(
+ *                         property="netPay",
+ *                         type="money",
+ *                         example=""
+ *                      ),
+ * )
+*              
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function enrollSubjects(Request $request)
   {
+    $id_schedule=[];
+    foreach ($request->subjects as $subject) {
+      array_push($id_schedule,$subject['id_schedule']);
+    }
+
+    $esigual =count($id_schedule)===count(array_unique($id_schedule));
+    
     $loggedUser = $request->user();
     $studentId = $loggedUser->system_reference_id;
 
     $enrolled = $notEnrolled = [];
 
-    foreach ($request->subjects as $subject) {
-      // TODO: Verificar cupos disponibles
-      $subject['student_id'] = $studentId;
-      // TODO: Verificar la matricula
-      $subject['enrollment'] = 1;
-      unset($subject->period_id);
-      Log::emergency($subject);
-      $response = $this->EnrollmentManagerService->create($subject);
-
-      if ($response['success']) {
-        array_push($enrolled, $response['enrollment']);
-      }
-      else {
-        array_push($notEnrolled, $subject);
-      }
-  }
+    if($esigual){
+      foreach ($request->subjects as $subject) {
+        // TODO: Verificar cupos disponibles
+        $subject['student_id'] = $studentId;
+        // TODO: Verificar la matricula
+        $subject['enrollment'] = 1;
+        $response = $this->EnrollmentManagerService->create($subject);
+  
+        if ($response['success']) {
+          array_push($enrolled, $response['enrollment']);
+        }
+        else {
+          array_push($notEnrolled, $subject);
+        }
+    }
+  
+      return response()->json([
+        'data' => [
+          'type' => $this->responseType,
+          'enrolled' => $enrolled,
+          'notEnrolled' => $notEnrolled,
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 201);
+    }
+    
 
     return response()->json([
       'data' => [
         'type' => $this->responseType,
         'enrolled' => $enrolled,
-        'notEnrolled' => $notEnrolled,
+        'notEnrolled' => $request->subjects,
+        'error'=>'No se pueden inscribir materias en el mismo horario'
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -164,6 +299,45 @@ class EnrollmentController extends Controller
     ], 201);
   }
 
+/**
+   * Get subjects enrolled for the active period
+   *
+   * @return \Illuminate\Http\Response
+   */
+     /**
+   *  @OA\Get(
+   *    path="/api/enrollment/enrolled-curriculum-subjects",
+   *    operationId="getEnrollmentsmade",
+   *    tags={"Enrollments"},
+   * security={{"bearer_token":{}}},
+   *    summary=" Get subjects enrolled for the active period",
+   *    description=" Get subjects enrolled for the active period",
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function getEnrolledCurriculumSubjects(Request $request)
   {
     $loggedUser = $request->user();
@@ -200,7 +374,45 @@ class EnrollmentController extends Controller
       ]
     ], 200);
   }
-
+ /**
+   * Get subjects for academic history
+   *
+   * @return \Illuminate\Http\Response
+   */
+     /**
+   *  @OA\Get(
+   *    path="/api/enrollment/approved-subjects",
+   *    operationId="getEnrollmentsforhistory",
+   *    tags={"Enrollments"},
+   * security={{"bearer_token":{}}},
+   *    summary=" Get subjects for academic history",
+   *    description=" Get subjects for academic history",
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+  */
   public function getApprovedCurriculumSubjects(Request $request)
   {
     $loggedUser = $request->user();

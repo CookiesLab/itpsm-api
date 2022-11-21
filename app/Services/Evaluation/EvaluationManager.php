@@ -11,6 +11,8 @@
 namespace App\Services\Evaluation;
 
 use App\Repositories\Evaluation\EvaluationInterface;
+use App\Repositories\Enrollment\EnrollmentInterface;
+use App\Repositories\ScoreEvaluation\ScoreEvaluationInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -23,7 +25,20 @@ class EvaluationManager
    *
    */
   protected $Evaluation;
-
+  /**
+   * Score_Evaluation
+   *
+   * @var App\Repositories\ScoreEvaluation\ScoreEvaluationInterface;
+   *
+   */
+  protected $Score_Evaluation;
+    /**
+   * Enrollment
+   *
+   * @var App\Repositories\Enrollment\EnrollmentInterface;
+   *
+   */
+  protected $Enrollment;
   /**
    * Carbon instance
    *
@@ -41,9 +56,13 @@ class EvaluationManager
   protected $responseType;
 
   public function __construct(
+    EnrollmentInterface $Enrollment,
+    ScoreEvaluationInterface $Score_Evaluation,
     EvaluationInterface $Evaluation,
     Carbon $Carbon
   ) {
+    $this->Enrollment = $Enrollment;
+    $this->Score_Evaluation = $Score_Evaluation;
     $this->Evaluation = $Evaluation;
     $this->Carbon = $Carbon;
     $this->responseType = 'evaluations';
@@ -117,6 +136,11 @@ class EvaluationManager
   public function create($request)
   {
     $evaluation = $this->Evaluation->create($request->all());
+    if (empty($evaluation)) {
+      return [
+        'success' => false,
+      ];
+    }
     $id = strval($evaluation->id);
     unset($evaluation->id);
 
@@ -156,8 +180,9 @@ class EvaluationManager
     if (empty($Evaluation)) {
       return false;
     }
-
+    $this->Score_Evaluation->clean($id);
     $this->Evaluation->delete($id);
+
 
     return true;
   }
@@ -182,6 +207,15 @@ class EvaluationManager
     $this->Evaluation->aprobacion($id,$status);
 
 
+    $evaluations=$this->Evaluation->publish($id);
+
+
+    foreach ($evaluations as $evaluation) {
+
+      $students=$this->Enrollment->getStudents($evaluation->section_id);
+
+      $this->Score_Evaluation->insert_students_to_evaluations($students,$evaluation->id);
+    }
     return [
       'success' => true,
 

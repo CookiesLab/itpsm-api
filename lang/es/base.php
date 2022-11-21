@@ -21,6 +21,7 @@ return [
     'emailAlreadyExist' => 'Ya existe un email con el mismo valor..',
     'decimalSeparator' => '.',
     'thousandsSeparator' => ',',
-    'percentage' => 'Porcentage de evaluaciones superado'
+    'percentage' => 'Porcentage de evaluaciones superado',
+    'EvaluationNotCreated' => 'Porcentaje superado'
 
 ];

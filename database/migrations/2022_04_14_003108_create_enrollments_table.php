@@ -88,7 +88,7 @@ return new class extends Migration
         });
 
         Schema::create('score_evaluations', function (Blueprint $table) {
-            $table->float('score');
+            $table->float('score')->nullable();
 
             /**
              * Fields with missing Primary Key
