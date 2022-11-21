@@ -193,7 +193,11 @@ class TeacherManager
     return $this->Teacher->byId($id);
   }
  
-
+  public function getTeachers()
+  {
+    return $this->Teacher->all();
+  }
+ 
 
   public function generateSystemUsers() {
 

@@ -43,8 +43,13 @@ Route::middleware('auth:api')->group(function () {
   Route::get('initial-config', [InitialConfigController::class, 'getInitialConfig'])->name('initial.config');
 
   Route::put('users/reset-password', [AuthController::class, 'resetPassword'])->name('user.reset-password');
+  //bloquear para student
+  Route::apiResource('evaluations', EvaluationController::class);
+  Route::get('teacher/section', [TeacherController::class, 'getSections']);
 
   Route::group(['middleware' => ['role:admin']], function () {
+   
+    Route::get('teachers/all', [TeacherController::class, 'allTeachers']);
     Route::apiResource('students', StudentController::class);
 
     Route::apiResource('teachers', TeacherController::class);
@@ -72,13 +77,14 @@ Route::middleware('auth:api')->group(function () {
     Route::post('students/generate-system-users', [StudentController::class, 'generateSystemUsers'])->name('students.generate-system-users');
 
     Route::post('teachers/generate-system-users', [TeacherController::class, 'generateSystemUsers'])->name('teachers.generate-system-users');
+    
   });
 
   Route::group(['middleware' => ['role:teacher']], function () {
-    Route::apiResource('evaluations', EvaluationController::class);
+    //Route::apiResource('evaluations', EvaluationController::class);
 
     Route::apiResource('score-evaluations', ScoreEvaluationController::class);
-    Route::get('teacher/section', [TeacherController::class, 'getSections']);
+    //Route::get('teacher/section', [TeacherController::class, 'getSections']);
     Route::put('evaluations/publish/{id}', [EvaluationController::class, 'publishEvaluations']);
     Route::put('evaluations/publishgrades/{id}', [EvaluationController::class, 'publishGrades']);
     Route::post('score/insertGrades', [ScoreEvaluationController::class, 'insertGrades']);

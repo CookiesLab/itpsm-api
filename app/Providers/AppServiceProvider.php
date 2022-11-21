@@ -523,8 +523,12 @@ class AppServiceProvider extends ServiceProvider
   protected function registerEvaluationInterface()
   {
     $this->app->bind('App\Repositories\Evaluation\EvaluationInterface', function ($app) {
+
       return new \App\Repositories\Evaluation\EloquentEvaluation(
         
+
+      return new \App\Repositories\Evaluation\CommentsEvaluation(
+
         new \App\Models\Evaluation(),
         new \Illuminate\Support\Facades\DB()
       );
@@ -539,10 +543,14 @@ class AppServiceProvider extends ServiceProvider
    */
   protected function registerEvaluationManagement()
   {
+
     $this->app->bind('App\Services\Evaluation\EvaluationManager', function ($app) {
       return new \App\Services\Evaluation\EvaluationManager(
         $app->make('App\Repositories\Enrollment\EnrollmentInterface'),
         $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
+
+    $this->app->bind('App\Services\Evaluation\CommentsManager', function ($app) {
+
         $app->make('App\Repositories\Evaluation\EvaluationInterface'),
         new Carbon()
       );
@@ -602,7 +610,7 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\ScoreEvaluation\ScoreEvaluationManager', function ($app) {
       return new \App\Services\ScoreEvaluation\ScoreEvaluationManager(
         $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
-    
+
         new Carbon()
       );
     });

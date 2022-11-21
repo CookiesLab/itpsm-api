@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Section;
-
+use Illuminate\Support\Facades\Log;
 class EloquentSection implements SectionInterface
 {
 
@@ -50,8 +50,10 @@ class EloquentSection implements SectionInterface
     $query = $this->DB::table('sections AS s')
       ->select(
         's.id as code',
+        's.code as seccion',
         's.quota',
-        's.id_schedule',
+        's.start_week',
+        's.end_week',
         's.curriculum_subject_id',
         's.period_id',
         's.teacher_id',
@@ -59,11 +61,8 @@ class EloquentSection implements SectionInterface
         'c.name AS curriculum_label',
         'ca.name AS career_label',
         $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
-         $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
-        'sh.day_of_week AS day',
       )
       ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
-      ->leftJoin('schedules as sh', 's.id_schedule', '=', 'sh.id')
       ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
       ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
       ->join('careers as ca', 'c.career_id', '=', 'ca.id')
@@ -92,7 +91,13 @@ class EloquentSection implements SectionInterface
             $dbQuery->whereNotNull($statement['field']);
             continue;
           }
+
+        
           if($statement['field'] == 's.teacher_id'){
+            if(is_null(auth()->user()->system_reference_id)){
+              $dbQuery->whereNotNull($statement['field']);
+              continue;
+            }
             $dbQuery->where($statement['field'], $statement['op'], auth()->user()->system_reference_id);
             continue;
           }
@@ -126,6 +131,7 @@ class EloquentSection implements SectionInterface
     if (!empty($offset) && $offset != 0) {
       $query->skip($offset);
     }
+    Log::emergency($query->toSql());
     return new Collection(
       $query->get()
     );
@@ -180,7 +186,8 @@ class EloquentSection implements SectionInterface
         ->select(
           's.code',
           's.quota',
-          's.id_schedule',
+          's.start_week',
+          's.end_week',
           's.curriculum_subject_id',
           's.period_id',
           's.teacher_id',
@@ -188,11 +195,10 @@ class EloquentSection implements SectionInterface
           'c.name AS curriculum_label',
           'ca.name AS career_label',
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
-          $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
-          'sh.day_of_week AS day'
+  
         )
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
-        ->leftJoin('schedules as sh', 's.id_schedule', '=', 'sh.id')
+   
         ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
 
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
@@ -219,7 +225,7 @@ class EloquentSection implements SectionInterface
         ->select(
           's.id as code',
           's.quota',
-          's.id_schedule',
+          's.start_week','s.end_week',
           's.curriculum_subject_id',
           's.period_id',
           's.teacher_id',
@@ -229,11 +235,11 @@ class EloquentSection implements SectionInterface
           'cs.cycle AS curriculum_subject_level',
           'cs.uv AS curriculum_subject_uv',
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
-         $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
-          'sh.day_of_week AS day'
+    
         )
+      
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
-    ->leftJoin('schedules as sh', 's.id_schedule', '=', 'sh.id')
+   
         ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')

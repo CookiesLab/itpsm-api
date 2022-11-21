@@ -256,6 +256,7 @@ class EnrollmentController extends Controller
     $studentId = $loggedUser->system_reference_id;
 
     $enrolled = $notEnrolled = [];
+
     if($esigual){
       foreach ($request->subjects as $subject) {
         // TODO: Verificar cupos disponibles
@@ -284,7 +285,6 @@ class EnrollmentController extends Controller
       ], 201);
     }
     
- 
 
     return response()->json([
       'data' => [

@@ -19,11 +19,10 @@ class Enrollment extends Model
         'is_approved',
         'enrollment',
         'curriculum_subject_id',
-        'period_id',
+  
         'code',
         'student_id',
-        'teacher_id',
-        'id_schedule'
+      
     ];
 
     protected function setKeysForSaveQuery($query)

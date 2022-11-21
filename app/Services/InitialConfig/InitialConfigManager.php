@@ -126,7 +126,7 @@ class InitialConfigManager
   public function getInitialConfig($request)
   {
     return [
-      'schedules' => $this->Schedule->getTableRowsWithPagination($request, false)['rows'],
+     // 'schedules' => $this->Schedule->getTableRowsWithPagination($request, false)['rows'],
       'careers' => $this->CareerManager->getTableRowsWithPagination($request, false)['rows'],
       'subjects' => $this->SubjectManager->getTableRowsWithPagination($request, false)['rows'],
       'curricula' => $this->CurriculumManager->getTableRowsWithPagination($request, false)['rows'],

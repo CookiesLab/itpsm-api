@@ -124,7 +124,7 @@ class EloquentEnrollment implements EnrollmentInterface
           'e.final_score',
           'e.is_approved',
           'e.curriculum_subject_id',
-          'e.period_id',
+          'st.period_id',
           'e.code',
           
           'e.enrollment',
@@ -135,10 +135,11 @@ class EloquentEnrollment implements EnrollmentInterface
           'ca.name AS career_label',
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
         )
-        ->leftJoin('teachers as t', 'e.teacher_id', '=', 't.id')
+        ->join('sections as st', 'st.id', '=', 'e.code')
+        ->leftJoin('teachers as t', 'st.teacher_id', '=', 't.id')
         ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
-        ->join('periods as p', 'e.period_id', '=', 'p.id')
+        ->join('periods as p', 'st.period_id', '=', 'p.id')
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')
         ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
         ->where('e.student_id', $studentId)
@@ -163,7 +164,7 @@ class EloquentEnrollment implements EnrollmentInterface
           'e.final_score',
           'e.is_approved',
           'e.curriculum_subject_id',
-          'e.period_id',
+        
           'e.code',
           'e.enrollment',
           'p.year AS period_year',
@@ -173,19 +174,22 @@ class EloquentEnrollment implements EnrollmentInterface
           'c.name AS curriculum_label',
           'ca.name AS career_label',
           'cs.uv AS curriculum_subject_uv',
-          $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
+        
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
-          'sh.day_of_week AS day',
+          'st.start_week','st.end_week'
         )
-        ->leftJoin('teachers as t', 'e.teacher_id', '=', 't.id')
-        ->leftJoin('schedules as sh', 'e.id_schedule', '=', 'sh.id')
+        ->join('sections as st', 'st.id', '=', 'e.code')
+        ->leftJoin('teachers as t', 'st.teacher_id', '=', 't.id')
+   
         ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
-        ->join('periods as p', 'e.period_id', '=', 'p.id')
+        
+        ->join('periods as p', 'st.period_id', '=', 'p.id')
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')
         ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+        
         ->where('e.student_id', $studentId)
-        ->where('e.period_id', $periodId)
+        ->where('st.period_id', $periodId)
         ->orderBy('cs.cycle', 'asc')
         ->get()
     );

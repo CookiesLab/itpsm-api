@@ -85,17 +85,22 @@ class EnrollmentSeeder extends Seeder
         [
             'code' => 1,
             'quota' => 25,
-            'id_schedule' => 1,
+            'start_week' => 1,
+            'end_week' => 4,
         ],
         [
             'code' => 2,
             'quota' => 45,
-          'id_schedule' => 1,
+            'start_week' => 5,
+            'end_week' => 8,
+        
         ],
         [
             'code' => 3,
             'quota' => 15,
-          'id_schedule' => 1,
+            'start_week' => 9,
+            'end_week' => 12,
+         
         ],
         [
           'code' => 3,
@@ -210,7 +215,7 @@ class EnrollmentSeeder extends Seeder
               'status' => $period['status'],
             ]);
         }
-        for ($i=1; $i<=5;$i++){
+    /*    for ($i=1; $i<=5;$i++){
           foreach ($this->schedules as &$schedule) {
             Schedule::create([
               'day_of_week' => $i,
@@ -219,7 +224,7 @@ class EnrollmentSeeder extends Seeder
             ]);
           }
     }
-
+*/
 
         foreach ($this->sections as &$section) {
             Section::create([
@@ -227,8 +232,10 @@ class EnrollmentSeeder extends Seeder
               'curriculum_subject_id' => CurriculumSubject::all()->random()->id,
               'period_id' => Period::all()->random()->id,
               'quota' => $section['quota'],
-              'id_schedule' => $section['id_schedule'],
+              //'id_schedule' => $section['id_schedule'],
               'code' => $section['code'],
+              'start_week' => $section['start_week'],
+              'end_week' => $section['end_week'],
             ]);
         }
 
@@ -245,14 +252,16 @@ class EnrollmentSeeder extends Seeder
         foreach ($this->enrollments as &$enrollment) {
             Enrollment::create([
               'student_id' => Student::all()->random()->id,
-              'teacher_id' => Teacher::all()->random()->id,
+            //  'teacher_id' => Teacher::all()->random()->id,
               'curriculum_subject_id' => CurriculumSubject::all()->random()->id,
-              'period_id' => Period::all()->random()->id,
-              'code' => Section::all()->random()->id,
+
+              //'period_id' => Period::all()->random()->id,
+              'code' => $enrollment['code'],
+
               'final_score' => $enrollment['final_score'],
               'is_approved' => $enrollment['is_approved'],
               'enrollment' => $enrollment['enrollment'],
-              'id_schedule' => $enrollment['id_schedule'],
+             // 'id_schedule' => $enrollment['id_schedule'],
             ]);
         }
 
