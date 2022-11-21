@@ -58,7 +58,8 @@ class EloquentEvaluation implements EvaluationInterface
         'e.is_public',
         'e.status',
         's.code',
-        'sj.name as materia'
+        'sj.name as materia',
+        'e.is_approved'
       )->join('sections as s', 's.id', '=', 'e.section_id')
       ->join('curriculum_subjects as cs', 'cs.id', '=', 's.curriculum_subject_id')
       ->join('subjects as sj', 'sj.id', '=', 'cs.subject_id');
@@ -67,19 +68,19 @@ class EloquentEvaluation implements EvaluationInterface
       if (!empty($customQuery)) {
         $query->whereNested(function ($dbQuery) use ($customQuery) {
           foreach ($customQuery as $statement) {
-  
+
             if($statement['op'] == 'is not in')
             {
               $dbQuery->whereNotIn($statement['field'], explode(',',$statement['data']));
               continue;
             }
-  
+
             if($statement['op'] == 'is null')
             {
               $dbQuery->whereNull($statement['field']);
               continue;
             }
-  
+
             if($statement['op'] == 'is not null')
             {
               $dbQuery->whereNotNull($statement['field']);
@@ -90,7 +91,7 @@ class EloquentEvaluation implements EvaluationInterface
               continue;
             }
             $dbQuery->where($statement['field'], $statement['op'], $statement['data']);
-           
+
           }
         });
       }
@@ -154,7 +155,8 @@ class EloquentEvaluation implements EvaluationInterface
         'e.section_id',
         'e.is_public',
         'e.status',
-        'sc.score'
+        'sc.score',
+        'e.is_approved'
       )->join('sections as s', 's.id', '=', 'e.section_id')
       ->join('enrollments as r', 'r.code', '=', 'e.section_id')
       ->leftjoin('score_evaluations as sc', 'sc.evaluation_id', '=', 'e.id')
@@ -182,6 +184,24 @@ class EloquentEvaluation implements EvaluationInterface
     return $evaluation;
   }
 
+  /**
+   * Get the principal evaluations
+   *
+   * @param integer $section_id
+   *
+   *
+   * @return App\Models\Evaluation $Evaluation
+   */
+  public function get_Evals($section_id,$principal)
+  {
+    $query = $this->DB::table('evaluations AS e')
+      ->where('e.section_id', '=', $section_id)
+      ->where('e.principal_id', '=', $principal);
+
+    return new Collection(
+      $query->get()
+    );
+  }
   /**
    * Update an existing Evaluation
    *
@@ -232,21 +252,35 @@ class EloquentEvaluation implements EvaluationInterface
       Log::emergency($evaluation);
       $evaluation->is_public=1;
       $evaluation->save();
-      
+
+    }
+    //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->delete();
+    //$this->Evaluation->where('section_id', $id)->destroy();
+  }
+  public function aprobacion($id,$status)
+  {
+    //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->update(['is_public' => 1]);
+    $evaluations=$this->Evaluation->where('section_id','=', $id)->get();
+
+    foreach ($evaluations as $evaluation) {
+      Log::emergency($evaluation);
+      $evaluation->is_approved=$status;
+      $evaluation->save();
+
     }
     //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->delete();
     //$this->Evaluation->where('section_id', $id)->destroy();
   }
   public function publishgrades($id)
   {
-    //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->update(['is_public' => 1]);
+
     $evaluations=$this->Evaluation->where('id','=', $id)->get();
 
     foreach ($evaluations as $evaluation) {
       Log::emergency($evaluation);
       $evaluation->status=1;
       $evaluation->save();
-      
+
     }
     //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->delete();
     //$this->Evaluation->where('section_id', $id)->destroy();
@@ -260,7 +294,7 @@ class EloquentEvaluation implements EvaluationInterface
       Log::emergency($evaluation);
       $evaluation->status=0;
       $evaluation->save();
-      
+
     }
     //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->delete();
     //$this->Evaluation->where('section_id', $id)->destroy();

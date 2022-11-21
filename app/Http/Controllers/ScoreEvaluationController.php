@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ScoreEvaluationRequest;
 use Illuminate\Http\Request;
 use App\Services\ScoreEvaluation\ScoreEvaluationManager;
-use App\Services\Evaluation\CommentsManager;
+use App\Services\Evaluation\EvaluationManager;
 class ScoreEvaluationController extends Controller
 {
   /**
@@ -33,7 +33,7 @@ class ScoreEvaluationController extends Controller
 
   public function __construct(
       ScoreEvaluationManager $ScoreEvaluationManagerService,
-      CommentsManager $EvaluationManagerService
+      EvaluationManager $EvaluationManagerService
   ) {
     $this->ScoreEvaluationManagerService = $ScoreEvaluationManagerService;
     $this->EvaluationManagerService = $EvaluationManagerService;

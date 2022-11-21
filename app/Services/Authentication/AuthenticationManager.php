@@ -197,7 +197,7 @@ class AuthenticationManager
       [
         "id" => 12,
         "name" => 'Aprobar Evaluaciones',
-        "redirectTo" => '/dashboard/aprovaciones',
+        "redirectTo" => '/dashboard/aprobaciones',
         "icon" => "AiOutlineCalendar",
       ],
     ];

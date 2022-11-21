@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EvaluationRequest;
 use Illuminate\Http\Request;
-use App\Services\Evaluation\CommentsManager;
+use App\Services\Evaluation\EvaluationManager;
+use Illuminate\Support\Facades\Log;
 
 class EvaluationController extends Controller
 {
@@ -25,7 +26,7 @@ class EvaluationController extends Controller
   protected $responseType;
 
   public function __construct(
-      CommentsManager $EvaluationManagerService
+    EvaluationManager $EvaluationManagerService
   ) {
     $this->EvaluationManagerService = $EvaluationManagerService;
     $this->responseType = 'evaluations';
@@ -181,7 +182,29 @@ class EvaluationController extends Controller
   */
   public function store(EvaluationRequest $request)
   {
-    $response = $this->EvaluationManagerService->create($request);
+    $actual_evals=$this->EvaluationManagerService->getEvaluations_section($request->section_id,$request->princial_id);
+    $total=0;
+    foreach ($actual_evals as $evaluation) {
+      Log::emergency($evaluation->percentage);
+      $total+=$evaluation->percentage;
+
+
+    }
+    if($total+$request->percentage <=100){
+      $response = $this->EvaluationManagerService->create($request);
+    }else{
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.percentage')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 401);
+    }
+
 
     return response()->json([
       'data' => [
@@ -494,12 +517,12 @@ class EvaluationController extends Controller
    */
       /**
    *  @OA\Put(
-   *    path="/api/evaluations/{id}",
-   *    operationId="putEvaluation",
+   *    path="evaluations/publish/{id}",
+   *    operationId="publish Evaluation",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Update evaluation",
-   *    description="Update evaluation",
+   *    summary="publish Evaluation",
+   *    description="publish Evaluation",
    *
    *    @OA\Parameter(
    *      name="id",
@@ -508,56 +531,6 @@ class EvaluationController extends Controller
    *      description="Evaluation id",
    *      @OA\Schema(
    *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="description",
-   *      in="query",
-   *      description="Evaluation description",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="date",
-   *      in="query",
-   *      description="Evaluation date",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   *
-   *     @OA\Parameter(
-   *      name="percentage",
-   *      in="query",
-   *      description="Evaluation percentage",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="number",
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="section_id",
-   *      in="query",
-   *      description="Evaluation section_id",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer",
    *      )
    *    ),
    *
@@ -612,6 +585,7 @@ class EvaluationController extends Controller
       ]
     ], 200);
   }
+
     /**
    * Update the specified resource in storage.
    *
@@ -621,73 +595,23 @@ class EvaluationController extends Controller
    */
       /**
    *  @OA\Put(
-   *    path="/api/evaluations/{id}",
-   *    operationId="putEvaluation",
+   *    path="evaluations/publishgrades/{id}",
+   *    operationId="publish Grades",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Update evaluation",
-   *    description="Update evaluation",
+   *    summary="publish Grades",
+   *    description="publish Grades",
    *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
    *      required=true,
-   *      description="Evaluation id",
+   *      description="Section id",
    *      @OA\Schema(
    *        type="integer"
    *      )
    *    ),
-   *
-   *    @OA\Parameter(
-   *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="description",
-   *      in="query",
-   *      description="Evaluation description",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="date",
-   *      in="query",
-   *      description="Evaluation date",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   *
-   *     @OA\Parameter(
-   *      name="percentage",
-   *      in="query",
-   *      description="Evaluation percentage",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="number",
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="section_id",
-   *      in="query",
-   *      description="Evaluation section_id",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer",
-   *      )
-   *    ),
-   *
+
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -751,13 +675,13 @@ class EvaluationController extends Controller
    *    operationId="get evaluations by student and period id",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="Get evaluation by id",
-   *    description="Returns evaluation by id",
+   *    summary="Get evaluations by  student id",
+   *    description="Returns evaluations by student id",
    *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
-   *      description="Evaluation id",
+   *      description="period id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
@@ -813,6 +737,83 @@ class EvaluationController extends Controller
         'type' => $this->responseType,
 
         'attributes' => $evaluation['evaluation']
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request $request
+   * @param  \App\Models\Evaluation  $Evaluation
+   * @return \Illuminate\Http\Response
+   */
+  /**
+   *  @OA\Put(
+   *    path="requestAprobacion/{id}",
+   *    operationId="publish Evaluation",
+   *    tags={"Evaluations"},
+   * security={{"bearer_token":{}}},
+   *    summary="publish Evaluation",
+   *    description="publish Evaluation",
+   *
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      required=true,
+   *      description="Section id",
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+   */
+  public function requestAprobacion($id)
+  {
+    $response = $this->EvaluationManagerService->aprobacion($id,1);
+
+    if (!$response['success']) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.notFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType
       ],
       'jsonapi' => [
         'version' => "1.00"

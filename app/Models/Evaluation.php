@@ -20,6 +20,7 @@ class Evaluation extends Model
         'date',
         'percentage',
         'curriculum_subject_id',
-        'section_id'
+        'section_id',
+      'principal_id'
     ];
 }

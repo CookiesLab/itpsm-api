@@ -87,7 +87,7 @@ class EvaluationManager
     }
 
     $this->Evaluation->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder,$customQuery)->each(function ($evaluation) use (&$rows) {
-      
+
       $id = strval($evaluation->id);
       unset($evaluation->id);
 
@@ -110,7 +110,10 @@ class EvaluationManager
   {
     return $this->Evaluation->byId($id);
   }
-
+  public function getEvaluations_section($section_id,$principal)
+  {
+    return $this->Evaluation->get_Evals($section_id,$principal);
+  }
   public function create($request)
   {
     $evaluation = $this->Evaluation->create($request->all());
@@ -161,40 +164,53 @@ class EvaluationManager
 
   public function publish($id)
   {
-  
+
 
     $this->Evaluation->publish($id);
-   
+
 
     return [
       'success' => true,
-   
+
+    ];
+
+  }
+  public function aprobacion($id,$status)
+  {
+
+
+    $this->Evaluation->aprobacion($id,$status);
+
+
+    return [
+      'success' => true,
+
     ];
 
   }
   public function publishgrades($id)
   {
-  
+
 
     $this->Evaluation->publishgrades($id);
-   
+
 
     return [
       'success' => true,
-   
+
     ];
 
   }
   public function uploadgrades($id)
   {
-  
+
 
     $this->Evaluation->uploadgrades($id);
-   
+
 
     return [
       'success' => true,
-   
+
     ];
 
   }
@@ -205,18 +221,18 @@ class EvaluationManager
     if (empty($Evaluation)) {
       return [
         'success' => false,
-       
+
       ];
     }
     $rows = [];
 
     $Evaluation->each(function ($evaluation) use (&$rows) {
-      
+
       if($evaluation->status!=1){
         unset($evaluation->score);
       }
       $id = strval($evaluation->id);
-     
+
 
       array_push($rows, $evaluation);
     });

@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerUserInterface();
     $this->registerStudentInterface();
     $this->registerTeacherInterface();
+    $this->registerCommentInterface();
     $this->registerCareerInterface();
     $this->registerSubjectInterface();
     $this->registerCurriculumInterface();
@@ -68,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerPeriodManagement();
     $this->registerSectionManagement();
     $this->registerEnrollmentManagement();
+    $this->registerCommentManagement();
     $this->registerEvaluationManagement();
     $this->registerScoreEvaluationManagement();
     $this->registerInitialConfigManagement();
@@ -511,7 +513,35 @@ class AppServiceProvider extends ServiceProvider
       );
     });
   }
-
+  /**
+   * Register a Comments interface instance.
+   *
+   * @return void
+   */
+  protected function registerCommentInterface()
+  {
+    $this->app->bind('App\Repositories\Comments\CommentsInterface', function ($app) {
+      return new \App\Repositories\Comments\EloquentComments(
+        new \App\Models\Comments(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+  /**
+   * Register a Comments interface instance.
+   *
+   * @return void
+   */
+  protected function registerCommentManagement()
+  {
+    $this->app->bind('App\Services\Comments\CommentsManager', function ($app) {
+      return new \App\Services\Comments\CommentsManager(
+       // $app->make('App\Repositories\Evaluation\EvaluationInterface'),
+        $app->make('App\Repositories\Comments\CommentsInterface'),
+        new Carbon()
+      );
+    });
+  }
   /**
    * Register a Evaluation interface instance.
    *
@@ -520,7 +550,7 @@ class AppServiceProvider extends ServiceProvider
   protected function registerEvaluationInterface()
   {
     $this->app->bind('App\Repositories\Evaluation\EvaluationInterface', function ($app) {
-      return new \App\Repositories\Evaluation\CommentsEvaluation(
+      return new \App\Repositories\Evaluation\EloquentEvaluation(
         new \App\Models\Evaluation(),
         new \Illuminate\Support\Facades\DB()
       );
@@ -535,8 +565,8 @@ class AppServiceProvider extends ServiceProvider
    */
   protected function registerEvaluationManagement()
   {
-    $this->app->bind('App\Services\Evaluation\CommentsManager', function ($app) {
-      return new \App\Services\Evaluation\CommentsManager(
+    $this->app->bind('App\Services\Evaluation\EvaluationManager', function ($app) {
+      return new \App\Services\Evaluation\EvaluationManager(
         $app->make('App\Repositories\Evaluation\EvaluationInterface'),
         new Carbon()
       );

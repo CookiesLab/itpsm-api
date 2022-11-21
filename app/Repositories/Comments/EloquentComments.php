@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\Evaluation;
+use App\Models\Comments;
 
 class EloquentComments implements CommentsInterface
 {
@@ -22,10 +22,10 @@ class EloquentComments implements CommentsInterface
   /**
    * Evaluation
    *
-   * @var App\Models\Evaluation;
+   * @var App\Models\Comments;
    *
    */
-  protected $Evaluation;
+  protected $Comments;
 
   /**
    * DB
@@ -35,9 +35,9 @@ class EloquentComments implements CommentsInterface
    */
   protected $DB;
 
-  public function __construct(Model $Evaluation, DB $DB)
+  public function __construct(Model $Comments, DB $DB)
   {
-    $this->Evaluation = $Evaluation;
+    $this->Comments = $Comments;
     $this->DB = $DB;
   }
 
@@ -130,11 +130,11 @@ class EloquentComments implements CommentsInterface
    *
    * @param  int $id
    *
-   * @return App\Models\Evaluation
+   * @return App\Models\Comments
    */
   public function byId($id)
   {
-    return $this->Evaluation->find($id);
+    return $this->Comments->find($id);
   }
   /**
    * Get an Evaluation by id
@@ -177,7 +177,7 @@ class EloquentComments implements CommentsInterface
    */
   public function create(array $data)
   {
-    $evaluation = new Evaluation();
+    $evaluation = new Comments();
     $evaluation->fill($data)->save();
 
     return $evaluation;

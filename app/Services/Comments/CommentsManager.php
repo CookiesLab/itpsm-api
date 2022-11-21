@@ -10,7 +10,7 @@
 
 namespace App\Services\Comments;
 
-use App\Repositories\Evaluation\EvaluationInterface;
+use App\Repositories\Comments\CommentsInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -22,7 +22,7 @@ class CommentsManager
    * @var App\Repositories\Evaluation\EvaluationInterface;
    *
    */
-  protected $Evaluation;
+  protected $Comments;
 
   /**
    * Carbon instance
@@ -41,12 +41,12 @@ class CommentsManager
   protected $responseType;
 
   public function __construct(
-    EvaluationInterface $Evaluation,
+    CommentsInterface $Evaluation,
     Carbon $Carbon
   ) {
-    $this->Evaluation = $Evaluation;
+    $this->Comments = $Evaluation;
     $this->Carbon = $Carbon;
-    $this->responseType = 'evaluations';
+    $this->responseType = 'comments';
   }
 
   public function getTableRowsWithPagination($request, $pager = true, $returnJson = true)
@@ -106,27 +106,27 @@ class CommentsManager
     ];
   }
 
-  public function getEvaluation($id)
+  public function getcomment($id)
   {
-    return $this->Evaluation->byId($id);
+    return $this->Comments->byId($id);
   }
 
   public function create($request)
   {
-    $evaluation = $this->Evaluation->create($request->all());
-    $id = strval($evaluation->id);
-    unset($evaluation->id);
+    $comment = $this->Comments->create($request->all());
+    $id = strval($comment->id);
+    unset($comment->id);
 
     return [
       'success' => true,
-      'evaluation' => $evaluation,
-      'id' => $id,
+      'evaluation' => $comment,
+      'id' => $comment->id,
     ];
   }
 
   public function update($request, $id)
   {
-    $evaluation = $this->Evaluation->byId($id);
+    $evaluation = $this->Comments->byId($id);
 
     if (empty($evaluation)) {
       return [
@@ -134,8 +134,8 @@ class CommentsManager
       ];
     }
 
-    $this->Evaluation->update($request->all(), $evaluation);
-    $evaluation = $this->Evaluation->byId($id);
+    $this->Comments->update($request->all(), $evaluation);
+    $evaluation = $this->Comments->byId($id);
     unset($evaluation->id);
 
     return [
