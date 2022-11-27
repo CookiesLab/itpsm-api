@@ -136,9 +136,12 @@ class EnrollmentController extends Controller
     $rows = [];
     $curriculumSubjectsApproved = $this->EnrollmentManagerService->getCurriculumSubjectsApproved($studentId);
     $currentEnrolled = $this->EnrollmentManagerService->getCurrentEnrolled($studentId, $currentPeriod->id);
+    Log::emergency($curriculumSubjectsApproved);
+    Log::emergency($currentEnrolled);
+
     foreach ($currentCurricula as $Curricula) {
-      
-    
+
+      Log::emergency($this->SectionManagerService->getByCurriculumIdAndLevel($currentPeriod->id, $Curricula->curriculum_id, $Curricula->level));
     $this->SectionManagerService->getByCurriculumIdAndLevel($currentPeriod->id, $Curricula->curriculum_id, $Curricula->level)->each(function ($section) use (&$rows, &$curriculumSubjectsApproved, &$currentEnrolled) {
       $isCurriculumSubjectApproved = $curriculumSubjectsApproved->search(function ($item) use (&$section) {
         return $item->curriculum_subject_id == $section->curriculum_subject_id;
@@ -215,7 +218,7 @@ class EnrollmentController extends Controller
  *                         example=""
  *                      ),
  * )
-*              
+*
    *      )
    *    ),
    *    @OA\Response(
@@ -245,26 +248,67 @@ class EnrollmentController extends Controller
   */
   public function enrollSubjects(Request $request)
   {
-    $id_schedule=[];
-    foreach ($request->subjects as $subject) {
-      array_push($id_schedule,$subject['id_schedule']);
-    }
 
-    $esigual =count($id_schedule)===count(array_unique($id_schedule));
-    
+
+
     $loggedUser = $request->user();
     $studentId = $loggedUser->system_reference_id;
-
+    $currentPeriod = $this->PeriodManagerService->getCurrentEnrollmentPeriod();
+    $currentEnrolled = $this->EnrollmentManagerService->getCurrentEnrolled($studentId, $currentPeriod->id);
     $enrolled = $notEnrolled = [];
+    foreach ($request->subjects as $subject) {
+      $section=$this->SectionManagerService->getSection2($subject['code']);
+      foreach ($request->subjects as $subject_to_comparate) {
 
-    if($esigual){
+        if ($subject_to_comparate['code'] != $subject['code']) {
+          $section_to_compare=$this->SectionManagerService->getSection2($subject_to_comparate['code']);
+          if($section_to_compare->start_week < $section->end_week){
+            Log::alert("LANZAR ERROR");
+            return response()->json([
+              'data' => [
+                'type' => $this->responseType,
+                'enrolled' => $enrolled,
+                'notEnrolled' => $request->subjects,
+                'error'=>'No se pueden inscribir materias sobre las mismas semanas'
+              ],
+              'jsonapi' => [
+                'version' => "1.00"
+              ]
+            ], 201);
+          }
+
+        }
+      }
+        foreach ($currentEnrolled as $subject_to_comparate) {
+          if($subject_to_comparate->code != $subject['code']) {
+            $section_to_compare=$this->SectionManagerService->getSection2($subject_to_comparate->code);
+
+            if($section_to_compare->start_week < $section->end_week){
+
+              return response()->json([
+                'data' => [
+                  'type' => $this->responseType,
+                  'enrolled' => $enrolled,
+                  'notEnrolled' => $request->subjects,
+                  'error'=>'No se pueden inscribir materias sobre las mismas semanas'
+                ],
+                'jsonapi' => [
+                  'version' => "1.00"
+                ]
+              ], 201);
+            }
+          }
+
+      }
+    }
+
       foreach ($request->subjects as $subject) {
         // TODO: Verificar cupos disponibles
         $subject['student_id'] = $studentId;
-        // TODO: Verificar la matricula
+
         $subject['enrollment'] = 1;
         $response = $this->EnrollmentManagerService->create($subject);
-  
+
         if ($response['success']) {
           array_push($enrolled, $response['enrollment']);
         }
@@ -272,7 +316,7 @@ class EnrollmentController extends Controller
           array_push($notEnrolled, $subject);
         }
     }
-  
+
       return response()->json([
         'data' => [
           'type' => $this->responseType,
@@ -283,20 +327,10 @@ class EnrollmentController extends Controller
           'version' => "1.00"
         ]
       ], 201);
-    }
-    
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'enrolled' => $enrolled,
-        'notEnrolled' => $request->subjects,
-        'error'=>'No se pueden inscribir materias en el mismo horario'
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 201);
+
+
+
   }
 
 /**
@@ -418,7 +452,7 @@ class EnrollmentController extends Controller
     $loggedUser = $request->user();
     $studentId = $loggedUser->system_reference_id;
 
-    $response = $this->EnrollmentManagerService->getCurriculumSubjectsApproved($studentId);
+    $response = $this->EnrollmentManagerService->getCurriculumSubjectsEvaluated($studentId);
 
     return response()->json([
       'meta' => [
@@ -937,6 +971,82 @@ class EnrollmentController extends Controller
       'data' => [
         'type' => $this->responseType,
         'success' => __('base.delete'),
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Models\Enrollment  $Enrollment
+   * @return \Illuminate\Http\Response
+   */
+  /**
+   *  @OA\Get(
+   *    path="/api/enrollments_student/{id}",
+   *    operationId="get periods by student id",
+   *    tags={"Enrollments"},
+   * security={{"bearer_token":{}}},
+   *    summary="get periods by student id",
+   *    description="get periods by student id",
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="path",
+   *      description="Enrollment id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+   */
+  public function periods_student($id)
+  {
+    $enrollment = $this->EnrollmentManagerService->getperiodsforStudent($id);
+
+    if (empty($enrollment)) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.EnrollmentNotFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'attributes' => $enrollment
       ],
       'jsonapi' => [
         'version' => "1.00"

@@ -182,28 +182,6 @@ class EvaluationController extends Controller
   */
   public function store(EvaluationRequest $request)
   {
-    $actual_evals=$this->EvaluationManagerService->getEvaluations_section($request->section_id,$request->princial_id);
-    $total=0;
-    foreach ($actual_evals as $evaluation) {
-      Log::emergency($evaluation->percentage);
-      $total+=$evaluation->percentage;
-
-
-    }
-    if($total+$request->percentage <=100){
-      $response = $this->EvaluationManagerService->create($request);
-    }else{
-      return response()->json([
-        'errors' => [
-          'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.percentage')
-        ],
-        'jsonapi' => [
-          'version' => "1.00"
-        ]
-      ], 401);
-    }
 
     $response = $this->EvaluationManagerService->create($request);
     if(!$response['success']){
@@ -824,11 +802,11 @@ class EvaluationController extends Controller
   /**
    *  @OA\Put(
    *    path="requestAprobacion/{id}",
-   *    operationId="publish Evaluation",
+   *    operationId="request Evaluation approve",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},
-   *    summary="publish Evaluation",
-   *    description="publish Evaluation",
+   *    summary="request Evaluation approve",
+   *    description="request Evaluation approve",
    *
    *    @OA\Parameter(
    *      name="id",

@@ -111,6 +111,11 @@ class EnrollmentManager
     return $this->Enrollment->getCurriculumSubjectsApproved($studentId);
   }
 
+  public function getCurriculumSubjectsEvaluated($studentId)
+  {
+    return $this->Enrollment->getCurriculumSubjectsEvaluated($studentId);
+  }
+
   public function getCurrentEnrolled($studentId, $periodId)
   {
     return $this->Enrollment->byStudentIdAndPeriodId($studentId, $periodId);
@@ -153,6 +158,23 @@ class EnrollmentManager
       'success' => true,
       'enrollment' => $enrollment,
       'id' => $id,
+    ];
+
+  }
+  public function getperiodsforStudent($id)
+  {
+    $enrollment = $this->Enrollment->getperiodsforStudent($id);
+
+    if (empty($enrollment)) {
+      return [
+        'success' => false,
+      ];
+    }
+
+
+    return [
+      'success' => true,
+      'enrollment' => $enrollment,
     ];
 
   }

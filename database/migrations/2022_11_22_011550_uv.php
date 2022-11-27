@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-      Schema::create('comments', function (Blueprint $table) {
-        $table->unsignedBigInteger('id')->index();
-        $table->foreign('id')->references('id')->on('sections');
-        $table->string('comment', 255)->nullable();
-        $table->timestamps();
+      Schema::table('student_curricula', function (Blueprint $table) {
+        $table->integer('uv')->nullable();
+        $table->integer('uv_total')->nullable();
       });
     }
 
@@ -28,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('comments');
+      Schema::table('evaluations', function (Blueprint $table) {
+        $table->dropColumn('uv');
+        $table->dropColumn('uv_total');
+      });
     }
 };

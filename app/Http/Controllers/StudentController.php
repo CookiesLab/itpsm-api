@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentRequest;
 use App\Services\Student\StudentManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use League\OAuth2\Server\Grant\AbstractAuthorizeGrant;
 
 class StudentController extends Controller
 {
@@ -962,6 +964,7 @@ class StudentController extends Controller
    */
   public function createDefaultPdf(Request $request)
   {
+    Log::emergency($request);
     $studentId = $request->input('id');
     return $this->StudentManagerService->createDefaultPdf($studentId);
   }
@@ -1008,5 +1011,84 @@ class StudentController extends Controller
   public function generateSystemUsers(Request $request)
   {
     return $this->StudentManagerService->generateSystemUsers();
+  }
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  /**
+   * @OA\Get(
+   *    path="/api/allStudents",
+   *    operationId="allStudents",
+   *    tags={"Students"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get list of all students",
+   *    description="Returns list of all students",
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+   */
+  public function allStudents()
+  {
+    $response = $this->StudentManagerService->getTableRowsWithPagination(request()->all(),false);
+    $fileName = 'InvTransactionsInterface.csv';
+//Arreglo que contendrá las filas de datos
+    $arrayDetalle = Array();
+    $headers = array(
+      "Content-type"        => "text/csv",
+      "Content-Disposition" => "attachment; filename=$fileName",
+      "Pragma"              => "no-cache",
+      "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+      "Expires"             => "0"
+    );
+    foreach ( $response['rows'] as $item){
+      $arrayDetalle[] = array('Carnet' => $item['attributes']->carnet,
+        'Nombre'  =>  $item['attributes']->name,
+        'Apellido'  =>  $item['attributes']->last_name,
+        'Correo Electronico'  =>  $item['attributes']->email,
+        'Estado'  => $item['attributes']->status == 'A' ? 'Activo' : ($item['attributes']->status == 'G' ? 'Graduado' : ($item['attributes']->status == 'E' ? 'Egresado' : "Inactivo")),
+        'Bachillerato'  =>  $item['attributes']->high_school_option,
+        'Genero'  =>  $item['attributes']->gender == 'M' ? 'Masculino' :'Femenino' ,
+        'Departamento'  =>  $item['attributes']->department,
+        'Municipio'  =>  $item['attributes']->municipality,
+      );
+    }
+    $columns = array('Carnet',
+      'Nombre',
+      'Apellido','Correo Electronico','Estado','Bachillerato','Genero','Departamento','Municipio');
+    $callback = function() use($arrayDetalle, $columns) {
+      $file = fopen('php://output', 'w');
+      //si no quieren que el csv muestre el titulo de columnas omitan la siguiente línea.
+      fputcsv($file, $columns);
+      foreach ($arrayDetalle as $item) {
+        fputcsv($file, $item);
+      }
+      fclose($file);
+    };
+    return response()->stream($callback, 200, $headers);
+
   }
 }

@@ -1426,6 +1426,52 @@
                 ]
             }
         },
+        "/api/enrollments_student/{id}": {
+            "get": {
+                "tags": [
+                    "Enrollments"
+                ],
+                "summary": "get periods by student id",
+                "description": "get periods by student id",
+                "operationId": "get periods by student id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Enrollment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/evaluations": {
             "get": {
                 "tags": [
@@ -1721,19 +1767,64 @@
                 ]
             }
         },
-        "evaluations/publish/{id}": {
+        "api/evaluations/publish/{id}": {
             "put": {
                 "tags": [
                     "Evaluations"
                 ],
-                "summary": "publish Evaluation",
-                "description": "publish Evaluation",
-                "operationId": "publish Evaluation",
+                "summary": "publish Evaluation to Students",
+                "description": "publish Evaluation  to Students",
+                "operationId": "publishEvaluation",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "Evaluation id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Evaluation description",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Evaluation date",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "percentage",
+                        "in": "query",
+                        "description": "Evaluation percentage",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "section_id",
+                        "in": "query",
+                        "description": "Evaluation section_id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1772,8 +1863,8 @@
                 "tags": [
                     "Evaluations"
                 ],
-                "summary": "publish Grades",
-                "description": "publish Grades",
+                "summary": "publish evaluation grades",
+                "description": "publish evaluation grades",
                 "operationId": "publish Grades",
                 "parameters": [
                     {
@@ -1813,19 +1904,65 @@
                 ]
             }
         },
-        "evaluations/student/{id}": {
+        "api/evaluations/student/{id}": {
             "get": {
                 "tags": [
                     "Evaluations"
                 ],
-                "summary": "Get evaluations by  student id",
-                "description": "Returns evaluations by student id",
+                "summary": "Get evaluation by  student id",
+                "description": "Returns evaluations for the student",
                 "operationId": "get evaluations by student and period id",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "period id",
+                        "description": "Student id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "requestAprobacion/{id}": {
+            "put": {
+                "tags": [
+                    "Evaluations"
+                ],
+                "summary": "request Evaluation approve",
+                "description": "request Evaluation approve",
+                "operationId": "request Evaluation approve",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Section id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -2561,6 +2698,41 @@
                 ]
             }
         },
+        "/api/score/insertGrades": {
+            "post": {
+                "tags": [
+                    "Assign evaluation score"
+                ],
+                "summary": "Save evaluation score",
+                "description": "Save evaluation score",
+                "operationId": "postGradesEvaluations",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/sections": {
             "get": {
                 "tags": [
@@ -2887,60 +3059,14 @@
                 "tags": [
                     "Sections"
                 ],
-                "summary": "get section for student",
-                "description": "get section for student",
-                "operationId": "get section for student",
+                "summary": "get sections for student",
+                "description": "get sections for student",
+                "operationId": "get sections for student",
                 "parameters": [
                     {
-                        "name": "code",
+                        "name": "Period id",
                         "in": "path",
-                        "description": "Section code",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            }
-        },
-        "/api/sections/students/{code}": {
-            "get": {
-                "tags": [
-                    "Sections"
-                ],
-                "summary": "get section for student",
-                "description": "get section for student",
-                "operationId": "get section for student",
-                "parameters": [
-                    {
-                        "name": "code",
-                        "in": "path",
-                        "description": "Section code",
+                        "description": "Period id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -4551,6 +4677,41 @@
                 ]
             }
         },
+        "/api/teachers/generate-system-users": {
+            "post": {
+                "tags": [
+                    "Teachers"
+                ],
+                "summary": "Generate users for teachers witout users",
+                "description": "Generate users for teachers witout users",
+                "operationId": "Generate users for teachers witout users",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/pdf": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/teachers/sections": {
             "get": {
                 "tags": [
@@ -4636,8 +4797,8 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get list of teachers",
-                "description": "Returns list of teachers",
+                "summary": "Get list of users",
+                "description": "Returns list of users",
                 "operationId": "getUsers",
                 "responses": {
                     "200": {
@@ -4669,61 +4830,12 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Create teachers",
-                "description": "Create teachers",
+                "summary": "Create users",
+                "description": "Create users",
                 "operationId": "postUsers",
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "last_name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "birth_date",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "date"
-                        }
-                    },
-                    {
-                        "name": "nit",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "dui",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "isss_number",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "nup_number",
                         "in": "query",
                         "required": true,
                         "schema": {
@@ -4739,69 +4851,11 @@
                         }
                     },
                     {
-                        "name": "genre",
+                        "name": "password",
                         "in": "query",
                         "required": true,
-                        "schema": {
-                            "type": "string",
-                            "maxLength": 1,
-                            "minLength": 1
-                        }
-                    },
-                    {
-                        "name": "address",
-                        "in": "query",
-                        "required": false,
                         "schema": {
                             "type": "string"
-                        }
-                    },
-                    {
-                        "name": "phone_number",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "home_phone_number",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "municipality_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "department_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "country_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "status_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
                         }
                     }
                 ],
@@ -4833,49 +4887,6 @@
             }
         },
         "/api/users/{id}": {
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get teacher by id",
-                "description": "Returns teacher by id",
-                "operationId": "get user by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            },
             "put": {
                 "tags": [
                     "Users"
@@ -4885,64 +4896,7 @@
                 "operationId": "putUsers",
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
                         "name": "name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "last_name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "birth_date",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "date"
-                        }
-                    },
-                    {
-                        "name": "nit",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "dui",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "isss_number",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "nup_number",
                         "in": "query",
                         "required": true,
                         "schema": {
@@ -4958,112 +4912,11 @@
                         }
                     },
                     {
-                        "name": "genre",
+                        "name": "password",
                         "in": "query",
                         "required": true,
-                        "schema": {
-                            "type": "string",
-                            "maxLength": 1,
-                            "minLength": 1
-                        }
-                    },
-                    {
-                        "name": "address",
-                        "in": "query",
-                        "required": false,
                         "schema": {
                             "type": "string"
-                        }
-                    },
-                    {
-                        "name": "phone_number",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "home_phone_number",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "municipality_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "department_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "country_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "status_id",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Delete teacher by id",
-                "description": "Delete teacher by id",
-                "operationId": "delete user by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
                         }
                     }
                 ],

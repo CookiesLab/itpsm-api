@@ -139,20 +139,20 @@ class EloquentPeriod implements PeriodInterface
         if($query == null){
           $period = new Period();
           $period->fill($data)->save();
-      
+
           return $period;
         }else{
           return null;
         }
-      
-      
+
+
     }
 
     $period = new Period();
     $period->fill($data)->save();
 
     return $period;
-  
+
   }
 
   /**
@@ -182,32 +182,30 @@ class EloquentPeriod implements PeriodInterface
       }else{
         return null;
       }
-    
-    
+
+
   }
   if($data['status']=="C"){
     $sections = $this->DB::table('sections AS s')
       ->where('s.period_id', '=', $data['id'])->get();
-      Log::emergency("materias");
-    Log::emergency($sections);
     foreach ($sections as $section) {
       $students = $this->Enrollment
       ->where('code', '=', $section->id)->get();
-      Log::emergency("estudiantes");
-      Log::emergency($students);
       $evaluations = $this->DB::table('evaluations AS e')
       ->where('e.section_id', '=',  $section->id)->where('e.status', '!=', null)->get();
-      Log::emergency("evaluaciones");
-      Log::emergency($evaluations);
       foreach ($students as $student) {
-        
         $total=0;
         foreach ($evaluations as $evaluation) {
           $grade=$this->DB::table('score_evaluations AS e')
+            ->join('evaluations as eval', 'eval.id', '=', 'e.evaluation_id')
           ->where('e.student_id', '=', $student->student_id)
           ->where('e.evaluation_id', '=', $evaluation->id)
+            ->where('eval.level', '=', 1)
           ->first();
-          $total += $grade->score*$evaluation->percentage/100;
+          if(!empty($grade)){
+            $total += $grade->score*$evaluation->percentage/100;
+          }
+
         }
         $student->final_score=$total;
         if($total>6){
@@ -220,33 +218,52 @@ class EloquentPeriod implements PeriodInterface
       }
     }
     $students = $this->Enrollment->select(DB::raw('distinct(student_id)'))
-    ->where('period_id', '=', $data['id'])->get();
-    
+      ->join('sections as st', 'st.id', '=', 'enrollments.code')
+    ->where('st.period_id', '=', $data['id'])->get();
+
     foreach ($students as $student) {
       $subjects=$this->Enrollment
       ->where('student_id', '=',$student->student_id)->get();
      $total=0;
+      $uv_a=0;
      $uv_sum=0;
-     Log::emergency($subjects);
+
       foreach ($subjects as $subject) {
         $uv=$this->CurriculumSubject->where('id','=',$subject->curriculum_subject_id)->first();
-        $grade=$subject->final_score;
-        $total+= $grade*$uv->uv;
-        $uv_sum+=$uv->uv;
+        Log::emergency("uv de materias");
+        Log::emergency($uv);
+         $grade=$subject->final_score;
+         if($grade>6.0){
+           $uv_a+=$uv->uv;
+         }
+         if(!empty($grade)){
+           $total+= $grade*$uv->uv;
+           $uv_sum+=$uv->uv;
+         }
       }
       $curriculum=$this->StudentCurriculum->where('student_id', '=', $student->student_id)->first();
-      $curriculum->cum=$total/$uv_sum;
+      $curriculum->uv=$uv_a;
+      $curriculum->level=$curriculum->uv/$curriculum->uv_total;
+      $curriculum->level=$curriculum->level+1;
+      if($uv_sum>0){
+        $curriculum->cum=$total/$uv_sum;
+      }else{
+        $curriculum->cum=0.00;
+      }
+
+      Log::emergency("estudiante al final");
+      Log::emergency($curriculum);
       $curriculum->save();
-      //TODO:faltaria actualizar el level
+
     }
     $period = $this->byId($data['id']);
-    return null;
-  
+    return $period->update($data);
+
 }
   $period = $this->byId($data['id']);
   return $period->update($data);
-  
-  
+
+
   }
 
   /**

@@ -29,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot(UrlGenerator $url)
   {
+
+    Carbon::setLocale(LC_ALL,"es_ES");
+    setlocale(LC_ALL, 'es_MX', 'es', 'ES', 'es_MX.utf8');
     Schema::defaultStringLength(191);
     if (env('REDIRECT_HTTPS')) {
       $url->formatScheme('https://');
@@ -130,6 +133,8 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Services\Student\StudentManager', function ($app) {
       return new \App\Services\Student\StudentManager(
+        $app->make('App\Repositories\StudentCurricula\StudentCurriculaInterface'),
+        $app->make('App\Repositories\Enrollment\EnrollmentInterface'),
         $app->make('App\Repositories\Student\StudentInterface'),
         $app->make('App\Repositories\User\UserInterface'),
         $app->make('dompdf.wrapper'),
@@ -399,6 +404,7 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Repositories\StudentCurricula\StudentCurriculaInterface', function ($app) {
       return new \App\Repositories\StudentCurricula\EloquentStudentCurricula(
+        new \App\Models\CurriculumSubject(),
         new \App\Models\StudentCurriculum(),
         new \Illuminate\Support\Facades\DB()
       );
@@ -557,7 +563,6 @@ class AppServiceProvider extends ServiceProvider
       return new \App\Repositories\Evaluation\EloquentEvaluation(
 
 
-      return new \App\Repositories\Evaluation\CommentsEvaluation(
 
         new \App\Models\Evaluation(),
         new \Illuminate\Support\Facades\DB()
@@ -578,9 +583,6 @@ class AppServiceProvider extends ServiceProvider
       return new \App\Services\Evaluation\EvaluationManager(
         $app->make('App\Repositories\Enrollment\EnrollmentInterface'),
         $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
-
-    $this->app->bind('App\Services\Evaluation\CommentsManager', function ($app) {
-
         $app->make('App\Repositories\Evaluation\EvaluationInterface'),
         new Carbon()
       );
@@ -609,6 +611,7 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Services\Schedule\ScheduleManager', function ($app) {
       return new \App\Services\Schedule\ScheduleManager(
+
         $app->make('App\Repositories\Schedule\ScheduleInterface'),
         new Carbon()
       );
@@ -639,6 +642,7 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind('App\Services\ScoreEvaluation\ScoreEvaluationManager', function ($app) {
       return new \App\Services\ScoreEvaluation\ScoreEvaluationManager(
+        $app->make('App\Repositories\Evaluation\EvaluationInterface'),
         $app->make('App\Repositories\ScoreEvaluation\ScoreEvaluationInterface'),
 
         new Carbon()

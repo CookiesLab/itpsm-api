@@ -24,6 +24,7 @@ class StudentCurriculum extends Model
       'scholarship_rate',
       'status',
       'level',
+      'uv','uv_total'
     ];
 
     protected function setKeysForSaveQuery($query)

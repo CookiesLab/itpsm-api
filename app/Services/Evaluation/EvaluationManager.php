@@ -180,8 +180,23 @@ class EvaluationManager
     if (empty($Evaluation)) {
       return false;
     }
-    $this->Score_Evaluation->clean($id);
-    $this->Evaluation->delete($id);
+    $subevals= $this->Evaluation->get_subEvals($id);
+    if (empty($subevals)) {
+      $this->Score_Evaluation->clean($id);
+      $this->Evaluation->delete($id);
+    }else{
+
+      foreach ($subevals as $eval) {
+
+        $this->Score_Evaluation->clean($eval->id);
+        $this->Evaluation->delete($eval->id);
+
+      }
+      $this->Score_Evaluation->clean($id);
+      $this->Evaluation->delete($id);
+
+    }
+
 
 
     return true;
@@ -191,7 +206,15 @@ class EvaluationManager
   {
 
 
-    $this->Evaluation->publish($id);
+    $evaluations=$this->Evaluation->publish($id);
+
+
+    foreach ($evaluations as $evaluation) {
+
+      $students=$this->Enrollment->getStudents($evaluation->section_id);
+
+      $this->Score_Evaluation->insert_students_to_evaluations($students,$evaluation->id);
+    }
 
 
     return [
@@ -207,15 +230,7 @@ class EvaluationManager
     $this->Evaluation->aprobacion($id,$status);
 
 
-    $evaluations=$this->Evaluation->publish($id);
 
-
-    foreach ($evaluations as $evaluation) {
-
-      $students=$this->Enrollment->getStudents($evaluation->section_id);
-
-      $this->Score_Evaluation->insert_students_to_evaluations($students,$evaluation->id);
-    }
     return [
       'success' => true,
 

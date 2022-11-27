@@ -11,13 +11,31 @@
 namespace App\Services\Student;
 
 use App\Repositories\Student\StudentInterface;
+use App\Repositories\StudentCurricula\StudentCurriculaInterface;
 use App\Repositories\User\UserInterface;
+use App\Repositories\Enrollment\EnrollmentInterface;
+
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Pdf;
 use Carbon\Carbon;
 
 class StudentManager
 {
+  /**
+   * StudentCurricula
+   *
+   * @var App\Repositories\StudentCurricula\StudentCurriculaInterface;
+   *
+   */
+  protected $StudentCurricula;
+  /**
+   * Enrollment Manager Service
+   *
+   * @var App\Services\Enrollment\EnrollmentManagementInterface;
+   *
+   */
+  protected $EnrollmentManagerService;
   /**
    * Student
    *
@@ -33,7 +51,12 @@ class StudentManager
    *
    */
   protected $User;
-
+  /**
+   * StudentCurricula
+   *
+   * @var App\Repositories\StudentCurricula\StudentCurriculaInterface;
+   *
+   */
   /**
 	* Barryvdh\DomPDF\PDF
 	* @var Excel
@@ -56,12 +79,18 @@ class StudentManager
    */
   protected $responseType;
 
+
+
   public function __construct(
+    StudentCurriculaInterface $StudentCurricula,
+    EnrollmentInterface $EnrollmentManagerService,
     StudentInterface $Student,
     UserInterface $User,
     PDF $Dompdf,
     Carbon $Carbon
   ) {
+    $this->StudentCurricula = $StudentCurricula;
+    $this->EnrollmentManagerService = $EnrollmentManagerService;
     $this->Student = $Student;
     $this->User = $User;
     $this->Dompdf = $Dompdf;
@@ -132,7 +161,18 @@ class StudentManager
 
     $data = [];
     $data['student'] = $this->getStudent($id);
+    $data['periods'] = $this->EnrollmentManagerService->getperiodsforStudent($id);
+    $data['rows2'] = $this->EnrollmentManagerService->getsubjectforperiodsforStudent($id);
 
+    $data['grades'] = $this->EnrollmentManagerService->getCurriculumSubjectsEvaluatedforReport($id);
+    $data['info']= $this->StudentCurricula->byId($id);
+    $years=[];
+    foreach ($data['periods'] as $period ){
+      array_push($years, $period->year);
+    }
+    $data['years'] = array_unique($years);
+
+    $data['rows']= count($data['years'])+count($data['grades']);
     return $this->Dompdf
       ->loadView('student-personal-data-pdf', $data)
       ->setPaper('letter')

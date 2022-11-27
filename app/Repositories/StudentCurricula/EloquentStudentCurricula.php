@@ -14,10 +14,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\StudentCurriculum;
+use App\Models\CurriculumSubject;
+use Illuminate\Support\Facades\Log;
 
 class EloquentStudentCurricula implements StudentCurriculaInterface
 {
-
+  /**
+   * StudentCurriculum
+   *
+   * @var App\Models\CurriculumSubject;
+   *
+   */
+  protected $SubjectCurriculum;
   /**
    * StudentCurriculum
    *
@@ -34,10 +42,12 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
    */
   protected $DB;
 
-  public function __construct(Model $StudentCurriculum, DB $DB)
+  public function __construct(Model $SubjectCurriculum,Model $StudentCurriculum, DB $DB)
   {
+    $this->SubjectCurriculum = $SubjectCurriculum;
     $this->StudentCurriculum = $StudentCurriculum;
     $this->DB = $DB;
+
   }
 
   /**
@@ -140,7 +150,7 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
 
     return $this->StudentCurriculum
       ->where('student_id', intval($ids[0]))
-      ->where('curriculum_id', intval($ids[1]))
+      //->where('curriculum_id', intval($ids[1]))
       ->first();
   }
 
@@ -163,6 +173,10 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
   public function create(array $data)
   {
     $studentCurricula = new StudentCurriculum();
+
+    $a = $this->SubjectCurriculum->where('curriculum_id',$data['curriculum_id'])->sum('uv');
+    Log::emergency($a);
+    $data['uv_total']=$a;
     $studentCurricula->fill($data)->save();
 
     return $studentCurricula;

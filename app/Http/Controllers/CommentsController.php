@@ -61,7 +61,7 @@ class CommentsController extends Controller
    *    @OA\Parameter(
    *      name="comment",
    *      in="query",
-   *      description="Evaluation name to create",
+   *      description="comment to create",
    *      required=true,
    *      @OA\Schema(
    *        type="string",
@@ -70,7 +70,17 @@ class CommentsController extends Controller
    *   *   @OA\Parameter(
       *      name="id",
       *      in="query",
-      *      description="Evaluation name to create",
+      *      description="Evaluation id to create",
+      *      required=true,
+      *      @OA\Schema(
+      *        type="integer",
+      *      )
+      *    ),
+      *
+      *   *   @OA\Parameter(
+      *      name="status",
+      *      in="query",
+      *      description="aproved or not aproved",
       *      required=true,
       *      @OA\Schema(
       *        type="integer",
@@ -184,11 +194,13 @@ class CommentsController extends Controller
     $evaluation = $this->CommentsManagerService->getcomment($id);
 
     if (empty($evaluation)) {
+      $at= new class{};
+      $at->comment="no procesado";
       return response()->json([
-        'errors' => [
-          'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.EvaluationNotFound')
+        'data' => [
+          'type' => $this->responseType,
+          'id' => null,
+          'attributes' => $at
         ],
         'jsonapi' => [
           'version' => "1.00"

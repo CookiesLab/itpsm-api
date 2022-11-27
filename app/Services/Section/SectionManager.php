@@ -12,6 +12,7 @@ namespace App\Services\Section;
 
 use App\Repositories\Section\SectionInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class SectionManager
 {
@@ -110,9 +111,17 @@ class SectionManager
   {
     return $this->Section->byId($id);
   }
+  public function getSection2($id)
+  {
+    Log::emergency($id);
+    return $this->Section->byId2($id);
+  }
 
   public function getByCurriculumIdAndLevel($periodId, $curriculumId, $level)
   {
+    Log::emergency($periodId);
+    Log::emergency($curriculumId);
+    Log::emergency( $level);
     return $this->Section->byCurriculumIdAndLevel($periodId, $curriculumId, $level);
   }
 
@@ -184,7 +193,7 @@ class SectionManager
       ];
     }
 
- 
+
 
     return [
       'success' => true,

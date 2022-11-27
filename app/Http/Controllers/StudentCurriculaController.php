@@ -37,7 +37,7 @@ class StudentCurriculaController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-       /** 
+       /**
    *  @OA\Get(
    *    path="/api/student-curricula",
    *    operationId="get student-curricula",
@@ -45,7 +45,7 @@ class StudentCurriculaController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get student-curricula",
    *    description="Returns student-curricula and allows to filter by student id or curriculum id ",
-   * 
+   *
    *    @OA\Parameter(
    *      name="query",
    *      in="query",
@@ -53,7 +53,7 @@ class StudentCurriculaController extends Controller
    *      required=false,
    *      @OA\MediaType(
    *        mediaType="application/json",
-   *  
+   *
    *        @OA\Schema(
    *          type="object",
    *          @OA\Property(property="field",  type="string"),
@@ -62,7 +62,7 @@ class StudentCurriculaController extends Controller
    *        )
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -229,7 +229,7 @@ class StudentCurriculaController extends Controller
    * Display the specified resource.
    *
    * @param  \App\Models\StudentCurricula  $StudentCurricula
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\JsonResponse
    */
   public function show($id)
   {
@@ -264,7 +264,7 @@ class StudentCurriculaController extends Controller
    *
    * @param  \Illuminate\Http\Request $request
    * @param  \App\Models\StudentCurricula  $StudentCurricula
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\JsonResponse
    */
   public function update(StudentCurriculaRequest $request, $data)
   {

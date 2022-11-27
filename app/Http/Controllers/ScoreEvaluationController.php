@@ -427,7 +427,7 @@ class ScoreEvaluationController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-       /** 
+       /**
    *  @OA\Post(
    *    path="/api/score/insertGrades",
    *    operationId="postGradesEvaluations",
@@ -435,43 +435,10 @@ class ScoreEvaluationController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Save evaluation score",
    *    description="Save evaluation score",
-   * 
- *  @OA\Parameter(
-   *      name="Grades",
-   *      in="query",
-   *      description="Grades to update",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="array",
-   *        @OA\Items(   @OA\Property(
- *                         property="firstName",
- *                         type="string",
- *                         example=""
- *                      ),
- *                      @OA\Property(
- *                         property="lastName",
- *                         type="string",
- *                         example=""
- *                      ),
- *                      @OA\Property(
- *                         property="companyId",
- *                         type="string",
- *                         example=""
- *                      ),
- *                      @OA\Property(
- *                         property="accountNumber",
- *                         type="number",
- *                         example=""
- *                      ),
- *                      @OA\Property(
- *                         property="netPay",
- *                         type="money",
- *                         example=""
- *                      ),
- * )
-*       
-   * 
-   * 
+   *
+
+   *
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -504,7 +471,7 @@ class ScoreEvaluationController extends Controller
     foreach ($request->grades as $grade) {
 
       $eval=$grade['evaluation_id'];
-     
+
         $response = $this->ScoreEvaluationManagerService->update($request, $grade);
 
       }
@@ -516,7 +483,7 @@ class ScoreEvaluationController extends Controller
       else {
         array_push($notEnrolled, $grade);
       }
-  }
+
   $response2 = $this->EvaluationManagerService->uploadgrades($eval);
   return response()->json([
     'data' => [

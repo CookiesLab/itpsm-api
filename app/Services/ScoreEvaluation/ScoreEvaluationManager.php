@@ -11,11 +11,19 @@
 namespace App\Services\ScoreEvaluation;
 
 use App\Repositories\ScoreEvaluation\ScoreEvaluationInterface;
+use App\Repositories\Evaluation\EvaluationInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class ScoreEvaluationManager
 {
+  /**
+   * Evaluation
+   *
+   * @var App\Repositories\Evaluation\EvaluationInterface;
+   *
+   */
+  protected $Evaluation;
   /**
    * ScoreEvaluation
    *
@@ -41,10 +49,12 @@ class ScoreEvaluationManager
   protected $responseType;
 
   public function __construct(
+    EvaluationInterface $Evaluation,
     ScoreEvaluationInterface $ScoreEvaluation,
     Carbon $Carbon
   ) {
     $this->ScoreEvaluation = $ScoreEvaluation;
+    $this->Evaluation = $Evaluation;
     $this->Carbon = $Carbon;
     $this->responseType = 'scoreEvaluations';
   }
@@ -123,20 +133,40 @@ class ScoreEvaluationManager
       'id' => $id,
     ];
   }
-  
+
   public function update($request, $id)
   {
     $scoreEvaluation = $this->ScoreEvaluation->byId($id);
-  
+
     if (empty($scoreEvaluation)) {
       return [
         'success' => false,
       ];
     }
-  $this->ScoreEvaluation->update($id, $scoreEvaluation);
+
+    Log::debug("Update ScoreEvaluation");
+    Log::emergency($id);
+    $this->ScoreEvaluation->update($id, $scoreEvaluation);
     $scoreEvaluation = $this->ScoreEvaluation->byId($id);
     unset($scoreEvaluation->id);
+  $evaluation=$this->Evaluation->byId($id['evaluation_id']);
+    Log::emergency($evaluation->principal_id);
+    $evaluations=$this->Evaluation->get_subEvals($evaluation->principal_id);
+    $nota=0;
+    foreach($evaluations as $eval){
+      $id['evaluation_id']=$eval->id;
+      $data=$this->ScoreEvaluation->byId($id);
+      LOg::emergency($data);
+      $nota+= $data->score*$eval->percentage;
+    }
+    LOg::emergency($nota/100);
 
+    $id['evaluation_id']=$evaluation->principal_id;
+
+    $scoreEvaluation = $this->ScoreEvaluation->byId($id);
+    $id['score']=$nota/100;
+    $this->ScoreEvaluation->update($id, $scoreEvaluation);
+    $this->Evaluation->publishgrades($evaluation->principal_id);
     return [
       'success' => true,
       'scoreEvaluation' => $scoreEvaluation,

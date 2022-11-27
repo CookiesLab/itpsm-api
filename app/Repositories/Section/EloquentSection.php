@@ -92,7 +92,7 @@ class EloquentSection implements SectionInterface
             continue;
           }
 
-        
+
           if($statement['field'] == 's.teacher_id'){
             if(is_null(auth()->user()->system_reference_id)){
               $dbQuery->whereNotNull($statement['field']);
@@ -102,7 +102,7 @@ class EloquentSection implements SectionInterface
             continue;
           }
           $dbQuery->where($statement['field'], $statement['op'], $statement['data']);
-         
+
         }
       });
     }
@@ -155,7 +155,15 @@ class EloquentSection implements SectionInterface
       ->whereNull('deleted_at')
       ->first();
   }
+  public function byId2($id)
+  {
 
+
+    return $this->Section
+      ->where('id', $id)
+      ->whereNull('deleted_at')
+      ->first();
+  }
   /**
    * Get an Section by id
    *
@@ -195,10 +203,10 @@ class EloquentSection implements SectionInterface
           'c.name AS curriculum_label',
           'ca.name AS career_label',
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
-  
+
         )
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
-   
+
         ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
 
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
@@ -216,10 +224,38 @@ class EloquentSection implements SectionInterface
    *
    * @param integer $id
    *
-   * @return boolean
+   * @return \Illuminate\Database\Eloquent\Collection
    */
   public function byCurriculumIdAndLevel($periodId, $curriculumId, $level)
   {
+    Log::emergency($this->DB::table('sections AS s')
+      ->select(
+        's.id as code',
+        's.quota',
+        's.start_week','s.end_week',
+        's.curriculum_subject_id',
+        's.period_id',
+        's.teacher_id',
+        'm.name AS curriculum_subject_label',
+        'c.name AS curriculum_label',
+        'ca.name AS career_label',
+        'cs.cycle AS curriculum_subject_level',
+        'cs.uv AS curriculum_subject_uv',
+        $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+
+      )
+
+      ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
+
+      ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
+      ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+      ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+      ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+      ->where('cs.curriculum_id', $curriculumId)
+      ->where('cs.cycle', '<=', $level)
+      ->where('s.period_id', $periodId)
+      ->whereNull('s.deleted_at')
+      ->orderBy('s.code', 'asc')->toSql());
     return new Collection(
       $this->DB::table('sections AS s')
         ->select(
@@ -235,11 +271,11 @@ class EloquentSection implements SectionInterface
           'cs.cycle AS curriculum_subject_level',
           'cs.uv AS curriculum_subject_uv',
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
-    
+
         )
-      
+
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
-   
+
         ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')
@@ -321,7 +357,6 @@ class EloquentSection implements SectionInterface
         ->select(
           's.id as code',
           's.quota',
-          's.id_schedule',
           's.curriculum_subject_id',
           's.period_id',
           's.teacher_id',
@@ -329,11 +364,8 @@ class EloquentSection implements SectionInterface
           'c.name AS curriculum_label',
           'ca.name AS career_label',
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
-          $this->DB::raw('CONCAT(sh.start_hour, \'-\', sh.end_hour) AS horario'),
-          'sh.day_of_week AS day'
         )
         ->leftJoin('teachers as t', 's.teacher_id', '=', 't.id')
-        ->leftJoin('schedules as sh', 's.id_schedule', '=', 'sh.id')
         ->join('curriculum_subjects as cs', 's.curriculum_subject_id', '=', 'cs.id')
         ->join('enrollments as e', 'e.code', '=', 's.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')

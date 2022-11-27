@@ -51,6 +51,7 @@ class EloquentEvaluation implements EvaluationInterface
       ->select(
         'e.id',
         'e.name',
+        'e2.name as secondary',
         'e.description',
         'e.date',
         'e.percentage',
@@ -59,10 +60,15 @@ class EloquentEvaluation implements EvaluationInterface
         'e.status',
         's.code',
         'sj.name as materia',
-        'e.is_approved'
-      )->join('sections as s', 's.id', '=', 'e.section_id')
+        'e.is_approved',
+        'e.level',
+        'e.principal_id'
+
+      )
+      ->join('sections as s', 's.id', '=', 'e.section_id')
       ->join('curriculum_subjects as cs', 'cs.id', '=', 's.curriculum_subject_id')
-      ->join('subjects as sj', 'sj.id', '=', 'cs.subject_id');
+      ->join('subjects as sj', 'sj.id', '=', 'cs.subject_id')
+      ->leftjoin('evaluations as e2', 'e.principal_id', '=', 'e2.id');
       //->where('s.teacher_id', '=', auth()->user()->system_reference_id);
 
       if (!empty($customQuery)) {
@@ -149,8 +155,10 @@ class EloquentEvaluation implements EvaluationInterface
       ->select(
         'e.id',
         'e.name',
+        'e2.name as secondary',
         'e.description',
         'e.date',
+        'e.level',
         'e.percentage',
         'e.section_id',
         'e.is_public',
@@ -161,6 +169,7 @@ class EloquentEvaluation implements EvaluationInterface
       ->join('enrollments as r', 'r.code', '=', 'e.section_id')
       ->join('students as st', 'st.id', '=', 'r.student_id')
       ->leftjoin('score_evaluations as sc', 'sc.evaluation_id', '=', 'e.id')
+      ->leftjoin('evaluations as e2', 'e.principal_id', '=', 'e2.id')
       ->whereRaw('sc.student_id =st.id')
       ->where('r.student_id', '=', auth()->user()->system_reference_id)
       ->where('e.is_public', '=', '1');
@@ -181,11 +190,19 @@ class EloquentEvaluation implements EvaluationInterface
   public function create(array $data)
   {
     Log::emergency($data);
+
+
     $porcentaje=$this->Evaluation->where('section_id','=', $data['section_id'])->sum('percentage');
+    if($data['principal_id'] != null){
+      $data['level']=2;
+      $porcentaje=$this->Evaluation->where('section_id','=', $data['section_id'])->where('principal_id','=', $data['principal_id'])->sum('percentage');
+    }
+
+
     if($porcentaje+$data['percentage']>100){
       return null;
     }
-   
+
     $evaluation = new Evaluation();
     $evaluation->fill($data)->save();
 
@@ -209,6 +226,17 @@ class EloquentEvaluation implements EvaluationInterface
     return new Collection(
       $query->get()
     );
+
+  }
+  public function get_subEvals($principal)
+  {
+    $query = $this->DB::table('evaluations AS e')
+      ->where('e.principal_id', '=', $principal);
+
+    return new Collection(
+      $query->get()
+    );
+
   }
   /**
    * Update an existing Evaluation
@@ -257,11 +285,12 @@ class EloquentEvaluation implements EvaluationInterface
     $evaluations=$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->get();
 
     foreach ($evaluations as $evaluation) {
-    
+
       $evaluation->is_public=1;
       $evaluation->save();
 
     }
+    return $evaluations;
     //$this->Evaluation->where('section_id','=', $id)->where('is_public','=', 0)->delete();
     //$this->Evaluation->where('section_id', $id)->destroy();
   }
@@ -300,7 +329,7 @@ class EloquentEvaluation implements EvaluationInterface
     $evaluations=$this->Evaluation->where('id','=', $id)->get();
 
     foreach ($evaluations as $evaluation) {
-   
+
       $evaluation->status=0;
       $evaluation->save();
 

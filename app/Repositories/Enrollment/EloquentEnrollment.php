@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Enrollment;
+use Illuminate\Support\Facades\Log;
+use League\OAuth2\Server\Grant\AbstractAuthorizeGrant;
 
 class EloquentEnrollment implements EnrollmentInterface
 {
@@ -114,7 +116,7 @@ class EloquentEnrollment implements EnrollmentInterface
    *
    * @param integer $id
    *
-   * @return boolean
+   * @return \Illuminate\Database\Eloquent\Collection
    */
   public function getCurriculumSubjectsApproved($studentId)
   {
@@ -126,7 +128,7 @@ class EloquentEnrollment implements EnrollmentInterface
           'e.curriculum_subject_id',
           'st.period_id',
           'e.code',
-          
+
           'e.enrollment',
           'p.year AS period_year',
           'p.code AS period_code',
@@ -148,13 +150,123 @@ class EloquentEnrollment implements EnrollmentInterface
         ->get()
     );
   }
-
   /**
    * Get sections by period id
    *
    * @param integer $id
    *
-   * @return boolean
+   * @return \Illuminate\Database\Eloquent\Collection
+   */
+  public function getCurriculumSubjectsEvaluated($studentId)
+  {
+    return new Collection(
+      $this->DB::table('enrollments AS e')
+        ->select(
+          'e.final_score',
+          'e.is_approved',
+          'e.curriculum_subject_id',
+          'st.period_id',
+          'e.code',
+
+          'e.enrollment',
+          'p.year AS period_year',
+          'p.code AS period_code',
+          'm.name AS curriculum_subject_label',
+          'c.name AS curriculum_label',
+          'ca.name AS career_label',
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+        )
+        ->join('sections as st', 'st.id', '=', 'e.code')
+        ->leftJoin('teachers as t', 'st.teacher_id', '=', 't.id')
+        ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
+        ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+        ->join('periods as p', 'st.period_id', '=', 'p.id')
+        ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+        ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+        ->where('e.student_id', $studentId)
+        ->orderBy('cs.cycle', 'asc')
+        ->get()
+    );
+  }
+  /**
+   * Get sections by period id
+   *
+   * @param integer $id
+   *
+   * @return \Illuminate\Database\Eloquent\Collection
+   */
+  public function getCurriculumSubjectsEvaluatedforReport($studentId)
+  {
+    return new Collection(
+      $this->DB::table('enrollments AS e')
+        ->select(
+          'e.final_score',
+          'e.is_approved',
+          'e.curriculum_subject_id',
+          'st.period_id',
+          'cs.uv',
+          'e.code',
+          'e.enrollment',
+          'p.year AS period_year',
+          'p.code AS period_code',
+          'm.name AS curriculum_subject_label',
+          'm.code AS curriculum_subject_code',
+          'm.id AS curriculum_subject_order',
+          'c.name AS curriculum_label',
+          'ca.name AS career_label',
+          $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
+        )
+        ->join('sections as st', 'st.id', '=', 'e.code')
+        ->leftJoin('teachers as t', 'st.teacher_id', '=', 't.id')
+        ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
+        ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+        ->join('periods as p', 'st.period_id', '=', 'p.id')
+        ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+        ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
+        ->where('e.student_id', $studentId)
+        ->orderBy('cs.cycle', 'asc')
+        ->whereNotNull('e.final_score')
+          ->get()
+    );
+  }
+  public function getperiodsforStudent($id)
+  {
+    return new Collection(
+      $this->DB::table('enrollments AS e')
+        ->select(
+          'p.*',
+        )
+        ->join('sections as st', 'st.id', '=', 'e.code')
+        ->join('periods as p', 'st.period_id', '=', 'p.id')
+        ->where('e.student_id', $id)
+        ->distinct('p.id')
+        ->orderBy('p.id', 'asc')
+        ->whereNotNull('e.final_score')
+        ->get()
+    );
+  }
+  public function getsubjectforperiodsforStudent($id)
+  {
+
+    return new Collection(
+      $this->DB::table('enrollments AS e')
+        ->selectRaw('p.id, count(*) as total')
+        ->join('sections as st', 'st.id', '=', 'e.code')
+        ->join('periods as p', 'st.period_id', '=', 'p.id')
+        ->where('e.student_id', $id)
+        ->distinct('p.id')
+        ->orderBy('p.id', 'asc')
+        ->groupBy('p.id')
+        ->whereNotNull('e.final_score')
+        ->get()
+    );
+  }
+  /**
+   * Get sections by period id
+   *
+   * @param integer $id
+   *
+   * @return \Illuminate\Database\Eloquent\Collection
    */
   public function byStudentIdAndPeriodId($studentId, $periodId)
   {
@@ -164,7 +276,7 @@ class EloquentEnrollment implements EnrollmentInterface
           'e.final_score',
           'e.is_approved',
           'e.curriculum_subject_id',
-        
+
           'e.code',
           'e.enrollment',
           'p.year AS period_year',
@@ -174,20 +286,20 @@ class EloquentEnrollment implements EnrollmentInterface
           'c.name AS curriculum_label',
           'ca.name AS career_label',
           'cs.uv AS curriculum_subject_uv',
-        
+
           $this->DB::raw('CONCAT(t.name, \' \', t.last_name) AS teacher_name'),
           'st.start_week','st.end_week'
         )
         ->join('sections as st', 'st.id', '=', 'e.code')
         ->leftJoin('teachers as t', 'st.teacher_id', '=', 't.id')
-   
+
         ->join('curriculum_subjects as cs', 'e.curriculum_subject_id', '=', 'cs.id')
         ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
-        
+
         ->join('periods as p', 'st.period_id', '=', 'p.id')
         ->join('careers as ca', 'c.career_id', '=', 'ca.id')
         ->join('subjects as m', 'cs.subject_id', '=', 'm.id')
-        
+
         ->where('e.student_id', $studentId)
         ->where('st.period_id', $periodId)
         ->orderBy('cs.cycle', 'asc')
@@ -250,11 +362,11 @@ class EloquentEnrollment implements EnrollmentInterface
   public function getStudents($id)
   {
 
-     
+
     $query = $this->DB::table('enrollments AS e')
     ->select('e.*')
       ->where('e.code', '=', $id);
-     
+
 
       return new Collection(
         $query->get()

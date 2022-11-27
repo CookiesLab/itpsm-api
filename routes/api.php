@@ -39,6 +39,10 @@ Route::middleware('auth:api')->group(function () {
 //bloquear para student
   Route::apiResource('evaluations', EvaluationController::class);
   Route::apiResource('comments', CommentsController::class);
+  Route::get('enrollments_student/{id}', [EnrollmentController::class, 'periods_student']);
+  Route::apiResource('student-curricula', StudentCurriculaController::class);
+
+
 
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -51,7 +55,7 @@ Route::middleware('auth:api')->group(function () {
   Route::get('teacher/section', [TeacherController::class, 'getSections']);
 
   Route::group(['middleware' => ['role:admin']], function () {
-
+    Route::get('allstudents', [StudentController::class, 'allStudents']);
     Route::get('teachers/all', [TeacherController::class, 'allTeachers']);
     Route::apiResource('students', StudentController::class);
 
@@ -69,7 +73,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('scholarships', ScholarshipController::class);
 
-    Route::apiResource('student-curricula', StudentCurriculaController::class);
+
 
     Route::apiResource('periods', PeriodController::class);
     Route::apiResource('users', UserController::class);
