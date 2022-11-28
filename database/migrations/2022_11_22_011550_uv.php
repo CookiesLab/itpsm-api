@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
       Schema::table('student_curricula', function (Blueprint $table) {
-        $table->integer('uv')->nullable();
+        //$table->integer('uv')->nullable();
         $table->integer('uv_total')->nullable();
       });
     }
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down()
     {
       Schema::table('evaluations', function (Blueprint $table) {
-        $table->dropColumn('uv');
+       // $table->dropColumn('uv');
         $table->dropColumn('uv_total');
       });
     }
