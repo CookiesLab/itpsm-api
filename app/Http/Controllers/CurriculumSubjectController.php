@@ -149,6 +149,15 @@ class CurriculumSubjectController extends Controller
    *        type="integer",
    *      )
    *    ),
+      *    *    @OA\Parameter(
+      *      name="cycle",
+      *      in="query",
+      *      description="cycle",
+      *      required=true,
+      *      @OA\Schema(
+      *        type="integer",
+      *      )
+      *    ),
    *
    *    @OA\Response(
    *      response=200,
@@ -244,7 +253,7 @@ class CurriculumSubjectController extends Controller
    *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
    *    summary="Update curriculum-subjects",
-   *    description="Update curriculum-subjects",
+   *    description="Update curriculum-subjects (NO UTILIZADO)",
    *
    *   @OA\Parameter(
    *      name="id",
