@@ -93,28 +93,15 @@ class EnrollmentSeeder extends Seeder
             'quota' => 45,
             'start_week' => 5,
             'end_week' => 8,
-        
+
         ],
         [
             'code' => 3,
             'quota' => 15,
             'start_week' => 9,
             'end_week' => 12,
-         
+
         ],
-        [
-          'code' => 3,
-          'quota' => 15,
-        'id_schedule' => 3,
-      ],[
-        'code' => 3,
-        'quota' => 15,
-      'id_schedule' => 5,
-    ],[
-      'code' => 3,
-      'quota' => 15,
-    'id_schedule' => 7,
-  ],
 
     ];
 
