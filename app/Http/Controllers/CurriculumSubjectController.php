@@ -253,7 +253,7 @@ class CurriculumSubjectController extends Controller
    *    tags={"Associate subjects to curriculum"},
    * security={{"bearer_token":{}}},
    *    summary="Update curriculum-subjects",
-   *    description="Update curriculum-subjects (NO UTILIZADO)",
+   *    description="Update curriculum-subjects(NO UTILIZADO)",
    *
    *   @OA\Parameter(
    *      name="id",
