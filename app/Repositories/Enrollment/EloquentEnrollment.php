@@ -241,7 +241,7 @@ class EloquentEnrollment implements EnrollmentInterface
         ->where('e.student_id', $id)
         ->distinct('p.id')
         ->orderBy('p.id', 'asc')
-        ->whereNotNull('e.final_score')
+        //->whereNotNull('e.final_score')
         ->get()
     );
   }
