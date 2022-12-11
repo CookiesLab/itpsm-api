@@ -160,8 +160,8 @@ class UserManager
   public function create($request)
   {
     $data = $request->all();
+    $data['system_reference_table']='admin';
 
-  
 
     $user = $this->User->create($data);
     $user->assignRole('admin');

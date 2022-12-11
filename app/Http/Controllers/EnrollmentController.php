@@ -257,6 +257,8 @@ class EnrollmentController extends Controller
     $currentEnrolled = $this->EnrollmentManagerService->getCurrentEnrolled($studentId, $currentPeriod->id);
     $enrolled = $notEnrolled = [];
     foreach ($request->subjects as $subject) {
+      Log::emergency("hola");
+        Log::emergency($subject);
       $section=$this->SectionManagerService->getSection2($subject['code']);
       foreach ($request->subjects as $subject_to_comparate) {
 
