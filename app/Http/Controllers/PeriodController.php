@@ -37,7 +37,7 @@ class PeriodController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Get(
    *    path="/api/periods",
    *    operationId="getPeriods",
@@ -45,7 +45,7 @@ class PeriodController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get periods list",
    *    description="Returns periods list",
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -94,7 +94,7 @@ class PeriodController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-     /** 
+     /**
    *  @OA\Post(
    *    path="/api/periods",
    *    operationId="postPeriods",
@@ -102,7 +102,7 @@ class PeriodController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Create period",
    *    description="Create period",
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="query",
@@ -112,7 +112,7 @@ class PeriodController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="year",
    *      in="query",
@@ -122,7 +122,17 @@ class PeriodController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+      *
+      *      *    @OA\Parameter(
+      *      name="status",
+      *      in="query",
+      *      description="Status",
+      *      required=true,
+      *      @OA\Schema(
+      *        type="string",
+      *      )
+      *    ),
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -163,7 +173,7 @@ class PeriodController extends Controller
         ]
       ], 201);
     }
-   
+
       return response()->json([
         'errors' => [
           'status' => '401',
@@ -174,9 +184,9 @@ class PeriodController extends Controller
           'version' => "1.00"
         ]
       ], 404);
-    
 
-    
+
+
   }
 
   /**
@@ -185,7 +195,7 @@ class PeriodController extends Controller
    * @param  \App\Models\Period  $Period
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Get(
    *    path="/api/periods/{id}",
    *    operationId="get period by id",
@@ -193,7 +203,7 @@ class PeriodController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get period by id",
    *    description="Returns period by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -203,7 +213,7 @@ class PeriodController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -268,7 +278,7 @@ class PeriodController extends Controller
    * @param  \App\Models\Period  $Period
    * @return \Illuminate\Http\Response
    */
-      /** 
+      /**
    *  @OA\Put(
    *    path="/api/periods/{id}",
    *    operationId="putPeriod",
@@ -276,7 +286,7 @@ class PeriodController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update period",
    *    description="Update period",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -286,7 +296,7 @@ class PeriodController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="code",
    *      in="query",
@@ -296,7 +306,7 @@ class PeriodController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="year",
    *      in="query",
@@ -306,7 +316,7 @@ class PeriodController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -367,7 +377,7 @@ class PeriodController extends Controller
    * @param  \App\Models\Period  $Period
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Delete(
    *    path="/api/periods/{id}",
    *    operationId="delete period by id",
@@ -375,7 +385,7 @@ class PeriodController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Delete period by id",
    *    description="Deletes period by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -385,7 +395,7 @@ class PeriodController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
