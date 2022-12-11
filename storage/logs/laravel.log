@@ -20560,3 +20560,100 @@ Did you mean one of these?
 #56 /opt/project/vendor/phpunit/phpunit/phpunit(98): PHPUnit\\TextUI\\Command::main()
 #57 {main}
 "} 
+[2022-12-11 06:11:10] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:11:10] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:12:10] testing.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:12:25] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:12:25] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:12:33] local.DEBUG: Update ScoreEvaluation  
+[2022-12-11 06:12:33] local.EMERGENCY: array (
+  'evaluation_id' => 38,
+  'student_id' => 4,
+  'score' => 10,
+  'oldscore' => 9,
+)  
+[2022-12-11 06:12:33] local.EMERGENCY: 35  
+[2022-12-11 06:12:33] local.EMERGENCY: {"score":10,"student_id":4,"evaluation_id":36,"created_at":"2022-11-21T08:38:21.000000Z","updated_at":"2022-11-21T09:01:58.000000Z"}  
+[2022-12-11 06:12:33] local.EMERGENCY: {"score":10,"student_id":4,"evaluation_id":38,"created_at":"2022-11-21T08:38:21.000000Z","updated_at":"2022-12-11T06:12:33.000000Z"}  
+[2022-12-11 06:12:33] local.EMERGENCY: 10  
+[2022-12-11 06:12:33] local.EMERGENCY: {"id":35,"name":"Tareas","description":"Tareas","date":"2022-11-22","percentage":10,"is_public":1,"is_approved":3,"level":1,"principal_id":null,"section_id":1,"created_at":"2022-11-21T08:35:52.000000Z","updated_at":"2022-11-24T23:46:03.000000Z","status":1}  
+[2022-12-11 06:12:33] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:12:33] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:13:47] testing.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:14:09] testing.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 06:14:09] testing.DEBUG: Update ScoreEvaluation  
+[2022-12-11 06:14:09] testing.EMERGENCY: array (
+  'evaluation_id' => 38,
+  'student_id' => 4,
+  'score' => 8,
+  'oldscore' => 9,
+)  
+[2022-12-11 06:14:09] testing.EMERGENCY: 35  
+[2022-12-11 06:14:09] testing.EMERGENCY: {"score":10,"student_id":4,"evaluation_id":36,"created_at":"2022-11-21T08:38:21.000000Z","updated_at":"2022-11-21T09:01:58.000000Z"}  
+[2022-12-11 06:14:09] testing.EMERGENCY: {"score":8,"student_id":4,"evaluation_id":38,"created_at":"2022-11-21T08:38:21.000000Z","updated_at":"2022-12-11T06:14:09.000000Z"}  
+[2022-12-11 06:14:09] testing.EMERGENCY: 8.8  
+[2022-12-11 06:14:09] testing.EMERGENCY: {"id":35,"name":"Tareas","description":"Tareas","date":"2022-11-22","percentage":10,"is_public":1,"is_approved":3,"level":1,"principal_id":null,"section_id":1,"created_at":"2022-11-21T08:35:52.000000Z","updated_at":"2022-11-24T23:46:03.000000Z","status":1}  
+[2022-12-11 06:28:07] testing.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null limit 10  
+[2022-12-11 06:28:14] testing.ERROR: Undefined array key 1 {"userId":5,"exception":"[object] (ErrorException(code: 0): Undefined array key 1 at /opt/project/app/Repositories/Section/EloquentSection.php:153)
+[stacktrace]
+#0 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(259): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 /opt/project/app/Repositories/Section/EloquentSection.php(153): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /opt/project/app/Services/Section/SectionManager.php(112): App\\Repositories\\Section\\EloquentSection->byId()
+#3 /opt/project/app/Http/Controllers/SectionController.php(277): App\\Services\\Section\\SectionManager->getSection()
+#4 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\SectionController->show()
+#5 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#6 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#7 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()
+#8 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Router.php(727): Illuminate\\Routing\\Route->run()
+#9 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#10 /opt/project/vendor/spatie/laravel-permission/src/Middlewares/RoleMiddleware.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#11 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Spatie\\Permission\\Middlewares\\RoleMiddleware->handle()
+#12 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#13 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#14 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#15 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()
+#16 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()
+#17 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()
+#18 /opt/project/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#19 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Auth\\Middleware\\Authenticate->handle()
+#20 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Router.php(728): Illuminate\\Pipeline\\Pipeline->then()
+#22 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Router.php(705): Illuminate\\Routing\\Router->runRouteWithinStack()
+#23 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Router.php(669): Illuminate\\Routing\\Router->runRoute()
+#24 /opt/project/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->dispatchToRoute()
+#25 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(190): Illuminate\\Routing\\Router->dispatch()
+#26 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#27 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#28 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#29 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#30 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#32 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#33 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()
+#35 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#37 /opt/project/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#38 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#39 /opt/project/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#41 /opt/project/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then()
+#43 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#44 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(545): Illuminate\\Foundation\\Http\\Kernel->handle()
+#45 /opt/project/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(312): Illuminate\\Foundation\\Testing\\TestCase->call()
+#46 /opt/project/tests/Feature/Http/Controllers/SectionsControllerTest.php(44): Illuminate\\Foundation\\Testing\\TestCase->get()
+#47 /opt/project/vendor/phpunit/phpunit/src/Framework/TestCase.php(1548): Http\\Controllers\\SectionsControllerTest->test_id_sections()
+#48 /opt/project/vendor/phpunit/phpunit/src/Framework/TestCase.php(1154): PHPUnit\\Framework\\TestCase->runTest()
+#49 /opt/project/vendor/phpunit/phpunit/src/Framework/TestResult.php(728): PHPUnit\\Framework\\TestCase->runBare()
+#50 /opt/project/vendor/phpunit/phpunit/src/Framework/TestCase.php(904): PHPUnit\\Framework\\TestResult->run()
+#51 /opt/project/vendor/phpunit/phpunit/src/Framework/TestSuite.php(673): PHPUnit\\Framework\\TestCase->run()
+#52 /opt/project/vendor/phpunit/phpunit/src/Framework/TestSuite.php(673): PHPUnit\\Framework\\TestSuite->run()
+#53 /opt/project/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(661): PHPUnit\\Framework\\TestSuite->run()
+#54 /opt/project/vendor/phpunit/phpunit/src/TextUI/Command.php(144): PHPUnit\\TextUI\\TestRunner->run()
+#55 /opt/project/vendor/phpunit/phpunit/src/TextUI/Command.php(97): PHPUnit\\TextUI\\Command->run()
+#56 /opt/project/vendor/phpunit/phpunit/phpunit(98): PHPUnit\\TextUI\\Command::main()
+#57 {main}
+"} 
+[2022-12-11 06:30:09] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`period_id` = ?) limit 10  
+[2022-12-11 06:30:10] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`period_id` = ?) limit 10  

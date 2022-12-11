@@ -519,7 +519,7 @@ class SectionController extends Controller
    */
     /**
    *  @OA\Get(
-   *    path="/api/sections/students/{code}",
+   *    path="/api/section/getsubjects/{code}",
    *    operationId="get sections for student",
    *    tags={"Sections"},
    * security={{"bearer_token":{}}},
