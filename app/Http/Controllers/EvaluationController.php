@@ -521,61 +521,12 @@ class EvaluationController extends Controller
    *      name="id",
    *      in="path",
    *      required=true,
-   *      description="Evaluation id",
+   *      description="Section id",
    *      @OA\Schema(
    *        type="integer"
    *      )
    *    ),
-   *    @OA\Parameter(
-   *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="description",
-   *      in="query",
-   *      description="Evaluation description",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="date",
-   *      in="query",
-   *      description="Evaluation date",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   *
-   *     @OA\Parameter(
-   *      name="percentage",
-   *      in="query",
-   *      description="Evaluation percentage",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="number",
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="section_id",
-   *      in="query",
-   *      description="Evaluation section_id",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer",
-   *      )
-   *    ),
-   *
+
 
    *    @OA\Response(
    *      response=200,
@@ -653,7 +604,7 @@ class EvaluationController extends Controller
    *      name="id",
    *      in="path",
    *      required=true,
-   *      description="Section id",
+   *      description="Evaluation id",
    *      @OA\Schema(
    *        type="integer"
    *      )
@@ -730,7 +681,7 @@ class EvaluationController extends Controller
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
-   *      description="Student id",
+   *      description="Period id",
    *      required=true,
    *      @OA\Schema(
    *        type="integer"
@@ -801,7 +752,7 @@ class EvaluationController extends Controller
    */
   /**
    *  @OA\Put(
-   *    path="requestAprobacion/{id}",
+   *    path="api/requestAprobacion/{id}",
    *    operationId="request Evaluation approve",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},

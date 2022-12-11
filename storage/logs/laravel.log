@@ -20158,3 +20158,344 @@ Did you mean one of these?
 [2022-12-11 04:15:02] testing.EMERGENCY: {"id":4,"code":1,"year":2023,"status":"I","created_at":"2022-11-22T02:00:38.000000Z","updated_at":"2022-11-22T02:02:15.000000Z","deleted_at":null}  
 [2022-12-11 04:15:12] testing.EMERGENCY: 2022  
 [2022-12-11 04:15:12] testing.EMERGENCY: {"id":4,"code":1,"year":2023,"status":"I","created_at":"2022-11-22T02:00:38.000000Z","updated_at":"2022-11-22T02:02:15.000000Z","deleted_at":null}  
+[2022-12-11 04:32:26] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:32:26] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:34:08] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:34:09] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:37:45] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:37:46] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:48:24] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:48:24] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:48:46] local.EMERGENCY: 2022  
+[2022-12-11 04:48:46] local.EMERGENCY: {"id":4,"code":1,"year":2023,"status":"I","created_at":"2022-11-22T02:00:38.000000Z","updated_at":"2022-11-22T02:02:15.000000Z","deleted_at":null}  
+[2022-12-11 04:48:46] local.EMERGENCY: 2022  
+[2022-12-11 04:48:46] local.EMERGENCY: {"id":4,"code":1,"year":2023,"status":"I","created_at":"2022-11-22T02:00:38.000000Z","updated_at":"2022-11-22T02:02:15.000000Z","deleted_at":null}  
+[2022-12-11 04:48:46] local.EMERGENCY: [{"cum":0,"entry_year":2022,"graduation_year":2025,"scholarship_rate":null,"student_id":11,"curriculum_id":2,"status":"A","level":1,"scholarship_id":null,"created_at":"2022-12-11T03:56:40.000000Z","updated_at":"2022-12-11T03:56:40.000000Z","deleted_at":null,"uv":null,"uv_total":81}]  
+[2022-12-11 04:48:46] local.EMERGENCY: []  
+[2022-12-11 04:48:46] local.EMERGENCY: [{"final_score":null,"is_approved":null,"curriculum_subject_id":27,"code":11,"enrollment":1,"period_year":2023,"period_code":1,"curriculum_subject_label":"Aplicaci\u00f3n de T\u00e9cnicas Elementales de Cocina","curriculum_label":"Plan 2019-2020 de la carrera T\u00e9cnico Superior en Hosteler\u00eda y Turismo","career_label":"T\u00e9cnico Superior en Hosteler\u00eda y Turismo","curriculum_subject_uv":5,"teacher_name":"Bernadine Moen","start_week":1,"end_week":2},{"final_score":null,"is_approved":null,"curriculum_subject_id":27,"code":11,"enrollment":1,"period_year":2023,"period_code":1,"curriculum_subject_label":"Aplicaci\u00f3n de T\u00e9cnicas Elementales de Cocina","curriculum_label":"Plan 2019-2020 de la carrera T\u00e9cnico Superior en Hosteler\u00eda y Turismo","career_label":"T\u00e9cnico Superior en Hosteler\u00eda y Turismo","curriculum_subject_uv":5,"teacher_name":"Bernadine Moen","start_week":1,"end_week":2}]  
+[2022-12-11 04:48:46] local.EMERGENCY: 4  
+[2022-12-11 04:48:46] local.EMERGENCY: 2  
+[2022-12-11 04:48:46] local.EMERGENCY: 1  
+[2022-12-11 04:48:46] local.EMERGENCY: select `s`.`id` as `code`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, `cs`.`cycle` as `curriculum_subject_level`, `cs`.`uv` as `curriculum_subject_uv`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` where `cs`.`curriculum_id` = ? and `cs`.`cycle` <= ? and `s`.`period_id` = ? and `s`.`deleted_at` is null order by `s`.`code` asc  
+[2022-12-11 04:48:46] local.EMERGENCY: [{"code":11,"quota":2,"start_week":1,"end_week":2,"curriculum_subject_id":27,"period_id":4,"teacher_id":1,"curriculum_subject_label":"Aplicaci\u00f3n de T\u00e9cnicas Elementales de Cocina","curriculum_label":"Plan 2019-2020 de la carrera T\u00e9cnico Superior en Hosteler\u00eda y Turismo","career_label":"T\u00e9cnico Superior en Hosteler\u00eda y Turismo","curriculum_subject_level":1,"curriculum_subject_uv":5,"teacher_name":"Bernadine Moen"}]  
+[2022-12-11 04:48:46] local.EMERGENCY: 4  
+[2022-12-11 04:48:46] local.EMERGENCY: 2  
+[2022-12-11 04:48:46] local.EMERGENCY: 1  
+[2022-12-11 04:48:46] local.EMERGENCY: select `s`.`id` as `code`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, `cs`.`cycle` as `curriculum_subject_level`, `cs`.`uv` as `curriculum_subject_uv`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` where `cs`.`curriculum_id` = ? and `cs`.`cycle` <= ? and `s`.`period_id` = ? and `s`.`deleted_at` is null order by `s`.`code` asc  
+[2022-12-11 04:48:46] local.EMERGENCY: 2022  
+[2022-12-11 04:48:46] local.EMERGENCY: {"id":4,"code":1,"year":2023,"status":"I","created_at":"2022-11-22T02:00:38.000000Z","updated_at":"2022-11-22T02:02:15.000000Z","deleted_at":null}  
+[2022-12-11 04:48:46] local.EMERGENCY: 2022  
+[2022-12-11 04:48:46] local.EMERGENCY: {"id":4,"code":1,"year":2023,"status":"I","created_at":"2022-11-22T02:00:38.000000Z","updated_at":"2022-11-22T02:02:15.000000Z","deleted_at":null}  
+[2022-12-11 04:48:46] local.EMERGENCY: [{"cum":0,"entry_year":2022,"graduation_year":2025,"scholarship_rate":null,"student_id":11,"curriculum_id":2,"status":"A","level":1,"scholarship_id":null,"created_at":"2022-12-11T03:56:40.000000Z","updated_at":"2022-12-11T03:56:40.000000Z","deleted_at":null,"uv":null,"uv_total":81}]  
+[2022-12-11 04:48:46] local.EMERGENCY: []  
+[2022-12-11 04:48:46] local.EMERGENCY: [{"final_score":null,"is_approved":null,"curriculum_subject_id":27,"code":11,"enrollment":1,"period_year":2023,"period_code":1,"curriculum_subject_label":"Aplicaci\u00f3n de T\u00e9cnicas Elementales de Cocina","curriculum_label":"Plan 2019-2020 de la carrera T\u00e9cnico Superior en Hosteler\u00eda y Turismo","career_label":"T\u00e9cnico Superior en Hosteler\u00eda y Turismo","curriculum_subject_uv":5,"teacher_name":"Bernadine Moen","start_week":1,"end_week":2},{"final_score":null,"is_approved":null,"curriculum_subject_id":27,"code":11,"enrollment":1,"period_year":2023,"period_code":1,"curriculum_subject_label":"Aplicaci\u00f3n de T\u00e9cnicas Elementales de Cocina","curriculum_label":"Plan 2019-2020 de la carrera T\u00e9cnico Superior en Hosteler\u00eda y Turismo","career_label":"T\u00e9cnico Superior en Hosteler\u00eda y Turismo","curriculum_subject_uv":5,"teacher_name":"Bernadine Moen","start_week":1,"end_week":2}]  
+[2022-12-11 04:48:46] local.EMERGENCY: 4  
+[2022-12-11 04:48:46] local.EMERGENCY: 2  
+[2022-12-11 04:48:46] local.EMERGENCY: 1  
+[2022-12-11 04:48:46] local.EMERGENCY: select `s`.`id` as `code`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, `cs`.`cycle` as `curriculum_subject_level`, `cs`.`uv` as `curriculum_subject_uv`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` where `cs`.`curriculum_id` = ? and `cs`.`cycle` <= ? and `s`.`period_id` = ? and `s`.`deleted_at` is null order by `s`.`code` asc  
+[2022-12-11 04:48:46] local.EMERGENCY: [{"code":11,"quota":2,"start_week":1,"end_week":2,"curriculum_subject_id":27,"period_id":4,"teacher_id":1,"curriculum_subject_label":"Aplicaci\u00f3n de T\u00e9cnicas Elementales de Cocina","curriculum_label":"Plan 2019-2020 de la carrera T\u00e9cnico Superior en Hosteler\u00eda y Turismo","career_label":"T\u00e9cnico Superior en Hosteler\u00eda y Turismo","curriculum_subject_level":1,"curriculum_subject_uv":5,"teacher_name":"Bernadine Moen"}]  
+[2022-12-11 04:48:46] local.EMERGENCY: 4  
+[2022-12-11 04:48:46] local.EMERGENCY: 2  
+[2022-12-11 04:48:46] local.EMERGENCY: 1  
+[2022-12-11 04:48:46] local.EMERGENCY: select `s`.`id` as `code`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, `cs`.`cycle` as `curriculum_subject_level`, `cs`.`uv` as `curriculum_subject_uv`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` where `cs`.`curriculum_id` = ? and `cs`.`cycle` <= ? and `s`.`period_id` = ? and `s`.`deleted_at` is null order by `s`.`code` asc  
+[2022-12-11 04:50:14] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:50:15] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 04:55:22] local.EMERGENCY: array (
+  'name' => 'a',
+  'description' => 'a',
+  'date' => '2022-12-08',
+  'percentage' => 1,
+  'section_id' => 11,
+  'principal_id' => NULL,
+)  
+[2022-12-11 04:57:38] testing.EMERGENCY: array (
+  'name' => 'a',
+  'description' => 'a',
+  'date' => '2022-12-08',
+  'percentage' => 1,
+  'section_id' => 11,
+  'principal_id' => NULL,
+)  
+[2022-12-11 04:58:27] testing.EMERGENCY: array (
+  'name' => 'a',
+  'description' => 'a',
+  'date' => '2022-12-08',
+  'percentage' => 1,
+  'section_id' => 11,
+  'principal_id' => NULL,
+)  
+[2022-12-11 05:05:22] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:05:23] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:27:42] local.EMERGENCY: array (
+  'name' => 'p',
+  'description' => 'p',
+  'date' => '2022-12-10',
+  'percentage' => 98,
+  'section_id' => 11,
+  'principal_id' => NULL,
+)  
+[2022-12-11 05:27:44] local.EMERGENCY: {"id":47,"name":"a","description":"a","date":"2022-12-08","percentage":1,"is_public":0,"is_approved":0,"level":1,"principal_id":null,"section_id":11,"created_at":"2022-12-11T04:57:38.000000Z","updated_at":"2022-12-11T04:57:38.000000Z","status":null}  
+[2022-12-11 05:27:44] local.EMERGENCY: {"id":48,"name":"a","description":"a","date":"2022-12-08","percentage":1,"is_public":0,"is_approved":0,"level":1,"principal_id":null,"section_id":11,"created_at":"2022-12-11T04:58:27.000000Z","updated_at":"2022-12-11T04:58:27.000000Z","status":null}  
+[2022-12-11 05:27:44] local.EMERGENCY: {"id":49,"name":"p","description":"p","date":"2022-12-10","percentage":98,"is_public":0,"is_approved":0,"level":1,"principal_id":null,"section_id":11,"created_at":"2022-12-11T05:27:42.000000Z","updated_at":"2022-12-11T05:27:42.000000Z","status":null}  
+[2022-12-11 05:28:40] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` is not null and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:28:40] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` is not null and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:28:49] local.EMERGENCY: array (
+  'id' => 11,
+  'status' => 2,
+  'comment' => 'ppp',
+)  
+[2022-12-11 05:28:49] local.EMERGENCY:   
+[2022-12-11 05:28:49] local.EMERGENCY: 1  
+[2022-12-11 05:28:49] local.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`itpsm_api`.`comments`, CONSTRAINT `comments_id_foreign` FOREIGN KEY (`id`) REFERENCES `evaluations` (`id`)) (SQL: insert into `comments` (`id`, `comment`, `updated_at`, `created_at`) values (11, ppp, 2022-12-11 05:28:49, 2022-12-11 05:28:49)) {"userId":5,"exception":"[object] (Illuminate\\Database\\QueryException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`itpsm_api`.`comments`, CONSTRAINT `comments_id_foreign` FOREIGN KEY (`id`) REFERENCES `evaluations` (`id`)) (SQL: insert into `comments` (`id`, `comment`, `updated_at`, `created_at`) values (11, ppp, 2022-12-11 05:28:49, 2022-12-11 05:28:49)) at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:760)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(546): Illuminate\\Database\\Connection->run()
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(498): Illuminate\\Database\\Connection->statement()
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php(32): Illuminate\\Database\\Connection->insert()
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3266): Illuminate\\Database\\Query\\Processors\\Processor->processInsertGetId()
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1861): Illuminate\\Database\\Query\\Builder->insertGetId()
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1322): Illuminate\\Database\\Eloquent\\Builder->__call()
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1287): Illuminate\\Database\\Eloquent\\Model->insertAndSetId()
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1128): Illuminate\\Database\\Eloquent\\Model->performInsert()
+#9 /var/www/html/app/Repositories/Comments/EloquentComments.php(181): Illuminate\\Database\\Eloquent\\Model->save()
+#10 /var/www/html/app/Services/Comments/CommentsManager.php(116): App\\Repositories\\Comments\\EloquentComments->create()
+#11 /var/www/html/app/Http/Controllers/CommentsController.php(124): App\\Services\\Comments\\CommentsManager->create()
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\CommentsController->store()
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(727): Illuminate\\Routing\\Route->run()
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Auth\\Middleware\\Authenticate->handle()
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(728): Illuminate\\Pipeline\\Pipeline->then()
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(705): Illuminate\\Routing\\Router->runRouteWithinStack()
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(669): Illuminate\\Routing\\Router->runRoute()
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->dispatchToRoute()
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(190): Illuminate\\Routing\\Router->dispatch()
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then()
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#50 /var/www/html/public/index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
+#52 {main}
+
+[previous exception] [object] (PDOException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`itpsm_api`.`comments`, CONSTRAINT `comments_id_foreign` FOREIGN KEY (`id`) REFERENCES `evaluations` (`id`)) at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:545)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(545): PDOStatement->execute()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(753): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}()
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(546): Illuminate\\Database\\Connection->run()
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(498): Illuminate\\Database\\Connection->statement()
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php(32): Illuminate\\Database\\Connection->insert()
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3266): Illuminate\\Database\\Query\\Processors\\Processor->processInsertGetId()
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1861): Illuminate\\Database\\Query\\Builder->insertGetId()
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1322): Illuminate\\Database\\Eloquent\\Builder->__call()
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1287): Illuminate\\Database\\Eloquent\\Model->insertAndSetId()
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1128): Illuminate\\Database\\Eloquent\\Model->performInsert()
+#11 /var/www/html/app/Repositories/Comments/EloquentComments.php(181): Illuminate\\Database\\Eloquent\\Model->save()
+#12 /var/www/html/app/Services/Comments/CommentsManager.php(116): App\\Repositories\\Comments\\EloquentComments->create()
+#13 /var/www/html/app/Http/Controllers/CommentsController.php(124): App\\Services\\Comments\\CommentsManager->create()
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\CommentsController->store()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(727): Illuminate\\Routing\\Route->run()
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Auth\\Middleware\\Authenticate->handle()
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(728): Illuminate\\Pipeline\\Pipeline->then()
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(705): Illuminate\\Routing\\Router->runRouteWithinStack()
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(669): Illuminate\\Routing\\Router->runRoute()
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->dispatchToRoute()
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(190): Illuminate\\Routing\\Router->dispatch()
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then()
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#52 /var/www/html/public/index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
+#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
+#54 {main}
+"} 
+[2022-12-11 05:30:16] local.EMERGENCY: array (
+  'id' => 11,
+  'status' => 2,
+  'comment' => 'ppp',
+)  
+[2022-12-11 05:30:16] local.EMERGENCY:   
+[2022-12-11 05:30:16] local.EMERGENCY: 1  
+[2022-12-11 05:30:16] local.EMERGENCY: {"id":11,"name":"p","description":"p","date":"2022-12-10","percentage":98,"is_public":0,"is_approved":1,"level":1,"principal_id":null,"section_id":11,"created_at":"2022-12-11T05:27:42.000000Z","updated_at":"2022-12-11T05:27:44.000000Z","status":null}  
+[2022-12-11 05:30:16] local.EMERGENCY: {"id":47,"name":"a","description":"a","date":"2022-12-08","percentage":1,"is_public":0,"is_approved":1,"level":1,"principal_id":null,"section_id":11,"created_at":"2022-12-11T04:57:38.000000Z","updated_at":"2022-12-11T05:27:44.000000Z","status":null}  
+[2022-12-11 05:30:16] local.EMERGENCY: {"id":48,"name":"a","description":"a","date":"2022-12-08","percentage":1,"is_public":0,"is_approved":1,"level":1,"principal_id":null,"section_id":11,"created_at":"2022-12-11T04:58:27.000000Z","updated_at":"2022-12-11T05:27:44.000000Z","status":null}  
+[2022-12-11 05:30:32] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` is not null and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:30:33] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` is not null and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:30:51] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:30:51] local.EMERGENCY: select `s`.`id` as `code`, `s`.`code` as `seccion`, `s`.`quota`, `s`.`start_week`, `s`.`end_week`, `s`.`curriculum_subject_id`, `s`.`period_id`, `s`.`teacher_id`, `m`.`name` as `curriculum_subject_label`, `c`.`name` as `curriculum_label`, `ca`.`name` as `career_label`, CONCAT(t.name, ' ', t.last_name) AS teacher_name from `sections` as `s` left join `teachers` as `t` on `s`.`teacher_id` = `t`.`id` inner join `curriculum_subjects` as `cs` on `s`.`curriculum_subject_id` = `cs`.`id` inner join `curricula` as `c` on `cs`.`curriculum_id` = `c`.`id` inner join `careers` as `ca` on `c`.`career_id` = `ca`.`id` inner join `subjects` as `m` on `cs`.`subject_id` = `m`.`id` inner join `periods` as `p` on `p`.`id` = `s`.`period_id` where `s`.`deleted_at` is null and (`s`.`teacher_id` = ? and `p`.`status` = ?) order by `s`.`code` desc limit 10  
+[2022-12-11 05:33:47] local.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11-11' for key 'score_evaluations.PRIMARY' (SQL: insert into `score_evaluations` (`score`, `student_id`, `evaluation_id`, `created_at`) values (?, 11, 11, 2022-12-11 05:33:47)) {"userId":38,"exception":"[object] (Illuminate\\Database\\QueryException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11-11' for key 'score_evaluations.PRIMARY' (SQL: insert into `score_evaluations` (`score`, `student_id`, `evaluation_id`, `created_at`) values (?, 11, 11, 2022-12-11 05:33:47)) at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:760)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(546): Illuminate\\Database\\Connection->run()
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(498): Illuminate\\Database\\Connection->statement()
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3218): Illuminate\\Database\\Connection->insert()
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1861): Illuminate\\Database\\Query\\Builder->insert()
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->__call()
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2321): Illuminate\\Database\\Eloquent\\Model->forwardCallTo()
+#7 /var/www/html/app/Repositories/ScoreEvaluation/EloquentScoreEvaluation.php(220): Illuminate\\Database\\Eloquent\\Model->__call()
+#8 /var/www/html/app/Services/Evaluation/EvaluationManager.php(216): App\\Repositories\\ScoreEvaluation\\EloquentScoreEvaluation->insert_students_to_evaluations()
+#9 /var/www/html/app/Http/Controllers/EvaluationController.php(607): App\\Services\\Evaluation\\EvaluationManager->publish()
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\EvaluationController->publishEvaluations()
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(727): Illuminate\\Routing\\Route->run()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#16 /var/www/html/vendor/spatie/laravel-permission/src/Middlewares/RoleMiddleware.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Spatie\\Permission\\Middlewares\\RoleMiddleware->handle()
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Auth\\Middleware\\Authenticate->handle()
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(728): Illuminate\\Pipeline\\Pipeline->then()
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(705): Illuminate\\Routing\\Router->runRouteWithinStack()
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(669): Illuminate\\Routing\\Router->runRoute()
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->dispatchToRoute()
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(190): Illuminate\\Routing\\Router->dispatch()
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then()
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#50 /var/www/html/public/index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
+#52 {main}
+
+[previous exception] [object] (PDOException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '11-11' for key 'score_evaluations.PRIMARY' at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:545)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(545): PDOStatement->execute()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(753): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}()
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(546): Illuminate\\Database\\Connection->run()
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(498): Illuminate\\Database\\Connection->statement()
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3218): Illuminate\\Database\\Connection->insert()
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1861): Illuminate\\Database\\Query\\Builder->insert()
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->__call()
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2321): Illuminate\\Database\\Eloquent\\Model->forwardCallTo()
+#9 /var/www/html/app/Repositories/ScoreEvaluation/EloquentScoreEvaluation.php(220): Illuminate\\Database\\Eloquent\\Model->__call()
+#10 /var/www/html/app/Services/Evaluation/EvaluationManager.php(216): App\\Repositories\\ScoreEvaluation\\EloquentScoreEvaluation->insert_students_to_evaluations()
+#11 /var/www/html/app/Http/Controllers/EvaluationController.php(607): App\\Services\\Evaluation\\EvaluationManager->publish()
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\EvaluationController->publishEvaluations()
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction()
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(727): Illuminate\\Routing\\Route->run()
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()
+#18 /var/www/html/vendor/spatie/laravel-permission/src/Middlewares/RoleMiddleware.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Spatie\\Permission\\Middlewares\\RoleMiddleware->handle()
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(126): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(102): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(54): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Auth\\Middleware\\Authenticate->handle()
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(728): Illuminate\\Pipeline\\Pipeline->then()
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(705): Illuminate\\Routing\\Router->runRouteWithinStack()
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(669): Illuminate\\Routing\\Router->runRoute()
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(658): Illuminate\\Routing\\Router->dispatchToRoute()
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(190): Illuminate\\Routing\\Router->dispatch()
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then()
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#52 /var/www/html/public/index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
+#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
+#54 {main}
+"} 
+[2022-12-11 05:39:18] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 05:39:18] local.EMERGENCY: select `es`.`score`, `e`.`student_id`, `st`.`carnet`, `st`.`name`, `st`.`last_name`, `ev`.`id` from `enrollments` as `e` inner join `sections` as `s` on `s`.`id` = `e`.`code` inner join `students` as `st` on `st`.`id` = `e`.`student_id` inner join `evaluations` as `ev` on `s`.`id` = `ev`.`section_id` left join `score_evaluations` as `es` on `ev`.`id` = `es`.`evaluation_id` where es.student_id =st.id and (`ev`.`id` = ?) limit 10  
+[2022-12-11 05:39:29] local.EMERGENCY: {"id":38,"name":"Tarea 2","description":"Tarea 2","date":"2022-11-09","percentage":60,"is_public":1,"is_approved":3,"level":2,"principal_id":35,"section_id":1,"created_at":"2022-11-21T08:37:25.000000Z","updated_at":"2022-11-24T23:46:03.000000Z","status":1}  
+[2022-12-11 05:41:07] testing.EMERGENCY: array (
+  'name' => 'a',
+  'description' => 'a',
+  'date' => '2022-12-08',
+  'percentage' => 1,
+  'section_id' => 11,
+  'principal_id' => NULL,
+)  

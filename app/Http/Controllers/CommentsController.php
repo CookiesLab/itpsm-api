@@ -205,7 +205,7 @@ class CommentsController extends Controller
         'jsonapi' => [
           'version' => "1.00"
         ]
-      ], 404);
+      ], 200);
     }
 
     $id = strval($evaluation->id);
