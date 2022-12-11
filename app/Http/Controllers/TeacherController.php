@@ -215,6 +215,14 @@ class TeacherController extends Controller
    *        type="string"
    *      )
    *    ),
+     *      *    @OA\Parameter(
+     *      name="entry_date",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *        type="integer"
+     *      )
+     *    ),
    *
    *    @OA\Parameter(
    *      name="municipality_id",
@@ -244,7 +252,7 @@ class TeacherController extends Controller
    *    ),
    *
    *    @OA\Parameter(
-   *      name="status_id",
+   *      name="status",
    *      in="query",
    *      required=true,
    *      @OA\Schema(
@@ -390,187 +398,186 @@ class TeacherController extends Controller
    *    summary="Update teachers",
    *    description="Update teachers",
    *
-   *    @OA\Parameter(
-   *      name="id",
-   *      in="path",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="last_name",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="birth_date",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        format="date"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="nit",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="dui",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="isss_number",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="nup_number",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="email",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="genre",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="string",
-   *        minLength= 1,
-   *        maxLength= 1
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="address",
-   *      in="query",
-   *      required=false,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="phone_number",
-   *      in="query",
-   *      required=false,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="home_phone_number",
-   *      in="query",
-   *      required=false,
-   *      @OA\Schema(
-   *        type="string"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="municipality_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="department_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="country_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Parameter(
-   *      name="status_id",
-   *      in="query",
-   *      required=true,
-   *      @OA\Schema(
-   *        type="integer"
-   *      )
-   *    ),
-   *
-   *    @OA\Response(
-   *      response=200,
-   *      description="Success",
-   *      @OA\MediaType(
-   *        mediaType="application/json",
-   *      )
-   *    ),
-   *    @OA\Response(
-   *      response=401,
-   *      description="Unauthenticated",
-   *    ),
-   *    @OA\Response(
-   *      response=403,
-   *      description="Forbidden",
-   *    ),
-   *    @OA\Response(
-   *      response=400,
-   *      description="Bad Request"
-   *    ),
-   *    @OA\Response(
-   *      response=404,
-   *      description="Not Found"
-   *    )
-   *  )
-  */
+       *    @OA\Parameter(
+       *      name="name",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="last_name",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="birth_date",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string",
+       *        format="date"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="nit",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="dui",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="isss_number",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="nup_number",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="email",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="genre",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="string",
+       *        minLength= 1,
+       *        maxLength= 1
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="address",
+       *      in="query",
+       *      required=false,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="phone_number",
+       *      in="query",
+       *      required=false,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="home_phone_number",
+       *      in="query",
+       *      required=false,
+       *      @OA\Schema(
+       *        type="string"
+       *      )
+       *    ),
+       *      *    @OA\Parameter(
+       *      name="entry_date",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="integer"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="municipality_id",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="integer"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="department_id",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="integer"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="country_id",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="integer"
+       *      )
+       *    ),
+       *
+       *    @OA\Parameter(
+       *      name="status",
+       *      in="query",
+       *      required=true,
+       *      @OA\Schema(
+       *        type="integer"
+       *      )
+       *    ),
+       *
+       *    @OA\Response(
+       *      response=200,
+       *      description="Success",
+       *      @OA\MediaType(
+       *        mediaType="application/json",
+       *      )
+       *    ),
+       *    @OA\Response(
+       *      response=401,
+       *      description="Unauthenticated",
+       *    ),
+       *    @OA\Response(
+       *      response=403,
+       *      description="Forbidden",
+       *    ),
+       *    @OA\Response(
+       *      response=400,
+       *      description="Bad Request"
+       *    ),
+       *    @OA\Response(
+       *      response=404,
+       *      description="Not Found"
+       *    )
+       *  )
+       */
   public function update(TeacherRequest $request, $data)
   {
     $response = $this->TeacherManagerService->update($request, $data);
@@ -651,7 +658,7 @@ class TeacherController extends Controller
   */
   public function destroy($request)
   {
-   
+
     $response = $this->TeacherManagerService->delete($request);
 
     if (!$response) {
@@ -773,7 +780,7 @@ class TeacherController extends Controller
 
   public function getSections()
   {
-    
+
     $response = $this->TeacherManagerService->getTableRowsWithPaginationSection(request()->all());
 
 
