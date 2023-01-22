@@ -182,6 +182,12 @@ class AuthenticationManager
         "icon" => "GiTeacher",
       ],
       [
+        "id" => 13,
+        "name" => 'Módulos',
+        "redirectTo" => '/dashboard/modulos',
+        "icon" => "VscFileSubmodule",
+      ],
+      [
         "id" => 4,
         "name" => 'Plan de estudios',
         "redirectTo" => '/dashboard/plan-de-estudio',
