@@ -69,6 +69,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('prerequisites', PrerequisiteController::class);
 
+    Route::get('curriculum-subjects/getcurriculabysubjectid', [CurriculumSubjectController::class, "getCurriculaBySubjectId"]);
     Route::apiResource('curriculum-subjects', CurriculumSubjectController::class);
 
     Route::apiResource('scholarships', ScholarshipController::class);
