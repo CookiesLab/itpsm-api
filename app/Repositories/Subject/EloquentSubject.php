@@ -97,6 +97,18 @@ class EloquentSubject implements SubjectInterface
   }
 
   /**
+   * Get a subject by code
+   *
+   * @param  string $code
+   *
+   * @return App\Models\Subject
+   */
+  public function byCode($code)
+  {
+    return $this->Subject->where('code', $code)->first();
+  }
+
+  /**
    * Create a new Subject
    *
    * @param array $data

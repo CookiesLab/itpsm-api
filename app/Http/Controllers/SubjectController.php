@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SubjectRequest;
 use Illuminate\Http\Request;
 use App\Services\Subject\SubjectManager;
+use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
 {
@@ -150,18 +151,36 @@ class SubjectController extends Controller
   */
   public function store(SubjectRequest $request)
   {
-    $response = $this->SubjectManagerService->create($request);
+    $response = []; $httpCode = 201;
+    $subject = $this->SubjectManagerService->getSubjectByCode($request['code']);
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $response['id'],
-        'attributes' => $response['subject']
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 201);
+    if(empty($subject)) {
+      $newSubject = $this->SubjectManagerService->create($request);
+      $response = [
+        'data' => [
+          'type' => $this->responseType,
+          'id' => $newSubject['id'],
+          'attributes' => $newSubject['subject']
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ];
+    }
+    else {
+      $httpCode = 200;
+      $response = [
+        'data' => [ 
+          'error' => true,
+          'message' => 'Ya existe un módulo con el código ' . $request["code"]
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ];
+    }
+
+    return response()->json($response, $httpCode);
   }
 
   /**

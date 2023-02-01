@@ -106,6 +106,11 @@ class SubjectManager
     return $this->Subject->byId($id);
   }
 
+  public function getSubjectByCode($code)
+  {
+    return $this->Subject->byCode($code);
+  }
+
   public function create($request)
   {
     $subject = $this->Subject->create($request->all());
@@ -152,5 +157,10 @@ class SubjectManager
     $this->Subject->delete($id);
 
     return true;
+  }
+
+  public function getSubjectCurricula($data)
+  {
+    return $data;
   }
 }
