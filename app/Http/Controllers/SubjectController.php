@@ -168,7 +168,7 @@ class SubjectController extends Controller
       ];
     }
     else {
-      $httpCode = 200;
+      $httpCode = 422;
       $response = [
         'data' => [ 
           'errors' => [
@@ -340,31 +340,38 @@ class SubjectController extends Controller
   */
   public function update(SubjectRequest $request, $data)
   {
-    $response = $this->SubjectManagerService->update($request, $data);
+    $response = []; $httpCode = 200;
+    $subject = $this->SubjectManagerService->getSubjectByCode($request['code']);
 
-    if (!$response['success']) {
-      return response()->json([
-        'errors' => [
-          'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.notFound')
+    if(empty($subject)) {
+      $updatedSubject = $this->SubjectManagerService->update($request, $data);
+      $response = [
+        'data' => [
+          'type' => $this->responseType,
+          'id' => $updatedSubject['id'],
+          'attributes' => $updatedSubject['subject']
         ],
         'jsonapi' => [
           'version' => "1.00"
         ]
-      ], 404);
+      ];
+    }
+    else {
+      $httpCode = 422;
+      $response = [
+        'data' => [ 
+          'errors' => [
+            'status' => $httpCode,
+            'title' => 'Ya existe un módulo con el código ' . $request["code"]
+          ],
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ];
     }
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $response['id'],
-        'attributes' => $response['subject']
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 200);
+    return response()->json($response, $httpCode);
   }
 
   /**
