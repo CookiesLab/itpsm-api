@@ -171,8 +171,10 @@ class SubjectController extends Controller
       $httpCode = 200;
       $response = [
         'data' => [ 
-          'error' => true,
-          'message' => 'Ya existe un módulo con el código ' . $request["code"]
+          'errors' => [
+            'status' => $httpCode,
+            'title' => 'Ya existe un módulo con el código ' . $request["code"]
+          ],
         ],
         'jsonapi' => [
           'version' => "1.00"
