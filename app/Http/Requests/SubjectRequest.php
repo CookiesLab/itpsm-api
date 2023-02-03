@@ -33,7 +33,11 @@ class SubjectRequest extends FormRequest
     {
       return [
           'name.required' => 'El campo nombre es obligatorio',
+          'name.string' => 'El campo nombre debe ser una cadena de texto',
+          'name.max' => 'El campo nombre solo permite 255 caracteres máximo',
           'code.required' => 'El campo codigo es obligatorio',
+          'code.string' => 'El campo codigo debe ser una cadena de texto',
+          'code.max' => 'El campo codigo permite 6 caracteres máximo'
       ];
     }
 }
