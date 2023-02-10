@@ -134,7 +134,7 @@ class SubjectManager
       ];
     }
 
-    $this->Subject->update($request->all(), $subject);
+    $this->Subject->update(['id' => $request['id'], 'name' => $request['name']], $subject);
     $subject = $this->Subject->byId($id);
     unset($subject->id);
 
