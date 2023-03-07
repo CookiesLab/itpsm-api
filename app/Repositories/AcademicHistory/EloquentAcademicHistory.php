@@ -51,6 +51,11 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
       ->select(
         'c.id',
         'c.subject_id',
+        'c.curriculum_id',
+        'c.totalScore',
+        'c.isEquivalence',
+        'c.year',
+        'c.period'
       );
 
     if (!empty($filter)) {
@@ -87,7 +92,7 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
    *
    * @param  int $id
    *
-   * @return App\Models\Curriculum
+   * @return App\Models\AcademicHistory
    */
   public function byId($id)
   {
@@ -95,19 +100,19 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
   }
 
   /**
-   * Create a new Curriculum
+   * Create a new AcademicHistory
    *
    * @param array $data
    * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
    *
-   * @return App\Models\Curriculum $Curriculum
+   * @return App\Models\AcademicHistory $AcademicHistory
    */
   public function create(array $data)
   {
-    $curriculum = new Curriculum();
-    $curriculum->fill($data)->save();
+    $AcademicHistory = new AcademicHistory();
+    $AcademicHistory->fill($data)->save();
 
-    return $curriculum;
+    return $AcademicHistory;
   }
 
   /**
@@ -116,7 +121,7 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
    * @param array $data
    * 	An array as follows: array('field0'=>$field0, 'field1'=>$field1);
    *
-   * @param App\Models\Curriculum $Curriculum
+   * @param App\Models\AcademicHistory $Curriculum
    *
    * @return boolean
    */
@@ -130,7 +135,7 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
   }
 
   /**
-   * Delete existing Curriculum
+   * Delete existing AcademicHistory
    *
    * @param integer $id
    * 	An Curriculum id

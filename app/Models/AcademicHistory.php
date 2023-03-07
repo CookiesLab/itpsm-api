@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AcademicHistory extends Model
 {
     use HasFactory;
-
+    protected $table = 'academic_history';
     protected $fillable = [
         'subject_id',
         'student_id',

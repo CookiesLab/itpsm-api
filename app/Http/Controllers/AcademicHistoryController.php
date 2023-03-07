@@ -96,12 +96,12 @@ class AcademicHistoryController extends Controller
    */
    /**
    *  @OA\Post(
-   *    path="/api/curricula",
-   *    operationId="postCurricula",
-   *    tags={"Curricula"},
+   *    path="/api/academichistory",
+   *    operationId="postacademichistory",
+   *    tags={"academichistory"},
    * security={{"bearer_token":{}}},
-   *    summary="Create curricula",
-   *    description="Create curricula",
+   *    summary="Create academichistory",
+   *    description="Create academichistory",
    *
    *    @OA\Parameter(
    *      name="name",
@@ -182,9 +182,9 @@ class AcademicHistoryController extends Controller
    *    )
    *  )
   */
-  public function store(CurriculumRequest $request)
+  public function store(AcademicHistoryRequest $request)
   {
-    $response = $this->CurriculumManagerService->create($request);
+    $response = $this->AcademicHistoryManagerService->create($request);
 
     return response()->json([
       'data' => [
