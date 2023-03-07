@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\AcademicHistoryController;
 use App\Http\Controllers\CurriculumSubjectController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\EvaluationController;
@@ -66,6 +67,7 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('subjects', SubjectController::class);
 
     Route::apiResource('curricula', CurriculumController::class);
+    Route::apiResource('academichistory', AcademicHistoryController::class);
 
     Route::apiResource('prerequisites', PrerequisiteController::class);
 
