@@ -8,18 +8,18 @@
  * See COPYRIGHT and LICENSE.
  */
 
-namespace App\Services\Curriculum;
+namespace App\Services\AcademicHistory;
 
-use App\Repositories\Curriculum\CurriculumInterface;
+use App\Repositories\AcademicHistory\AcademicHistoryInterface;
 use Carbon\Carbon;
 
-class CurriculumManager
+class AcademicHistoryManager
 {
   /**
    * Curriculum
    *
-   * @var App\Repositories\Curriculum\CurriculumInterface;
-   *
+   * @var App\Repositories\AcademicHistory\AcademicHistoryInterface;
+   *AcademicHistory
    */
   protected $Curriculum;
 
@@ -40,12 +40,12 @@ class CurriculumManager
   protected $responseType;
 
   public function __construct(
-    CurriculumInterface $Curriculum,
+    AcademicHistoryInterface $Curriculum,
     Carbon $Carbon
   ) {
     $this->Curriculum = $Curriculum;
     $this->Carbon = $Carbon;
-    $this->responseType = 'curricula';
+    $this->responseType = 'academic_history';
   }
 
   public function getTableRowsWithPagination($request, $pager = true, $returnJson = true)

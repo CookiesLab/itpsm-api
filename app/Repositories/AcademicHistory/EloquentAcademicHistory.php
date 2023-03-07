@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\AcademicHistory;
 
-class EloquentCurriculum implements CurriculumInterface
+class EloquentAcademicHistory implements AcademicHistoryInterface
 {
 
   /**
@@ -24,7 +24,7 @@ class EloquentCurriculum implements CurriculumInterface
    * @var App\Models\AcademicHistory;
    *
    */
-  protected $AcademicHistory;
+  protected $Curriculum;
 
   /**
    * DB
@@ -34,7 +34,7 @@ class EloquentCurriculum implements CurriculumInterface
    */
   protected $DB;
 
-  public function __construct(Model $AcademicHistory, DB $DB)
+  public function __construct(Model $Curriculum, DB $DB)
   {
     $this->Curriculum = $Curriculum;
     $this->DB = $DB;

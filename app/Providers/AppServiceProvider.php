@@ -44,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerCareerInterface();
     $this->registerSubjectInterface();
     $this->registerCurriculumInterface();
+    $this->registerAcademicHistoryInterface();
     $this->registerPrerequisiteInterface();
     $this->registerCurriculumSubjectInterface();
     $this->registerScholarshipInterface();
@@ -65,6 +66,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerScheduleManagement();
     $this->registerSubjectManagement();
     $this->registerCurriculumManagement();
+    $this->registerAcademicHistoryManagement();
     $this->registerPrerequisiteManagement();
     $this->registerCurriculumSubjectManagement();
     $this->registerScholarshipManagement();
@@ -285,6 +287,21 @@ class AppServiceProvider extends ServiceProvider
     });
   }
 
+  /**
+   * Register a academicHistory interface instance.
+   *
+   * @return void
+   */
+  protected function registerAcademicHistoryInterface()
+  {
+    $this->app->bind('App\Repositories\AcademicHistory\AcademicHistoryInterface', function ($app) {
+      return new \App\Repositories\AcademicHistory\EloquentAcademicHistory(
+        new \App\Models\AcademicHistory(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
+
 
   /**
    * Register a curriculum interface instance.
@@ -296,6 +313,20 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind('App\Services\Curriculum\CurriculumManager', function ($app) {
       return new \App\Services\Curriculum\CurriculumManager(
         $app->make('App\Repositories\Curriculum\CurriculumInterface'),
+        new Carbon()
+      );
+    });
+  }
+  /**
+   * Register a academicHistory interface instance.
+   *
+   * @return void
+   */
+  protected function registerAcademicHistoryManagement()
+  {
+    $this->app->bind('App\Services\AcademicHistory\AcademicHistoryManager', function ($app) {
+      return new \App\Services\AcademicHistory\AcademicHistoryManager(
+        $app->make('App\Repositories\AcademicHistory\AcademicHistoryInterface'),
         new Carbon()
       );
     });

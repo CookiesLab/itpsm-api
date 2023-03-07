@@ -7,10 +7,10 @@
  * See COPYRIGHT and LICENSE.
  */
 
-namespace App\Repositories\Curriculum;
+namespace App\Repositories\AcademicHistory;
 
 use App\Repositories\RepositoryInterface;
 
-interface CurriculumInterface extends RepositoryInterface {
+interface AcademicHistoryInterface extends RepositoryInterface {
 
 }

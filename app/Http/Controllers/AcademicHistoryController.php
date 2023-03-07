@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CurriculumRequest;
+use App\Http\Requests\AcademicHistoryRequest;
 use Illuminate\Http\Request;
-use App\Services\Curriculum\CurriculumManager;
+use App\Services\AcademicHistory\AcademicHistoryManager;
 
 class AcademicHistoryController extends Controller
 {
   /**
    * Curriculum Manager Service
    *
-   * @var App\Services\CurriculumManager\CurriculumManagementInterface;
+   * @var App\Services\AcademicHistoryManager\AcademicHistoryManagementInterface;
    *
    */
-  protected $CurriculumManagerService;
+  protected $AcademicHistoryManagerService;
 
   /**
    * responseType
@@ -25,9 +25,9 @@ class AcademicHistoryController extends Controller
   protected $responseType;
 
   public function __construct(
-    CurriculumManager $CurriculumManagerService
+    AcademicHistoryManager $AcademicHistoryManagerService
   ) {
-    $this->CurriculumManagerService = $CurriculumManagerService;
+    $this->AcademicHistoryManagerService = $AcademicHistoryManagerService;
     $this->responseType = 'curricula';
   }
 
@@ -37,15 +37,15 @@ class AcademicHistoryController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-   /** 
+   /**
    *  @OA\Get(
-   *    path="/api/curricula",
+   *    path="/api/AcademicHistory",
    *    operationId="getCurricula",
-   *    tags={"Curricula"},
+   *    tags={"AcademicHistory"},
    * security={{"bearer_token":{}}},
-   *    summary="Get curricula list",
-   *    description="Returns curricula list",
-   * 
+   *    summary="Get AcademicHistory list",
+   *    description="Returns AcademicHistory list",
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -73,7 +73,7 @@ class AcademicHistoryController extends Controller
   */
   public function index()
   {
-    $response = $this->CurriculumManagerService->getTableRowsWithPagination(request()->all());
+    $response = $this->AcademicHistoryManagerService->getTableRowsWithPagination(request()->all());
 
     return response()->json([
       'meta' => [
@@ -94,7 +94,7 @@ class AcademicHistoryController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-   /** 
+   /**
    *  @OA\Post(
    *    path="/api/curricula",
    *    operationId="postCurricula",
@@ -102,7 +102,7 @@ class AcademicHistoryController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Create curricula",
    *    description="Create curricula",
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -112,7 +112,7 @@ class AcademicHistoryController extends Controller
    *        type="string",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="year",
    *      in="query",
@@ -122,7 +122,7 @@ class AcademicHistoryController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="is_active",
    *      in="query",
@@ -134,7 +134,7 @@ class AcademicHistoryController extends Controller
    *        maximum=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
@@ -146,7 +146,7 @@ class AcademicHistoryController extends Controller
    *        maximum=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="career_id",
    *      in="query",
@@ -156,7 +156,7 @@ class AcademicHistoryController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -204,7 +204,7 @@ class AcademicHistoryController extends Controller
    * @param  \App\Models\Curriculum  $Curriculum
    * @return \Illuminate\Http\Response
    */
-  /** 
+  /**
    *  @OA\Get(
    *    path="/api/curricula/{id}",
    *    operationId="get curricula by id",
@@ -212,7 +212,7 @@ class AcademicHistoryController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Get curricula by id",
    *    description="Returns curricula by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -222,7 +222,7 @@ class AcademicHistoryController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -287,7 +287,7 @@ class AcademicHistoryController extends Controller
    * @param  \App\Models\Curriculum  $Curriculum
    * @return \Illuminate\Http\Response
    */
-    /** 
+    /**
    *  @OA\Put(
    *    path="/api/curricula/{id}",
    *    operationId="putCurricula",
@@ -295,7 +295,7 @@ class AcademicHistoryController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Update curricula",
    *    description="Update curricula",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -305,7 +305,7 @@ class AcademicHistoryController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="name",
    *      in="query",
@@ -314,7 +314,7 @@ class AcademicHistoryController extends Controller
    *        type="string"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="year",
    *      in="query",
@@ -324,7 +324,7 @@ class AcademicHistoryController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="is_active",
    *      in="query",
@@ -336,7 +336,7 @@ class AcademicHistoryController extends Controller
    *        maximum=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="is_approved",
    *      in="query",
@@ -348,7 +348,7 @@ class AcademicHistoryController extends Controller
    *        maximum=1
    *      )
    *    ),
-   * 
+   *
    *    @OA\Parameter(
    *      name="career_id",
    *      in="query",
@@ -358,7 +358,7 @@ class AcademicHistoryController extends Controller
    *        type="integer",
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
@@ -419,7 +419,7 @@ class AcademicHistoryController extends Controller
    * @param  \App\Models\Curriculum  $Curriculum
    * @return \Illuminate\Http\Response
    */
-  /** 
+  /**
    *  @OA\Delete(
    *    path="/api/curricula/{id}",
    *    operationId="delete curricula by id",
@@ -427,7 +427,7 @@ class AcademicHistoryController extends Controller
    * security={{"bearer_token":{}}},
    *    summary="Delete curricula by id",
    *    description="Deletes curricula by id",
-   * 
+   *
    *    @OA\Parameter(
    *      name="id",
    *      in="path",
@@ -437,7 +437,7 @@ class AcademicHistoryController extends Controller
    *        type="integer"
    *      )
    *    ),
-   * 
+   *
    *    @OA\Response(
    *      response=200,
    *      description="Success",
