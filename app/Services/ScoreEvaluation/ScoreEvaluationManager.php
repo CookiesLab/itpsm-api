@@ -150,13 +150,18 @@ class ScoreEvaluationManager
     $scoreEvaluation = $this->ScoreEvaluation->byId($id);
     unset($scoreEvaluation->id);
   $evaluation=$this->Evaluation->byId($id['evaluation_id']);
-    Log::emergency($evaluation->principal_id);
-    $evaluations=$this->Evaluation->get_subEvals($evaluation->principal_id);
+
+    $evaluations=[];
+    if($evaluation->principal_id!=null){
+      $evaluations=$this->Evaluation->get_subEvals($evaluation->principal_id);
+    }
+
     $nota=0;
+
     foreach($evaluations as $eval){
       $id['evaluation_id']=$eval->id;
       $data=$this->ScoreEvaluation->byId($id);
-      LOg::emergency($data);
+      Log::emergency($data);
       $nota+= $data->score*$eval->percentage;
     }
     LOg::emergency($nota/100);
