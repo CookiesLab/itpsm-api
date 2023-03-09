@@ -122,6 +122,71 @@ class CurriculumSubjectManager
   {
     return $this->CurriculumSubject->byId($id);
   }
+  
+  public function getCurriculaBySubject($request, $pager = false)
+  {
+    $rows = [];
+    $filter = $sortColumn = $sortOrder = '';
+    $id = $limit = $offset = $count = $page = $totalPages = 0;
+
+    if (!empty($request['id']))
+    {
+      $id = $request['id'];
+    }
+    else 
+    {
+      return [
+        'rows' => $rows,
+        'page' => 0,
+        'totalPages' => 0,
+        'records' => 0
+      ];
+    }
+
+    if (!empty($request['filter']))
+    {
+      $filter = $request['filter'];
+    }
+
+    if (!empty($request['sort']) && $request['sort'][0] == '-')
+    {
+      $sortColumn = substr($request['sort'], 1);
+      $sortOrder = 'desc';
+    }
+    else if (!empty($request['sort']))
+    {
+      $sortColumn = $request['sort'];
+      $sortOrder = 'asc';
+    }
+    else
+    {
+      $sortColumn = 'id';
+      $sortOrder = 'asc';
+    }
+
+    if ($pager)
+    {
+      $count = $this->CurriculumSubject->getCurriculaBySubject($id, true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
+    }
+    $this->CurriculumSubject->getCurriculaBySubject($id, false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($curriculum) use (&$rows) {
+      $id = strval($curriculum->id);
+      unset($curriculum->id);
+
+      array_push($rows, [
+        'type' => $this->responseType,
+        'id' => $id,
+        'attributes' => $curriculum
+      ]);
+    });
+    
+    return [
+      'rows' => $rows,
+      'page' => $page,
+      'totalPages' => $totalPages,
+      'records' => $count,
+    ];
+  }
 
   public function create($request)
   {

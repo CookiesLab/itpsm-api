@@ -57,7 +57,7 @@ class EloquentSubject implements SubjectInterface
 
     if (!empty($filter)) {
       $query->where(function ($dbQuery) use ($filter) {
-        foreach (['name', 'email'] as $key => $value) {
+        foreach (['name', 'code'] as $key => $value) {
           $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
           //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
         }
@@ -94,6 +94,18 @@ class EloquentSubject implements SubjectInterface
   public function byId($id)
   {
     return $this->Subject->find($id);
+  }
+
+  /**
+   * Get a subject by code
+   *
+   * @param  string $code
+   *
+   * @return App\Models\Subject
+   */
+  public function byCode($code)
+  {
+    return $this->Subject->where('code', $code)->first();
   }
 
   /**

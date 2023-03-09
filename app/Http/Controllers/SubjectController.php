@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SubjectRequest;
 use Illuminate\Http\Request;
 use App\Services\Subject\SubjectManager;
+use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
 {
@@ -150,18 +151,40 @@ class SubjectController extends Controller
   */
   public function store(SubjectRequest $request)
   {
-    $response = $this->SubjectManagerService->create($request);
+    $response = []; $httpCode = 201;
+    $subject = $this->SubjectManagerService->getSubjectByCode($request['code']);
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $response['id'],
-        'attributes' => $response['subject']
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 201);
+    if(empty($subject)) {
+      $newSubject = $this->SubjectManagerService->create($request);
+      $response = [
+        'data' => [
+          'type' => $this->responseType,
+          'id' => $newSubject['id'],
+          'attributes' => $newSubject['subject']
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ];
+    }
+    else {
+      $httpCode = 200;
+      $response = [
+        'data' => [ 
+          'errors' => [
+            [
+              'status' => $httpCode,
+              'title' => 'Ya existe un módulo con el código ' . $request["code"]
+            ]
+          ],
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ];
+    }
+
+    return response()->json($response, $httpCode);
   }
 
   /**
@@ -319,31 +342,68 @@ class SubjectController extends Controller
   */
   public function update(SubjectRequest $request, $data)
   {
-    $response = $this->SubjectManagerService->update($request, $data);
+    $response = []; $httpCode = 200;
+    $updatedSubject = $this->SubjectManagerService->update($request, $data);
 
-    if (!$response['success']) {
-      return response()->json([
-        'errors' => [
-          'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.notFound')
+    if($updatedSubject['success'])
+      $response = [
+        'data' => [
+          'type' => $this->responseType,
+          'id' => $updatedSubject['id'],
+          'attributes' => $updatedSubject['subject']
         ],
         'jsonapi' => [
           'version' => "1.00"
         ]
-      ], 404);
-    }
+      ];
+    else
+      $response = [
+        'data' => [ 
+          'errors' => [
+            [
+              'status' => $httpCode,
+              'title' => 'El registro no pudo ser actualizado'
+            ]
+          ],
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ];
+    
+    // $subject = $this->SubjectManagerService->getSubjectByCode($request['code']);
 
-    return response()->json([
-      'data' => [
-        'type' => $this->responseType,
-        'id' => $response['id'],
-        'attributes' => $response['subject']
-      ],
-      'jsonapi' => [
-        'version' => "1.00"
-      ]
-    ], 200);
+    // if(empty($subject)) {
+    //   $updatedSubject = $this->SubjectManagerService->update($request, $data);
+      // $response = [
+      //   'data' => [
+      //     'type' => $this->responseType,
+      //     'id' => $updatedSubject['id'],
+      //     'attributes' => $updatedSubject['subject']
+      //   ],
+      //   'jsonapi' => [
+      //     'version' => "1.00"
+      //   ]
+      // ];
+    // }
+    // else {
+    //   $httpCode = 200;
+    // $response = [
+    //   'data' => [ 
+    //     'errors' => [
+    //       [
+    //         'status' => $httpCode,
+    //         'title' => 'Ya existe un módulo con el código ' . $request["code"]
+    //       ]
+    //     ],
+    //   ],
+    //   'jsonapi' => [
+    //     'version' => "1.00"
+    //   ]
+    // ];
+    // }
+
+    return response()->json($response, $httpCode);
   }
 
   /**

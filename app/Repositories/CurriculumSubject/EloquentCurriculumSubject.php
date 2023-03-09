@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\CurriculumSubject;
+use Illuminate\Support\Facades\Log;
 
 class EloquentCurriculumSubject implements CurriculumSubjectInterface
 {
@@ -151,6 +152,54 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
         ->whereNull('cs.deleted_at')
         ->get()
     );
+  }
+
+  /**
+   * Retrieve list of curricula associated to a subject
+   *
+   * @return Illuminate\Database\Eloquent\Collection
+   */
+  public function getCurriculaBySubject($id, $count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
+  {
+    $query = $this->DB::table('curriculum_subjects as cs')
+      ->select(
+        'c.id',
+        'c.name',
+        'c.year',
+        'c.is_active',
+        'ca.id as career_id',
+        'ca.name as career_name'
+      )
+      ->join('curricula as c', 'cs.curriculum_id', '=', 'c.id')
+      ->join('careers as ca', 'c.career_id', '=', 'ca.id')
+      ->where('cs.subject_id', $id)
+      ->whereNull('cs.deleted_at');
+
+    if (!empty($filter)) {
+      $query->where(function ($dbQuery) use ($filter) {
+        foreach (['c.name', 'c.year', 'ca.name'] as $key => $value) {
+          $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
+        }
+      });
+    }
+
+    if ($count) {
+      return $query->count();
+    }
+
+    if (!empty($sortColumn) && !empty($sortOrder)) {
+      $query->orderBy($sortColumn, $sortOrder);
+    }
+
+    if (!empty($limit)) {
+      $query->take($limit);
+    }
+
+    if (!empty($offset) && $offset != 0) {
+      $query->skip($offset);
+    }
+
+    return new Collection($query->get());
   }
 
   /**
