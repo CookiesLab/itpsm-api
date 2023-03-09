@@ -471,6 +471,7 @@ class AppServiceProvider extends ServiceProvider
         new \App\Models\StudentCurriculum(),
         new \App\Models\Enrollment(),
         new \App\Models\Period(),
+        new \App\Models\AcademicHistory(),
         new \Illuminate\Support\Facades\DB()
       );
     });

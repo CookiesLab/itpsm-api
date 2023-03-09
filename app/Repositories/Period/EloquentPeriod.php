@@ -47,12 +47,12 @@ class EloquentPeriod implements PeriodInterface
    */
   protected $DB;
 
-  public function __construct(Model $CurriculumSubject,Model $StudentCurriculum,Model $Enrollment,Model $Period,  DB $DB)
+  public function __construct(Model $CurriculumSubject,Model $StudentCurriculum,Model $Enrollment,Model $Period,Model $AcademicHistory, DB $DB)
   {
     $this->CurriculumSubject=$CurriculumSubject;
     $this->StudentCurriculum=$StudentCurriculum;
     $this->Enrollment=$Enrollment;
-//    $this->AcademicHistory=$AcademicHistory;
+    $this->AcademicHistory=$AcademicHistory;
     $this->Period = $Period;
     $this->DB = $DB;
   }
@@ -225,18 +225,18 @@ class EloquentPeriod implements PeriodInterface
         $curriculumxsubject= $this->DB::table('curriculum_subjects AS s')
           ->where('s.id', '=', $section->curriculum_subject_id->get());
 
-//        $studentAchistory= $academicHistory;
-//        $studentAchistory->student_id=$student->id;
-//        $studentAchistory->totalScore=$total;
-//        $studentAchistory->isEquivalence=0;
-//        $studentAchistory->year=date('Y');
-//        $studentAchistory->year=date('m');
-//        $studentAchistory->subject_id=$curriculumxsubject->subject_id;
-//        $studentAchistory->curriculum_id=$students->curriculum_id;
-//        $studentAchistory->save();
-//
-//
-//
+        $studentAchistory= $this->AcademicHistory;
+        $studentAchistory->student_id=$student->id;
+        $studentAchistory->totalScore=$total;
+        $studentAchistory->isEquivalence=0;
+        $studentAchistory->year=date('Y');
+        $studentAchistory->year=date('m');
+        $studentAchistory->subject_id=$curriculumxsubject->subject_id;
+        $studentAchistory->curriculum_id=$students->curriculum_id;
+        $studentAchistory->save();
+
+
+
 
 
 
