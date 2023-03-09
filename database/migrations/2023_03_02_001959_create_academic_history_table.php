@@ -21,9 +21,10 @@ return new class extends Migration
             $table->unsignedBigInteger('curriculum_id');
             $table->foreign('curriculum_id')->references('curriculum_id')->on('student_curricula')->nullable();
             $table->float('totalScore');
-            $table->boolean('IsEquivalence');
+            $table->boolean('IsEquivalence')->default(0);
             $table->integer('year');
             $table->integer('period');
+            $table->timestamps();
         });
     }
 

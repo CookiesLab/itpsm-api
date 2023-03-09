@@ -17,13 +17,17 @@ use App\Models\Period;
 use App\Models\Enrollment;
 use App\Models\StudentCurriculum;
 use App\Models\CurriculumSubject;
+use App\Models\AcademicHistory;
 use Illuminate\Support\Facades\Log;
+
+
 
 class EloquentPeriod implements PeriodInterface
 {
   protected $CurriculumSubject;
   protected $StudentCurriculum;
   protected $Enrollment;
+  protected $AcademicHistory;
 
   /**
    * Period
@@ -33,6 +37,8 @@ class EloquentPeriod implements PeriodInterface
    */
   protected $Period;
 
+
+
   /**
    * DB
    *
@@ -41,11 +47,12 @@ class EloquentPeriod implements PeriodInterface
    */
   protected $DB;
 
-  public function __construct(Model $CurriculumSubject,Model $StudentCurriculum,Model $Enrollment,Model $Period, DB $DB)
+  public function __construct(Model $CurriculumSubject,Model $StudentCurriculum,Model $Enrollment,Model $Period,  DB $DB)
   {
     $this->CurriculumSubject=$CurriculumSubject;
     $this->StudentCurriculum=$StudentCurriculum;
     $this->Enrollment=$Enrollment;
+//    $this->AcademicHistory=$AcademicHistory;
     $this->Period = $Period;
     $this->DB = $DB;
   }
@@ -205,15 +212,33 @@ class EloquentPeriod implements PeriodInterface
           if(!empty($grade)){
             $total += $grade->score*$evaluation->percentage/100;
           }
-
         }
         $student->final_score=$total;
+
+        // hola
         if($total>6){
           $student->is_approved=1;
         }else{
           $student->is_approved=0;
         }
         $student->save();
+        $curriculumxsubject= $this->DB::table('curriculum_subjects AS s')
+          ->where('s.id', '=', $section->curriculum_subject_id->get());
+
+//        $studentAchistory= $academicHistory;
+//        $studentAchistory->student_id=$student->id;
+//        $studentAchistory->totalScore=$total;
+//        $studentAchistory->isEquivalence=0;
+//        $studentAchistory->year=date('Y');
+//        $studentAchistory->year=date('m');
+//        $studentAchistory->subject_id=$curriculumxsubject->subject_id;
+//        $studentAchistory->curriculum_id=$students->curriculum_id;
+//        $studentAchistory->save();
+//
+//
+//
+
+
 
       }
     }
