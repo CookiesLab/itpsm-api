@@ -122,7 +122,11 @@ class CurriculumSubjectManager
   {
     return $this->CurriculumSubject->byId($id);
   }
-  
+  public function getSubjectsByStudentId($id)
+  {
+    return $this->CurriculumSubject->getSubjectsByStudentId($id);
+  }
+
   public function getCurriculaBySubject($request, $pager = false)
   {
     $rows = [];
@@ -133,7 +137,7 @@ class CurriculumSubjectManager
     {
       $id = $request['id'];
     }
-    else 
+    else
     {
       return [
         'rows' => $rows,
@@ -179,7 +183,7 @@ class CurriculumSubjectManager
         'attributes' => $curriculum
       ]);
     });
-    
+
     return [
       'rows' => $rows,
       'page' => $page,

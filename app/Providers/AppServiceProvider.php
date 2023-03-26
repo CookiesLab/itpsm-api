@@ -67,6 +67,7 @@ class AppServiceProvider extends ServiceProvider
     $this->registerSubjectManagement();
     $this->registerCurriculumManagement();
     $this->registerAcademicHistoryManagement();
+    $this->registerEquivalenceInterface();
     $this->registerPrerequisiteManagement();
     $this->registerCurriculumSubjectManagement();
     $this->registerScholarshipManagement();
@@ -302,6 +303,25 @@ class AppServiceProvider extends ServiceProvider
     });
   }
 
+  /**
+   * Register a academicHistory interface instance.
+   *
+   * @return void
+   */
+  protected function registerEquivalenceInterface()
+  {
+    $this->app->bind('App\Repositories\Equivalence\EquivalenceInterface', function ($app) {
+      return new \App\Repositories\Equivalence\EloquentEquivalence(
+        new \App\Models\Equivalence(),
+        new \App\Models\AcademicHistory(),
+        new \App\Models\StudentCurriculum(),
+        new \App\Models\CurriculumSubject(),
+        new \App\Models\Subject(),
+        new \App\Models\Enrollment(),
+        new \Illuminate\Support\Facades\DB()
+      );
+    });
+  }
 
   /**
    * Register a curriculum interface instance.

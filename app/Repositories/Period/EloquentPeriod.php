@@ -197,6 +197,7 @@ class EloquentPeriod implements PeriodInterface
       $sections = $this->DB::table('sections AS s')
         ->where('s.period_id', '=', $data['id'])->get();
         foreach ($sections as $section) {
+
           //obtener estudiantes en la sección
           $students = $this->Enrollment->where('code', '=', $section->id)->get();
           //obtener las evaluaciones de esta sección
@@ -204,6 +205,7 @@ class EloquentPeriod implements PeriodInterface
           ->where('e.section_id', '=', $section->id)->where('e.status', '!=', null)->get();
 
           foreach ($students as $student) {
+
             $total = 0;
             foreach ($evaluations as $evaluation) { // calcular nota final del curso
               $grade = $this->DB::table('score_evaluations AS e')
@@ -255,9 +257,9 @@ class EloquentPeriod implements PeriodInterface
           }
           $curriculum = $this->StudentCurriculum->where('student_id', '=', $student->student_id)->first();
           if($curriculum != null) {
-            Log::emergency("Data estudiante");
-            Log::emergency($curriculum);
-            Log::emergency( $curriculum->uv_total);
+//            Log::emergency("Data estudiante");
+//            Log::emergency($curriculum);
+//            Log::emergency( $curriculum->uv_total);
             $curriculum->uv = $uv_a;
             $curriculum->level = $curriculum->uv / $curriculum->uv_total;
             $curriculum->level = $curriculum->level + 1;
@@ -267,14 +269,13 @@ class EloquentPeriod implements PeriodInterface
               $curriculum->cum = 0.00;
             }
 
-            Log::emergency("estudiante al final");
-            Log::emergency($curriculum);
+//            Log::emergency("estudiante al final");
+//            Log::emergency($curriculum);
             $curriculumid=$curriculum->curriculum_id;
             $curriculum->save();
 
             //HISTORIAL ACADEMICO POR ESTUDIANTE
-//        Log::emergency($section->curriculum_subject_id);
-//          Log::emergency($curriculumxsubject);
+
             $studentAchistory = new $this->AcademicHistory;
             $studentAchistory->student_id = $student->student_id;
             $studentAchistory->totalScore = $total;
