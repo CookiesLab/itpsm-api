@@ -328,4 +328,40 @@ class StudentCurriculaController extends Controller
       ]
     ], 200);
   }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Models\StudentCurricula  $StudentCurricula
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function showbystudentid($id)
+  {
+    $studentCurricula = $this->StudentCurriculaManagerService->getStudentCurriculabyStudentid($id);
+
+    if (empty($studentCurricula)) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.StudentCurriculaNotFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'attributes' => $studentCurricula
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
 }
+
+

@@ -111,6 +111,11 @@ class StudentCurriculaManager
     return $this->StudentCurricula->byId($id);
   }
 
+  public function getStudentCurriculabyStudentid($id)
+  {
+    return $this->StudentCurricula->byStudentId($id);
+  }
+
   public function getActiveCurriculaByStudentId($studentId)
   {
     return $this->StudentCurricula->activeCurriculaByStudentId($studentId);

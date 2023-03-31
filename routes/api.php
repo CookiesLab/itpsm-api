@@ -43,7 +43,7 @@ Route::middleware('auth:api')->group(function () {
   Route::apiResource('comments', CommentsController::class);
   Route::get('enrollments_student/{id}', [EnrollmentController::class, 'periods_student']);
   Route::apiResource('student-curricula', StudentCurriculaController::class);
-
+  Route::get('student/student-curricula/{id}', [StudentCurriculaController::class,"showbystudentid"]);
 
 
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -80,6 +80,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('curriculum-subjects/getcurriculabysubjectid', [CurriculumSubjectController::class, "getCurriculaBySubjectId"]);
 
     Route::get('curriculum-subjects/getsubjectsbystudentid/{id}',[CurriculumSubjectController::class, "getSubjectsByStudentId"]);
+
+
 
     Route::apiResource('curriculum-subjects', CurriculumSubjectController::class);
 

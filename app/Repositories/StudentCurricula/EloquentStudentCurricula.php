@@ -154,6 +154,37 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
       ->first();
   }
 
+  /**
+   * Get an StudentCurriculum by id with joins
+   *
+   * @param  int $id
+   *
+   * @return App\Models\StudentCurriculum
+   */
+  public function byStudentId($id)
+  {
+    return new Collection(
+      $this->DB::table('student_curricula AS sc')
+        ->select(
+          'sc.cum',
+          'sc.entry_year',
+          'sc.uv',
+          'c.name as cucrriculaname',
+          'sc.graduation_year',
+          'sc.scholarship_rate',
+          'sc.scholarship_id',
+          'sc.status',
+          'student_id',
+          'uv_total'
+        )
+        ->join('curricula as c', 'c.id', '=', 'sc.curriculum_id')
+        ->where('sc.student_id', $id)
+        ->orderBy('sc.student_id', 'asc')
+//        ->whereNull('cs.deleted_at')
+        ->get()
+    );
+  }
+
   public function activeCurriculaByStudentId($studentId)
   {
     return $this->StudentCurriculum
