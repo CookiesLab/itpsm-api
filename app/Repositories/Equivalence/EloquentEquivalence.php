@@ -202,8 +202,6 @@ class EloquentEquivalence implements EquivalenceInterface
 
     $equivalence = new $this->Curriculum();
     if($data["IsInnerEquivalence"]==0) {
-      Log::emergency($data);
-
 
       $equivalence->AcademicHistory_id = $studentAchistory->id;
       $equivalence->subjectname = $data["subjectname"];
@@ -212,13 +210,18 @@ class EloquentEquivalence implements EquivalenceInterface
       $equivalence->IsinnerEquivalence = 0;
 
     }else{
+      Log::emergency("Inner Equivalence");
+      Log::emergency($data);
+      $subjectname = $this->Subject->where('id','=',$data["curriculum_subject_id"])->first();
+      Log::emergency($subjectname);
       $equivalence = new $this->Curriculum();
-      $equivalence->subjectname = $data["subjectname"];
-      $equivalence->institution = $data["institution"];
+      $equivalence->subjectname = $subjectname->name;
+      $equivalence->institution = "INSTITUTO TECNOLOGICO PADRE SEGUNDO MONTES";
       $equivalence->subject_id = $data["curriculum_subject_id"];
       $equivalence->IsinnerEquivalence = 1;
 
     }
+    Log::emergency($equivalence);
     $equivalence->save();
 
     //recalcular cum

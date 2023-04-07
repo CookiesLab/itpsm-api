@@ -15,8 +15,8 @@ return new class extends Migration
     {
       Schema::create('equivalence', function (Blueprint $table) {
         $table->id();
-        $table->unsignedBigInteger('AcademicHistory_id');
-        $table->foreign('AcademicHistory_id')->references('id')->on('academic_history')->nullable();
+        $table->unsignedBigInteger('AcademicHistory_id')->nullable();
+        $table->foreign('AcademicHistory_id')->references('id')->on('academic_history');
         $table->unsignedBigInteger('subject_id')->nullable();
         $table->string("subjectName");
         $table->string("institution");

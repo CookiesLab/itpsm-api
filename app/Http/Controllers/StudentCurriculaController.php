@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentCurriculaRequest;
 use Illuminate\Http\Request;
 use App\Services\StudentCurricula\StudentCurriculaManager;
+use App\Services\Curriculum\Curriculum;
+use Illuminate\Support\Facades\Log;
+
 
 class StudentCurriculaController extends Controller
 {
@@ -15,6 +18,13 @@ class StudentCurriculaController extends Controller
    *
    */
   protected $StudentCurriculaManagerService;
+  /**
+   * Curriculum Manager Service
+   *
+   * @var App\Services\CurriculumManager\CurriculumManagementInterface;
+   *
+   */
+  protected $CurriculumManagerService;
 
   /**
    * responseType
@@ -338,6 +348,11 @@ class StudentCurriculaController extends Controller
   public function showbystudentid($id)
   {
     $studentCurricula = $this->StudentCurriculaManagerService->getStudentCurriculabyStudentid($id);
+    $studentcoll= $studentCurricula->first();
+
+    Log::Emergency($studentcoll->curriculum_id);
+    $curriculum=$this->CurriculumManagerService->getCurriculum($studentcoll->curriculum_id);
+//    Log::Emergency($studentCurricula[0]['curriculum_id']);
 
     if (empty($studentCurricula)) {
       return response()->json([
@@ -351,6 +366,7 @@ class StudentCurriculaController extends Controller
         ]
       ], 404);
     }
+
 
     return response()->json([
       'data' => [

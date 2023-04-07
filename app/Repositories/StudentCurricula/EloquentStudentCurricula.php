@@ -26,6 +26,15 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
    *
    */
   protected $SubjectCurriculum;
+
+  /**
+   * Curriculum
+   *
+   * @var App\Models\Curriculum;
+   *
+   */
+  protected $curriculum;
+
   /**
    * StudentCurriculum
    *
@@ -170,6 +179,7 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
           'sc.entry_year',
           'sc.uv',
           'c.name as cucrriculaname',
+          'sc.curriculum_id',
           'sc.graduation_year',
           'sc.scholarship_rate',
           'sc.scholarship_id',
