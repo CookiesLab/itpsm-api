@@ -211,10 +211,12 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
   {
 
       $query = \DB::table("subjects as s")
-        ->select(\DB::raw('s.*,(select count(*) from enrollments e where e.curriculum_subject_id= cs.id and e.student_id= sc.student_id and is_approved = 1) as enr'))
+        ->select(\DB::raw('s.*,e2.final_score'))
         ->join('curriculum_subjects as cs', 'cs.id','=','s.id')
         ->join('student_curricula as sc', 'cs.curriculum_id','=','sc.curriculum_id')
+        ->leftjoin('enrollments as e2','e2.curriculum_subject_id', '=','cs.id')
         ->where('sc.student_id', $id)
+        ->whereNull('e2.final_score')
         ->get();
 
     return new Collection($query);

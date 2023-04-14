@@ -161,7 +161,8 @@ class EloquentEquivalence implements EquivalenceInterface
         'e.subjectname',
         'e.institution',
         'e.IsinnerEquivalence',
-        'ah.student_id'
+        'ah.student_id',
+        'ah.totalScore'
       )->join('academic_history as ah','ah.id', '=','e.AcademicHistory_id')
       ->join('subjects as s', 's.id', '=', 'e.subject_id')
       ->where('ah.student_id','=',$id);
