@@ -351,8 +351,8 @@ class StudentCurriculaController extends Controller
     $studentcoll= $studentCurricula->first();
 
     Log::Emergency($studentcoll->curriculum_id);
-    $curriculum=$this->CurriculumManagerService->getCurriculum($studentcoll->curriculum_id);
-//    Log::Emergency($studentCurricula[0]['curriculum_id']);
+//    $curriculum=$this->CurriculumManagerService->getCurriculum($studentcoll->curriculum_id);
+    //Log::Emergency($studentCurricula[0]['curriculum_id']);
 
     if (empty($studentCurricula)) {
       return response()->json([
