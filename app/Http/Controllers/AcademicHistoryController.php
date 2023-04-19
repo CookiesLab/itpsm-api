@@ -250,7 +250,7 @@ class AcademicHistoryController extends Controller
   */
   public function show($id)
   {
-    $curriculum = $this->CurriculumManagerService->getCurriculum($id);
+    $curriculum = $this->AcademicHistoryManagerService->getCurriculum($id);
 
     if (empty($curriculum)) {
       return response()->json([
@@ -265,8 +265,8 @@ class AcademicHistoryController extends Controller
       ], 404);
     }
 
-    $id = strval($curriculum->id);
-    unset($curriculum->id);
+//    $id = strval($curriculum->id);
+//    unset($curriculum->id);
 
     return response()->json([
       'data' => [

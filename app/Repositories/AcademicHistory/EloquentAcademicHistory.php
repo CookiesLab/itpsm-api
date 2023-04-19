@@ -96,7 +96,19 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
    */
   public function byId($id)
   {
-    return $this->Curriculum->find($id);
+    $query = $this->DB::table('academic_history as ah')
+      ->select(
+        'ah.id',
+        's.name',
+        'ah.totalScore',
+        'ah.period',
+        'ah.year'
+      )->join('subjects as s','s.id', '=','ah.subject_id')
+      ->where('ah.student_id','=',$id);
+
+    return new Collection(
+      $query->get()
+    );
   }
 
   /**
