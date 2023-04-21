@@ -87,8 +87,6 @@ Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('scholarships', ScholarshipController::class);
 
-
-
     Route::apiResource('periods', PeriodController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('sections', SectionController::class);
@@ -117,6 +115,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('section/getsubjects/{id}', [SectionController::class, 'getSectionsforStudent']);
     Route::get('evaluations/student/{id}', [EvaluationController::class, 'getEvaluationsforStudent']);
     Route::post('enrollment/enroll-subjects', [EnrollmentController::class, 'enrollSubjects'])->name('enrollment.enroll-subjects');
+    Route::get('getequivalence/{id}', [EquivalenceController::class, 'getEquivalenceForStudents']);
+    Route::get('getacademichistory/{id}', [AcademicHistoryController::class,'show']);
 
     Route::get('enrollment/active-subjects', [EnrollmentController::class, 'getSubjectsToBeEnrolled'])->name('enrollment.active-subjects');
 

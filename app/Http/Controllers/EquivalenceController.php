@@ -281,6 +281,38 @@ class EquivalenceController extends Controller
     ], 200);
   }
 
+  public function getEquivalenceForStudents($id)
+  {
+    $curriculum = $this->EquivalenceManagerService->getCurriculum($id);
+
+    if (empty($curriculum)) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.EquivalencenotFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+//    $id = strval($curriculum->id);
+//    unset($curriculum->id);
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'id' => $id,
+        'attributes' => $curriculum
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
   /**
    * Update the specified resource in storage.
    *

@@ -236,7 +236,7 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
     $curriculumSubject->fill($data)->save();
 
     return $curriculumSubject;
-  }
+  } 
 
   /**
    * Update an existing CurriculumSubject
