@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\AcademicHistory;
+use App\Models\Enrollment;
 
 class EloquentAcademicHistory implements AcademicHistoryInterface
 {
@@ -25,6 +26,14 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
    *
    */
   protected $Curriculum;
+
+    /**
+   * Enrollment
+   *
+   * @var App\Models\Enrollment;
+   *
+   */
+  protected $Enrollment;
 
   /**
    * DB
@@ -96,15 +105,21 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
    */
   public function byId($id)
   {
-    $query = $this->DB::table('academic_history as ah')
+    // $query = $this->DB::table('enrollments as e')
+    // ->join('subjects s2','s2.id', '=','e.curriculum_subject_id ');
+    $query = $this->DB::table('enrollments as e')
       ->select(
-        'ah.id',
-        's.name',
-        'ah.totalScore',
-        'ah.period',
-        'ah.year'
-      )->join('subjects as s','s.id', '=','ah.subject_id')
-      ->where('ah.student_id','=',$id);
+        's2.name',
+        'e.final_score',
+        'e.is_approved',
+        DB::raw("concat(t.name,' ',t.last_name) as teachername"),
+        'e.enrollment'
+      )
+      ->join('sections as s','s.id', '=','e.code')
+      ->join('teachers as t','t.id', '=','s.teacher_id')
+      ->join('subjects as s2','s2.id', '=','e.curriculum_subject_id');
+      
+    
 
     return new Collection(
       $query->get()
