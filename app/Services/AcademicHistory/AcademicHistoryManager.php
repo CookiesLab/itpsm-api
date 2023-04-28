@@ -21,7 +21,7 @@ class AcademicHistoryManager
    * @var App\Repositories\AcademicHistory\AcademicHistoryInterface;
    *AcademicHistory
    */
-  protected $Curriculum;
+  protected $academicHistory;
 
   /**
    * Carbon instance
@@ -40,10 +40,10 @@ class AcademicHistoryManager
   protected $responseType;
 
   public function __construct(
-    AcademicHistoryInterface $Curriculum,
+    AcademicHistoryInterface $academicHistory,
     Carbon $Carbon
   ) {
-    $this->Curriculum = $Curriculum;
+    $this->academicHistory = $academicHistory;
     $this->Carbon = $Carbon;
     $this->responseType = 'academic_history';
   }
@@ -77,19 +77,19 @@ class AcademicHistoryManager
 
     if ($pager)
     {
-      $count = $this->Curriculum->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
+      $count = $this->academicHistory->searchTableRowsWithPagination(true, $limit, $offset, $filter, $sortColumn, $sortOrder);
       encode_requested_data($request, $count, $limit, $offset, $totalPages, $page);
     }
 
-    $this->Curriculum->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($curriculum) use (&$rows) {
+    $this->academicHistory->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($academicHistory) use (&$rows) {
 
-      $id = strval($curriculum->id);
-      unset($curriculum->id);
+      $id = strval($academicHistory->id);
+      unset($academicHistory->id);
 
       array_push($rows, [
         'type' => $this->responseType,
         'id' => $id,
-        'attributes' => $curriculum
+        'attributes' => $academicHistory
       ]);
     });
 
@@ -103,39 +103,39 @@ class AcademicHistoryManager
 
   public function getCurriculum($id)
   {
-    return $this->Curriculum->byId($id);
+    return $this->academicHistory->byId($id);
   }
 
   public function create($request)
   {
-    $curriculum = $this->Curriculum->create($request->all());
-    $id = strval($curriculum->id);
-    unset($curriculum->id);
+      $academicHistory = $this->academicHistory->create($request->all());
+    $id = strval($academicHistory->id);
+    unset($academicHistory->id);
 
     return [
       'success' => true,
-      'curriculum' => $curriculum,
+      'curriculum' => $academicHistory,
       'id' => $id,
     ];
   }
 
   public function update($request, $id)
   {
-    $curriculum = $this->Curriculum->byId($id);
+      $academicHistory = $this->academicHistory->byId($id);
 
-    if (empty($curriculum)) {
+    if (empty($academicHistory)) {
       return [
         'success' => false,
       ];
     }
 
-    $this->Curriculum->update($request->all(), $curriculum);
-    $curriculum = $this->Curriculum->byId($id);
-    unset($curriculum->id);
+    $this->academicHistory->update($request->all(), $academicHistory);
+      $academicHistory = $this->academicHistory->byId($id);
+    unset($academicHistory->id);
 
     return [
       'success' => true,
-      'curriculum' => $curriculum,
+      'curriculum' => $academicHistory,
       'id' => $id,
     ];
 
@@ -143,13 +143,13 @@ class AcademicHistoryManager
 
   public function delete($id)
   {
-    $Curriculum = $this->Curriculum->byId($id);
+      $academicHistory = $this->academicHistory->byId($id);
 
-    if (empty($Curriculum)) {
+    if (empty($academicHistory)) {
       return false;
     }
 
-    $this->Curriculum->delete($id);
+    $this->academicHistory->delete($id);
 
     return true;
   }

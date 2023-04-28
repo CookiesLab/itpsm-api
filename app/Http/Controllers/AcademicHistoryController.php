@@ -190,7 +190,7 @@ class AcademicHistoryController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['curriculum']
+        'attributes' => $response['academicHistory']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -201,7 +201,7 @@ class AcademicHistoryController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Models\Curriculum  $Curriculum
+   * @param  \App\Models\AcademicHistory  $AcademicHistory
    * @return \Illuminate\Http\Response
    */
   /**
@@ -250,9 +250,9 @@ class AcademicHistoryController extends Controller
   */
   public function show($id)
   {
-    $curriculum = $this->AcademicHistoryManagerService->getCurriculum($id);
+    $AcademicHistory = $this->AcademicHistoryManagerService->getCurriculum($id);
 
-    if (empty($curriculum)) {
+    if (empty($AcademicHistory)) {
       return response()->json([
         'errors' => [
           'status' => '401',
@@ -272,7 +272,7 @@ class AcademicHistoryController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $id,
-        'attributes' => $curriculum
+        'attributes' => $AcademicHistory
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -284,7 +284,7 @@ class AcademicHistoryController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request $request
-   * @param  \App\Models\Curriculum  $Curriculum
+   * @param  \App\Models\AcademicHistory  $AcademicHistory
    * @return \Illuminate\Http\Response
    */
     /**
@@ -386,7 +386,7 @@ class AcademicHistoryController extends Controller
   */
   public function update(CurriculumRequest $request, $data)
   {
-    $response = $this->CurriculumManagerService->update($request, $data);
+    $response = $this->AcademicHistoryManagerService->update($request, $data);
 
     if (!$response['success']) {
       return response()->json([
@@ -405,7 +405,7 @@ class AcademicHistoryController extends Controller
       'data' => [
         'type' => $this->responseType,
         'id' => $response['id'],
-        'attributes' => $response['curriculum']
+        'attributes' => $response['AcademicHistory']
       ],
       'jsonapi' => [
         'version' => "1.00"
@@ -416,7 +416,7 @@ class AcademicHistoryController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Models\Curriculum  $Curriculum
+   * @param  \App\Models\AcademicHistory  $AcademicHistory
    * @return \Illuminate\Http\Response
    */
   /**
@@ -465,7 +465,7 @@ class AcademicHistoryController extends Controller
   */
   public function destroy($request)
   {
-    $response = $this->CurriculumManagerService->delete($request);
+    $response = $this->AcademicHistoryManagerService->delete($request);
 
     if (!$response) {
       return response()->json([
