@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentCurriculaRequest;
 use Illuminate\Http\Request;
 use App\Services\StudentCurricula\StudentCurriculaManager;
+use App\Services\Curriculum\Curriculum;
+use Illuminate\Support\Facades\Log;
+
 
 class StudentCurriculaController extends Controller
 {
@@ -15,6 +18,13 @@ class StudentCurriculaController extends Controller
    *
    */
   protected $StudentCurriculaManagerService;
+  /**
+   * Curriculum Manager Service
+   *
+   * @var App\Services\CurriculumManager\CurriculumManagementInterface;
+   *
+   */
+  protected $CurriculumManagerService;
 
   /**
    * responseType
@@ -328,4 +338,48 @@ class StudentCurriculaController extends Controller
       ]
     ], 200);
   }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Models\StudentCurricula  $StudentCurricula
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function showbystudentid($id)
+  {
+    $studentCurricula = $this->StudentCurriculaManagerService->getStudentCurriculabyStudentid($id);
+    $studentcoll= $studentCurricula->first();
+//    if($studentCurricula->uv_total==null){
+//      $studentCurricula->uv_total=/-
+//    }
+
+    Log::Emergency($studentcoll->curriculum_id);
+
+
+    if (empty($studentCurricula)) {
+      return response()->json([
+        'errors' => [
+          'status' => '401',
+          'title' => __('base.failure'),
+          'detail' => __('base.StudentCurriculaNotFound')
+        ],
+        'jsonapi' => [
+          'version' => "1.00"
+        ]
+      ], 404);
+    }
+
+
+    return response()->json([
+      'data' => [
+        'type' => $this->responseType,
+        'attributes' => $studentCurricula
+      ],
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
 }
+
+

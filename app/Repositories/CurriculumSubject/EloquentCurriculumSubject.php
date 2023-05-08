@@ -203,6 +203,26 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
   }
 
   /**
+   * Retrieve list of curricula associated to a subject
+   *
+   * @return Illuminate\Database\Eloquent\Collection
+   */
+  public function getSubjectsByStudentId($id)
+  {
+
+      $query = \DB::table("subjects as s")
+        ->select(\DB::raw('s.*,e2.final_score'))
+        ->join('curriculum_subjects as cs', 'cs.id','=','s.id')
+        ->join('student_curricula as sc', 'cs.curriculum_id','=','sc.curriculum_id')
+        ->leftjoin('enrollments as e2','e2.curriculum_subject_id', '=','cs.id')
+        ->where('sc.student_id', $id)
+        ->whereNull('e2.final_score')
+        ->get();
+
+    return new Collection($query);
+  }
+
+  /**
    * Create a new CurriculumSubject
    *
    * @param array $data
@@ -216,7 +236,7 @@ class EloquentCurriculumSubject implements CurriculumSubjectInterface
     $curriculumSubject->fill($data)->save();
 
     return $curriculumSubject;
-  }
+  } 
 
   /**
    * Update an existing CurriculumSubject

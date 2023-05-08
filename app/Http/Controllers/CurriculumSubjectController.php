@@ -39,11 +39,11 @@ class CurriculumSubjectController extends Controller
    */
       /**
    *  @OA\Get(
-   *    path="/api/curriculum-subjects",
-   *    operationId="get curriculum-subjects",
-   *    tags={"Associate subjects to curriculum"},
+   *    path="/api/getsubjectsbystudentid",
+   *    operationId="get getsubjectsbystudentid",
+   *    tags={"Associate subjects to getsubjectsbystudentid"},
    * security={{"bearer_token":{}}},
-   *    summary="Get curriculum-subjects",
+   *    summary="Get  getsubjectsbystudentid",
    *    description="Returns curriculum-subjects and allows to filter by curriculum id and subject id ",
    *
    *    @OA\Parameter(
@@ -290,7 +290,7 @@ class CurriculumSubjectController extends Controller
   */
   public function getCurriculaBySubjectId() {
     $response = $this->CurriculumSubjectManagerService->getCurriculaBySubject(request()->all(), true);
-    
+
     return response()->json([
       'meta' => [
         'page' => $response['page'],
@@ -303,6 +303,68 @@ class CurriculumSubjectController extends Controller
       ]
     ], 200);
   }
+
+  /**
+   * Display a list of curricula associated to a specific subject.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  /**
+   *  @OA\Get(
+   *    path="/api/curriculum-subjects/getcurriculabysubjectid",
+   *    operationId="getCurriculaBySubjectId",
+   *    tags={"Associate curricula to subject"},
+   * security={{"bearer_token":{}}},
+   *    summary="Get curricula associated to subject",
+   *    description="Returns curriculum and allows to filter by curriculum id, curriculum name and career name ",
+   *
+   *    @OA\Parameter(
+   *      name="id",
+   *      in="query",
+   *      description="The student id",
+   *      required=true,
+   *      @OA\Schema(
+   *        type="integer"
+   *      )
+   *    ),
+   *
+   *    @OA\Response(
+   *      response=200,
+   *      description="Success",
+   *      @OA\MediaType(
+   *        mediaType="application/json",
+   *      )
+   *    ),
+   *    @OA\Response(
+   *      response=401,
+   *      description="Unauthenticated",
+   *    ),
+   *    @OA\Response(
+   *      response=403,
+   *      description="Forbidden",
+   *    ),
+   *    @OA\Response(
+   *      response=400,
+   *      description="Bad Request"
+   *    ),
+   *    @OA\Response(
+   *      response=404,
+   *      description="Not Found"
+   *    )
+   *  )
+   */
+  public function getSubjectsByStudentId($id) {
+
+    $response = $this->CurriculumSubjectManagerService->getSubjectsByStudentId($id);
+
+    return response()->json([
+      'data' => $response,
+      'jsonapi' => [
+        'version' => "1.00"
+      ]
+    ], 200);
+  }
+
 
   /**
    * Update the specified resource in storage.

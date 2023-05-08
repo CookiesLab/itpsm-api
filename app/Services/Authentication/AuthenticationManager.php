@@ -206,6 +206,12 @@ class AuthenticationManager
         "redirectTo" => '/dashboard/aprobaciones',
         "icon" => "AiOutlineCalendar",
       ],
+      [
+        "id" => 14,
+        "name" => 'Equivalencias',
+        "redirectTo" => '/dashboard/equivalencias',
+        "icon" => "AiTwotoneSchedule",
+      ],
     ];
   }
 

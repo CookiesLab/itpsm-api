@@ -26,6 +26,15 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
    *
    */
   protected $SubjectCurriculum;
+
+  /**
+   * Curriculum
+   *
+   * @var App\Models\Curriculum;
+   *
+   */
+  protected $curriculum;
+
   /**
    * StudentCurriculum
    *
@@ -152,6 +161,38 @@ class EloquentStudentCurricula implements StudentCurriculaInterface
       ->where('student_id', intval($ids[0]))
       //->where('curriculum_id', intval($ids[1]))
       ->first();
+  }
+
+  /**
+   * Get an StudentCurriculum by id with joins
+   *
+   * @param  int $id
+   *
+   * @return App\Models\StudentCurriculum
+   */
+  public function byStudentId($id)
+  {
+    return new Collection(
+      $this->DB::table('student_curricula AS sc')
+        ->select(
+          'sc.cum',
+          'sc.entry_year',
+          'sc.uv',
+          'c.name as cucrriculaname',
+          'sc.curriculum_id',
+          'sc.graduation_year',
+          'sc.scholarship_rate',
+          'sc.scholarship_id',
+          'sc.status',
+          'student_id',
+          'uv_total'
+        )
+        ->join('curricula as c', 'c.id', '=', 'sc.curriculum_id')
+        ->where('sc.student_id', $id)
+        ->orderBy('sc.student_id', 'asc')
+//        ->whereNull('cs.deleted_at')
+        ->get()
+    );
   }
 
   public function activeCurriculaByStudentId($studentId)

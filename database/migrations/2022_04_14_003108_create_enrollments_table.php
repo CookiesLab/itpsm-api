@@ -105,7 +105,7 @@ return new class extends Migration
         });
 
         Schema::create('enrollments', function (Blueprint $table) {
-         
+
             $table->float('final_score')->nullable();
             $table->boolean('is_approved')->nullable();
             $table->integer('enrollment')->default(1);
@@ -119,7 +119,7 @@ return new class extends Migration
            /* $table->unsignedBigInteger('period_id')->index();
             $table->foreign('period_id')->references('id')->on('periods');*/
 
-            $table->unsignedBigInteger('code')->index();
+            $table->unsignedBigInteger('code')->index()->nullable();
             $table->foreign('code')->references('id')->on('sections');
 
             $table->unsignedBigInteger('student_id')->index();

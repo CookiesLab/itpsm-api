@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\AcademicHistoryController;
+use App\Http\Controllers\EquivalenceController;
 use App\Http\Controllers\CurriculumSubjectController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\EvaluationController;
@@ -41,7 +43,7 @@ Route::middleware('auth:api')->group(function () {
   Route::apiResource('comments', CommentsController::class);
   Route::get('enrollments_student/{id}', [EnrollmentController::class, 'periods_student']);
   Route::apiResource('student-curricula', StudentCurriculaController::class);
-
+  Route::get('student/student-curricula/{id}', [StudentCurriculaController::class,"showbystudentid"]);
 
 
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -67,14 +69,23 @@ Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('curricula', CurriculumController::class);
 
+    Route::apiResource('academichistory', AcademicHistoryController::class);
+
+    Route::apiResource('equivalence', EquivalenceController::class);
+
+
+
     Route::apiResource('prerequisites', PrerequisiteController::class);
 
     Route::get('curriculum-subjects/getcurriculabysubjectid', [CurriculumSubjectController::class, "getCurriculaBySubjectId"]);
+
+    Route::get('curriculum-subjects/getsubjectsbystudentid/{id}',[CurriculumSubjectController::class, "getSubjectsByStudentId"]);
+
+
+
     Route::apiResource('curriculum-subjects', CurriculumSubjectController::class);
 
     Route::apiResource('scholarships', ScholarshipController::class);
-
-
 
     Route::apiResource('periods', PeriodController::class);
     Route::apiResource('users', UserController::class);
@@ -104,6 +115,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('section/getsubjects/{id}', [SectionController::class, 'getSectionsforStudent']);
     Route::get('evaluations/student/{id}', [EvaluationController::class, 'getEvaluationsforStudent']);
     Route::post('enrollment/enroll-subjects', [EnrollmentController::class, 'enrollSubjects'])->name('enrollment.enroll-subjects');
+    Route::get('getequivalence/{id}', [EquivalenceController::class, 'getEquivalenceForStudents']);
+    Route::get('getacademichistory/{id}', [AcademicHistoryController::class,'show']);
 
     Route::get('enrollment/active-subjects', [EnrollmentController::class, 'getSubjectsToBeEnrolled'])->name('enrollment.active-subjects');
 
