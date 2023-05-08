@@ -5,6 +5,7 @@
         "version": "1.0.0"
     },
     "paths": {
+
         "/api/login": {
             "post": {
                 "tags": [
@@ -4946,8 +4947,80 @@
                     }
                 ]
             }
-        }
+        },
+      "/api/academichistory": {
+        "get": {
+          "tags": [
+            "Academic History"
+          ],
+          "summary": "Get Academic History List",
+          "description": "Returns AcademicHistory List",
+          "operationId": "getAcademicHistory",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {}
+              }
+            },
+          }
+        },
+        "401": {
+          "description": "Unauthenticated"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "404": {
+          "description": "Not Found"
+        },
+        "security": [
+          {
+            "bearer_token": []
+          }
+        ]
+      },
+      "/api/equivalence": {
+        "get": {
+          "tags": [
+            "Equivalence"
+          ],
+          "summary": "Get Equivalence List",
+          "description": "Returns Equivalence List",
+          "operationId": "getEquivalence",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {}
+              }
+            },
+          }
+        },
+        "401": {
+          "description": "Unauthenticated"
+        },
+        "403": {
+          "description": "Forbidden"
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "404": {
+          "description": "Not Found"
+        },
+        "security": [
+          {
+            "bearer_token": []
+          }
+        ]
+      }
     },
+
+
     "components": {
         "securitySchemes": {
             "bearer_token": {
