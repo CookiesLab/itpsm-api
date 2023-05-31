@@ -108,20 +108,22 @@ class EloquentAcademicHistory implements AcademicHistoryInterface
     // $query = $this->DB::table('enrollments as e')
     // ->join('subjects s2','s2.id', '=','e.curriculum_subject_id ');
     $query = $this->DB::table('enrollments as e')
-      ->select(
-        's2.name',
-        'e.final_score',
-        'e.is_approved',
-        DB::raw("concat(t.name,' ',t.last_name) as teachername"),
-        'e.enrollment',
-        'p.year',
-        'p.code'
-      )
-      ->join('sections as s','s.id', '=','e.code')
-      ->join('teachers as t','t.id', '=','s.teacher_id')
-      ->join('subjects as s2','s2.id', '=','e.curriculum_subject_id')
-      ->join('periods as p','p.id','=','s.period_id')
-      ->where('e.student_id','=',$id);
+    ->select(
+      's2.name',
+      'e.final_score',
+      'e.is_approved',
+      DB::raw("concat(t.name,' ',t.last_name) as teachername"),
+      'e.enrollment',
+      'cs.uv',
+      'p.code as period_code',
+      'p.year as period_year'
+    )
+    ->join('sections as s','s.id', '=','e.code')
+    ->join('periods as p', 'p.id', '=', 's.period_id')
+    ->join('teachers as t','t.id', '=','s.teacher_id')
+    ->join('curriculum_subjects as cs', 'cs.id', '=', 'e.curriculum_subject_id')
+    ->join('subjects as s2','s2.id', '=','cs.subject_id')
+    ->where('e.student_id', '=', $id);
 
 
 

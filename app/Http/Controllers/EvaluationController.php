@@ -669,7 +669,7 @@ class EvaluationController extends Controller
    */
     /**
    *  @OA\Get(
-   *    path="api/evaluations/student/{id}",
+   *    path="api/dent/{id}",
    *    operationId="get evaluations by student and period id",
    *    tags={"Evaluations"},
    * security={{"bearer_token":{}}},

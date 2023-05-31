@@ -114,8 +114,8 @@ class AcademicHistoryController extends Controller
       return response()->json([
         'errors' => [
           'status' => '401',
-          'title' => __('base.failure'),
-          'detail' => __('base.CurriculumNotFound')
+          'title' => __('base.academicHistoryNotFound'),
+          'detail' => __('base.failure')
         ],
         'jsonapi' => [
           'version' => "1.00"

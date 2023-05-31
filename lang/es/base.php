@@ -22,6 +22,12 @@ return [
     'decimalSeparator' => '.',
     'thousandsSeparator' => ',',
     'percentage' => 'Porcentage de evaluaciones superado',
-    'EvaluationNotCreated' => 'Porcentaje superado'
+    'EvaluationNotCreated' => 'Porcentaje superado',
+    'academicHistory'=>'No se puede recuperar HistorialAcademico',
+    'StudentCurriculaNotFound'=>'Curriculum del estudiante no encontrado.',
+    'academicHistoryNotFound'=>'Historial acádemico del estudiante no encontrado.',
+    'EnrollmentNotFound'=>'Inscripciones del estudiante no encontradas.',
+    'EvaluationNotFound'=>'Evaluaciones del estudiante no encontradas.'
+
 
 ];
