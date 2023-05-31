@@ -152,33 +152,34 @@ class EloquentEvaluation implements EvaluationInterface
   public function byperiodId($id)
   {
     $query = $this->DB::table('evaluations AS e')
-    ->select(
-      'e.id',
-      'e.name',
-      'e2.name as secondary',
-      'e.description',
-      'e.date',
-      'e.level',
-      'e.principal_id',
-      'e.percentage',
-      'e.section_id',
-      'e.is_public',
-      'e.status',
-      'sc.score',
-      'e.is_approved',
-      's.period_id',
-      'sj.id as subject_id',
-      'sj.name as subject_name',
-      'r.final_score as subject_final_core'
-    )->join('sections as s', 's.id', '=', 'e.section_id')
-    ->join('enrollments as r', 'r.code', '=', 'e.section_id')
-    ->join('students as st', 'st.id', '=', 'r.student_id')
-    ->join('subjects as sj','sj.id', '=','r.curriculum_subject_id')
-    ->join('score_evaluations as sc', 'sc.evaluation_id', '=', 'e.id')
-    ->leftjoin('evaluations as e2', 'e.principal_id', '=', 'e2.id')
-    ->whereRaw('sc.student_id =st.id')
-    ->where('r.student_id', '=', auth()->user()->system_reference_id)
-    ->where('e.is_public', '=', '1');
+      ->select(
+        'e.id',
+        'e.name',
+        'e2.name as secondary',
+        'e.description',
+        'e.date',
+        'e.level',
+        'e.principal_id',
+        'e.percentage',
+        'e.section_id',
+        'e.is_public',
+        'e.status',
+        'sc.score as evaluation_score',
+        'e.is_approved',
+        's.period_id',
+        'sj.id as subject_id',
+        'sj.name as subject_name',
+        'r.final_score as subject_final_core'
+      )->join('sections as s', 's.id', '=', 'e.section_id')
+      ->join('enrollments as r', 'r.code', '=', 'e.section_id')
+      ->join('students as st', 'st.id', '=', 'r.student_id')
+      ->join('curriculum_subjects as cs','cs.id', '=','r.curriculum_subject_id')
+      ->join('subjects as sj','sj.id', '=','cs.subject_id')
+      ->join('score_evaluations as sc', 'sc.evaluation_id', '=', 'e.id')
+      ->leftjoin('evaluations as e2', 'e.principal_id', '=', 'e2.id')
+      ->whereRaw('sc.student_id =st.id')
+      ->where('r.student_id', '=', auth()->user()->system_reference_id)
+      ->where('e.is_public', '=', '1');
 
 
 
