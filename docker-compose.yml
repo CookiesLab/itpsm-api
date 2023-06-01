@@ -1,7 +1,7 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    laravel:
+    laravel.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.2
             dockerfile: Dockerfile
@@ -36,6 +36,17 @@ services:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
+    web:
+        build:
+            context: ../itpsm-site/
+            dockerfile: Dockerfile
+        command: yarn start
+        ports:
+            - "3000:3000"
+        depends_on:
+            - mysql
+            - laravel.test
+
 volumes:
     sail-mysql:
         driver: local
