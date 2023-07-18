@@ -166,50 +166,50 @@ class AuthenticationManager
       [
         "id" => 1,
         "name" => 'Usuarios',
-        "redirectTo" => '/dashboard/usuarios',
+        "redirectTo" => 'itpsm/dashboard/usuarios',
         "icon" => "MdSchool",
       ],
       [
         "id" => 2,
         "name" => 'Estudiantes',
-        "redirectTo" => '/dashboard/estudiantes',
+        "redirectTo" => 'itpsm/dashboard/estudiantes',
         "icon" => "MdSchool",
       ],
       [
         "id" => 3,
         "name" => 'Catedráticos',
-        "redirectTo" => '/dashboard/catedraticos',
+        "redirectTo" => 'itpsm/dashboard/catedraticos',
         "icon" => "GiTeacher",
       ],
       [
         "id" => 13,
         "name" => 'Módulos',
-        "redirectTo" => '/dashboard/modulos',
+        "redirectTo" => 'itpsm/dashboard/modulos',
         "icon" => "VscFileSubmodule",
       ],
       [
         "id" => 4,
         "name" => 'Plan de estudios',
-        "redirectTo" => '/dashboard/plan-de-estudio',
+        "redirectTo" => 'itpsm/dashboard/plan-de-estudio',
         "icon" => "AiTwotoneSchedule",
       ],
       [
         "id" => 5,
         "name" => 'Ciclo de estudios',
-        "redirectTo" => '/dashboard/ciclo-de-estudios',
+        "redirectTo" => 'itpsm/dashboard/ciclo-de-estudios',
         "icon" => "AiOutlineCalendar",
       ]
       ,
       [
         "id" => 12,
         "name" => 'Aprobar Evaluaciones',
-        "redirectTo" => '/dashboard/aprobaciones',
+        "redirectTo" => 'itpsm/dashboard/aprobaciones',
         "icon" => "AiOutlineCalendar",
       ],
       [
         "id" => 14,
         "name" => 'Equivalencias',
-        "redirectTo" => '/dashboard/equivalencias',
+        "redirectTo" => 'itpsm/dashboard/equivalencias',
         "icon" => "AiTwotoneSchedule",
       ],
     ];
@@ -220,13 +220,13 @@ class AuthenticationManager
       [
         "id" => 7,
         "name" => 'Mis secciones',
-        "redirectTo" => '/dashboard/mis-secciones',
+        "redirectTo" => 'itpsm/dashboard/mis-secciones',
         "icon" => "MdSchool",
       ],
       [
         "id" => 6,
         "name" => 'Evaluaciones',
-        "redirectTo" => '/dashboard/evaluaciones',
+        "redirectTo" => 'itpsm/dashboard/evaluaciones',
         "icon" => "MdSchool",
       ],
     ];
@@ -237,25 +237,25 @@ class AuthenticationManager
       [
         "id" => 8,
         "name" => 'Información personal',
-        "redirectTo" => '/dashboard/informacion-personal',
+        "redirectTo" => 'itpsm/dashboard/informacion-personal',
         "icon" => "MdSchool",
       ],
       [
         "id" => 9,
         "name" => 'Inscripción de materias',
-        "redirectTo" => '/dashboard/inscripcion-de-materias',
+        "redirectTo" => 'itpsm/dashboard/inscripcion-de-materias',
         "icon" => "MdSchool",
       ],
       [
         "id" => 10,
         "name" => 'Historial academico',
-        "redirectTo" => '/dashboard/historial-academico',
+        "redirectTo" => 'itpsm/dashboard/historial-academico',
         "icon" => "MdSchool",
       ],
       [
         "id" => 11,
         "name" => 'Ver notas',
-        "redirectTo" => '/dashboard/notas',
+        "redirectTo" => 'itpsm/dashboard/notas',
         "icon" => "MdSchool",
       ],
     ];
