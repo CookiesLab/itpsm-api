@@ -166,7 +166,7 @@ class AuthenticationManager
       [
         "id" => 1,
         "name" => 'Usuarios',
-        "redirectTo" => '/dashboard/usuarios',
+        "redirectTo" => 'x/dashboard/usuarios',
         "icon" => "MdSchool",
       ],
       [
