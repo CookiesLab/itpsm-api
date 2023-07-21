@@ -257,12 +257,20 @@ class EloquentPeriod implements PeriodInterface
           }
           $curriculum = $this->StudentCurriculum->where('student_id', '=', $student->student_id)->first();
           if($curriculum != null) {
-//            Log::emergency("Data estudiante");
-//            Log::emergency($curriculum);
-//            Log::emergency( $curriculum->uv_total);
+           Log::emergency($student);
+           Log::emergency("Data estudiante");
+           Log::emergency($curriculum);
+           Log::emergency( $curriculum->uv_total);
             $curriculum->uv = $uv_a;
-            $curriculum->level = $curriculum->uv / $curriculum->uv_total;
-            $curriculum->level = $curriculum->level + 1;
+            if(empty($curriculum->uv_total)){
+              $curriculum->level = $curriculum->level + 1;
+              
+            }else {
+              $curriculum->level = $curriculum->uv / $curriculum->uv_total;
+              // $curriculum->level = $curriculum->level + 1;
+            }
+            // $curriculum->uv_total;
+            // $curriculum->level = $curriculum->level + 1;
             if ($uv_sum > 0) {
               $curriculum->cum = $total / $uv_sum;
             } else {
