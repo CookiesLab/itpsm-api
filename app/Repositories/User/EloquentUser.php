@@ -42,7 +42,7 @@ class EloquentUser implements UserInterface {
         {
           $query->where(function($dbQuery) use ($filter)
           {
-            foreach (['name', 'username', 'email'] as $key => $value)
+            foreach (['name', 'name', 'email'] as $key => $value)
             {
                 $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
                 //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
